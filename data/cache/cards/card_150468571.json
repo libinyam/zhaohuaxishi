@@ -1,0 +1,48 @@
+{
+  "id": "card_150468571",
+  "source": {
+    "contentType": "article",
+    "title": "六种方法计算拉普拉斯（Laplace）积分",
+    "url": "https://zhuanlan.zhihu.com/p/150468571",
+    "authorName": "Aries",
+    "favTime": 1739700883,
+    "likeCount": 772
+  },
+  "coreView": "拉普拉斯积分是经典含参反常积分，可通过微分方程等多种分析工具殊途同归地求解。",
+  "thread": [
+    {
+      "step": "确立待求含参积分",
+      "detail": "考察经典拉普拉斯反常积分 $I(t)=\\int_0^{+\\infty}\\frac{\\cos(tx)}{x^2+a^2}dx$ 的计算目标。"
+    },
+    {
+      "step": "参数求导与拆项转化",
+      "detail": "对参数求导得含 $x\\sin(tx)$ 的积分，通过代数恒等变形将其与已知的狄利克雷积分关联。"
+    },
+    {
+      "step": "构造微分方程求解",
+      "detail": "引入狄利克雷积分值消去复杂项，建立关于 $I(y)$ 的微分方程并利用初值条件求出通解。"
+    },
+    {
+      "step": "多维数学工具拓展",
+      "detail": "除微分方程法外，该积分还可通过留数定理、积分变换及重积分次序交换等多角度验证。"
+    }
+  ],
+  "keyInsight": "对参数求导后利用恒等变形引入狄利克雷积分 $\\int_0^{+\\infty}\\frac{\\sin yx}{x}dx=\\frac{\\pi}{2}$，将难以直接求原函数的反常积分转化为常微分方程初值问题。",
+  "points": [
+    "拉普拉斯积分形如 $I(t)=\\int_0^{+\\infty}\\frac{\\cos(tx)}{x^2+a^2}dx$。",
+    "微分方程法通过参数求导结合狄利克雷积分建立方程定解。",
+    "留数定理、拉普拉斯变换与重积分次序法亦为该积分的有效工具。"
+  ],
+  "quote": "同一个经典积分，是检验多种高阶数学工具的试金石。",
+  "difficulty": "hard",
+  "topicTags": [
+    "数学分析",
+    "微积分",
+    "反常积分"
+  ],
+  "status": "pending_review",
+  "reviewScore": null,
+  "nextReviewAt": 1789142831,
+  "reviewCount": 0,
+  "createdAt": 1789142831
+}

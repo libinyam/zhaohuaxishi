@@ -1,0 +1,48 @@
+{
+  "id": "card_538359524",
+  "source": {
+    "contentType": "article",
+    "title": "无理数的有理逼近及其应用（2）——无理测度简介",
+    "url": "https://zhuanlan.zhihu.com/p/538359524",
+    "authorName": "柯西永远爱你",
+    "favTime": 1730822084,
+    "likeCount": 269
+  },
+  "coreView": "无理测度用指数 μ 量化无理数被有理逼近的极限能力，揭示了实数在逼近性质上的精细谱系结构。",
+  "thread": [
+    {
+      "step": "逼近速率的量化动机",
+      "detail": "丢番图逼近关注有理逼近误差与分母增长的关系，需要量化指标来衡量无理数被有理数“逼近的难易度”。"
+    },
+    {
+      "step": "引入无理测度定义",
+      "detail": "定义 $\\mu(\\alpha)$ 为使 $|\\alpha - p/q| < 1/q^\\mu$ 成立无限多次的最小实数；有理数 $\\mu=1$，无理数 $\\mu \\ge 2$。"
+    },
+    {
+      "step": "定理确立基准谱系",
+      "detail": "Dirichlet 定理给出 $\\mu \\ge 2$ 的下界；Roth 定理与测度论证明代数数与几乎所有实数的 $\\mu$ 恰为 2。"
+    },
+    {
+      "step": "连分数工具与极限分类",
+      "detail": "借助连分数渐近分数的增长估计上界，区分出最难逼近的黄金比例与极易逼近的刘维尔数 ($\n\\mu=\\infty$)。"
+    }
+  ],
+  "keyInsight": "通过不等式 $|\\alpha - p/q| < 1/q^\\mu$ 的无穷解指数界定极限。连分数渐近分母控制逼近阶：若 $q_{n+1} \\le C q_n^{1+\\delta}$ 则 $\\mu \\le 2+\\delta$。",
+  "points": [
+    "无理测度 $\\mu$ 刻画 $|\\alpha - p/q| < 1/q^\\mu$ 成立的极限指数。",
+    "由 Dirichlet 和 Roth 定理，代数无理数及几乎所有实数的 $\\mu=2$。",
+    "连分数是核心工具，分母增长越慢越难被逼近（如黄金比例）。"
+  ],
+  "quote": "无理测度量化了无理数之间精细的“无理性”。",
+  "difficulty": "hard",
+  "topicTags": [
+    "数论",
+    "丢番图逼近",
+    "实分析"
+  ],
+  "status": "pending_review",
+  "reviewScore": null,
+  "nextReviewAt": 1789143462,
+  "reviewCount": 0,
+  "createdAt": 1789143462
+}

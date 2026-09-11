@@ -1,0 +1,48 @@
+{
+  "id": "card_3721167104",
+  "source": {
+    "contentType": "article",
+    "title": "Laplace方法",
+    "url": "https://zhuanlan.zhihu.com/p/3721167104",
+    "authorName": "卢鹏博",
+    "favTime": 1749826724,
+    "likeCount": 124
+  },
+  "coreView": "Laplace方法用于估算大参数定积分，本质是借助指数放大效应捕捉由极值点主导的“阶的集中点”。",
+  "thread": [
+    {
+      "step": "积分形式与转化",
+      "detail": "针对大参数积分 $\\int e^{n\\phi(x)}\\psi(x)dx$，若非此标准型可通过 $\\phi=\\ln f$ 换元转化。"
+    },
+    {
+      "step": "阶的集中直觉",
+      "detail": "当参数 $n\\to\\infty$ 时，指数因子急剧放大极值差异，积分渐近行为完全被最大值点附近所主导。"
+    },
+    {
+      "step": "严谨性条件约束",
+      "detail": "要求内部唯一极大值点且 $\\phi''(x_0)<0$，并借助固定间隙条件排除间断点等病态反例。"
+    },
+    {
+      "step": "区间分割与局部化",
+      "detail": "利用小参数 $\\delta$ 切分区间：远离极值点处为指数小量直接忽略，极值点邻域则展开计算。"
+    }
+  ],
+  "keyInsight": "指数放大效应使积分集中于极大值点 $x_0$ 的尖峰。证明关键在于区间分割：外部区间受固定间隙控制呈现指数衰减，峰顶邻域利用二阶 Taylor 展开化简，从而将全局积分局部化。",
+  "points": [
+    "适用形如 $\\int e^{n\\phi}\\psi dx$ 积分，非标准型可通过对数变换构造。",
+    "极值点需在内部、二阶导小于零，并具备固定间隙以保证积分可控。",
+    "采用区间分割策略，把全局分析化为邻域局部展开与外侧指数级截断。"
+  ],
+  "quote": "Laplace方法的本质是寻找“阶的集中点”。",
+  "difficulty": "hard",
+  "topicTags": [
+    "数学分析",
+    "渐近分析",
+    "定积分"
+  ],
+  "status": "pending_review",
+  "reviewScore": null,
+  "nextReviewAt": 1789143295,
+  "reviewCount": 0,
+  "createdAt": 1789143295
+}

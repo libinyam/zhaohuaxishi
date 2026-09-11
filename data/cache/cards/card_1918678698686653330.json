@@ -1,0 +1,48 @@
+{
+  "id": "card_1918678698686653330",
+  "source": {
+    "contentType": "article",
+    "title": "什么年代了还在用 Cholesky 分解——答清疏数学 6.18 的问",
+    "url": "https://zhuanlan.zhihu.com/p/1918678698686653330",
+    "authorName": "方汝见之",
+    "favTime": 1750601446,
+    "likeCount": 36
+  },
+  "coreView": "无需依赖Cholesky分解与摄动法，通过谱分解开方与Jordan结构刻画，能以纯代数几何路线证得AB可对角化。",
+  "thread": [
+    {
+      "step": "破除正定摄动套路",
+      "detail": "传统证明依赖Cholesky分解与正定摄动；作者主张从内在结构出发，直接证明半正定乘积$AB$可对角化。"
+    },
+    {
+      "step": "谱分解构造平方根",
+      "detail": "利用谱分解$A=Q\\Lambda Q^T$获得半正定平方根替代Cholesky分解，将非正定情形统一处理。"
+    },
+    {
+      "step": "降阶公式确立相似",
+      "detail": "由$\\det(\\lambda I-AB)=\\det(\\lambda I-BA)$导出$AB$与$BA$具有相同特征多项式，确立相似结构。"
+    },
+    {
+      "step": "由零空间阻断幂零",
+      "detail": "借助对称矩阵性质及引理，证明特征值0的Jordan块阶数不超过1，彻底排除高阶幂零完成证明。"
+    }
+  ],
+  "keyInsight": "避开摄动法，用谱分解 $A=Q\\Lambda Q^T$ 构造平方根；结合降阶公式 $\\det(\\lambda I-AB)=\\det(\\lambda I-BA)$ 证明相似，再借零特征值 Jordan 块阶数不超过 1 严格确立可对角化。",
+  "points": [
+    "半正定矩阵由谱分解 $A=Q\\Lambda Q^T$ 保证其半正定平方根存在且唯一。",
+    "降阶公式 $\\det(\\lambda I-AB)=\\det(\\lambda I-BA)$ 保证 $AB$ 与 $BA$ 谱结构一致。",
+    "矩阵可对角化的本质特征是对应各特征值的 Jordan 块阶数均至多为 1。"
+  ],
+  "quote": "拒绝以数值分解为工具，回归结构性的纯几何论证。",
+  "difficulty": "hard",
+  "topicTags": [
+    "高等代数",
+    "矩阵论",
+    "线性代数"
+  ],
+  "status": "pending_review",
+  "reviewScore": null,
+  "nextReviewAt": 1789142968,
+  "reviewCount": 0,
+  "createdAt": 1789142968
+}

@@ -1,0 +1,48 @@
+{
+  "id": "card_532891058",
+  "source": {
+    "contentType": "article",
+    "title": "Poisson方程|边值问题：唯一性",
+    "url": "https://zhuanlan.zhihu.com/p/532891058",
+    "authorName": "sea88sea",
+    "favTime": 1748503098,
+    "likeCount": 53
+  },
+  "coreView": "在给定边界条件（如Dirichlet或Neumann）下，Poisson方程的解具有唯一性，是物理中各类特解法的理论基石。",
+  "thread": [
+    {
+      "step": "问题设定与作差转换",
+      "detail": "针对方程 $-\\Delta u = f$，假设存在两个解 $u_1, u_2$，构造差值 $w = u_1 - u_2$ 转化为齐次问题。"
+    },
+    {
+      "step": "能量积分与恒等式",
+      "detail": "代入Green第一恒等式，将微分方程转为积分形式，利用 $\\Delta w = 0$ 消除体积分源项。"
+    },
+    {
+      "step": "边界消项导出常数",
+      "detail": "齐次边界条件迫使曲面积分为零，导出 $\\int_\\Omega |\\nabla w|^2 \\mathrm{d}V = 0$，由非负性证得 $\\nabla w \\equiv 0$。"
+    },
+    {
+      "step": "边界分类与认知误区",
+      "detail": "Dirichlet边界解严格唯一，Neumann解相差常数；注意唯一性仅指“至多一解”，并不等价于解的存在性。"
+    }
+  ],
+  "keyInsight": "设 $w=u_1-u_2$，由Green恒等式 $\\oint_{\\partial\\Omega} w\\frac{\\partial w}{\\partial n}\\mathrm{d}S = \\int_\\Omega (|\\nabla w|^2 + w\\Delta w)\\mathrm{d}V$。齐次边界使左端归零，结合 $\\Delta w=0$ 迫使非负的梯度积分模为零，即 $w$ 必为常数。",
+  "points": [
+    "Dirichlet边界解严格唯一；Neumann解相差常数且需满足通量兼容条件。",
+    "核心数学工具是Green第一恒等式与能量积分非负性，将偏微分问题转化为积分为零。",
+    "唯一性是电磁学镜像法等猜解手段的合法性前提，但唯一性并不等同于存在性。"
+  ],
+  "quote": "唯一性定理让“只要能猜出一个解，它就是最终答案”在数学上成立。",
+  "difficulty": "medium",
+  "topicTags": [
+    "偏微分方程",
+    "数学物理方法",
+    "经典电动力学"
+  ],
+  "status": "pending_review",
+  "reviewScore": null,
+  "nextReviewAt": 1789143426,
+  "reviewCount": 0,
+  "createdAt": 1789143426
+}

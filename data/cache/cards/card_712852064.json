@@ -1,0 +1,44 @@
+{
+  "id": "card_712852064",
+  "source": {
+    "contentType": "article",
+    "title": "【三角函数】关于某类三角恒等变换问题的思考",
+    "url": "https://zhuanlan.zhihu.com/p/712852064",
+    "authorName": "绯叶染",
+    "favTime": 1739701149,
+    "likeCount": 259
+  },
+  "coreView": "对特殊分数角的复杂三角求值，常规恒等变换难以奏效，需引入复数单位根的代数性质降维解决。",
+  "thread": [
+    {
+      "step": "常规三角变换遇阻",
+      "detail": "面对含 $\\frac{\\pi}{13}$ 或 $\\frac{\\pi}{7}$ 等特殊分数角和式，传统和差化积与倍角公式难以直接求解。"
+    },
+    {
+      "step": "引入复数单位根",
+      "detail": "借助棣莫弗公式解方程 $z^n=1$，将分数角对应到单位根辐角 $z_k=\\cos\\frac{2k\\pi}{n}+i\\sin\\frac{2k\\pi}{n}$。"
+    },
+    {
+      "step": "运用代数幂和性质",
+      "detail": "利用单位根和为零及幂和判定式（$m$ 非 $n$ 倍数时和为 0），将复杂三角和化归为纯代数求和。"
+    }
+  ],
+  "keyInsight": "利用棣莫弗公式建立三角函数与复数单位根 $z_k=e^{i\\frac{2k\\pi}{n}}$ 的桥梁；关键在于利用等比数列求和：当 $n\\nmid m$ 时 $\\sum_{k=0}^{n-1}\\omega^{km}=0$，从而把三角变换降维为代数求和。",
+  "points": [
+    "分数角三角和式：$\\frac{\\pi}{13}$ 等分数角常规方法失效，需代数武器。",
+    "棣莫弗公式桥梁：通过 $(\\cos\\theta+i\\sin\\theta)^n=\\cos n\\theta+i\\sin n\\theta$ 导出单位根。",
+    "单位根幂和性质：若 $n\\nmid m$ 则 $\\sum_{k=0}^{n-1}\\omega^{km}=0$，若 $n\\mid m$ 则为 $n$。"
+  ],
+  "quote": "跳出三角看三角，复数单位根是破解特殊分数角和式的外部武器。",
+  "difficulty": "hard",
+  "topicTags": [
+    "三角函数",
+    "复数",
+    "数学竞赛"
+  ],
+  "status": "pending_review",
+  "reviewScore": null,
+  "nextReviewAt": 1789143648,
+  "reviewCount": 0,
+  "createdAt": 1789143648
+}

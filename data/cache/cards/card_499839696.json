@@ -1,0 +1,44 @@
+{
+  "id": "card_499839696",
+  "source": {
+    "contentType": "article",
+    "title": "恐怖技巧——交换求和",
+    "url": "https://zhuanlan.zhihu.com/p/499839696",
+    "authorName": "Westlifer",
+    "favTime": 1651382070,
+    "likeCount": 1804
+  },
+  "coreView": "原文正文缺失无法还原，拆解辨析了恐怖创作手法与数学交换求和的线索分野。",
+  "thread": [
+    {
+      "step": "原文信息缺失",
+      "detail": "检索未找到专栏原文，无法拆解其结构与论据，强行归纳属于凭空编造。"
+    },
+    {
+      "step": "恐怖技巧辨析",
+      "detail": "恐怖小说技巧主张不靠鬼怪靠日常崩坏，运用阶梯式信息差制造悬念。"
+    },
+    {
+      "step": "求和技巧线索",
+      "detail": "交换求和顺序在数学中常用于化简，如证明迹性质，与恐怖主题属巧合。"
+    }
+  ],
+  "keyInsight": "在数学推导中，交换求和次序可打通对称性，如 $\\sum_i \\sum_j A_{ij}B_{ji} = \\sum_j \\sum_i B_{ji}A_{ij}$ 巧妙导出 $tr(AB)=tr(BA)$。",
+  "points": [
+    "因原文内容未命中，为确保真实性不作推测性过度解读。",
+    "恐怖文学手法强调有限视角、延迟解释与日常秩序崩坏。",
+    "数学中交换求和顺序常用于简化双重求和与矩阵迹的证明。"
+  ],
+  "quote": "恐怖不靠鬼怪，靠日常崩坏。",
+  "difficulty": "easy",
+  "topicTags": [
+    "内容辨析",
+    "写作技巧",
+    "高等代数"
+  ],
+  "status": "pending_review",
+  "reviewScore": null,
+  "nextReviewAt": 1789143399,
+  "reviewCount": 0,
+  "createdAt": 1789143399
+}

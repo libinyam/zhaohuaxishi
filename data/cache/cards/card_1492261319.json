@@ -1,0 +1,48 @@
+{
+  "id": "card_1492261319",
+  "source": {
+    "contentType": "answer",
+    "title": "哈密尔顿-凯莱定理的本质是什么？",
+    "url": "https://www.zhihu.com/answer/1492261319",
+    "authorName": "三千香蕉三千",
+    "favTime": 1754377177,
+    "likeCount": 520
+  },
+  "coreView": "本质是有限维空间容不下无限多种矩阵幂，特征多项式提供了坐标无关的统一零化降次关系。",
+  "thread": [
+    {
+      "step": "维度约束与直觉",
+      "detail": "序列 $I, A, A^2, \\dots$ 在有限维中无法无限线性无关，矩阵幂必然在某一步开始线性相关。"
+    },
+    {
+      "step": "代数同态与降次",
+      "detail": "映射 $p(t) \\mapsto p(A)$ 为代数同态，$\\chi_A(A)=0$ 使得任意矩阵多项式均可降次至低于 $n$ 次。"
+    },
+    {
+      "step": "最小多项式辨析",
+      "detail": "同态核为主理想并由 $m_A$ 生成，满足 $m_A \\mid \\chi_A$；特征多项式是保底约束而非最低次零化式。"
+    },
+    {
+      "step": "Krylov几何视角",
+      "detail": "循环子空间 $\\mathrm{span}\\{v, Av, \\dots\\}$ 维度至多 $n$，使得零化关系在逐向量层面上直观成立。"
+    }
+  ],
+  "keyInsight": "代入同态 $\\Phi_A: F[t] \\to M_n(F)$ 的核非平凡且由 $m_A$ 生成。Krylov 子空间维度 $\\le n$ 迫使局部幂线性相关，而特征多项式 $\\chi_A$ 给出全局、不依赖基底的统一零化。",
+  "points": [
+    "空间维度有限决定了矩阵幂序列必线性相关，存在非平凡零化多项式。",
+    "商代数 $F[A] \\cong F[t]/\\ker \\Phi_A$ 保证高次矩阵多项式皆可降为小于 $n$ 次。",
+    "特征方程并非最低次零化关系，同态核由最小多项式生成且满足 $m_A \\mid \\chi_A$。"
+  ],
+  "quote": "有限维空间容不下无限多种矩阵幂。",
+  "difficulty": "hard",
+  "topicTags": [
+    "高等代数",
+    "线性代数",
+    "矩阵论"
+  ],
+  "status": "pending_review",
+  "reviewScore": null,
+  "nextReviewAt": 1789142821,
+  "reviewCount": 0,
+  "createdAt": 1789142821
+}

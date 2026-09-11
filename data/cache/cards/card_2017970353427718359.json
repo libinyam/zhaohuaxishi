@@ -1,0 +1,43 @@
+{
+  "id": "card_2017970353427718359",
+  "source": {
+    "contentType": "article",
+    "title": "如何用ai来学习机器学习？",
+    "url": "https://zhuanlan.zhihu.com/p/2017970353427718359",
+    "authorName": "学习使我快乐",
+    "favTime": 1776650449,
+    "likeCount": 1
+  },
+  "coreView": "因缺少文章原文与搜索结果，无法还原原讨论内容，需补充正文以开展拆解。",
+  "thread": [
+    {
+      "step": "检索结果缺失",
+      "detail": "未检索到该知乎专栏的具体正文，缺乏提取观点的有效事实输入。"
+    },
+    {
+      "step": "暂无法归纳结构",
+      "detail": "在无原始文本的情况下，无法客观归纳其核心论点、论据及论证脉络。"
+    },
+    {
+      "step": "补充文本路径",
+      "detail": "需补充文章段落或全文，以支持进一步提炼框架、方法论与关键认知。"
+    }
+  ],
+  "keyInsight": "",
+  "points": [
+    "有效分析依赖客观文本，无材料不可臆断论证脉络",
+    "结构化拆解需基于确切的核心观点与论据支撑关系",
+    "补充正文或核心段落是推进系统化知识提炼的前提"
+  ],
+  "quote": "缺失事实依据时，不臆测与编造推断。",
+  "difficulty": "easy",
+  "topicTags": [
+    "信息处理",
+    "学习方法"
+  ],
+  "status": "pending_review",
+  "reviewScore": null,
+  "nextReviewAt": 1789143074,
+  "reviewCount": 0,
+  "createdAt": 1789143074
+}

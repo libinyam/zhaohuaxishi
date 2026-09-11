@@ -1,0 +1,44 @@
+{
+  "id": "card_719622912",
+  "source": {
+    "contentType": "article",
+    "title": "【数论笔记之五】欧拉-麦克劳林（Euler-Maclaurin）",
+    "url": "https://zhuanlan.zhihu.com/p/719622912",
+    "authorName": "艾伦",
+    "favTime": 1737245217,
+    "likeCount": 46
+  },
+  "coreView": "欧拉-麦克劳林公式连接离散求和与连续积分，是解析数论和研究特殊函数的核心工具。",
+  "thread": [
+    {
+      "step": "连接离散与连续",
+      "detail": "公式源于Euler估算级数与Maclaurin算积分，核心目标是建立求和与连续积分之间的精确关联。"
+    },
+    {
+      "step": "铺垫阿贝尔求和",
+      "detail": "引入阿贝尔定理作为求和版分部积分，将离散差分和式转化为连续积分形式，为公式推导筑基。"
+    },
+    {
+      "step": "引入伯努利数修正",
+      "detail": "结合泰勒展开与高阶导数，利用具有良好递推性质的 Bernoulli 数，精确刻画求和与积分的误差展开。"
+    }
+  ],
+  "keyInsight": "核心技巧是用分部求和消除离散差分项。通过引入与泰勒展开导数项自然对应的 Bernoulli 数，将离散求和 $\\sum F(k)$ 与连续积分 $\\int F(x)dx$ 的差值系统化表示为高阶修正级数。",
+  "points": [
+    "欧拉-麦克劳林公式是连接离散求和与连续积分的重要分析桥梁。",
+    "阿贝尔分部求和法能消除差分项，是将离散和转化为积分的核心技术。",
+    "Bernoulli 数配合高阶导数，在公式中系统性承担级数修正项的展开。"
+  ],
+  "quote": "欧拉-麦克劳林公式是连接离散与连续的桥梁。",
+  "difficulty": "hard",
+  "topicTags": [
+    "解析数论",
+    "数学分析",
+    "渐近估计"
+  ],
+  "status": "pending_review",
+  "reviewScore": null,
+  "nextReviewAt": 1789143672,
+  "reviewCount": 0,
+  "createdAt": 1789143672
+}

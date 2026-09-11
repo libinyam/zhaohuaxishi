@@ -1,0 +1,48 @@
+{
+  "id": "card_14174739052",
+  "source": {
+    "contentType": "article",
+    "title": "南开大学2023-2024学年第一学期“数学分析I”期末考试试卷（A卷）试题解析(自制版)",
+    "url": "https://zhuanlan.zhihu.com/p/14174739052",
+    "authorName": "233333",
+    "favTime": 1735704715,
+    "likeCount": 105
+  },
+  "coreView": "以单调有界与Stolz定理等经典工具突破考题，并主动构造高阶渐近变式来深化解题认知。",
+  "thread": [
+    {
+      "step": "基础收敛证明",
+      "detail": "对递推数列 $x_{n+1}=\\arctan x_n$，依 $\\arctan x \\le x$ 用单调有界定理得收敛且极限为 0。"
+    },
+    {
+      "step": "构造渐近变式",
+      "detail": "作者批评原题单薄，进一步构造包含对数项与平方根的加强版极限，探索趋于 0 的精细速率。"
+    },
+    {
+      "step": "Stolz逐层化简",
+      "detail": "先用 Stolz 定理定出主部 $\\lim n x_n^2 = 3/2$，再做高阶代数变形得出极限为 3/40。"
+    },
+    {
+      "step": "深化能力维度",
+      "detail": "超越试卷基础考查要求，将常规迭代收敛推进到深层渐近分析，展示了严谨且具探究性的题评风格。"
+    }
+  ],
+  "keyInsight": "精细渐近分析的关键在于利用局域展开与 Stolz 定理，把隐式离散递推转化为显式的渐近尺度，如先确定 $\\lim n x_n^2 = 3/2$ 作为基准阶。",
+  "points": [
+    "单调有界准则：利用 $\\arctan x \\le x$ 确定递推数列收敛性及极限",
+    "Stolz 定理：处理数列型不定式极限、确定精细渐近阶的核心工具",
+    "渐近分析变式：在定性收敛之外通过构造变式深入探究数列收敛速率"
+  ],
+  "quote": "在看似无聊的基础题之外主动构造变式。",
+  "difficulty": "medium",
+  "topicTags": [
+    "数学分析",
+    "数列极限",
+    "Stolz定理"
+  ],
+  "status": "pending_review",
+  "reviewScore": null,
+  "nextReviewAt": 1789142800,
+  "reviewCount": 0,
+  "createdAt": 1789142800
+}

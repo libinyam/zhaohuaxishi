@@ -1,0 +1,48 @@
+{
+  "id": "card_404620521",
+  "source": {
+    "contentType": "article",
+    "title": "一类Lagrange插值公式思想的应用",
+    "url": "https://zhuanlan.zhihu.com/p/404620521",
+    "authorName": "爱作死的闪闪君",
+    "favTime": 1741775738,
+    "likeCount": 31
+  },
+  "coreView": "带余项的Lagrange插值不仅是数值工具，更是通过构造多项式连接离散节点与高阶导数的证明思想。",
+  "thread": [
+    {
+      "step": "提出插值问题",
+      "detail": "寻找通过 $n+1$ 个互异节点且次数不超 $n$ 的多项式，解的唯一性由Vandermonde行列式保证。"
+    },
+    {
+      "step": "构造基函数",
+      "detail": "设计在自身节点取1、其余取0的基函数 $L_j(x)$，线性组合出插值多项式 $P(x)=\\sum y_j L_j(x)$。"
+    },
+    {
+      "step": "导出余项公式",
+      "detail": "利用构造辅助函数与Rolle定理，推导得到余项 $R_n(x)=\\frac{f^{(n+1)}(\\xi)}{(n+1)!}\\prod(x-x_i)$。"
+    },
+    {
+      "step": "化离散为连续",
+      "detail": "在已知离散点信息需证高阶导数题型中，利用余项里的 $f^{(n+1)}(\\xi)$ 及介值性质完成分析证明。"
+    }
+  ],
+  "keyInsight": "核心在于余项公式 $R_n(x)=\\frac{f^{(n+1)}(\\xi)}{(n+1)!}\\prod_{i=0}^n(x-x_i)$，它通过构造辅助函数并应用Rolle定理，将离散插值误差直接与高阶导数绑定，成为离散与连续的桥梁。",
+  "points": [
+    "基函数满足在自身节点为1其余为0，解的存在唯一性由Vandermonde行列式保证。",
+    "余项 $R_n(x)$ 通过构造辅助函数并利用Rolle定理推导得出。",
+    "在离散点函数值与高阶导数关联的证明题中，带余项插值是核心桥梁。"
+  ],
+  "quote": "插值余项是架在离散数据与高阶导数之间的证明桥梁。",
+  "difficulty": "medium",
+  "topicTags": [
+    "高等数学",
+    "数值分析",
+    "数学证明"
+  ],
+  "status": "pending_review",
+  "reviewScore": null,
+  "nextReviewAt": 1789143303,
+  "reviewCount": 0,
+  "createdAt": 1789143303
+}

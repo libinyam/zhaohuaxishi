@@ -1,0 +1,48 @@
+{
+  "id": "card_453319879",
+  "source": {
+    "contentType": "article",
+    "title": "代数｜从数列的奇妙换元和不动点法谈谈函数迭代",
+    "url": "https://zhuanlan.zhihu.com/p/453319879",
+    "authorName": "霜夏",
+    "favTime": 1664010193,
+    "likeCount": 450
+  },
+  "coreView": "数列递推的换元与不动点法并非孤立技巧，其本质是高观点下的函数迭代与相似共轭变换。",
+  "thread": [
+    {
+      "step": "奇妙换元从何而来",
+      "detail": "待定系数法与换元能将递推式化为等差或等比数列，但这类辅助参数的来源往往看似巧合且缺乏解释。"
+    },
+    {
+      "step": "升维至函数迭代",
+      "detail": "将递推式 a_{n+1}=f(a_n) 视为函数迭代，求通项公式等价于求解函数 f 的多次复合迭代式 f^(n)(x)。"
+    },
+    {
+      "step": "相似变换化繁为简",
+      "detail": "构造桥函数 φ 满足 f=φ⁻¹∘g∘φ，则 f^(n)=φ⁻¹∘g^(n)∘φ，从而将复杂的非线性迭代化为简单函数 g 的迭代。"
+    },
+    {
+      "step": "统摄常见递推模型",
+      "detail": "不动点法是相似变换的特例，统一解释了一阶线性及分式线性递推中两根不等化等比、重根化等差的本质。"
+    }
+  ],
+  "keyInsight": "通过桥函数做相似共轭 $f=\\varphi^{-1}\\circ g\\circ \\varphi$，可得 $f^{(n)}=\\varphi^{-1}\\circ g^{(n)}\\circ \\varphi$。不动点法即选取平移变换将 $f(\\lambda)=\\lambda$ 映至原点，消去常数项化为简单的等比迭代。",
+  "points": [
+    "递推数列 $a_{n+1}=f(a_n)$ 求解本质是求函数的多重迭代 $f^{(n)}$。",
+    "不动点 $\\lambda$ 满足 $f(\\lambda)=\\lambda$，减去不动点实质是做坐标平移消去常数。",
+    "利用共轭关系 $f^{(n)}=\\varphi^{-1}\\circ g^{(n)}\\circ \\varphi$ 可将复杂递推转化为易解迭代。"
+  ],
+  "quote": "不动点配凑不是解题巧合，而是函数迭代在特定坐标下的投影。",
+  "difficulty": "medium",
+  "topicTags": [
+    "数列",
+    "函数迭代",
+    "不动点法"
+  ],
+  "status": "pending_review",
+  "reviewScore": null,
+  "nextReviewAt": 1789143346,
+  "reviewCount": 0,
+  "createdAt": 1789143346
+}

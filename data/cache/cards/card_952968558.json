@@ -1,0 +1,48 @@
+{
+  "id": "card_952968558",
+  "source": {
+    "contentType": "answer",
+    "title": "这道数学分析的题目怎么做？",
+    "url": "https://www.zhihu.com/answer/952968558",
+    "authorName": "予一人",
+    "favTime": 1749264752,
+    "likeCount": 112
+  },
+  "coreView": "在函数远处收敛且导数具备一致连续性时，结合Cauchy准则与中值定理可证导数趋于零。",
+  "thread": [
+    {
+      "step": "控制导数局部波动",
+      "detail": "利用导数的一致性条件选定步长 $\\delta$，保证距离小于 $\\delta$ 的两点导数波动小于 $\\varepsilon/2$。"
+    },
+    {
+      "step": "限制远处函数增量",
+      "detail": "由 $f(x)$ 在无穷远处收敛，应用 Cauchy 收敛原理控制远处跨度为 $\\delta$ 的函数增量小于 $\\varepsilon\\delta/2$。"
+    },
+    {
+      "step": "借中值定理搭桥",
+      "detail": "应用 Lagrange 中值定理存在中值点 $\\xi_x$，由增量估计反推该点导数值满足 $|f'(\\xi_x)| < \\varepsilon/2$。"
+    },
+    {
+      "step": "三角不等式拼接",
+      "detail": "将 $|f'(x)|$ 拆成对中值点的距离与中值点大小，二者各贡献 $\\varepsilon/2$，严密证得目标。"
+    }
+  ],
+  "keyInsight": "核心在于“二段控制”：先用 Cauchy 原理与 Lagrange 中值定理将函数增量转化为中值点导数 $|f'(\\xi_x)| < \\varepsilon/2$，再利用局部连续性控制偏差 $|f'(x)-f'(\\xi_x)|$。",
+  "points": [
+    "利用 Cauchy 原理将极限存在性转化为有限区间的函数增量估计。",
+    "Lagrange 中值定理是连通宏观函数增量与微观导数值的核心桥梁。",
+    "分析学典型的 $\\varepsilon/2$ 分拆法，通过三角不等式闭环估计。"
+  ],
+  "quote": "用中值点架起桥梁，把函数的收敛性传递给导数。",
+  "difficulty": "hard",
+  "topicTags": [
+    "数学分析",
+    "极限理论",
+    "微分中值定理"
+  ],
+  "status": "pending_review",
+  "reviewScore": null,
+  "nextReviewAt": 1789143749,
+  "reviewCount": 0,
+  "createdAt": 1789143749
+}

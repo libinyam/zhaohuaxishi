@@ -1,0 +1,48 @@
+{
+  "id": "card_468453116",
+  "source": {
+    "contentType": "article",
+    "title": "对数积分(Weight 3-5)",
+    "url": "https://zhuanlan.zhihu.com/p/468453116",
+    "authorName": "Eliauk",
+    "favTime": 1741276718,
+    "likeCount": 130
+  },
+  "coreView": "将前人 Weight 5 的区间定积分推广为更具普适性的一般不定积分解析表达式。",
+  "thread": [
+    {
+      "step": "构建双元代数体系",
+      "detail": "引入指对双元 $p=\\ln x, q=\\ln(1-x)$ 满足 $e^p+e^q=1$，确立内禀变换作为对称化基石。"
+    },
+    {
+      "step": "拆解目标权重积分",
+      "detail": "列举 Weight 5 下各积分项 $\\int p^k q^{4-k}\\mathrm{d}p$，从平凡的单一幂次过渡到复杂的双元混合项。"
+    },
+    {
+      "step": "级联分部积分降维",
+      "detail": "利用多重对数求导性质 $\\frac{\\mathrm{d}\\mathrm{Li}_n(e^q)}{\\mathrm{d}q}=\\mathrm{Li}_{n-1}(e^q)$，对混合项逐次分部积分降阶。"
+    },
+    {
+      "step": "对称化封闭求解",
+      "detail": "结合内禀对称变换统一覆盖对偶情形，将全项解析表征为多重对数与对数幂的线性组合。"
+    }
+  ],
+  "keyInsight": "核心在于利用恒等式 $e^p+e^q=1$ 的内禀对称性，配合导数降阶法则 $\\mathrm{d}\\mathrm{Li}_n(e^q)=\\mathrm{Li}_{n-1}(e^q)\\mathrm{d}q$ 反复分部积分，把高次对数积逐层转化为 $\\mathrm{Li}_2\\sim\\mathrm{Li}_5$ 的封闭解。",
+  "points": [
+    "设定双元 $p=\\ln x, q=\\ln(1-x)$，利用关系 $e^p+e^q=1$ 构建对称体系。",
+    "借助 $\\mathrm{d}\\mathrm{Li}_n(e^q)=\\mathrm{Li}_{n-1}(e^q)\\mathrm{d}q$ 将高阶对数积分逐级降阶。",
+    "突破特殊定积分限制，给出含多重对数 $\\mathrm{Li}_2\\sim\\mathrm{Li}_5$ 的不定积分通解。"
+  ],
+  "quote": "借助对称变换与多重对数，将高阶对数积逐层降维为显式通解。",
+  "difficulty": "hard",
+  "topicTags": [
+    "高等微积分",
+    "多重对数函数",
+    "符号积分"
+  ],
+  "status": "pending_review",
+  "reviewScore": null,
+  "nextReviewAt": 1789143381,
+  "reviewCount": 0,
+  "createdAt": 1789143381
+}

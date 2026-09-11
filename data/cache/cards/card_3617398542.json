@@ -1,0 +1,48 @@
+{
+  "id": "card_3617398542",
+  "source": {
+    "contentType": "answer",
+    "title": "对数积分函数li(x)有什么应用？",
+    "url": "https://www.zhihu.com/answer/3617398542",
+    "authorName": "爱编程的Aten",
+    "favTime": 1741276662,
+    "likeCount": 12
+  },
+  "coreView": "对数积分函数最核心的应用是在数论中高精度估计素数分布，即素数定理 $\\pi(x) \\sim \\text{li}(x)$。",
+  "thread": [
+    {
+      "step": "定义与奇点处理",
+      "detail": "定义为 $\\int_0^x \\frac{dt}{\\ln t}$，针对 $t=1$ 处的奇点利用柯西主值进行严格延拓。"
+    },
+    {
+      "step": "渐近展开与性质",
+      "detail": "联系指数积分建立级数与发散的渐近展开，导出比 $x/\\ln x$ 更精细的修正项。"
+    },
+    {
+      "step": "刻画素数计数分布",
+      "detail": "素数定理指出 $\\pi(x) \\sim \\text{li}(x)$，大数下二者高度吻合，体现惊人拟合精度。"
+    },
+    {
+      "step": "延伸至黎曼猜想",
+      "detail": "其误差界直接受黎曼猜想制约，是通向黎曼 R 函数等精细素数理论的基石。"
+    }
+  ],
+  "keyInsight": "离散素数的局域密度近似为 $1/\\ln t$，累积计数天然对应连续积分 $\\int \\frac{dt}{\\ln t}$。$\\text{li}(x)$ 的渐近展开自动包含了无穷阶修正项，因而拟合效果远优于 $x/\\ln x$。",
+  "points": [
+    "定义为 $\\text{li}(x)=\\int_0^x \\frac{dt}{\\ln t}$，在 $t=1$ 需用柯西主值定义。",
+    "素数定理确立 $\\pi(x) \\sim \\text{li}(x)$，渐近估计精度远超 $x/\\ln x$。",
+    "依托发散的渐近展开截断有限项，恰好精准匹配素数分布的渐近行为。"
+  ],
+  "quote": "对数积分是用微积分的连续平滑，捕捉离散素数跳跃脉搏的桥梁。",
+  "difficulty": "medium",
+  "topicTags": [
+    "数论",
+    "特殊函数",
+    "微积分"
+  ],
+  "status": "pending_review",
+  "reviewScore": null,
+  "nextReviewAt": 1789143267,
+  "reviewCount": 0,
+  "createdAt": 1789143267
+}

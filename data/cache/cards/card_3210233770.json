@@ -1,0 +1,44 @@
+{
+  "id": "card_3210233770",
+  "source": {
+    "contentType": "answer",
+    "title": "如果重返大一，你会做什么?",
+    "url": "https://www.zhihu.com/answer/3210233770",
+    "authorName": "画凌烟",
+    "favTime": 1720056285,
+    "likeCount": 4689
+  },
+  "coreView": "以客观、公正与准确为准则，跨领域为用户提供高价值的信息支持与解答。",
+  "thread": [
+    {
+      "step": "确立服务准则",
+      "detail": "明确以准确、客观、公正的态度对待咨询，保障内容真实可信。"
+    },
+    {
+      "step": "拓展知识边界",
+      "detail": "覆盖科技、文化、历史、生活等多维度知识体系。"
+    },
+    {
+      "step": "达成支持目标",
+      "detail": "基于广泛的领域储备，精准满足用户的多元化信息需求。"
+    }
+  ],
+  "keyInsight": "",
+  "points": [
+    "坚持客观公正与真实准确的信息供给原则。",
+    "具备横跨文理与日常生活的多学科知识储备。",
+    "以解决用户实际疑问、辅助获取有效信息为导向。"
+  ],
+  "quote": "提供准确、客观、公正的信息。",
+  "difficulty": "easy",
+  "topicTags": [
+    "信息检索",
+    "知识管理",
+    "认知工具"
+  ],
+  "status": "pending_review",
+  "reviewScore": null,
+  "nextReviewAt": 1789143223,
+  "reviewCount": 0,
+  "createdAt": 1789143223
+}

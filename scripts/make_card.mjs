@@ -44,7 +44,9 @@ async function chat(prompt) {
 }
 
 function parseCard(text) {
-  const cleaned = text.replace(/```json|```/g, '').trim();
+  let cleaned = text.replace(/```json|```/g, '').trim();
+  // 模型输出 LaTeX 时常见非法转义（如 \l、\utilde），把非法反斜杠补成双写
+  cleaned = cleaned.replace(/\\(?!["\\/bfnrt]|u[0-9a-fA-F]{4})/g, '\\\\');
   const obj = JSON.parse(cleaned);
   if (typeof obj.coreView !== 'string' || !Array.isArray(obj.points) || obj.points.length !== 3
     || typeof obj.quote !== 'string' || !['easy', 'medium', 'hard'].includes(obj.difficulty)
@@ -77,7 +79,14 @@ for (const f of files) {
   console.log(`[${done + 1}] 炼卡 ${key} 「${(breakdown.title || '').slice(0, 25)}」`);
   try {
     const text = await chat(PROMPT(breakdown.title, breakdown.content));
-    const card = parseCard(text);
+    let card;
+    try {
+      card = parseCard(text);
+    } catch {
+      // 转义问题顽固时重试一次，明确要求转义安全
+      const retryText = await chat(PROMPT(breakdown.title, breakdown.content) + '\n\n重要：JSON 字符串中所有反斜杠必须双写（\\\\），LaTeX 公式改用中文文字描述。');
+      card = parseCard(retryText);
+    }
     const full = {
       id: `card_${key}`,
       source: item ? {

@@ -1,0 +1,48 @@
+{
+  "id": "card_1934343927248455056",
+  "source": {
+    "contentType": "answer",
+    "title": "能否和我讲一讲行列式导数的知识?",
+    "url": "https://www.zhihu.com/answer/1934343927248455056",
+    "authorName": "方汝见之",
+    "favTime": 1759933448,
+    "likeCount": 13
+  },
+  "coreView": "行列式导数一般为伴随矩阵与导数矩阵之积的迹；矩阵可逆时，等于行列式乘逆矩阵与导数矩阵之积的迹。",
+  "thread": [
+    {
+      "step": "多重线性与乘积法则",
+      "detail": "将矩阵视作列向量函数，利用行列式的多重线性性，导数分解为依次替换各列为求导列的 $n$ 项行列式之和。"
+    },
+    {
+      "step": "代数余子式展开",
+      "detail": "对每一项按求导列作代数余子式展开，得到导数矩阵元素与原矩阵代数余子式的乘积求和。"
+    },
+    {
+      "step": "迹运算紧凑归并",
+      "detail": "求和项恰好对应伴随矩阵与导数矩阵相乘的主对角线元素之和，整理为 $\\operatorname{tr}(\\operatorname{adj}(A)A')$。"
+    },
+    {
+      "step": "可逆情形化简",
+      "detail": "当 $A$ 可逆时代入 $\\operatorname{adj}(A)=\\det(A)A^{-1}$，提出标量即得经典的 Jacobi 公式。"
+    }
+  ],
+  "keyInsight": "利用多重线性性将求导转化为逐列乘积法则，展开后求导元素与代数余子式的乘积累加，形式恰与矩阵乘积的主对角线吻合，从而被迹运算 $\\operatorname{tr}$ 紧凑吸收。",
+  "points": [
+    "一般情形公式：$\\frac{d}{dt}\\det(A)=\\operatorname{tr}(\\operatorname{adj}(A)A')$",
+    "可逆情形公式：$\\frac{d}{dt}\\det(A)=\\det(A)\\operatorname{tr}(A^{-1}A')$",
+    "证明核心抓手：多重线性求导与代数余子式展开归并"
+  ],
+  "quote": "行列式求导的本质是乘积法则，迹则把分散的展开项优雅收拢。",
+  "difficulty": "medium",
+  "topicTags": [
+    "高等代数",
+    "矩阵分析",
+    "微分学"
+  ],
+  "status": "pending_review",
+  "reviewScore": null,
+  "nextReviewAt": 1789143022,
+  "reviewCount": 0,
+  "createdAt": 1789143022
+}

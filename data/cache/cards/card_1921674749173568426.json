@@ -1,0 +1,48 @@
+{
+  "id": "card_1921674749173568426",
+  "source": {
+    "contentType": "article",
+    "title": "代数数论笔记（一）——高斯整数",
+    "url": "https://zhuanlan.zhihu.com/p/1921674749173568426",
+    "authorName": "梦里流星",
+    "favTime": 1752338359,
+    "likeCount": 13
+  },
+  "coreView": "将素数平方和问题放入高斯整数环中，利用唯一分解整环的优良性质，使数论证明变得自然优雅。",
+  "thread": [
+    {
+      "step": "提出问题与数系扩张",
+      "detail": "考察模4余1素数写成平方和问题。由 $p=a^2+b^2=(a+bi)(a-bi)$，自然将数系扩充至高斯整数环 $\\mathbb{Z}[i]$。"
+    },
+    {
+      "step": "确立优良代数结构",
+      "detail": "引入乘性范数 $N(a+bi)=a^2+b^2$。证明 $\\mathbb{Z}[i]$ 是欧几里得整环，从而具备因式唯一分解性（UFD）。"
+    },
+    {
+      "step": "关键化归与素元判定",
+      "detail": "当 $p\\equiv 1\\pmod 4$ 时方程 $x^2\\equiv -1\\pmod p$ 有解，导出 $p\\mid(x+i)(x-i)$，证明 $p$ 在环中并非素元。"
+    },
+    {
+      "step": "利用等价性完成证明",
+      "detail": "UFD中素元与不可约元等价，故 $p$ 必可分解为非平凡因子，因子的范数乘积迫使 $N(a+bi)=a^2+b^2=p$ 成立。"
+    }
+  ],
+  "keyInsight": "核心技巧是借环断素：同余性质使 $p\\mid(x+i)(x-i)$ 却不整除任一因子，直接击穿 $p$ 的素元性。在 UFD 中非素元即不可约元破灭，迫使 $p$ 必能分解为共轭因子平方和。",
+  "points": [
+    "平方和与环中分解等价：$p=a^2+b^2 \\iff p=(a+bi)(a-bi)$",
+    "$\\mathbb{Z}[i]$ 是欧几里得整环，从而为唯一分解整环，素元即不可约元",
+    "$p\\equiv 1\\pmod 4$ 保证 $-1$ 是模 $p$ 的二次剩余，提供分解入口"
+  ],
+  "quote": "跳出普通整数，在更大的环里看清数论规律的本质。",
+  "difficulty": "medium",
+  "topicTags": [
+    "代数数论",
+    "抽象代数",
+    "初等数论"
+  ],
+  "status": "pending_review",
+  "reviewScore": null,
+  "nextReviewAt": 1789142979,
+  "reviewCount": 0,
+  "createdAt": 1789142979
+}

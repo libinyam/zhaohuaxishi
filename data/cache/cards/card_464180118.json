@@ -1,0 +1,48 @@
+{
+  "id": "card_464180118",
+  "source": {
+    "contentType": "article",
+    "title": "几个较难的积分不等式",
+    "url": "https://zhuanlan.zhihu.com/p/464180118",
+    "authorName": "灰之魔女",
+    "favTime": 1737624245,
+    "likeCount": 156
+  },
+  "coreView": "高难积分不等式常需跳出一元思维，借助升维对称化、经典放缩或泛函空间视角统一攻破。",
+  "thread": [
+    {
+      "step": "常规构造降次",
+      "detail": "通过构造辅助函数判断单调性，或利用分部积分法化简导数项与边界项。"
+    },
+    {
+      "step": "升维化二重积分",
+      "detail": "如切比雪夫型不等式，将一元积分乘积化为二重积分，利用对称性判断被积函数符号。"
+    },
+    {
+      "step": "经典不等式放缩",
+      "detail": "借助 Cauchy-Schwarz 与 Hölder 不等式等经典工具，对含权被积式分情况放缩。"
+    },
+    {
+      "step": "泛函空间统一视角",
+      "detail": "引入 Hilbert 空间视角，通过谱方法、Green 函数、变分法与二次型配方系统处理。"
+    }
+  ],
+  "keyInsight": "积分不等式的关键技巧在于“升维”与“内积化”：通过化为二重积分对称化被积函数判号；或将积分视作 Hilbert 空间的内积与二次型，利用变分法和谱理论寻找极值与配方结构。",
+  "points": [
+    "切比雪夫型不等式可通过化为二重积分并借助对称性判号证明。",
+    "复杂含权积分不等式常依赖 Hölder 与 Cauchy-Schwarz 巧妙配权放缩。",
+    "高阶二次型积分不等式可用 Hilbert 空间的谱方法与变分法统一处理。"
+  ],
+  "quote": "化一维为二维看对称，视积分为内积求配方。",
+  "difficulty": "hard",
+  "topicTags": [
+    "数学分析",
+    "积分不等式",
+    "高等数学"
+  ],
+  "status": "pending_review",
+  "reviewScore": null,
+  "nextReviewAt": 1789143371,
+  "reviewCount": 0,
+  "createdAt": 1789143371
+}

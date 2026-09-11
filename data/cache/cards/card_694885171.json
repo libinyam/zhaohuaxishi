@@ -1,0 +1,48 @@
+{
+  "id": "card_694885171",
+  "source": {
+    "contentType": "article",
+    "title": "Baire纲的证明及其简单应用(基础数分版本）",
+    "url": "https://zhuanlan.zhihu.com/p/694885171",
+    "authorName": "居中",
+    "favTime": 1742226048,
+    "likeCount": 118
+  },
+  "coreView": "用数分工具证明Baire纲定理，揭示完备空间盖不满稀疏闭集，提供逐点性质跃迁为局部一致的统一范式。",
+  "thread": [
+    {
+      "step": "核心问题与直觉",
+      "detail": "探讨实数闭区间能否被可数个无内点的“稀疏”闭集覆盖，直觉上完备实数轴具有足够的“稠密厚度”。"
+    },
+    {
+      "step": "闭区间套严格论证",
+      "detail": "反设并集含区间，因闭集无内点，可逐层避开各 $F_n$ 构造闭区间套，由完备性取到不属于任何闭集的矛盾点。"
+    },
+    {
+      "step": "逐点条件分层技术",
+      "detail": "面对逐点界或逐点极限，按参数 $n$ 将点集分层构造为可数闭集 $E_n$，保证其并集覆盖整个区间。"
+    },
+    {
+      "step": "升级为局部一致性质",
+      "detail": "由Baire纲定理断言必有某 $E_n$ 含内点，从而在局部子区间上使原本逐点的性质一致成立。"
+    }
+  ],
+  "keyInsight": "反证结合区间套：假设 $\\bigcup F_n$ 含开区间，因 $F_n$ 闭且无内点，可递推构造闭区间 $I_n \\subset I_{n-1} \\setminus F_n$。由完备性 $\\bigcap I_n \\neq \\emptyset$，产生不在任何 $F_n$ 中的漏网点击穿假设。",
+  "points": [
+    "Baire纲定理：可数个无内点闭集的并集依然无内点，本质基于实数完备性。",
+    "证明仅需闭区间套定理，无需度量空间泛函工具即可自洽论证。",
+    "分层闭集法是把逐点成立的量升级为局部区间上一致成立的通用套路。"
+  ],
+  "quote": "Baire纲定理是逐点条件升级为局部一致条件的标准桥梁。",
+  "difficulty": "medium",
+  "topicTags": [
+    "数学分析",
+    "实数完备性",
+    "Baire纲定理"
+  ],
+  "status": "pending_review",
+  "reviewScore": null,
+  "nextReviewAt": 1789143587,
+  "reviewCount": 0,
+  "createdAt": 1789143587
+}

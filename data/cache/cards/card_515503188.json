@@ -1,0 +1,48 @@
+{
+  "id": "card_515503188",
+  "source": {
+    "contentType": "article",
+    "title": "【Galaxy数学】曲线系方程",
+    "url": "https://zhuanlan.zhihu.com/p/515503188",
+    "authorName": "Galaxy",
+    "favTime": 1663993777,
+    "likeCount": 153
+  },
+  "coreView": "曲线系方程利用曲线的线性组合恒过公共点，是解决圆锥曲线中共点与四点共圆问题的高效代数通法。",
+  "thread": [
+    {
+      "step": "传统联立计算受阻",
+      "detail": "面对双曲线弦中垂线四点共圆等问题，若采用常规联立消元法求解，计算过程冗长且极易出错。"
+    },
+    {
+      "step": "代数线性组合破局",
+      "detail": "公共点同时令各曲线方程为零，因而其线性组合 $\\lambda_1 f_1 + \\lambda_2 f_2 = 0$ 必然恒过所有交点。"
+    },
+    {
+      "step": "引入退化二次曲线",
+      "detail": "将两条相交直线之积视为退化二次曲线，构造形如 $\\lambda_1 L_1 L_2 + \\lambda_2 L_3 L_4 = 0$ 的过四点曲线系。"
+    },
+    {
+      "step": "系统归纳高效解题",
+      "detail": "分类梳理一次型及二次型模型（切圆、退化线系等），省去具体求解交点坐标的繁琐步骤。"
+    }
+  ],
+  "keyInsight": "若交点满足 $f_1=0$ 且 $f_2=0$，则必满足 $\\lambda_1 f_1+\\lambda_2 f_2=0$。妙在将两直线之积 $L_1 L_2=0$ 视作退化二次曲线，从而极简构筑过四点的曲线系。",
+  "points": [
+    "通式原理：$\\lambda_1 f_1+\\lambda_2 f_2=0$ 恒过原两曲线的全部公共交点。",
+    "一次系模型：包含相交直线系、定距法线式及定截距和等典型直线系。",
+    "二次退化技巧：用两直线之积 $\\lambda_1 L_1 L_2+\\lambda_2 L_3 L_4=0$ 快速构造过四点曲线。"
+  ],
+  "quote": "设而不求，用方程的线性叠加直接锁定交点几何特征。",
+  "difficulty": "medium",
+  "topicTags": [
+    "解析几何",
+    "圆锥曲线",
+    "高中数学"
+  ],
+  "status": "pending_review",
+  "reviewScore": null,
+  "nextReviewAt": 1789143417,
+  "reviewCount": 0,
+  "createdAt": 1789143417
+}

@@ -1,0 +1,48 @@
+{
+  "id": "card_28055381574",
+  "source": {
+    "contentType": "article",
+    "title": "第十六届全国大学生数学竞赛数学类低年级组ode押题.",
+    "url": "https://zhuanlan.zhihu.com/p/28055381574",
+    "authorName": "清疏数学",
+    "favTime": 1769571335,
+    "likeCount": 10
+  },
+  "coreView": "通过含参微分方程，综合考查非线性项先验估计、解的整体延拓与对参数的可微依赖性。",
+  "thread": [
+    {
+      "step": "明确初值与反问题",
+      "detail": "考察 $y'=\\lambda(1+\\sin^2 x+\\sin^2 y)+x,\\, y(0)=0$，需证解全实轴存在且对任意 $b$ 存在唯一 $\\lambda$ 使 $y(1)=b$。"
+    },
+    {
+      "step": "先验界排除爆破",
+      "detail": "因 $\\sin^2$ 项有界，有限区间内导数有先验界 $|y'| \\le 3|\\lambda|+M$，由延拓定理知解不会有限爆破，故延拓至全 $\\mathbb{R}$。"
+    },
+    {
+      "step": "参数依赖与积分表示",
+      "detail": "依解对参数可微定理知 $y(1,\\lambda)$ 连续可微，两边积分得 $y(1,\\lambda)=\\lambda\\int_0^1(1+\\sin^2 t+\\sin^2 y)dt+\\frac{1}{2}$。"
+    },
+    {
+      "step": "极限分析锁定唯一解",
+      "detail": "被积项恒 $\\ge 1$，$\\lambda \\to \\pm\\infty$ 时极限趋于 $\\pm\\infty$，结合连续性与单调性，对任意目标 $b$ 存在唯一 $\\lambda$。"
+    }
+  ],
+  "keyInsight": "利用三角函数有界性做先验估计，将局部解延拓为全局解；再利用积分表示中被积项 $\\ge 1$ 的正下界，结合解对参数的连续依赖与介值性，巧妙攻破打靶参数的反问题。",
+  "points": [
+    "ODE 延拓定理：导数具有先验有界性时，解可延拓至整个实数轴而不爆破。",
+    "解对参数的可微依赖：保证积分得到的端点值函数 $y(1,\\lambda)$ 是连续可微的。",
+    "反问题构造与介值性：被积项有正下界保证了映射的满射性与参数唯一性。"
+  ],
+  "quote": "控制住非线性增长的先验界，解就不会在有限时间内爆破。",
+  "difficulty": "hard",
+  "topicTags": [
+    "常微分方程",
+    "数学竞赛",
+    "微分方程延拓"
+  ],
+  "status": "pending_review",
+  "reviewScore": null,
+  "nextReviewAt": 1789143184,
+  "reviewCount": 0,
+  "createdAt": 1789143184
+}
