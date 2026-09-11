@@ -1,0 +1,2317 @@
+{
+  "fetchedAt": 1789139530791,
+  "total": 93,
+  "items": [
+    {
+      "ContentType": "article",
+      "Url": "https://zhuanlan.zhihu.com/p/2072036215029813445",
+      "CreatedAt": 1786791940,
+      "FavTime": 1786983010,
+      "LikeCount": 415,
+      "CommentCount": 73,
+      "FavoriteCount": 586,
+      "Title": "数学译本",
+      "Summary": "大家好，这两天我做了一个网站： https://mathtranslations.org/ 做这个网站，最初其实是因为我一直觉得现在数学书的 AI 翻译处在一个很尴尬的阶段。 大模型已经让个人翻译一本外文数学书变得越来越容易。实际上，现在已经有不少人在自己翻译教材、专著和讲义，但这些译本往往散落在个人硬盘、群聊和网盘里：有人已经翻过了，其他人不知道；有人发现了错误，也很难反馈；一个人停止维护以后，译本可能就这样消失了。 所以我想做一个公开的…",
+      "Favlists": [
+        {
+          "UrlToken": 794313753,
+          "Title": "我的收藏",
+          "Url": "https://www.zhihu.com/collection/794313753"
+        }
+      ],
+      "Author": {
+        "Name": "kasaaa",
+        "UrlToken": "ruo-chi-er-yi",
+        "Url": "https://www.zhihu.com/people/ruo-chi-er-yi",
+        "Gender": 2,
+        "Headline": "保持缄默，保持热爱。"
+      }
+    },
+    {
+      "ContentType": "answer",
+      "Url": "https://www.zhihu.com/answer/809952554",
+      "CreatedAt": 1567318565,
+      "FavTime": 1779179511,
+      "LikeCount": 839,
+      "CommentCount": 72,
+      "FavoriteCount": 2130,
+      "Title": "各位大佬能帮我全面了解一下九州系列吗？",
+      "Summary": "[图片] 九州系列你要看的话基本上是没有什么必须的顺序的。 只有具体到某个作者，比如江南，会有像九州缥缈录、捭阖录这样有一定顺序的三部曲。 然后九州系列短篇繁多而且很多只是在杂志上发表过一次，现在想看也很难找到。 现在想了解九州相关设定的话，可以看看江南方面出的《创造古卷》，但它并不被所有九州元老认可。 如果看中长篇，主要推荐（不分先后顺序）： 《 九州缥缈录 》、《商博良》、葵花白发抄系列（江南）《九州·斛珠夫…",
+      "Favlists": [
+        {
+          "UrlToken": 794313753,
+          "Title": "我的收藏",
+          "Url": "https://www.zhihu.com/collection/794313753"
+        }
+      ],
+      "Author": {
+        "Name": "祝轻君",
+        "UrlToken": "zhu-qing-jun-55-63",
+        "Url": "https://www.zhihu.com/people/zhu-qing-jun-55-63",
+        "Gender": 1,
+        "Headline": "妄想出人头地，依旧混吃等死。"
+      }
+    },
+    {
+      "ContentType": "article",
+      "Url": "https://zhuanlan.zhihu.com/p/30639638",
+      "CreatedAt": 1509518443,
+      "FavTime": 1779178975,
+      "LikeCount": 702,
+      "CommentCount": 69,
+      "FavoriteCount": 1804,
+      "Title": "【新人必看】《九州缥缈录》之后阅读顺序+江南还会填坑么",
+      "Summary": "一、阅读顺序： 1.先看完 《九州缥缈录》 1~6部，再看《九州 捭阖录》。《九州捭阖录》是接着《九州缥缈录》故事，剧情是姬野劫法场后，化名姬云烈，流亡中州遇到项空月 ，而后共同征战天下。（关于姬野化名的姬云烈，和晟朝开国的姬云烈，在这篇文里第六条里有专门解释： 《九州缥缈录》后续情节考证 ） 2.《 九州 捭阖录》是一个坑，连载在九州志MOOK第三季王朝启示录上。不过目前没有实体书，江南 曾表示，缥缈录电视剧出了之后出捭…",
+      "Favlists": [
+        {
+          "UrlToken": 794313753,
+          "Title": "我的收藏",
+          "Url": "https://www.zhihu.com/collection/794313753"
+        }
+      ],
+      "Author": {
+        "Name": "曲千灯",
+        "UrlToken": "quzi86",
+        "Url": "https://www.zhihu.com/people/quzi86",
+        "Gender": 1,
+        "Headline": "一往无前。"
+      }
+    },
+    {
+      "ContentType": "answer",
+      "Url": "https://www.zhihu.com/answer/1903945960482116565",
+      "CreatedAt": 1746716090,
+      "FavTime": 1778424900,
+      "LikeCount": 825,
+      "CommentCount": 40,
+      "FavoriteCount": 1098,
+      "Title": "南派三叔、江南、刘慈欣，他们是从哪里知道那么多的知识的，如何构建整个故事体系和跌宕起伏的剧情?",
+      "Summary": "看到个江南的采访，顺手就引用一个江南的，希望对题主能有帮助。中华读书报：《龙族》的想象所涉及的门类非常多样：东西方各民族关于龙的神话传说故事，各个国家与地区的人文风貌，世界各地独特的自然风光，上至远古文明，下至未来科技——在创作中，你觉得有什么难度吗？ 江南：这可真是个费力的工作，需要非常多的参考资料。我大学时候是个非常喜欢杂学的读者，从欧洲的巫术、炼金术到中国的奇谭逸闻我都喜欢看，但当时研究得…",
+      "Favlists": [
+        {
+          "UrlToken": 794313753,
+          "Title": "我的收藏",
+          "Url": "https://www.zhihu.com/collection/794313753"
+        }
+      ],
+      "Author": {
+        "Name": "俊杰",
+        "UrlToken": "da-mang-ren-jun-jie",
+        "Url": "https://www.zhihu.com/people/da-mang-ren-jun-jie",
+        "Gender": 2,
+        "Headline": ""
+      }
+    },
+    {
+      "ContentType": "answer",
+      "Url": "https://www.zhihu.com/answer/2295945623",
+      "CreatedAt": 1641183040,
+      "FavTime": 1777084891,
+      "LikeCount": 15,
+      "CommentCount": 1,
+      "FavoriteCount": 23,
+      "Title": "你们是怎么看待爱尔兰诗人威廉·巴特勒·叶芝的爱情？",
+      "Summary": "本文：共6970字。 建议：一气呵成。 至少：收藏再说。 我要怎样形容对爱尔兰的爱呢？ 几年前，踏上这座小岛，被这里淳朴的凯尔特人后裔热情地接待，满眼绿色的田野庄园，仿佛时光在这里都慢了下来，耳边一直萦绕着拂动心弦的爱尔兰风笛曲，干净而飘逸，苍凉又幽远…… 爱尔兰共和国第一任总统伊蒙·德·瓦勒拉（Eamonn De Valera，1918）曾描述这里：“……一个国度，她的乡村点缀着明亮舒适的家园，田野和村庄洋溢着欢乐，四处…",
+      "Favlists": [
+        {
+          "UrlToken": 794313753,
+          "Title": "我的收藏",
+          "Url": "https://www.zhihu.com/collection/794313753"
+        }
+      ],
+      "Author": {
+        "Name": "gossipedia",
+        "UrlToken": "gossipedia",
+        "Url": "https://www.zhihu.com/people/gossipedia",
+        "Gender": 1,
+        "Headline": ""
+      }
+    },
+    {
+      "ContentType": "answer",
+      "Url": "https://www.zhihu.com/answer/137737804",
+      "CreatedAt": 1482740775,
+      "FavTime": 1776996221,
+      "LikeCount": 53,
+      "CommentCount": 7,
+      "FavoriteCount": 71,
+      "Title": "九州系列有哪些书值得推荐？",
+      "Summary": "1、《九州·羽传说》《九州·羽传说》算不上是最好看的那几本九州故事，但却是我最喜欢的一本九州——喜欢和好并不可以画等号——客观而言，这本书很飘，剧情进展速度过快，人物形象脸谱化严重。但这的确是一个好故事。 因为剧情快，所以短短十几万字就展现了一段恢弘的羽族王朝兴衰史。人物塑造尽管脸谱化严重，但却深入人心。 打个比方的话，羽传说有一点像你小时候听外婆讲的神话，你知道故事都是假的，但仍然会为传说中的英…",
+      "Favlists": [
+        {
+          "UrlToken": 794313753,
+          "Title": "我的收藏",
+          "Url": "https://www.zhihu.com/collection/794313753"
+        }
+      ],
+      "Author": {
+        "Name": "兔酱的小红花",
+        "UrlToken": "xhhread",
+        "Url": "https://www.zhihu.com/people/xhhread",
+        "Gender": 1,
+        "Headline": "小红花阅读，每一次阅读都是一场伟大的冒险"
+      }
+    },
+    {
+      "ContentType": "answer",
+      "Url": "https://www.zhihu.com/answer/2011721221826421085",
+      "CreatedAt": 1772411715,
+      "FavTime": 1776935931,
+      "LikeCount": 9,
+      "CommentCount": 2,
+      "FavoriteCount": 22,
+      "Title": "各位认为文笔最好的网络小说作家是谁？",
+      "Summary": "我补充几个远古大神 江南 作品 九州系列等 绝对大神和燕垒生 凤歌 沧月算是最强四天王 其他的差一点，习惯呕吐的文笔很不错据说是某大刊物编辑然后生孩子去了就烂尾了，作品太少，要不然也能争一下。 朱邪多闻 作品 星空王座，设定出色文笔也相当好据说这篇得过科幻奖。 知秋 作品 历史的尘埃 十洲风云志 等 洛水 作品 山海八荒录 等 燕垒生 作品 天地人系列，贞观幽冥谭等 习惯呕吐 作品 陌上行 （强烈推荐，有平凡的世界的感觉…",
+      "Favlists": [
+        {
+          "UrlToken": 794313753,
+          "Title": "我的收藏",
+          "Url": "https://www.zhihu.com/collection/794313753"
+        }
+      ],
+      "Author": {
+        "Name": "无聊只好价格特别敏感",
+        "UrlToken": "wu-liao-zhi-hao-jie-ge-te-bie-min-gan",
+        "Url": "https://www.zhihu.com/people/wu-liao-zhi-hao-jie-ge-te-bie-min-gan",
+        "Gender": 0,
+        "Headline": ""
+      }
+    },
+    {
+      "ContentType": "answer",
+      "Url": "https://www.zhihu.com/answer/1895055713438523995",
+      "CreatedAt": 1744596490,
+      "FavTime": 1776825675,
+      "LikeCount": 2571,
+      "CommentCount": 133,
+      "FavoriteCount": 2769,
+      "Title": "为什么很多网文大神强调‘前三章定生死’？读者耐心真的只剩3章了吗？",
+      "Summary": "还搁这鼓捣读者耐心呢，我给你举几个例子。 加西亚·马尔克斯： 奥内西莫·桑切斯参议员遇到他生命中的那个女人的时候，距离他的死亡只剩六个月零十一天。——《超越爱情的永恒之死》，以及他的另外几篇短篇小说叫做《纯真的埃伦蒂拉和他残忍的祖母令人难以置信的悲惨故事》《世上最美的溺水者》《出售奇迹的好人布拉曼卡》《幽灵船的最后一次航行》，这都不用开头了，篇名就是钩子。 欧·亨利： 这是阳春三月里的一天。 在你写…",
+      "Favlists": [
+        {
+          "UrlToken": 794313753,
+          "Title": "我的收藏",
+          "Url": "https://www.zhihu.com/collection/794313753"
+        }
+      ],
+      "Author": {
+        "Name": "天水",
+        "UrlToken": "mo-yu-47-66-57",
+        "Url": "https://www.zhihu.com/people/mo-yu-47-66-57",
+        "Gender": 0,
+        "Headline": ""
+      }
+    },
+    {
+      "ContentType": "article",
+      "Url": "https://zhuanlan.zhihu.com/p/2017970353427718359",
+      "CreatedAt": 1773902977,
+      "FavTime": 1776650449,
+      "LikeCount": 1,
+      "CommentCount": 0,
+      "FavoriteCount": 2,
+      "Title": "如何用ai来学习机器学习？",
+      "Summary": "在人工智能时代，系统性学会Python/机器学习 只是几个月的事。以前学编程要啃很多繁琐的内容，现在只需掌握一个核心思想： “如何用 AI 来辅导自己”之前聊过自学机器学习的核心痛点：公式晦涩难懂、编程报错无从下手、学习路线杂乱无章、理论实操脱节，哪怕照着路线走，遇到问题没人答疑、啃不动的知识点只能死磕，很容易半途而废。而如今AI工具的普及，刚好能精准破解这些自学难题，它不是替你学，而是化身专属私教、答疑助手…",
+      "Favlists": [
+        {
+          "UrlToken": 794313753,
+          "Title": "我的收藏",
+          "Url": "https://www.zhihu.com/collection/794313753"
+        }
+      ],
+      "Author": {
+        "Name": "学习使我快乐",
+        "UrlToken": "xue-xi-shi-wo-kuai-le-82-47",
+        "Url": "https://www.zhihu.com/people/xue-xi-shi-wo-kuai-le-82-47",
+        "Gender": 0,
+        "Headline": ""
+      }
+    },
+    {
+      "ContentType": "answer",
+      "Url": "https://www.zhihu.com/answer/809543802",
+      "CreatedAt": 1567271080,
+      "FavTime": 1776215091,
+      "LikeCount": 40,
+      "CommentCount": 8,
+      "FavoriteCount": 33,
+      "Title": "江南有什么值得一看的小说呢？",
+      "Summary": "短篇:春风柳上原，九州志威武王一章。 中篇爱情:上海堡垒。刺客王朝。 长篇:九州缥缈录※ 龙族（较娱乐） 商博良（较奇幻） 其中最为推荐九州缥缈录。春风柳上原。 在此节选序言。 以前的字里行间充满了要冲破什么东西的欲望，现在想描绘留住什么东西的渴望， 我的姬野啊我的羽然啊， 我的吕归尘·阿苏勒·帕苏尔， 我梦中的王朝和江山。 我写过不少书了， 每本书对我的意义各不相同， 有些是一场盛宴一场痛饮， 有些是邂逅和别…",
+      "Favlists": [
+        {
+          "UrlToken": 794313753,
+          "Title": "我的收藏",
+          "Url": "https://www.zhihu.com/collection/794313753"
+        }
+      ],
+      "Author": {
+        "Name": "春夏明月",
+        "UrlToken": "feng-zai-ge-song",
+        "Url": "https://www.zhihu.com/people/feng-zai-ge-song",
+        "Gender": 2,
+        "Headline": "悟已往之不谏，知来者之可追。"
+      }
+    },
+    {
+      "ContentType": "answer",
+      "Url": "https://www.zhihu.com/answer/34914209085",
+      "CreatedAt": 1731955868,
+      "FavTime": 1775780913,
+      "LikeCount": 241,
+      "CommentCount": 4,
+      "FavoriteCount": 290,
+      "Title": "如何评价《龙族》作者江南的文笔？",
+      "Summary": "江南的文字最大的特点就是让人有沉浸感。沉浸感说白了就是让读者一读起来便沉浸其中无法自拔，那么江南是如何制造这种沉浸感的呢? 首先是上面很多回答都提到的一点，江南的文字具有很强的镜头感，读起来让人像是在看电影一样。这需要做到两件事： 第一，必须要有很强的镜头构造能力，就像看图写话一样把一个场景转换成文字。江南在描绘某个画面的时候会非常着重于写细节，并且他会让文字的结构层层递进，就像电影运镜一样。这样…",
+      "Favlists": [
+        {
+          "UrlToken": 794313753,
+          "Title": "我的收藏",
+          "Url": "https://www.zhihu.com/collection/794313753"
+        }
+      ],
+      "Author": {
+        "Name": "科科熊",
+        "UrlToken": "005jier",
+        "Url": "https://www.zhihu.com/people/005jier",
+        "Gender": 0,
+        "Headline": "点击添加介绍，让大家认识你…"
+      }
+    },
+    {
+      "ContentType": "answer",
+      "Url": "https://www.zhihu.com/answer/1947075352506664370",
+      "CreatedAt": 1756998938,
+      "FavTime": 1775662851,
+      "LikeCount": 1567,
+      "CommentCount": 99,
+      "FavoriteCount": 2896,
+      "Title": "江南的文风有什么特点？如何模仿？",
+      "Summary": "我可以给你解构他用了什么技巧，但是想要模仿非常困难，因为能够把这些技巧用到出神入化的网文作家，到现在也只有他一个人而已。 全景镜头这是江南营造电影效果最常用的技巧之一，通过描绘四周的景象营造特定的氛围，例子如下： 绘梨衣解开手帕，夕阳如海潮般涌入她的视野，巨大的日轮已经触及了海面，数千万吨的海水在他脚下缓缓的荡漾，湖水在黑色的山崖下碎成白色的水花，风吹着数万公顷的森林，傍晚的树林远看也像海，苍红色…",
+      "Favlists": [
+        {
+          "UrlToken": 794313753,
+          "Title": "我的收藏",
+          "Url": "https://www.zhihu.com/collection/794313753"
+        }
+      ],
+      "Author": {
+        "Name": "GYJ",
+        "UrlToken": "gyj-20-27",
+        "Url": "https://www.zhihu.com/people/gyj-20-27",
+        "Gender": 0,
+        "Headline": ""
+      }
+    },
+    {
+      "ContentType": "answer",
+      "Url": "https://www.zhihu.com/answer/1907554061957464222",
+      "CreatedAt": 1747576329,
+      "FavTime": 1770452323,
+      "LikeCount": 123,
+      "CommentCount": 6,
+      "FavoriteCount": 124,
+      "Title": "如何评价 2025 年丘成桐大学生数学竞赛？",
+      "Summary": "研究生没有丘赛的参赛资格，而又没有很多能参加的数学比赛，有个比赛举办到“主”要的届次就凉了．于是只能通过看看丘赛题来回忆青春． 看了一下计算部分，有人说身边大多数同学都只做出1、2、3、6题，我觉得已经很不错了，因为这张卷子综合性比较强，计算量比较大． 第 1 题就是要在零点 [公式] 处作 Taylor 展开，给出误差 [公式] 和 [公式] 的关系式，然后比较 [公式] 项、 [公式] 项系数，得出 [公式] 的值．计算量比较大，且容…",
+      "Favlists": [
+        {
+          "UrlToken": 794313753,
+          "Title": "我的收藏",
+          "Url": "https://www.zhihu.com/collection/794313753"
+        }
+      ],
+      "Author": {
+        "Name": "Fiddie",
+        "UrlToken": "RealFiddie",
+        "Url": "https://www.zhihu.com/people/RealFiddie",
+        "Gender": 0,
+        "Headline": "Yes!"
+      }
+    },
+    {
+      "ContentType": "article",
+      "Url": "https://zhuanlan.zhihu.com/p/28055381574",
+      "CreatedAt": 1741142674,
+      "FavTime": 1769571335,
+      "LikeCount": 10,
+      "CommentCount": 0,
+      "FavoriteCount": 10,
+      "Title": "第十六届全国大学生数学竞赛数学类低年级组ode押题.",
+      "Summary": "下面的问题来自我们第十六届全国大学生数学竞赛数学类低年级组决赛专训.题目 考虑微分方程 [公式] 证明:方程 [公式] 的解的存在区间为 [公式] .对任何 [公式] , 存在唯一的 [公式] 使得方程 [公式] 的解满足 [公式] .证明第一问 设最大存在区间为 [公式]",
+      "Favlists": [
+        {
+          "UrlToken": 794313753,
+          "Title": "我的收藏",
+          "Url": "https://www.zhihu.com/collection/794313753"
+        }
+      ],
+      "Author": {
+        "Name": "清疏数学",
+        "UrlToken": "wo-zheng-zai-56",
+        "Url": "https://www.zhihu.com/people/wo-zheng-zai-56",
+        "Gender": 1,
+        "Headline": "基础数学民工"
+      }
+    },
+    {
+      "ContentType": "answer",
+      "Url": "https://www.zhihu.com/answer/1984399258271625752",
+      "CreatedAt": 1765897651,
+      "FavTime": 1767171789,
+      "LikeCount": 71,
+      "CommentCount": 2,
+      "FavoriteCount": 83,
+      "Title": "A和B是两个方阵，A^2+B^2=2AB，如何证明A和B的行列式相等呢？",
+      "Summary": "[图片] 同样的标准型+分块矩阵+数学归纳法的打法做这种矩阵方程限制然后推导A,B某种矩阵关系的问题。 [公式] 证明 [公式] 令 [公式] 由 [公式] 移项得 [公式] [公式] 若 [公式] 可逆，由 (★) 得 [公式] 所以 [公式] 与 [公式] 相似，特征多项式相同，当然 [公式] 若 [公式] 不可逆，就在核空间取向量。也就是考虑标注型，让原…",
+      "Favlists": [
+        {
+          "UrlToken": 794313753,
+          "Title": "我的收藏",
+          "Url": "https://www.zhihu.com/collection/794313753"
+        }
+      ],
+      "Author": {
+        "Name": "Equation",
+        "UrlToken": "wo-ai-shu-xue-92-78",
+        "Url": "https://www.zhihu.com/people/wo-ai-shu-xue-92-78",
+        "Gender": 1,
+        "Headline": "计算即真理，算法即证明 讨论群：713299211"
+      }
+    },
+    {
+      "ContentType": "article",
+      "Url": "https://zhuanlan.zhihu.com/p/1973784201837957185",
+      "CreatedAt": 1763366960,
+      "FavTime": 1763658407,
+      "LikeCount": 38,
+      "CommentCount": 4,
+      "FavoriteCount": 136,
+      "Title": "生僻但美到窒息的惊艳诗词~",
+      "Summary": "[图片] 01 一微尘里三千界，半刹那间八万春。 宋代·释心月《沈兼签记梦》 释义：在微尘之中有三千个世界，在短暂的瞬间中有八万个春天。历史上有关释心月的介绍很少，这个每句诗都渗透着禅意的作者，永远像个局外人，冷眼观看着世事羁绊。 他不沉沦，但却享受着这尘世喧嚣。微尘之界，我们犹如尘埃一颗。 与李商隐的“世界微尘里，吾宁爱与憎。”不同，释心月这句是看透了一切，即仍然享受这世间的美景。 他清醒的活在当下，享受该享受…",
+      "Favlists": [
+        {
+          "UrlToken": 794313753,
+          "Title": "我的收藏",
+          "Url": "https://www.zhihu.com/collection/794313753"
+        }
+      ],
+      "Author": {
+        "Name": "唯问",
+        "UrlToken": "24-5-46-12-42",
+        "Url": "https://www.zhihu.com/people/24-5-46-12-42",
+        "Gender": 1,
+        "Headline": "我们一起诗意栖息"
+      }
+    },
+    {
+      "ContentType": "answer",
+      "Url": "https://www.zhihu.com/answer/1934343927248455056",
+      "CreatedAt": 1753963530,
+      "FavTime": 1759933448,
+      "LikeCount": 13,
+      "CommentCount": 1,
+      "FavoriteCount": 16,
+      "Title": "能否和我讲一讲行列式导数的知识?",
+      "Summary": "今天研究 TACA 才发现这个结论可作非平凡的推广。 定理 设 [公式] 是一个 [公式] 可微矩阵函数（即每个元素 [公式] 均为 [公式] 的可微函数），则行列式 [公式] 对 [公式] 的导数为： [公式] 其中： [公式] 是 [公式] 的伴随矩阵， [公式] 是 [公式] 的导数矩阵（元素为 [公式] ）， [公式]",
+      "Favlists": [
+        {
+          "UrlToken": 794313753,
+          "Title": "我的收藏",
+          "Url": "https://www.zhihu.com/collection/794313753"
+        }
+      ],
+      "Author": {
+        "Name": "方汝见之",
+        "UrlToken": "dong-jun-zhe-3",
+        "Url": "https://www.zhihu.com/people/dong-jun-zhe-3",
+        "Gender": 2,
+        "Headline": "WELCOME TO THE NEW ERA!"
+      }
+    },
+    {
+      "ContentType": "article",
+      "Url": "https://zhuanlan.zhihu.com/p/85051488",
+      "CreatedAt": 1570091775,
+      "FavTime": 1756487881,
+      "LikeCount": 30,
+      "CommentCount": 4,
+      "FavoriteCount": 50,
+      "Title": "第四届全国大学生数学竞赛初赛（专业组）",
+      "Summary": "前言第四届我细说的有第一题、第五题和第六题。 其中第一题中，涉及到求旋转体问题的通用方法。借助参数方程，先把低维情形下的方程解出来，然后延拓出去，进行旋转。视问题需要考虑要不要改变旋转轴。 第三题，我额外给出了一种思路，该思路是第五届初赛的第四题的结论。 第二题，第四题，第七题，就常规计算、代定义即可。 第五题牵扯到了Cauchy乘积定理，实际上是一个序列的卷积变换。此外又额外引申了6个问题。 第六题的方法…",
+      "Favlists": [
+        {
+          "UrlToken": 794313753,
+          "Title": "我的收藏",
+          "Url": "https://www.zhihu.com/collection/794313753"
+        }
+      ],
+      "Author": {
+        "Name": "Alepha E",
+        "UrlToken": "lu-yi-50-92",
+        "Url": "https://www.zhihu.com/people/lu-yi-50-92",
+        "Gender": 2,
+        "Headline": ""
+      }
+    },
+    {
+      "ContentType": "answer",
+      "Url": "https://www.zhihu.com/answer/3593959210",
+      "CreatedAt": 1723605815,
+      "FavTime": 1755534879,
+      "LikeCount": 25,
+      "CommentCount": 0,
+      "FavoriteCount": 22,
+      "Title": "如何评价第十五届全国大学生数学竞赛初赛非数学类题目？",
+      "Summary": "桀桀桀！最近整理排版CMC非数类的意外发现 [文章: 第1-15届中国大学生数学竞赛（非数学类）试题参考答案及评分标准] 看咱的资料还是有用的！ [文章: 利用微分方程法构造辅助函数的进一步探索] 刺激！继续来呀！来个新的咱继续研究！ [图片] 这算是压中嘛？第十五届全国大学生数学竞赛初赛(非数B类)第五题！ [图片] 学会了吗？我不信你看了我这篇还构造不出来！",
+      "Favlists": [
+        {
+          "UrlToken": 794313753,
+          "Title": "我的收藏",
+          "Url": "https://www.zhihu.com/collection/794313753"
+        }
+      ],
+      "Author": {
+        "Name": "零蛋大",
+        "UrlToken": "tangshaodong",
+        "Url": "https://www.zhihu.com/people/tangshaodong",
+        "Gender": 2,
+        "Headline": "我的《微积分笔记》最终版见我的文章"
+      }
+    },
+    {
+      "ContentType": "article",
+      "Url": "https://zhuanlan.zhihu.com/p/717440138",
+      "CreatedAt": 1725011331,
+      "FavTime": 1754403038,
+      "LikeCount": 171,
+      "CommentCount": 13,
+      "FavoriteCount": 305,
+      "Title": "线性代数中的暴力美学",
+      "Summary": "这是一道很经典的线性代数题目（但其实我曾经只是看见过这个结论，并没有看到过答案，也没有动手尝试去证明过，今天是第一次做），昨天竞赛班刚好有人在问，并且表示标答看不懂？？？索性在此分析并讲解一下： 为什么文章标题叫做“线性代数中的暴力美学”呢？因为做这道题你必须暴力，而且还不能无脑暴力。换句话说就是结合一些技巧可以减小运算量同时便于观察出问题的结构，但即便如此仍然比较难算，而如果直接无脑硬上，则暴…",
+      "Favlists": [
+        {
+          "UrlToken": 794313753,
+          "Title": "我的收藏",
+          "Url": "https://www.zhihu.com/collection/794313753"
+        }
+      ],
+      "Author": {
+        "Name": "柯西永远爱你",
+        "UrlToken": "ke-xi-yong-yuan-ai-ni",
+        "Url": "https://www.zhihu.com/people/ke-xi-yong-yuan-ai-ni",
+        "Gender": 2,
+        "Headline": "CMC数类16届决赛全国第一/三届省第一/数海钓鱼/报班教你"
+      }
+    },
+    {
+      "ContentType": "answer",
+      "Url": "https://www.zhihu.com/answer/1492261319",
+      "CreatedAt": 1601005709,
+      "FavTime": 1754377177,
+      "LikeCount": 520,
+      "CommentCount": 15,
+      "FavoriteCount": 915,
+      "Title": "哈密尔顿-凯莱定理的本质是什么？",
+      "Summary": "就聊聊很久以前看文章学到的一个技巧好了，感觉世界上没有几个人知道。 Cayley-Hamilton定理： V是域k上有限维线性空间，那么对任何线性变换 A: V -> V，n=dimV，我们有 [公式] ———————————————————————————————————————— 那自然可以问一个问题：对一般的自然数n [公式] 有什么关系或者说统一的…",
+      "Favlists": [
+        {
+          "UrlToken": 794313753,
+          "Title": "我的收藏",
+          "Url": "https://www.zhihu.com/collection/794313753"
+        }
+      ],
+      "Author": {
+        "Name": "三千香蕉三千",
+        "UrlToken": "banana3000",
+        "Url": "https://www.zhihu.com/people/banana3000",
+        "Gender": 0,
+        "Headline": "what to know, what to do"
+      }
+    },
+    {
+      "ContentType": "answer",
+      "Url": "https://www.zhihu.com/answer/1927760565486466057",
+      "CreatedAt": 1752393934,
+      "FavTime": 1754322583,
+      "LikeCount": 324,
+      "CommentCount": 22,
+      "FavoriteCount": 310,
+      "Title": "数学中，你最服的技巧是哪个？",
+      "Summary": "陶哲轩的那本加性组合里有这样一个技巧，大概是这样的： 已经得到，左边≤C•右边，C是一个大于1的常数，现在想把C改进为1。我记得是关于图的，把图做n次乘积，再证明可以把n提出了，就得到了左边≤C^1/n•右边，于是C可以改进为1。",
+      "Favlists": [
+        {
+          "UrlToken": 794313753,
+          "Title": "我的收藏",
+          "Url": "https://www.zhihu.com/collection/794313753"
+        }
+      ],
+      "Author": {
+        "Name": "Mortis",
+        "UrlToken": "46-2-36-38-23",
+        "Url": "https://www.zhihu.com/people/46-2-36-38-23",
+        "Gender": 1,
+        "Headline": "saki，联通"
+      }
+    },
+    {
+      "ContentType": "article",
+      "Url": "https://zhuanlan.zhihu.com/p/714804244",
+      "CreatedAt": 1723774076,
+      "FavTime": 1753777274,
+      "LikeCount": 600,
+      "CommentCount": 11,
+      "FavoriteCount": 2748,
+      "Title": "北京大学数学课程相关视频",
+      "Summary": "今天无意中发现了一个网站：北京大学教学媒体资源服务平台 https://resource.pku.edu.cn/index.php?r=course%2Findex ，发现里面有一些精品的课程，于是将里面的数学相关可成整理出来。 [图片] 北大精品课离散数学（2013） 屈婉玲课程链接： https://resource.pku.edu.cn/index.php?r=course/detail&id=295 [图片] 院系重点课偏微分方程 楚健春课程链接： https://resource.pku.edu.cn/index.php?r=course/detail&id=403 内容简介： Introduction to partial differential equations（楚健春）This course is an introduction to the study of second order elliptic…",
+      "Favlists": [
+        {
+          "UrlToken": 794313753,
+          "Title": "我的收藏",
+          "Url": "https://www.zhihu.com/collection/794313753"
+        }
+      ],
+      "Author": {
+        "Name": "流风不冻",
+        "UrlToken": "mse-office",
+        "Url": "https://www.zhihu.com/people/mse-office",
+        "Gender": 2,
+        "Headline": "数学&amp;小米&amp;编程"
+      }
+    },
+    {
+      "ContentType": "answer",
+      "Url": "https://www.zhihu.com/answer/1907976471391242148",
+      "CreatedAt": 1747677039,
+      "FavTime": 1752338812,
+      "LikeCount": 90,
+      "CommentCount": 9,
+      "FavoriteCount": 296,
+      "Title": "丘赛代数方向有什么推荐的书看和题目写一写?",
+      "Summary": "更新：2026-05-17又学了一年数学，很多去年提到的书 自己去看了以后发现挺难蚌的，决定更新一下书单（原回答保留在最下方） 抽象代数《代数学引论》.聂灵沼.丁石孙简评：中文教材里最经典的一本，正文很紧凑，习题质量很好，网络上可以找到全套答案。本书可以作为入门抽象代数的标准答案。 《代数学（三）》.邓少强.李方.冯荣权.常亮《代数学（四）》.邓少强.李方.冯荣权.常亮简评：我对101系列的所有好印象是从这开始的，正文可…",
+      "Favlists": [
+        {
+          "UrlToken": 794313753,
+          "Title": "我的收藏",
+          "Url": "https://www.zhihu.com/collection/794313753"
+        }
+      ],
+      "Author": {
+        "Name": "神秘糕手零零子",
+        "UrlToken": "ling-yu-78-19",
+        "Url": "https://www.zhihu.com/people/ling-yu-78-19",
+        "Gender": 0,
+        "Headline": "数学系本科在读，数学之外爱好广泛，但样样不精"
+      }
+    },
+    {
+      "ContentType": "article",
+      "Url": "https://zhuanlan.zhihu.com/p/1921674749173568426",
+      "CreatedAt": 1751172678,
+      "FavTime": 1752338359,
+      "LikeCount": 13,
+      "CommentCount": 0,
+      "FavoriteCount": 20,
+      "Title": "代数数论笔记（一）——高斯整数",
+      "Summary": "最近正在学习代数数论，用的是Neukrich的《Algebraic Number Theory》。为了防止自己遗忘，我决定写一篇笔记用于检验自己的理解并方便复习。 第一篇笔记对应于第一章第一节，作者给的标题是Gaussian Intergers（高斯整数）.本节的主题是证明如下定理: 定理一：任何一个模4余1的素数都可以写为两个整数的平方之和,亦即 [公式] 事实上，其逆定理很容易证明（此处要求素数大于2），…",
+      "Favlists": [
+        {
+          "UrlToken": 794313753,
+          "Title": "我的收藏",
+          "Url": "https://www.zhihu.com/collection/794313753"
+        }
+      ],
+      "Author": {
+        "Name": "梦里流星",
+        "UrlToken": "16-25-27-13-43",
+        "Url": "https://www.zhihu.com/people/16-25-27-13-43",
+        "Gender": 2,
+        "Headline": ""
+      }
+    },
+    {
+      "ContentType": "answer",
+      "Url": "https://www.zhihu.com/answer/3177799199",
+      "CreatedAt": 1692708642,
+      "FavTime": 1752202884,
+      "LikeCount": 153,
+      "CommentCount": 21,
+      "FavoriteCount": 363,
+      "Title": "国内大学数学系都上什么课程？",
+      "Summary": "又要开学了，值得好好回忆一下。绝大部分人名指代书名。 大一，大二 数分1,2,3 陈纪修。这期间还看过的包括谢惠民、裴礼文、Rudin. 高代1,2 复旦绿皮书。习题集自然是白皮书。 解析几何 傅老师自己写的。没做题，除了他的作业。 大学物理1,2 某一套书，忘记了。 抽象代数 杨劲根。烂书一个，我记得Galois理论那一章有个命题的证明是错的，是我室友问我才注意到的，我当时学抽代靠的主要是大一时候看的Artin, 还有复旦绿皮的那个…",
+      "Favlists": [
+        {
+          "UrlToken": 794313753,
+          "Title": "我的收藏",
+          "Url": "https://www.zhihu.com/collection/794313753"
+        }
+      ],
+      "Author": {
+        "Name": "afsd",
+        "UrlToken": "afsd-31",
+        "Url": "https://www.zhihu.com/people/afsd-31",
+        "Gender": 2,
+        "Headline": "我是哪来的菜鸡……"
+      }
+    },
+    {
+      "ContentType": "article",
+      "Url": "https://zhuanlan.zhihu.com/p/636291803",
+      "CreatedAt": 1686478352,
+      "FavTime": 1750664640,
+      "LikeCount": 22,
+      "CommentCount": 0,
+      "FavoriteCount": 31,
+      "Title": "丁南庆、刘公祥、纪庆忠、郭学军《高等代数》第八章第8节习题",
+      "Summary": "前前后后做了差不多一周，就当复习了 个人觉得值得一写的题有 2、QR分解的证明 5、与正交矩阵的一个充要条件（复旦绿皮定理9.4.4）类似 17、18、19: 可同时合同对角化问题 36、37: 相似后的正交相似判别 38、一个重要的定理 39、一个更重要的定理 41、有点意思的一个题 42、一个重要的定理 43、Schur定理的证明 45、也是同时化问题 46、47、48: 重新推导一遍酉矩阵的情形，个人认为应该比上面都要重要 [图片] [图片] [图片] [图片] [图片] [图片] [图片] [图片] [图片] [图片] [图片] [图片] [图片] [图片] [图片] [图片] [图片] [图片] [图片] [图片] [图片] [图片] [图片] [图片] [图片] [图片] [图片] [图片] …",
+      "Favlists": [
+        {
+          "UrlToken": 794313753,
+          "Title": "我的收藏",
+          "Url": "https://www.zhihu.com/collection/794313753"
+        }
+      ]
+    },
+    {
+      "ContentType": "article",
+      "Url": "https://zhuanlan.zhihu.com/p/1918678698686653330",
+      "CreatedAt": 1750240049,
+      "FavTime": 1750601446,
+      "LikeCount": 36,
+      "CommentCount": 4,
+      "FavoriteCount": 96,
+      "Title": "什么年代了还在用 Cholesky 分解——答清疏数学 6.18 的问",
+      "Summary": "问题：已知 [公式] 均为半正定方阵，试证明 [公式] 可对角化。 引理 1：对于可对角化的矩阵 [公式] ， [公式] 。事实上，上述引理成立的条件是特征值为 [公式] 的 Jordan 块均不超过 [公式] 阶。对于一般的矩阵，我们仍有 [公式] 。详见 Linear Algebra Done Right 8.1 节。特别地，对称矩阵均可对角化，上述引理成立。 引理 2： 对于（半）正定矩阵 [公式] 的平方根 [公式]",
+      "Favlists": [
+        {
+          "UrlToken": 794313753,
+          "Title": "我的收藏",
+          "Url": "https://www.zhihu.com/collection/794313753"
+        }
+      ],
+      "Author": {
+        "Name": "方汝见之",
+        "UrlToken": "dong-jun-zhe-3",
+        "Url": "https://www.zhihu.com/people/dong-jun-zhe-3",
+        "Gender": 2,
+        "Headline": "WELCOME TO THE NEW ERA!"
+      }
+    },
+    {
+      "ContentType": "answer",
+      "Url": "https://www.zhihu.com/answer/1751301069",
+      "CreatedAt": 1614331466,
+      "FavTime": 1750092666,
+      "LikeCount": 24,
+      "CommentCount": 1,
+      "FavoriteCount": 25,
+      "Title": "如何证明希尔伯特矩阵的逆矩阵的所有元素之和为n^2?",
+      "Summary": "需要用到这个 Sum of Elements in Inverse of Cauchy Matrix 令 [公式] 所以 [公式] 补一个希尔伯特逆矩阵元素通项 [公式]",
+      "Favlists": [
+        {
+          "UrlToken": 794313753,
+          "Title": "我的收藏",
+          "Url": "https://www.zhihu.com/collection/794313753"
+        }
+      ],
+      "Author": {
+        "Name": "三千弱水",
+        "UrlToken": "math1024",
+        "Url": "https://www.zhihu.com/people/math1024",
+        "Gender": 2,
+        "Headline": "公众号：三千弱水杂谈"
+      }
+    },
+    {
+      "ContentType": "answer",
+      "Url": "https://www.zhihu.com/answer/1751778251",
+      "CreatedAt": 1614350508,
+      "FavTime": 1750092632,
+      "LikeCount": 30,
+      "CommentCount": 3,
+      "FavoriteCount": 25,
+      "Title": "如何证明希尔伯特矩阵的逆矩阵的所有元素之和为n^2?",
+      "Summary": "[图片]",
+      "Favlists": [
+        {
+          "UrlToken": 794313753,
+          "Title": "我的收藏",
+          "Url": "https://www.zhihu.com/collection/794313753"
+        }
+      ],
+      "Author": {
+        "Name": "雨雪晴",
+        "UrlToken": "luo-yuan-yuan-72-48",
+        "Url": "https://www.zhihu.com/people/luo-yuan-yuan-72-48",
+        "Gender": 1,
+        "Headline": "润物细无声"
+      }
+    },
+    {
+      "ContentType": "article",
+      "Url": "https://zhuanlan.zhihu.com/p/3721167104",
+      "CreatedAt": 1730377842,
+      "FavTime": 1749826724,
+      "LikeCount": 124,
+      "CommentCount": 2,
+      "FavoriteCount": 268,
+      "Title": "Laplace方法",
+      "Summary": "前两天，我们讨论了如何求解一类含有定积分的极限问题。一种方法是找“最大值点”或者“破坏点”，然后人工拆分区间将“破坏点”分隔，然后分段计算每个极限。 [文章: 分段估计——解决一类含有定积分极限题的有效方法] 控制收敛定理，Laplace方法，拟合法也是解决一类含有定积分极限的有效方法。我们今天学习一下Laplace方法。 Laplace方法是极限积分极限的一种有效方法，其本质是找“阶的集中点”，也即当 [公式] 趋于无穷大时，到…",
+      "Favlists": [
+        {
+          "UrlToken": 794313753,
+          "Title": "我的收藏",
+          "Url": "https://www.zhihu.com/collection/794313753"
+        }
+      ],
+      "Author": {
+        "Name": "卢鹏博",
+        "UrlToken": "6bdhky",
+        "Url": "https://www.zhihu.com/people/6bdhky",
+        "Gender": 2,
+        "Headline": "数学系学生"
+      }
+    },
+    {
+      "ContentType": "answer",
+      "Url": "https://www.zhihu.com/answer/952968558",
+      "CreatedAt": 1577456853,
+      "FavTime": 1749264752,
+      "LikeCount": 112,
+      "CommentCount": 5,
+      "FavoriteCount": 174,
+      "Title": "这道数学分析的题目怎么做？",
+      "Summary": "这是无穷连根式（Nested Radical）敛散性的 Herschfeld判别法（Herschfeld's Convergence Theorem）。先证明必要性。设若 [公式] 收敛，则将有 [公式] 因为 [公式] 有界，则 [公式] 也有界，取对数后也就相当于 [公式] 有界，这就证得了必要性。再证明充分性。设若 [公式]",
+      "Favlists": [
+        {
+          "UrlToken": 794313753,
+          "Title": "我的收藏",
+          "Url": "https://www.zhihu.com/collection/794313753"
+        }
+      ],
+      "Author": {
+        "Name": "予一人",
+        "UrlToken": "yu-yiren-62",
+        "Url": "https://www.zhihu.com/people/yu-yiren-62",
+        "Gender": 2,
+        "Headline": "杂学旁收的废物"
+      }
+    },
+    {
+      "ContentType": "answer",
+      "Url": "https://www.zhihu.com/answer/1912640910610642488",
+      "CreatedAt": 1748789128,
+      "FavTime": 1748875331,
+      "LikeCount": 1328,
+      "CommentCount": 24,
+      "FavoriteCount": 1854,
+      "Title": "穿长筒靴的大学生多吗？",
+      "Summary": "长筒靴不是很常见么？不过在学校里的时候，有时候懒的穿的很麻烦，随便蹬上一双鞋就出门，除非要正式一点出门，长靴其实也是比较能搭配。 但是女生不能只看外表，可以打扮性感，可以短裙热裤吊带抹胸超短裙长靴短靴高跟鞋，但也要让自己多读书，读读历史和政治，读读二十四史和全唐诗，读点国际新闻，不要只看明星综艺影视剧，也看看孔子孟子孙中山，李白杜甫苏东坡，读读职场畅销书，也看看贺知章王昌龄，颜真卿柳公权。追一追B…",
+      "Favlists": [
+        {
+          "UrlToken": 794313753,
+          "Title": "我的收藏",
+          "Url": "https://www.zhihu.com/collection/794313753"
+        }
+      ],
+      "Author": {
+        "Name": "厉害的潇潇",
+        "UrlToken": "ju-zi-83-79-12",
+        "Url": "https://www.zhihu.com/people/ju-zi-83-79-12",
+        "Gender": 1,
+        "Headline": "ENFJ；国际法学；有男友拒搭讪；财富自由，因为爸妈财富自由"
+      }
+    },
+    {
+      "ContentType": "article",
+      "Url": "https://zhuanlan.zhihu.com/p/105326895",
+      "CreatedAt": 1621449576,
+      "FavTime": 1748623174,
+      "LikeCount": 285,
+      "CommentCount": 7,
+      "FavoriteCount": 656,
+      "Title": "线性代数 | 李雅普诺夫方程",
+      "Summary": "李雅普诺夫方程 (Lyapunov equation) 作为一种著名的矩阵方程为人所熟知，其在控制理论以及众多工程领域有着极为广泛的应用，今天，我们将从数值计算和线性代数的角度来讨论李雅普诺夫方程的一系列求解方法。1 初识李雅普诺夫方程在线性代数中，有这样一种矩阵方程：它是由几个方阵组成，若令其中的两个方阵为 [公式] ，则我们的目标是求解如下方程 [公式]",
+      "Favlists": [
+        {
+          "UrlToken": 794313753,
+          "Title": "我的收藏",
+          "Url": "https://www.zhihu.com/collection/794313753"
+        }
+      ],
+      "Author": {
+        "Name": "Xinyu Chen",
+        "UrlToken": "its312",
+        "Url": "https://www.zhihu.com/people/its312",
+        "Gender": 2,
+        "Headline": "蒙特利尔大学博士"
+      }
+    },
+    {
+      "ContentType": "article",
+      "Url": "https://zhuanlan.zhihu.com/p/532891058",
+      "CreatedAt": 1656557109,
+      "FavTime": 1748503098,
+      "LikeCount": 53,
+      "CommentCount": 0,
+      "FavoriteCount": 115,
+      "Title": "Poisson方程|边值问题：唯一性",
+      "Summary": "本文研究Poisson方程边值问题解的唯一性。 第一边值问题（Dirichlet问题）Dirichlet内问题我们研究方程 [公式] 要说明该边值问题解唯一，只要说明下面的方程只有零解： [公式] 请注意 极值原理：（极值原理）对非常数调和函数 [公式] ，它在区域 [公式] …",
+      "Favlists": [
+        {
+          "UrlToken": 794313753,
+          "Title": "我的收藏",
+          "Url": "https://www.zhihu.com/collection/794313753"
+        }
+      ],
+      "Author": {
+        "Name": "sea88sea",
+        "UrlToken": "sea88sea",
+        "Url": "https://www.zhihu.com/people/sea88sea",
+        "Gender": 0,
+        "Headline": "给智慧袪魅的时刻到了。"
+      }
+    },
+    {
+      "ContentType": "article",
+      "Url": "https://zhuanlan.zhihu.com/p/80952693",
+      "CreatedAt": 1567530294,
+      "FavTime": 1748051776,
+      "LikeCount": 274,
+      "CommentCount": 54,
+      "FavoriteCount": 460,
+      "Title": "非负矩阵之Perron-Frobenius定理",
+      "Summary": "[文章: 矩阵论记号约定] 非负矩阵的Collatz-Wielandt公式设 [公式] 适合 [公式] ，此时称 [公式] 为非负矩阵。[谱半径的单调性] 若 [公式] 满足 [公式] ，则谱半径之间有不等式 [公式] 。 证明：任取 [公式] ，有 [公式]",
+      "Favlists": [
+        {
+          "UrlToken": 794313753,
+          "Title": "我的收藏",
+          "Url": "https://www.zhihu.com/collection/794313753"
+        }
+      ],
+      "Author": {
+        "Name": "纯粹",
+        "UrlToken": "chun-cui-8-18",
+        "Url": "https://www.zhihu.com/people/chun-cui-8-18",
+        "Gender": 0,
+        "Headline": "默而识之 敬而远之"
+      }
+    },
+    {
+      "ContentType": "article",
+      "Url": "https://zhuanlan.zhihu.com/p/414155646",
+      "CreatedAt": 1632727431,
+      "FavTime": 1743125062,
+      "LikeCount": 1279,
+      "CommentCount": 45,
+      "FavoriteCount": 3265,
+      "Title": "降维打击——不等式中的黑魔法",
+      "Summary": "注：本文参考但不限于《Problems from the book》，为了更好地阅读本文章，您需要且仅需要 知道定积分的基本定义对初等不等式有所兴趣认真聆听⑨老师的讲解那么，⑨のさんすう教室はじまるよー! 一、引入数学竞赛圈子里流传着这样一个故事。冷岗松询问韦东奕一道题目的做法，而韦东奕只是看了看，就说：“只需证左边的项非负即可。”据冷岗松的描述（似乎在新星网的一篇文章中有提到）即便是如此简单的一句话，也让他思考了整整…",
+      "Favlists": [
+        {
+          "UrlToken": 794313753,
+          "Title": "我的收藏",
+          "Url": "https://www.zhihu.com/collection/794313753"
+        }
+      ],
+      "Author": {
+        "Name": "天才琪露诺",
+        "UrlToken": "nico233",
+        "Url": "https://www.zhihu.com/people/nico233",
+        "Gender": 1,
+        "Headline": "琪露诺的算术教室因为双减倒闭了……"
+      }
+    },
+    {
+      "ContentType": "article",
+      "Url": "https://zhuanlan.zhihu.com/p/694885171",
+      "CreatedAt": 1714301662,
+      "FavTime": 1742226048,
+      "LikeCount": 118,
+      "CommentCount": 4,
+      "FavoriteCount": 222,
+      "Title": "Baire纲的证明及其简单应用(基础数分版本）",
+      "Summary": "本文旨在介绍baire在数学分析框架下的一些用途,主要分为定理的证明、应用举例、总结三个部分。 一、Baire纲定理的证明(Baire). 如果 [公式] 是一列没有内点的闭集, 则它们的并集 [公式] 也没有内点.Proof: 反证法: 若 [公式] 有内点, 记其为 [公式] , 则存在 [公式]",
+      "Favlists": [
+        {
+          "UrlToken": 794313753,
+          "Title": "我的收藏",
+          "Url": "https://www.zhihu.com/collection/794313753"
+        }
+      ],
+      "Author": {
+        "Name": "居中",
+        "UrlToken": "77-23-81-36",
+        "Url": "https://www.zhihu.com/people/77-23-81-36",
+        "Gender": 1,
+        "Headline": "不懂分析"
+      }
+    },
+    {
+      "ContentType": "article",
+      "Url": "https://zhuanlan.zhihu.com/p/15293296066",
+      "CreatedAt": 1735449809,
+      "FavTime": 1741999602,
+      "LikeCount": 12,
+      "CommentCount": 0,
+      "FavoriteCount": 18,
+      "Title": "涟水中等专业学校 2023-2024 学年度第二学期第三次月考试卷【钓鱼题】",
+      "Summary": "《数学》试卷（时间：80分钟 满分：120分） 让o1跑一下这个现成的钓鱼题。 一、填空题（共 8 小题，每题 8 分）1. 不能表示为两个素数之和的大于 2 的最小偶数为 [公式] 。2. 不能表示为 [公式] ( [公式] ) 形式的最大素数为 [公式] 。3. 在平面上任给 [公式] ( [公式] ) 个点 [公式] 、 [公式] 、 [公式] 、 [公式] ，其中任意两点间的距离不超过 1，则 [公式] …",
+      "Favlists": [
+        {
+          "UrlToken": 794313753,
+          "Title": "我的收藏",
+          "Url": "https://www.zhihu.com/collection/794313753"
+        }
+      ],
+      "Author": {
+        "Name": "在下小白",
+        "UrlToken": "wo-shi-xiao-bai-24-84",
+        "Url": "https://www.zhihu.com/people/wo-shi-xiao-bai-24-84",
+        "Gender": 2,
+        "Headline": "归终知来，狌狌知往。"
+      }
+    },
+    {
+      "ContentType": "article",
+      "Url": "https://zhuanlan.zhihu.com/p/695085051",
+      "CreatedAt": 1714304271,
+      "FavTime": 1741828413,
+      "LikeCount": 29,
+      "CommentCount": 3,
+      "FavoriteCount": 36,
+      "Title": "一道有趣的积分不等式问题.",
+      "Summary": "本题来自竞赛班学员问题,据说是其学校的数学节活动题.题目 设 [公式] 满足 [公式] , 证明 [公式] 证明 假定 [公式]",
+      "Favlists": [
+        {
+          "UrlToken": 794313753,
+          "Title": "我的收藏",
+          "Url": "https://www.zhihu.com/collection/794313753"
+        }
+      ],
+      "Author": {
+        "Name": "清疏数学",
+        "UrlToken": "wo-zheng-zai-56",
+        "Url": "https://www.zhihu.com/people/wo-zheng-zai-56",
+        "Gender": 1,
+        "Headline": "基础数学民工"
+      }
+    },
+    {
+      "ContentType": "article",
+      "Url": "https://zhuanlan.zhihu.com/p/404620521",
+      "CreatedAt": 1630165076,
+      "FavTime": 1741775738,
+      "LikeCount": 31,
+      "CommentCount": 4,
+      "FavoriteCount": 35,
+      "Title": "一类Lagrange插值公式思想的应用",
+      "Summary": "仍然是话不多说，直接上图 [图片] [图片] [图片] [图片] [图片] 想到就写下来了，人也不算闲，大概发完文章知乎就又会被我删掉了，所以有些私信的确回不了QAQ 如果以后真的有闲下来的时间的话，我还是有很多想分享的东西的，当然不指望有多少人会看罢了。 总而言之，还是祝点进来的各位仁兄联赛都能平稳或超常发挥www",
+      "Favlists": [
+        {
+          "UrlToken": 794313753,
+          "Title": "我的收藏",
+          "Url": "https://www.zhihu.com/collection/794313753"
+        }
+      ],
+      "Author": {
+        "Name": "爱作死的闪闪君",
+        "UrlToken": "wang-yi-bin-83-27",
+        "Url": "https://www.zhihu.com/people/wang-yi-bin-83-27",
+        "Gender": 2,
+        "Headline": "北大数院，不知不觉也要博0了"
+      }
+    },
+    {
+      "ContentType": "article",
+      "Url": "https://zhuanlan.zhihu.com/p/693278606",
+      "CreatedAt": 1713449897,
+      "FavTime": 1741590189,
+      "LikeCount": 7,
+      "CommentCount": 5,
+      "FavoriteCount": 45,
+      "Title": "多项式不可约判别法:佩隆判别法、Osada判别法",
+      "Summary": "[图片] [图片]",
+      "Favlists": [
+        {
+          "UrlToken": 794313753,
+          "Title": "我的收藏",
+          "Url": "https://www.zhihu.com/collection/794313753"
+        }
+      ],
+      "Author": {
+        "Name": "王飞",
+        "UrlToken": "wang-fei-70-21-29",
+        "Url": "https://www.zhihu.com/people/wang-fei-70-21-29",
+        "Gender": 2,
+        "Headline": "数学系"
+      }
+    },
+    {
+      "ContentType": "article",
+      "Url": "https://zhuanlan.zhihu.com/p/138064866",
+      "CreatedAt": 1588566842,
+      "FavTime": 1741478943,
+      "LikeCount": 230,
+      "CommentCount": 10,
+      "FavoriteCount": 292,
+      "Title": "希尔伯特第十七问题与多项式优化",
+      "Summary": "本文源于知乎问题“ 目前优化界中，能对最高多少次的目标函数进行优化？”的回答。问题里的“次数”指的是多项式的次数。事实上，这个问题的本质是大卫·希尔伯特当年著名的23个问题的第17个的特殊版：给定一个多维多项式，在实数域上非负，是否可以写成有限个多项式的平方和？当然上面的问题乍看下好像跟优化没关系，我马上会解释。回开头的问题， 次数确实很关键，不过维数也同样关键。 一、一维多项式优化：凸优化（半正定规…",
+      "Favlists": [
+        {
+          "UrlToken": 794313753,
+          "Title": "我的收藏",
+          "Url": "https://www.zhihu.com/collection/794313753"
+        }
+      ],
+      "Author": {
+        "Name": "覃含章",
+        "UrlToken": "qinhanzhang",
+        "Url": "https://www.zhihu.com/people/qinhanzhang",
+        "Gender": 2,
+        "Headline": "一个摸鱼人。"
+      }
+    },
+    {
+      "ContentType": "article",
+      "Url": "https://zhuanlan.zhihu.com/p/17658577831",
+      "CreatedAt": 1736519351,
+      "FavTime": 1741310149,
+      "LikeCount": 186,
+      "CommentCount": 4,
+      "FavoriteCount": 585,
+      "Title": "32道积分不等式好题荟萃",
+      "Summary": "作者： @MathHub 这是微积分每日一题积分不等式好题荟萃，共有32题，试题下方的超链接为试题的详细解答，希望大家喜欢！ [公式]",
+      "Favlists": [
+        {
+          "UrlToken": 794313753,
+          "Title": "我的收藏",
+          "Url": "https://www.zhihu.com/collection/794313753"
+        }
+      ],
+      "Author": {
+        "Name": "MathHub",
+        "UrlToken": "haochizhang",
+        "Url": "https://www.zhihu.com/people/haochizhang",
+        "Gender": 2,
+        "Headline": "数学与科学爱好者，希望可以帮助到大家！"
+      }
+    },
+    {
+      "ContentType": "article",
+      "Url": "https://zhuanlan.zhihu.com/p/468453116",
+      "CreatedAt": 1645102271,
+      "FavTime": 1741276718,
+      "LikeCount": 130,
+      "CommentCount": 13,
+      "FavoriteCount": 179,
+      "Title": "对数积分(Weight 3-5)",
+      "Summary": "对数积分对数积分即有下列三种形式的积分： [公式] 其中 [公式] 均为自然数。 [公式]",
+      "Favlists": [
+        {
+          "UrlToken": 794313753,
+          "Title": "我的收藏",
+          "Url": "https://www.zhihu.com/collection/794313753"
+        }
+      ],
+      "Author": {
+        "Name": "Eliauk",
+        "UrlToken": "spec163",
+        "Url": "https://www.zhihu.com/people/spec163",
+        "Gender": 2,
+        "Headline": "closed de Rham, exact Stokes."
+      }
+    },
+    {
+      "ContentType": "answer",
+      "Url": "https://www.zhihu.com/answer/3617398542",
+      "CreatedAt": 1725591254,
+      "FavTime": 1741276662,
+      "LikeCount": 12,
+      "CommentCount": 3,
+      "FavoriteCount": 20,
+      "Title": "对数积分函数li(x)有什么应用？",
+      "Summary": "定义 [公式] 特殊值 [公式] [公式] [公式] 积分 [公式]",
+      "Favlists": [
+        {
+          "UrlToken": 794313753,
+          "Title": "我的收藏",
+          "Url": "https://www.zhihu.com/collection/794313753"
+        }
+      ],
+      "Author": {
+        "Name": "爱编程的Aten",
+        "UrlToken": "37-6-2-17-30",
+        "Url": "https://www.zhihu.com/people/37-6-2-17-30",
+        "Gender": 2,
+        "Headline": "有东西故意制造沙文民族主义，让工人不要去反资本家！"
+      }
+    },
+    {
+      "ContentType": "article",
+      "Url": "https://zhuanlan.zhihu.com/p/584416037",
+      "CreatedAt": 1668846742,
+      "FavTime": 1741250694,
+      "LikeCount": 98,
+      "CommentCount": 8,
+      "FavoriteCount": 133,
+      "Title": "n维欧氏空间中距离较少的集合",
+      "Summary": "简介这里想通过一个几何问题，介绍一下关于线性代数方法的一个常用的技巧 。 有一个很自然的问题是，如果想在 [公式] 维欧氏空间 [公式] 里取一个点集 [公式] 使得这个子集里的两两之间所产生的不同的距离种数比较少，但又希望这个点集里的点尽可能多，怎么操作会比较好？我们记这个最大值为 [公式] ，表示 [公式] 中满足诱导距离种类至多为 [公式] 的最大子集大小，其中 [公式] 是空间的维度， [公式] 是能容许的不同距离的数目。很显然，你…",
+      "Favlists": [
+        {
+          "UrlToken": 794313753,
+          "Title": "我的收藏",
+          "Url": "https://www.zhihu.com/collection/794313753"
+        }
+      ],
+      "Author": {
+        "Name": "零智上人",
+        "UrlToken": "xiaowoniubaba",
+        "Url": "https://www.zhihu.com/people/xiaowoniubaba",
+        "Gender": 2,
+        "Headline": ""
+      }
+    },
+    {
+      "ContentType": "article",
+      "Url": "https://zhuanlan.zhihu.com/p/5583404178",
+      "CreatedAt": 1730972603,
+      "FavTime": 1740536836,
+      "LikeCount": 48,
+      "CommentCount": 9,
+      "FavoriteCount": 95,
+      "Title": "解析首发！南开大学数学系2024级高等代数与解析几何1第一次月考答案与解析来啦",
+      "Summary": "试题纯享版传送门： [文章: 首发！南开大学数学系2024级高等代数与解析几何1第一次月考] 这套试卷其实很套路了，先看后三道题，第五道题在每年考试都会考一个类似的，第六道题在去年考了原题，第七道题和2022年的同期考试题一模一样。（其实这三道题都是书后习题。。。） 第一题和第四题我没见过，但是实在是贼拉地简单，第二题和第三题是上课讲的原题。（不同的授课老师存在差异，不是因为老师为了捞自己学生特意出的原题…",
+      "Favlists": [
+        {
+          "UrlToken": 794313753,
+          "Title": "我的收藏",
+          "Url": "https://www.zhihu.com/collection/794313753"
+        }
+      ],
+      "Author": {
+        "Name": "淘气的小杨桃",
+        "UrlToken": "2nd-70-17",
+        "Url": "https://www.zhihu.com/people/2nd-70-17",
+        "Gender": 2,
+        "Headline": "好一个美丽的数专生～"
+      }
+    },
+    {
+      "ContentType": "article",
+      "Url": "https://zhuanlan.zhihu.com/p/712852064",
+      "CreatedAt": 1723127200,
+      "FavTime": 1739701149,
+      "LikeCount": 259,
+      "CommentCount": 12,
+      "FavoriteCount": 600,
+      "Title": "【三角函数】关于某类三角恒等变换问题的思考",
+      "Summary": "引言我们在做某些三角函数求值的问题时，往往会遇到某些结构比较优美的式子，包括但不限于 [公式] . [公式] . [公式] 等各种奇形怪状的式子，那么这时普通的恒等变换思路便不奏效了，…",
+      "Favlists": [
+        {
+          "UrlToken": 794313753,
+          "Title": "我的收藏",
+          "Url": "https://www.zhihu.com/collection/794313753"
+        }
+      ],
+      "Author": {
+        "Name": "绯叶染",
+        "UrlToken": "3-14-10-74-13",
+        "Url": "https://www.zhihu.com/people/3-14-10-74-13",
+        "Gender": 1,
+        "Headline": "他山之石，可以攻玉"
+      }
+    },
+    {
+      "ContentType": "article",
+      "Url": "https://zhuanlan.zhihu.com/p/161360664",
+      "CreatedAt": 1596021074,
+      "FavTime": 1739700906,
+      "LikeCount": 5564,
+      "CommentCount": 291,
+      "FavoriteCount": 14338,
+      "Title": "数学装逼神器——高端三角恒等变换",
+      "Summary": "我们先来看几个式子： [公式] [公式] [公式] [公式] …… 我第一次见到它们时的反应是这样： [图片] [图片] 不过它们确确实实激发了我的好…",
+      "Favlists": [
+        {
+          "UrlToken": 794313753,
+          "Title": "我的收藏",
+          "Url": "https://www.zhihu.com/collection/794313753"
+        }
+      ],
+      "Author": {
+        "Name": "Aries",
+        "UrlToken": "myaries10000",
+        "Url": "https://www.zhihu.com/people/myaries10000",
+        "Gender": 2,
+        "Headline": ""
+      }
+    },
+    {
+      "ContentType": "article",
+      "Url": "https://zhuanlan.zhihu.com/p/150468571",
+      "CreatedAt": 1592989435,
+      "FavTime": 1739700883,
+      "LikeCount": 772,
+      "CommentCount": 47,
+      "FavoriteCount": 1965,
+      "Title": "六种方法计算拉普拉斯（Laplace）积分",
+      "Summary": "拉普拉斯积分有两个： [公式] [公式] 其中 [公式] 一、含参变量——微分方程令 [公式] 则 [公式]",
+      "Favlists": [
+        {
+          "UrlToken": 794313753,
+          "Title": "我的收藏",
+          "Url": "https://www.zhihu.com/collection/794313753"
+        }
+      ],
+      "Author": {
+        "Name": "Aries",
+        "UrlToken": "myaries10000",
+        "Url": "https://www.zhihu.com/people/myaries10000",
+        "Gender": 2,
+        "Headline": ""
+      }
+    },
+    {
+      "ContentType": "answer",
+      "Url": "https://www.zhihu.com/answer/2823616271",
+      "CreatedAt": 1672463306,
+      "FavTime": 1738727580,
+      "LikeCount": 298,
+      "CommentCount": 15,
+      "FavoriteCount": 581,
+      "Title": "这份比较难的数学分析期末考试题怎么做？",
+      "Summary": "这份卷总体来说是非常有挑战性的, 我看了一下第一、二、五题, 其他题还没看, 欢迎一起探讨! 但是一般来说期末考试题都会在标题写上具体学校（方便学校备案），所以这份题不一定是北大的题，这个有可能是某些群里的钓鱼题。而第四题Joris定理是American Mathematical Monthly上的问题，是钓鱼的可能性就更大了。建议不要去蹭某些本不应该存在的热度，也不要总是把\"送分\"\"高考难度\"挂在嘴边，至少我自己限时在考场上在紧张的环境下…",
+      "Favlists": [
+        {
+          "UrlToken": 794313753,
+          "Title": "我的收藏",
+          "Url": "https://www.zhihu.com/collection/794313753"
+        }
+      ],
+      "Author": {
+        "Name": "Fiddie",
+        "UrlToken": "RealFiddie",
+        "Url": "https://www.zhihu.com/people/RealFiddie",
+        "Gender": 0,
+        "Headline": "Yes!"
+      }
+    },
+    {
+      "ContentType": "article",
+      "Url": "https://zhuanlan.zhihu.com/p/508234036",
+      "CreatedAt": 1651416610,
+      "FavTime": 1737633015,
+      "LikeCount": 138,
+      "CommentCount": 0,
+      "FavoriteCount": 287,
+      "Title": "一道代数不等式的引出——EV-Theorem",
+      "Summary": "一切还是要从羊明亮教练的一道代数题开始谈起 [图片] 法一是一个熟知的不等式变形，在此不多做赘述 直接进入我们今天的正题—— Equal Variable Theorem(EV-Theorem) [公式] [公式] [公式]",
+      "Favlists": [
+        {
+          "UrlToken": 794313753,
+          "Title": "我的收藏",
+          "Url": "https://www.zhihu.com/collection/794313753"
+        }
+      ],
+      "Author": {
+        "Name": "King",
+        "UrlToken": "ke-xi-3-32",
+        "Url": "https://www.zhihu.com/people/ke-xi-3-32",
+        "Gender": 2,
+        "Headline": ""
+      }
+    },
+    {
+      "ContentType": "article",
+      "Url": "https://zhuanlan.zhihu.com/p/464180118",
+      "CreatedAt": 1644070105,
+      "FavTime": 1737624245,
+      "LikeCount": 156,
+      "CommentCount": 10,
+      "FavoriteCount": 463,
+      "Title": "几个较难的积分不等式",
+      "Summary": "图文无关（显然），直接上题。 [公式] 证明 [公式] [公式] 证明 [公式] [公式] [公式]",
+      "Favlists": [
+        {
+          "UrlToken": 794313753,
+          "Title": "我的收藏",
+          "Url": "https://www.zhihu.com/collection/794313753"
+        }
+      ],
+      "Author": {
+        "Name": "灰之魔女",
+        "UrlToken": "_elaina",
+        "Url": "https://www.zhihu.com/people/_elaina",
+        "Gender": 1,
+        "Headline": ""
+      }
+    },
+    {
+      "ContentType": "article",
+      "Url": "https://zhuanlan.zhihu.com/p/34628155",
+      "CreatedAt": 1521195912,
+      "FavTime": 1737596546,
+      "LikeCount": 35,
+      "CommentCount": 7,
+      "FavoriteCount": 71,
+      "Title": "无穷积分收敛 的探讨",
+      "Summary": "数学分析中的 反常积分有两类：无穷积分与瑕积分。这里我们主要讨论无穷积分。 定义：设函数 [公式] 在 [公式] 上定义，且在任意有限闭区间 [公式] 上可积. 则称 [公式] 为无穷积分。 如果极限 [公式] 存在，则称 [公式] 收敛，并称上述极限值为该无穷积分的值。也即 [公式] .如果上述极限不存在，则称…",
+      "Favlists": [
+        {
+          "UrlToken": 794313753,
+          "Title": "我的收藏",
+          "Url": "https://www.zhihu.com/collection/794313753"
+        }
+      ],
+      "Author": {
+        "Name": "jiahy",
+        "UrlToken": "jiahy-4",
+        "Url": "https://www.zhihu.com/people/jiahy-4",
+        "Gender": 2,
+        "Headline": "大学数学教师"
+      }
+    },
+    {
+      "ContentType": "article",
+      "Url": "https://zhuanlan.zhihu.com/p/441457195",
+      "CreatedAt": 1638689917,
+      "FavTime": 1737510494,
+      "LikeCount": 181,
+      "CommentCount": 3,
+      "FavoriteCount": 398,
+      "Title": "微积分学习笔记4：狄利克雷判别法与阿贝尔判别法",
+      "Summary": "微积分学习笔记4：狄利克雷判别法与阿贝尔判别法： [图片]",
+      "Favlists": [
+        {
+          "UrlToken": 794313753,
+          "Title": "我的收藏",
+          "Url": "https://www.zhihu.com/collection/794313753"
+        }
+      ],
+      "Author": {
+        "Name": "MathHub",
+        "UrlToken": "haochizhang",
+        "Url": "https://www.zhihu.com/people/haochizhang",
+        "Gender": 2,
+        "Headline": "数学与科学爱好者，希望可以帮助到大家！"
+      }
+    },
+    {
+      "ContentType": "article",
+      "Url": "https://zhuanlan.zhihu.com/p/719622912",
+      "CreatedAt": 1726195921,
+      "FavTime": 1737245217,
+      "LikeCount": 46,
+      "CommentCount": 0,
+      "FavoriteCount": 101,
+      "Title": "【数论笔记之五】欧拉-麦克劳林（Euler-Maclaurin）",
+      "Summary": "Euler-Maclaurin公式将离散求和与连续积分联系起来，为特殊函数如 Riemann zeta 函数等的研究提供了有力的工具，特别是在解析数论和概率论中的应用。笔者在本文将千方百计地剖析它。这个公式在 1735 年前后由 Euler 和 Maclaurin 独立发现, 前者用其估算级数的值而后者用其计算积分。 此外，Bernoulli 数在数学中具有良好的递归性质和计算特性，它们使得 Euler-Maclaurin 公式能够以简单的方式表达复杂的积分和求和关系。具体来…",
+      "Favlists": [
+        {
+          "UrlToken": 794313753,
+          "Title": "我的收藏",
+          "Url": "https://www.zhihu.com/collection/794313753"
+        }
+      ],
+      "Author": {
+        "Name": "艾伦",
+        "UrlToken": "zhou-du-3-93",
+        "Url": "https://www.zhihu.com/people/zhou-du-3-93",
+        "Gender": 0,
+        "Headline": "思证结构化，概念故事化；遇逼问不答，直指前提虚。"
+      }
+    },
+    {
+      "ContentType": "article",
+      "Url": "https://zhuanlan.zhihu.com/p/17116744204",
+      "CreatedAt": 1736319756,
+      "FavTime": 1736341293,
+      "LikeCount": 160,
+      "CommentCount": 25,
+      "FavoriteCount": 346,
+      "Title": "【合集】来自王永喜老师的大学数学期末备考题",
+      "Summary": "王永喜（网名西西）老师十年前曾经是大学生数学竞赛教练（2009-2015），后面转战高中竞赛 曾经带大学竞赛期间，西西提供了非常多的高难度创新性问题，许多来自于国外比赛或者期刊论文，与市面上通常的考研和竞赛书籍很不一样，这些书里面全是一些无聊东西，而西神的题就独树一帜，是大学数学中的一股清流，无可替代，题目的挑战性与含金量更是无与伦比！至今十年过去了，他的题目依旧为人所称道，在市面上广为流传，且具备极高的…",
+      "Favlists": [
+        {
+          "UrlToken": 794313753,
+          "Title": "我的收藏",
+          "Url": "https://www.zhihu.com/collection/794313753"
+        }
+      ],
+      "Author": {
+        "Name": "柯西永远爱你",
+        "UrlToken": "ke-xi-yong-yuan-ai-ni",
+        "Url": "https://www.zhihu.com/people/ke-xi-yong-yuan-ai-ni",
+        "Gender": 2,
+        "Headline": "CMC数类16届决赛全国第一/三届省第一/数海钓鱼/报班教你"
+      }
+    },
+    {
+      "ContentType": "article",
+      "Url": "https://zhuanlan.zhihu.com/p/16053030711",
+      "CreatedAt": 1735823890,
+      "FavTime": 1735949443,
+      "LikeCount": 80,
+      "CommentCount": 10,
+      "FavoriteCount": 142,
+      "Title": "南开大学2024-2025学年第一学期“数学分析I”期末考试试题解析(自制版)",
+      "Summary": "求 @淘气的小杨桃 大佬捞捞我 [图片] 一、证明：函数 [公式] 有反函数 [公式] ，并求 [公式] .我这题算错了，离大谱. [公式] [公式] ，于是函数单调，故存在反函数.同时 [公式] ，再次求导有 [公式]",
+      "Favlists": [
+        {
+          "UrlToken": 794313753,
+          "Title": "我的收藏",
+          "Url": "https://www.zhihu.com/collection/794313753"
+        }
+      ],
+      "Author": {
+        "Name": "233333",
+        "UrlToken": "233333-54-80",
+        "Url": "https://www.zhihu.com/people/233333-54-80",
+        "Gender": 0,
+        "Headline": "蒟蒻大专牲"
+      }
+    },
+    {
+      "ContentType": "article",
+      "Url": "https://zhuanlan.zhihu.com/p/14174739052",
+      "CreatedAt": 1734943631,
+      "FavTime": 1735704715,
+      "LikeCount": 105,
+      "CommentCount": 24,
+      "FavoriteCount": 218,
+      "Title": "南开大学2023-2024学年第一学期“数学分析I”期末考试试卷（A卷）试题解析(自制版)",
+      "Summary": "临近期末，浅浅复习一波. 一、设 [公式] ，求方程 [公式] 所确定的隐函数 [公式] 的二阶导数 [公式] .二、求不定积分 [公式] .三、设 [公式] 是区间 [公式] 上的函数，对任意 [公式] ，有 [公式] 证明： [公式] 在区间 [公式] 上一致连续.四、设 [公式] ，令 [公式] ，证明数列 [公式] 收敛并求数列 [公式] 的极限.五、…",
+      "Favlists": [
+        {
+          "UrlToken": 794313753,
+          "Title": "我的收藏",
+          "Url": "https://www.zhihu.com/collection/794313753"
+        }
+      ],
+      "Author": {
+        "Name": "233333",
+        "UrlToken": "233333-54-80",
+        "Url": "https://www.zhihu.com/people/233333-54-80",
+        "Gender": 0,
+        "Headline": "蒟蒻大专牲"
+      }
+    },
+    {
+      "ContentType": "answer",
+      "Url": "https://www.zhihu.com/answer/2797595643",
+      "CreatedAt": 1670792732,
+      "FavTime": 1735488017,
+      "LikeCount": 18,
+      "CommentCount": 2,
+      "FavoriteCount": 38,
+      "Title": "求解Fejér积分有哪些方法？",
+      "Summary": "现在有这么一个积分 [公式] ，我们称之为Fejér（费耶儿）积分。在解这个积分前，我们不妨先看另一个积分，Dirichlet积分。Dirichlet积分与Dirichlet核 在区间 [公式] 上定义一族函数 [公式] 我们称 [公式] 为Dirichlet核，而 [公式] 被称为Dirichlet积分。下面我们来计算这个积分。 我们发现，虽然 [公式] …",
+      "Favlists": [
+        {
+          "UrlToken": 794313753,
+          "Title": "我的收藏",
+          "Url": "https://www.zhihu.com/collection/794313753"
+        }
+      ],
+      "Author": {
+        "Name": "Isol",
+        "UrlToken": "bi-si-qiang-po-zheng-qi-shi-hen-jian-30",
+        "Url": "https://www.zhihu.com/people/bi-si-qiang-po-zheng-qi-shi-hen-jian-30",
+        "Gender": 2,
+        "Headline": "游子"
+      }
+    },
+    {
+      "ContentType": "article",
+      "Url": "https://zhuanlan.zhihu.com/p/10929812943",
+      "CreatedAt": 1733390015,
+      "FavTime": 1733621584,
+      "LikeCount": 50,
+      "CommentCount": 6,
+      "FavoriteCount": 94,
+      "Title": "南开大学数学与大数据本科生2024-2025数学分析第二次月考试题",
+      "Summary": "感觉试题比上次简单好多，除了最后一题没有任何难题，而且还有两道是高中题，因为我非常菜，所以制作解析的任务交给 @淘气的小杨桃 大佬了，大家可以期待一下.一、(15分)设 [公式] 是方程 [公式] 确定的隐函数，求 [公式] 和 [公式] .二、(15分)设 [公式] ，其中 [公式] 在点 [公式] 的邻域内有 [公式] 阶的连续导数，求 [公式] .三、(15分)证明： [公式] 在 [公式] …",
+      "Favlists": [
+        {
+          "UrlToken": 794313753,
+          "Title": "我的收藏",
+          "Url": "https://www.zhihu.com/collection/794313753"
+        }
+      ],
+      "Author": {
+        "Name": "233333",
+        "UrlToken": "233333-54-80",
+        "Url": "https://www.zhihu.com/people/233333-54-80",
+        "Gender": 0,
+        "Headline": "蒟蒻大专牲"
+      }
+    },
+    {
+      "ContentType": "article",
+      "Url": "https://zhuanlan.zhihu.com/p/8297151330",
+      "CreatedAt": 1732433161,
+      "FavTime": 1733217411,
+      "LikeCount": 184,
+      "CommentCount": 15,
+      "FavoriteCount": 372,
+      "Title": "2024年湘潭大学韶峰班大一选拔考试 数学分析试题个人解答",
+      "Summary": "题目来自 @清疏数学 微信公众号，题目大多是经典题目，但是放到一个试卷里就有点难度了。由于笔者能力有限，可能存在步骤错误，恳请各位批评指正！创作不易，恳请各位多多点赞！请尽可能地使用前三章所学到的技术，避免使用诸如洛必达法则、泰勒公式等后续定理。 一、双射的构造1. （1）构造一个 [公式] 的双射； （2）判断是否存在一个 [公式] 的连续双射，并给出理由。 [公式] 这是一个…",
+      "Favlists": [
+        {
+          "UrlToken": 794313753,
+          "Title": "我的收藏",
+          "Url": "https://www.zhihu.com/collection/794313753"
+        }
+      ],
+      "Author": {
+        "Name": "晨锦辉永生之语",
+        "UrlToken": "11-68-36-12",
+        "Url": "https://www.zhihu.com/people/11-68-36-12",
+        "Gender": 2,
+        "Headline": "学生，学数学"
+      }
+    },
+    {
+      "ContentType": "answer",
+      "Url": "https://www.zhihu.com/answer/272735975",
+      "CreatedAt": 1512696155,
+      "FavTime": 1732698199,
+      "LikeCount": 333,
+      "CommentCount": 10,
+      "FavoriteCount": 370,
+      "Title": "数学里的那些技巧是怎么想出来的？",
+      "Summary": "谢邀。 具体题目讲解我就不讲了，caleb89和dhchen都分析得很清楚了，我只做一些一般性的评价，提一下一般性的建议。 第一个题目确实有些难度，因为逻辑链条比较长；但每一步推导其实都是非常清楚的，并不存在跳步骤的情况——而思路的跳跃在竞赛型题目里面其实是司空见惯的，所以这个题目也还算不上数分里真正的难题。第二个题目以前有人知乎上问过，这个逻辑链条其实就两步，一步是构造扰动函数，第二步是证明f与线性函数的误差…",
+      "Favlists": [
+        {
+          "UrlToken": 794313753,
+          "Title": "我的收藏",
+          "Url": "https://www.zhihu.com/collection/794313753"
+        }
+      ],
+      "Author": {
+        "Name": "Yuhang Liu",
+        "UrlToken": "yuhang-liu-34",
+        "Url": "https://www.zhihu.com/people/yuhang-liu-34",
+        "Gender": 2,
+        "Headline": "  Math PhD"
+      }
+    },
+    {
+      "ContentType": "answer",
+      "Url": "https://www.zhihu.com/answer/2656622096",
+      "CreatedAt": 1662096235,
+      "FavTime": 1730822230,
+      "LikeCount": 970,
+      "CommentCount": 175,
+      "FavoriteCount": 2470,
+      "Title": "数学界有哪些通俗易懂的 open problem？",
+      "Summary": "以下40道题，希望有大佬可以教教我 大概本科一二年级的学生就可以完全理解题意，高中生也能基本看懂 门槛是很低的 不过据说：95%的人都做不出来这些高数题！不知道是真是假 [图片] [图片] [图片] [图片] [图片] [图片] [图片] 做出来任何一个立马v你5000$，加油！",
+      "Favlists": [
+        {
+          "UrlToken": 794313753,
+          "Title": "我的收藏",
+          "Url": "https://www.zhihu.com/collection/794313753"
+        }
+      ],
+      "Author": {
+        "Name": "柯西永远爱你",
+        "UrlToken": "ke-xi-yong-yuan-ai-ni",
+        "Url": "https://www.zhihu.com/people/ke-xi-yong-yuan-ai-ni",
+        "Gender": 2,
+        "Headline": "CMC数类16届决赛全国第一/三届省第一/数海钓鱼/报班教你"
+      }
+    },
+    {
+      "ContentType": "article",
+      "Url": "https://zhuanlan.zhihu.com/p/448785877",
+      "CreatedAt": 1640220870,
+      "FavTime": 1730822134,
+      "LikeCount": 169,
+      "CommentCount": 12,
+      "FavoriteCount": 616,
+      "Title": "2021-2022高等数学期末考试模拟试题",
+      "Summary": "写在前面：我是公众号“数海钓鱼”的创立者，故文章内容与本期公众号推文基本一致从前有一颗树，名字叫高数，上面挂了很多人……下面是一份 自编的高等数学期末考试模拟试题，可以拿来练习一下：注：正经的模拟卷，非钓鱼题，难度一般，适合考前模拟训练 [图片] [图片] 考察范围是高等数学上册的全部内容，大致是：极限、微分、中值定理、泰勒、积分 答案会在近期发布（实际上其中不少是经典模型或者由此改编而来的题目，题并不难，答案也好找） …",
+      "Favlists": [
+        {
+          "UrlToken": 794313753,
+          "Title": "我的收藏",
+          "Url": "https://www.zhihu.com/collection/794313753"
+        }
+      ],
+      "Author": {
+        "Name": "柯西永远爱你",
+        "UrlToken": "ke-xi-yong-yuan-ai-ni",
+        "Url": "https://www.zhihu.com/people/ke-xi-yong-yuan-ai-ni",
+        "Gender": 2,
+        "Headline": "CMC数类16届决赛全国第一/三届省第一/数海钓鱼/报班教你"
+      }
+    },
+    {
+      "ContentType": "article",
+      "Url": "https://zhuanlan.zhihu.com/p/539421975",
+      "CreatedAt": 1657356345,
+      "FavTime": 1730822086,
+      "LikeCount": 77,
+      "CommentCount": 4,
+      "FavoriteCount": 131,
+      "Title": "无理数的有理逼近及其应用（3）——无理测度的算法",
+      "Summary": "往期文章导航 [文章: 无理数的有理逼近及其应用（1）——两个基本定理] [文章: 无理数的有理逼近及其应用（2）——无理测度简介] 在上篇文章中我们简单的介绍了无理测度，但是并没有给出任何算法，到目前为止，还是只能“定性的”判断一个实数的无理测度是 [公式] 还是 [公式] 或是不小于2，相应的就是有理数，无理代数数，超越数。而本文，我们要介绍一个计算或估计无理测度的重要定理，并给出其证明过程。 引理：对于无理数 [公式]",
+      "Favlists": [
+        {
+          "UrlToken": 794313753,
+          "Title": "我的收藏",
+          "Url": "https://www.zhihu.com/collection/794313753"
+        }
+      ],
+      "Author": {
+        "Name": "柯西永远爱你",
+        "UrlToken": "ke-xi-yong-yuan-ai-ni",
+        "Url": "https://www.zhihu.com/people/ke-xi-yong-yuan-ai-ni",
+        "Gender": 2,
+        "Headline": "CMC数类16届决赛全国第一/三届省第一/数海钓鱼/报班教你"
+      }
+    },
+    {
+      "ContentType": "article",
+      "Url": "https://zhuanlan.zhihu.com/p/538359524",
+      "CreatedAt": 1657188612,
+      "FavTime": 1730822084,
+      "LikeCount": 269,
+      "CommentCount": 15,
+      "FavoriteCount": 471,
+      "Title": "无理数的有理逼近及其应用（2）——无理测度简介",
+      "Summary": "在上次的文章中我们介绍了两个经典结论—— 狄利克雷逼近定理与 [公式] 逼近定理，并对其进行了证明。 [文章: 无理数的有理逼近及其应用（1）——两个基本定理] 本文将引入 无理测度并给出一个很深刻的定理—— [公式] 定理，而后讲解它们的一些应用。本专栏在应用方面大概是讨论这些题目 [图片] 上期题目解答证明：对任意 [公式] ，在数列 [公式] 中，均存在一个子列 [公式] ，使得 [公式]",
+      "Favlists": [
+        {
+          "UrlToken": 794313753,
+          "Title": "我的收藏",
+          "Url": "https://www.zhihu.com/collection/794313753"
+        }
+      ],
+      "Author": {
+        "Name": "柯西永远爱你",
+        "UrlToken": "ke-xi-yong-yuan-ai-ni",
+        "Url": "https://www.zhihu.com/people/ke-xi-yong-yuan-ai-ni",
+        "Gender": 2,
+        "Headline": "CMC数类16届决赛全国第一/三届省第一/数海钓鱼/报班教你"
+      }
+    },
+    {
+      "ContentType": "article",
+      "Url": "https://zhuanlan.zhihu.com/p/537341163",
+      "CreatedAt": 1657016087,
+      "FavTime": 1730822083,
+      "LikeCount": 474,
+      "CommentCount": 28,
+      "FavoriteCount": 1022,
+      "Title": "无理数的有理逼近及其应用（1）——两个基本定理",
+      "Summary": "一直对这个领域挺感兴趣的，也经常遇到这方面的题目，最近打算系统的学习一下，顺带写个（可能不定期更新的）专栏对这方面做个简单介绍。 本文（及下一篇文章）主要讲解一些相关的重要定理与性质（限于篇幅，其中个别很深刻，过程很复杂的定理的证明暂且省略，日后或许会补上），至于其在各领域中的应用将放到后续的文章中讲解。 本文中, [公式] 一般表示小数部分，有时也表示数列。引言先从一个简单的例子开…",
+      "Favlists": [
+        {
+          "UrlToken": 794313753,
+          "Title": "我的收藏",
+          "Url": "https://www.zhihu.com/collection/794313753"
+        }
+      ],
+      "Author": {
+        "Name": "柯西永远爱你",
+        "UrlToken": "ke-xi-yong-yuan-ai-ni",
+        "Url": "https://www.zhihu.com/people/ke-xi-yong-yuan-ai-ni",
+        "Gender": 2,
+        "Headline": "CMC数类16届决赛全国第一/三届省第一/数海钓鱼/报班教你"
+      }
+    },
+    {
+      "ContentType": "pin",
+      "Url": "https://www.zhihu.com/pin/1529954396671012865",
+      "CreatedAt": 1657549553,
+      "FavTime": 1730822027,
+      "LikeCount": 64,
+      "CommentCount": 4,
+      "FavoriteCount": 33,
+      "Title": "高等数学王者百题大功告成啦！！！ 大概是我这一年来遇到的各种难题（不含高考题）汇总，有些还暂未解决 来源包括我和我的好朋友的原创题，某乎的题，论坛/论文题等等 供各位神仙们挑战自我 若想要PDF版，加入QQ群（数海钓鱼）312995129即可获取 小目标：我要在本科四年内做出来这其中80%的题目 [图片] [图片] [图片] [图片] [图片] [图片] [图片] [图片] [图片]",
+      "Summary": "高等数学王者百题大功告成啦！！！ 大概是我这一年来遇到的各种难题（不含高考题）汇总，有些还暂未解决 来源包括我和我的好朋友的原创题，某乎的题，论坛/论文题等等 供各位神仙们挑战自我 若想要PDF版，加入QQ群（数海钓鱼）312995129即可获取 小目标：我要在本科四年内做出来这其中80%的题目 [图片] [图片] [图片] [图片] [图片] [图片] [图片] [图片] [图片]",
+      "Favlists": [
+        {
+          "UrlToken": 794313753,
+          "Title": "我的收藏",
+          "Url": "https://www.zhihu.com/collection/794313753"
+        }
+      ],
+      "Author": {
+        "Name": "柯西永远爱你",
+        "UrlToken": "ke-xi-yong-yuan-ai-ni",
+        "Url": "https://www.zhihu.com/people/ke-xi-yong-yuan-ai-ni",
+        "Gender": 2,
+        "Headline": "CMC数类16届决赛全国第一/三届省第一/数海钓鱼/报班教你"
+      }
+    },
+    {
+      "ContentType": "answer",
+      "Url": "https://www.zhihu.com/answer/3210233770",
+      "CreatedAt": 1694644084,
+      "FavTime": 1720056285,
+      "LikeCount": 4689,
+      "CommentCount": 67,
+      "FavoriteCount": 6880,
+      "Title": "如果重返大一，你会做什么?",
+      "Summary": "1、千万别轻易把室友当掏心知己。 2、用火眼金睛挑选一个品学兼优的学长或学姐，有事没事多跟ta联系，关系混好了，ta就是你接触优质资源、带你俯瞰的“巨人肩膀”。 3、可以没才艺，也可以没颜值，但千万不要仅凭着一腔孤勇上台表演。除非你想走喜剧路线。 4、大一要警惕学长学姐的靠近乎，尤其是想处对象的那种，多从ta身边的人去了解ta，比光听ta的甜言蜜语靠谱得多。 5、抢占课室的前排。 不想在课上“听不见”、“看不清”、…",
+      "Favlists": [
+        {
+          "UrlToken": 794313753,
+          "Title": "我的收藏",
+          "Url": "https://www.zhihu.com/collection/794313753"
+        }
+      ],
+      "Author": {
+        "Name": "画凌烟",
+        "UrlToken": "da-zui-67-82",
+        "Url": "https://www.zhihu.com/people/da-zui-67-82",
+        "Gender": 2,
+        "Headline": ""
+      }
+    },
+    {
+      "ContentType": "article",
+      "Url": "https://zhuanlan.zhihu.com/p/652539944",
+      "CreatedAt": 1693049879,
+      "FavTime": 1715185398,
+      "LikeCount": 14019,
+      "CommentCount": 2163,
+      "FavoriteCount": 36874,
+      "Title": "为什么医生对祛痘这么不屑一顾？",
+      "Summary": "脸上长痘算啥事？！ 目前研究发现有个蛋白酶对痘痘效果特别好，也就100多块钱， 涂抹15次左右，满脸的红黑痘印就都消了，之后更是一颗痘都没长过！ 这在之根本就不敢想，以前考研的时候熬夜脸上的痘不仅下不去，还越攒越多 当时考完回家，小侄女见了都嫌弃我，说我脸怎么烂了 搞都我出门都不敢抬头了，这种感觉大概只有痘痘星人能理解了，超级自卑。 所以等到4月3号复试结束，我就开始挂皮肤科的号， 是真麻烦啊，外地挂号只能下…",
+      "Favlists": [
+        {
+          "UrlToken": 794313753,
+          "Title": "我的收藏",
+          "Url": "https://www.zhihu.com/collection/794313753"
+        }
+      ],
+      "Author": {
+        "Name": "公主妈",
+        "UrlToken": "gong-zhu-ma-83",
+        "Url": "https://www.zhihu.com/people/gong-zhu-ma-83",
+        "Gender": 1,
+        "Headline": "著名护肤博主，女相声大师"
+      }
+    },
+    {
+      "ContentType": "answer",
+      "Url": "https://www.zhihu.com/answer/1941661570",
+      "CreatedAt": 1623748038,
+      "FavTime": 1670686811,
+      "LikeCount": 3571,
+      "CommentCount": 1604,
+      "FavoriteCount": 10913,
+      "Title": "什么东西去痘印最有效？",
+      "Summary": "不是吧，俩月不到就能消掉痘印的东西只有我自己知道？ 竟然真的有人连名字都没有听说过吗？ [图片] 先卖个关子， 因为看知乎上的高赞都这样以图为证，那我也先放个图的吧， 走个大家都乐意看的流程： [图片] 自此也不说受打击了，就是感受到了自己脸为什么就好的这么慢的愤怒，随后用了最短的时间 恢复以前不算特别好看但是也干干净净的自己吧 [图片] 总共历时不到两个月，不骗你，不骗自己 （但纯粹因人而异， 就是用在我的脸上最有效，所以别来问我用…",
+      "Favlists": [
+        {
+          "UrlToken": 794313753,
+          "Title": "我的收藏",
+          "Url": "https://www.zhihu.com/collection/794313753"
+        }
+      ],
+      "Author": {
+        "Name": "加v看蟹黄堡秘方",
+        "UrlToken": "wo-shuai-dao-liao-31",
+        "Url": "https://www.zhihu.com/people/wo-shuai-dao-liao-31",
+        "Gender": 1,
+        "Headline": "汇报一下今天我也喜"
+      }
+    },
+    {
+      "ContentType": "article",
+      "Url": "https://zhuanlan.zhihu.com/p/580217434",
+      "CreatedAt": 1667504659,
+      "FavTime": 1668261814,
+      "LikeCount": 979,
+      "CommentCount": 118,
+      "FavoriteCount": 4300,
+      "Title": "【圆锥曲线】圆锥曲线解题瘦身计划（1）轴点差",
+      "Summary": "一，前言前文介绍了利用线的长作为变量联立圆锥曲线得到韦达，以大大简化一类线段之积和和的问题计算。本文将继续从简化代数工具的计算量角度来介绍设点这一方法的应用。 鉴于全国高中老师对坐标韦达这一笨蛋方法的高度热枕以及设点的思路灵活前无体系，所以在解题中设点法除了在抛物线中其他应用被忽略比较严重，因而本文希望较为系统的给出设点的一种普遍应用以及明确其应用范围。 因另一部分内容涉及射影几何模型的高考化转述…",
+      "Favlists": [
+        {
+          "UrlToken": 794313753,
+          "Title": "我的收藏",
+          "Url": "https://www.zhihu.com/collection/794313753"
+        }
+      ],
+      "Author": {
+        "Name": "鸽姬布",
+        "UrlToken": "lu-xiao-bu-13-21-18",
+        "Url": "https://www.zhihu.com/people/lu-xiao-bu-13-21-18",
+        "Gender": 0,
+        "Headline": "摘星星的魔法使"
+      }
+    },
+    {
+      "ContentType": "article",
+      "Url": "https://zhuanlan.zhihu.com/p/582844808",
+      "CreatedAt": 1668251884,
+      "FavTime": 1668260466,
+      "LikeCount": 56,
+      "CommentCount": 5,
+      "FavoriteCount": 216,
+      "Title": "高考数学压轴题·四大名校解题笔记·圆锥曲线篇（一）",
+      "Summary": "前言 [文章: 高考数学压轴题·四大名校解题笔记·开篇絮语及总目录] 接着开篇絮语，本文为 四大名校解题笔记 的第一篇文章.本文笔记部分由 五维玻费夸克 提供，并补充几种方法.湖南四大名校第一次月考，解析几何大题均聚焦于过一点的双直线问题，普遍不是很复杂.本文就将逐题解析四大名校的第一次月考的解析几何大题. 雅礼卷（一） 速览 过双曲线上一点作两条直线，直线斜率和为定值. [图片] [图片] [图片] 长郡卷（一） 速览 过抛物线上一点与一条线的两个顶点构成直角三角形. [图片] [图片] [图片] 附中卷（一） 速览 …",
+      "Favlists": [
+        {
+          "UrlToken": 794313753,
+          "Title": "我的收藏",
+          "Url": "https://www.zhihu.com/collection/794313753"
+        }
+      ],
+      "Author": {
+        "Name": "时间简史莱姆病",
+        "UrlToken": "StephenPeng",
+        "Url": "https://www.zhihu.com/people/StephenPeng",
+        "Gender": 2,
+        "Headline": "风雨如晦，鸡鸣不已"
+      }
+    },
+    {
+      "ContentType": "article",
+      "Url": "https://zhuanlan.zhihu.com/p/551337044",
+      "CreatedAt": 1667466142,
+      "FavTime": 1668259905,
+      "LikeCount": 80,
+      "CommentCount": 9,
+      "FavoriteCount": 245,
+      "Title": "【锥线的艺术】设点玩家（1）和积关系",
+      "Summary": "原理已知点 [公式] 在椭圆 [公式] 上，直线 [公式] 经过点 [公式] 有如下恒等关系： [公式] 直线 [公式] 经过点 [公式] 有如下恒等关系： [公式] 证明见下文例题如图，椭圆 [公式] 经…",
+      "Favlists": [
+        {
+          "UrlToken": 794313753,
+          "Title": "我的收藏",
+          "Url": "https://www.zhihu.com/collection/794313753"
+        }
+      ],
+      "Author": {
+        "Name": "择梦舟",
+        "UrlToken": "ze-meng-zhou-29",
+        "Url": "https://www.zhihu.com/people/ze-meng-zhou-29",
+        "Gender": 2,
+        "Headline": "披着文科生外衣、想当艺术生的理科生"
+      }
+    },
+    {
+      "ContentType": "article",
+      "Url": "https://zhuanlan.zhihu.com/p/105766114",
+      "CreatedAt": 1581154987,
+      "FavTime": 1666447009,
+      "LikeCount": 1233,
+      "CommentCount": 86,
+      "FavoriteCount": 2843,
+      "Title": "最佳逼近 切比雪夫——切比雪夫多项式再研究",
+      "Summary": "摘要 求函数在指定区间上最大值的最小值问题,一般都可以理解为函数图象与 [公式] 轴的最小偏移问题,此类问题可以从函数图象的角度求解，也可以通过绝对值不等式求解,部分题型也可以通过切比雪夫多项式的性质求解.1 前言 我们曾用绝对值不等式解决过这样的问题：设 [公式] , [公式] 在 [公式] 上的最大值为 [公式] ,求 [公式] 的最小值.我们取了 [公式] , [公式] , [公式] 的函数值,利用绝对值不等式求出 [公式] ,然后再证明等号可以成立,这样就求得了 [公式]",
+      "Favlists": [
+        {
+          "UrlToken": 794313753,
+          "Title": "我的收藏",
+          "Url": "https://www.zhihu.com/collection/794313753"
+        }
+      ]
+    },
+    {
+      "ContentType": "answer",
+      "Url": "https://www.zhihu.com/answer/1447642268",
+      "CreatedAt": 1598952968,
+      "FavTime": 1666409882,
+      "LikeCount": 82,
+      "CommentCount": 2,
+      "FavoriteCount": 248,
+      "Title": "请问有没有关于数列压轴的书？",
+      "Summary": "递推数列本质是差分方程，我推荐几本书： 周义仓、曹慧、肖燕妮《差分方程及其应用》，科学出版社 曹珍富、刘培杰《差分方程的拉格朗日方法》，哈尔滨工业大学出版社 这两本书是目前能买到的中文版教材里介绍差分方程比较系统的 陈泽安、韩创新、黄楚清、高泽红《递推数列》，中国科学技术大学出版社这本是给中学生用的，但是内容还是挺全面的，而且需要点微积分和线性代数的基础，可以看看 李克大、李尹裕《有趣的差分方程》，…",
+      "Favlists": [
+        {
+          "UrlToken": 794313753,
+          "Title": "我的收藏",
+          "Url": "https://www.zhihu.com/collection/794313753"
+        }
+      ],
+      "Author": {
+        "Name": "宇宙星矢",
+        "UrlToken": "Kayama",
+        "Url": "https://www.zhihu.com/people/Kayama",
+        "Gender": 2,
+        "Headline": "不做 点缀大时代波澜壮阔的泡沫"
+      }
+    },
+    {
+      "ContentType": "article",
+      "Url": "https://zhuanlan.zhihu.com/p/538042575",
+      "CreatedAt": 1657132772,
+      "FavTime": 1664083931,
+      "LikeCount": 46,
+      "CommentCount": 7,
+      "FavoriteCount": 140,
+      "Title": "【数学竞赛】n元(或多元)不等式与最值 刷题笔记①",
+      "Summary": "前言代数不等式作为比较初等的中学数学中 具有技巧性且门槛较低 的一块内容，一向被各级竞赛命题人亲睐，在国内竞赛中更是屡见不鲜，所以我在此分享一下自己的学习成果及做过的一些题，方便与各位大佬讨论，也供初学者学习。 [本人阅历尚浅，如有解答错误，分析不当，题源不对等望不吝赐教] 以下下标均按模 [公式] 理解先看一道前几天的考题 [1]2022·清华·强基 已知实数 [公式] 满足 [公式] .求 [公式]",
+      "Favlists": [
+        {
+          "UrlToken": 794313753,
+          "Title": "我的收藏",
+          "Url": "https://www.zhihu.com/collection/794313753"
+        }
+      ],
+      "Author": {
+        "Name": "Grace",
+        "UrlToken": "dai-ji-shu-zu",
+        "Url": "https://www.zhihu.com/people/dai-ji-shu-zu",
+        "Gender": 2,
+        "Headline": "早知道不念书了，现在种田还要扶眼镜"
+      }
+    },
+    {
+      "ContentType": "article",
+      "Url": "https://zhuanlan.zhihu.com/p/453319879",
+      "CreatedAt": 1641301120,
+      "FavTime": 1664010193,
+      "LikeCount": 450,
+      "CommentCount": 28,
+      "FavoriteCount": 1222,
+      "Title": "代数｜从数列的奇妙换元和不动点法谈谈函数迭代",
+      "Summary": "诺艾尔（天体的秩序）好阔爱啊啊啊啊www 不对，已经摸了快整整八十天啦喵！本文适宜人群：数学在135+或搞竞赛（众所周知竞赛生考不到135（不是））且有意愿运筹帷幄掌控未来（什么）的数学爱好者阅读（ 前言众所周知，自古以来，从数列的递推公式出发求解数列通项公式一直以来是一个大难题，由此衍生出了一大堆难题和技巧（像什么待定系数不动点特征根构造一阶二阶三阶常系数线性递推balabala）流传到后世荼毒了一批又一批的高中…",
+      "Favlists": [
+        {
+          "UrlToken": 794313753,
+          "Title": "我的收藏",
+          "Url": "https://www.zhihu.com/collection/794313753"
+        }
+      ],
+      "Author": {
+        "Name": "霜夏",
+        "UrlToken": "Frigus27",
+        "Url": "https://www.zhihu.com/people/Frigus27",
+        "Gender": 0,
+        "Headline": "Let me but listen."
+      }
+    },
+    {
+      "ContentType": "article",
+      "Url": "https://zhuanlan.zhihu.com/p/515503188",
+      "CreatedAt": 1659237137,
+      "FavTime": 1663993777,
+      "LikeCount": 153,
+      "CommentCount": 14,
+      "FavoriteCount": 513,
+      "Title": "【Galaxy数学】曲线系方程",
+      "Summary": "谢谢大家的关注呀，这篇文章系统向大家介绍一下曲线系方程 本文适合数学基础较好的高一（高一的宝子圆锥曲线的题会看不懂hhh）/高二/高三学生 题目对大家而言都不难，关键是方法，大家自己体会哈 （不好意思我实在是太懒了，鸽了这么久hhhh）part 1 : 例题说明 [公式] A,B是双曲线 [公式] 上两点,N(1,2)是AB中点，AB的中垂线与双曲线交于C、D两点，试判断A、B、C、D是否共圆并说明理由.此类问题经…",
+      "Favlists": [
+        {
+          "UrlToken": 794313753,
+          "Title": "我的收藏",
+          "Url": "https://www.zhihu.com/collection/794313753"
+        }
+      ],
+      "Author": {
+        "Name": "Galaxy",
+        "UrlToken": "galaxy-76-31",
+        "Url": "https://www.zhihu.com/people/galaxy-76-31",
+        "Gender": 2,
+        "Headline": "不要把生命献给无知、平庸和低俗。"
+      }
+    },
+    {
+      "ContentType": "article",
+      "Url": "https://zhuanlan.zhihu.com/p/367058597",
+      "CreatedAt": 1619141942,
+      "FavTime": 1660949978,
+      "LikeCount": 3312,
+      "CommentCount": 170,
+      "FavoriteCount": 8905,
+      "Title": "极值点偏移与拉格朗日反演",
+      "Summary": "本文介绍一种几乎可以解决所有高考中所谓的“极值点偏移”的导数问题，按道理来说我都要大学毕业了，为啥还要关心高中的东西？这是因为这个方法涉及了一阶导为0函数的拉格朗日反演，在之后的物理应用上面还是挺有用的，所以我想记录一下（主要还是论文参考文献插吐了，随便算点东西调剂一下）。同时我尽量想办法让高中生都能看懂（应该能看懂，一方面我数学也就高中水平，另一方面现在高中生不是人均泰勒洛必达淑芬全刷完嘛）或…",
+      "Favlists": [
+        {
+          "UrlToken": 794313753,
+          "Title": "我的收藏",
+          "Url": "https://www.zhihu.com/collection/794313753"
+        }
+      ],
+      "Author": {
+        "Name": "泰勒猫爱丽丝",
+        "UrlToken": "tai-le-mao-99",
+        "Url": "https://www.zhihu.com/people/tai-le-mao-99",
+        "Gender": 0,
+        "Headline": "凡事只出八分力"
+      }
+    },
+    {
+      "ContentType": "article",
+      "Url": "https://zhuanlan.zhihu.com/p/471227985",
+      "CreatedAt": 1651993033,
+      "FavTime": 1660644139,
+      "LikeCount": 626,
+      "CommentCount": 51,
+      "FavoriteCount": 1984,
+      "Title": "【解析几何】一种特殊参数方程的应用",
+      "Summary": "2022.5.28更新一下部分习题的解答（*＾-＾*） 没想到这么冷门的方法也能破百赞，可见大家对解析几何情有独钟哇o(〃'▽'〃)o 另外，收藏量是赞同数的5倍哇？？？各位如果觉得不错的话也麻烦点个赞同哇ヽ（≧□≦）ノ ——————————假装是一条分割线———————————— 这个方法是我的一个同学告诉我的，经ta实测可以解决很多定点定值问题。 前段时间听ta讲完这个方法后，我便心生“啊~大师我悟了！”的感慨。（误 今…",
+      "Favlists": [
+        {
+          "UrlToken": 794313753,
+          "Title": "我的收藏",
+          "Url": "https://www.zhihu.com/collection/794313753"
+        }
+      ],
+      "Author": {
+        "Name": "Neyako",
+        "UrlToken": "shao-si-bo-1",
+        "Url": "https://www.zhihu.com/people/shao-si-bo-1",
+        "Gender": 1,
+        "Headline": "ᝰꫛꫀꪝ"
+      }
+    },
+    {
+      "ContentType": "article",
+      "Url": "https://zhuanlan.zhihu.com/p/463457204",
+      "CreatedAt": 1644374329,
+      "FavTime": 1658219500,
+      "LikeCount": 741,
+      "CommentCount": 30,
+      "FavoriteCount": 3438,
+      "Title": "『解析几何』知乎上圆锥曲线的大题运算技巧",
+      "Summary": "又整这种东西，该批评就批评吧，能给我可操作的方法就更好了，感激不尽 先跟解析几何告一段落，马上我要进入导数的时代 打*的就了解一下吧，不需要过度钻研。 （其实还有好多好方法没找到对应文章，我记得以前看过忘了名字，呜~） 这里针对的是大题的计算技巧！！！不是模型！！！一、点差法①定比点差法 @人立 人立:点差法与定比点差法 @执傲 执傲:定比分点与圆锥曲线向量 @零典韦达定理 定比分点应用合辑全集——向量与解析几…",
+      "Favlists": [
+        {
+          "UrlToken": 794313753,
+          "Title": "我的收藏",
+          "Url": "https://www.zhihu.com/collection/794313753"
+        }
+      ],
+      "Author": {
+        "Name": "择梦舟",
+        "UrlToken": "ze-meng-zhou-29",
+        "Url": "https://www.zhihu.com/people/ze-meng-zhou-29",
+        "Gender": 2,
+        "Headline": "披着文科生外衣、想当艺术生的理科生"
+      }
+    },
+    {
+      "ContentType": "article",
+      "Url": "https://zhuanlan.zhihu.com/p/463270128",
+      "CreatedAt": 1643558687,
+      "FavTime": 1658219461,
+      "LikeCount": 6620,
+      "CommentCount": 69,
+      "FavoriteCount": 32348,
+      "Title": "做了个圆锥曲线总结（到处偷文章）",
+      "Summary": "第一次整这种东西，该批评就批评吧，能给我可操作的方法就更好了，感激不尽 基本上都是高中生能用的，个人认为很实用的 本文不再更新，2022新全国一卷考生，心态崩了，不想继续了解数学了 好消息是，已经有许多人整合了技巧，而且都是大佬，推荐这几位 奇趣数学苑 亦铭高考生想学习其他技巧，奇鸣 可能 能教导你1.定比问题 如AB/CD=入 ？（与向量相关的问题）执傲：【解析几何】圆锥曲线与向量有关的问题(1) 这个大佬有很多好…",
+      "Favlists": [
+        {
+          "UrlToken": 794313753,
+          "Title": "我的收藏",
+          "Url": "https://www.zhihu.com/collection/794313753"
+        }
+      ],
+      "Author": {
+        "Name": "pjrWhChina",
+        "UrlToken": "pjrwhchina",
+        "Url": "https://www.zhihu.com/people/pjrwhchina",
+        "Gender": 2,
+        "Headline": "想摸鱼的人"
+      }
+    },
+    {
+      "ContentType": "article",
+      "Url": "https://zhuanlan.zhihu.com/p/499839696",
+      "CreatedAt": 1650126995,
+      "FavTime": 1651382070,
+      "LikeCount": 1804,
+      "CommentCount": 55,
+      "FavoriteCount": 4674,
+      "Title": "恐怖技巧——交换求和",
+      "Summary": "近日，在学习数论及做习题的过程中，多次遇到求和号的交换技巧。不禁回想起高中第一次接触交换求和这一朴素但不平凡的技巧时的震撼，方才意识到，每当它出现于解答中，都会给我以极大地触动。这是一种夹杂暴力与技巧的手法，本质上，它仅仅是改变了求和的顺序而已，求和式本身没有任何改变，但往往能带来惊喜的效果。 然在实际操作中，如何交换求和，却是令人头疼的问题。尤其是在数论中，多个求和号并不仅仅是简单的 [公式]",
+      "Favlists": [
+        {
+          "UrlToken": 794313753,
+          "Title": "我的收藏",
+          "Url": "https://www.zhihu.com/collection/794313753"
+        }
+      ],
+      "Author": {
+        "Name": "Westlifer",
+        "UrlToken": "westlifer",
+        "Url": "https://www.zhihu.com/people/westlifer",
+        "Gender": 2,
+        "Headline": "做世俗的诗人"
+      }
+    },
+    {
+      "ContentType": "article",
+      "Url": "https://zhuanlan.zhihu.com/p/422618184",
+      "CreatedAt": 1634552330,
+      "FavTime": 1649050988,
+      "LikeCount": 226,
+      "CommentCount": 15,
+      "FavoriteCount": 469,
+      "Title": "⑨のn元不等式笔记（1）",
+      "Summary": "正式开始之前先碎碎念几句 联赛前在百度贴吧更新了一段时间的n元不等式笔记，有不少竞赛党发现我那个贴子不见了，实际上是账号遇到了一点问题，于是把所有的贴子都给删了 怎么说，高中学竞赛的时候最擅长的就是不等式，然而联赛时看错了题目暴毙了。。。 虽然说自己已经是大学狗了，很少再去花时间研究这些 不过，毕竟前人栽树后人乘凉嘛，我觉得花一点时间把笔记整理出来分享给大家似乎也挺好的 在整理笔记时也会对一些地方进行…",
+      "Favlists": [
+        {
+          "UrlToken": 794313753,
+          "Title": "我的收藏",
+          "Url": "https://www.zhihu.com/collection/794313753"
+        }
+      ],
+      "Author": {
+        "Name": "天才琪露诺",
+        "UrlToken": "nico233",
+        "Url": "https://www.zhihu.com/people/nico233",
+        "Gender": 1,
+        "Headline": "琪露诺的算术教室因为双减倒闭了……"
+      }
+    },
+    {
+      "ContentType": "article",
+      "Url": "https://zhuanlan.zhihu.com/p/217473917",
+      "CreatedAt": 1599291233,
+      "FavTime": 1648996336,
+      "LikeCount": 161,
+      "CommentCount": 37,
+      "FavoriteCount": 490,
+      "Title": "备考向-30道联赛代数不等式",
+      "Summary": "本菜又来水乎了～这一次是正儿八经的竞赛内容 2020联赛将至。因为本菜新高一不参加联赛，这日子口时间反倒宽松，就瞎整理了一些联赛代数难度的不等式，最终码了30题出来，给各位巨巨练(miao)手(sha)。 当然咱不希望读篇文章很费脑，相信巨巨们也不一定有时间拿着题做，所以我建议看题时轻松一点，不动笔，稍微想想用什么手段处理，思考一下就好。此30题难度不会很大，但是每道题都具巧思。这些题我会给出关键步骤，毕竟根据提示…",
+      "Favlists": [
+        {
+          "UrlToken": 794313753,
+          "Title": "我的收藏",
+          "Url": "https://www.zhihu.com/collection/794313753"
+        }
+      ],
+      "Author": {
+        "Name": "Mel的喵",
+        "UrlToken": "k12-24-49",
+        "Url": "https://www.zhihu.com/people/k12-24-49",
+        "Gender": 0,
+        "Headline": ""
+      }
+    },
+    {
+      "ContentType": "article",
+      "Url": "https://zhuanlan.zhihu.com/p/72520874",
+      "CreatedAt": 1562428373,
+      "FavTime": 1648883830,
+      "LikeCount": 19,
+      "CommentCount": 1,
+      "FavoriteCount": 29,
+      "Title": "一个存在性证明题",
+      "Summary": "昨天碰到了这么一个题： Problem:（标一下出处: CMO 2004p4） 给定 [公式] 以及 [公式] ,证明：(a)存在唯一的 [公式] ,使得满足以下两个条件：i. [公式] ii. [公式] (b): [公式] 我的一个思路： 好吧我是先算了 [公式] 的一个情况以后发现这玩意可能跟方程是否有解有关，但是貌似想想看我这里最好用方法的…",
+      "Favlists": [
+        {
+          "UrlToken": 794313753,
+          "Title": "我的收藏",
+          "Url": "https://www.zhihu.com/collection/794313753"
+        }
+      ],
+      "Author": {
+        "Name": "啥事儿啊",
+        "UrlToken": "bu-xiang-bian-cheng-shou-zi-de-pang-zhi",
+        "Url": "https://www.zhihu.com/people/bu-xiang-bian-cheng-shou-zi-de-pang-zhi",
+        "Gender": 2,
+        "Headline": "事儿？啥事儿？没人告诉我发生了什么事啊！"
+      }
+    },
+    {
+      "ContentType": "answer",
+      "Url": "https://www.zhihu.com/answer/2053821438",
+      "CreatedAt": 1628680774,
+      "FavTime": 1637476516,
+      "LikeCount": 21340,
+      "CommentCount": 355,
+      "FavoriteCount": 53547,
+      "Title": "男生如何变帅？",
+      "Summary": "60天从满脸黑头、痘印、粉刺的挫男，进化成行走的型男！！！老夫终于体会到了这个世界对帅哥的善意了！ 女生的主动搭讪，陌生人的莫名信任！等等 [图片] 我现在的心情真的挺忐忑的，都没脸看自己以前的照片，就像是翻QQ空间一样，回忆里全是黑历史 【高能预警】 [图片] 现在朋友们都说我是去整容了，把爷笑死了，哥有钱整容，我去洗脚不好吗？ 强调一下， 哥是纯的，没有整过，可能是之前太过粗糙，现在变化有点大。 [图片] 所以下面的要认真看，认真学…",
+      "Favlists": [
+        {
+          "UrlToken": 572711307,
+          "Title": "我的收藏夹",
+          "Url": "https://www.zhihu.com/collection/572711307"
+        }
+      ],
+      "Author": {
+        "Name": "打你头",
+        "UrlToken": "da-ni-gou-tou-74",
+        "Url": "https://www.zhihu.com/people/da-ni-gou-tou-74",
+        "Gender": 2,
+        "Headline": ""
+      }
+    },
+    {
+      "ContentType": "answer",
+      "Url": "https://www.zhihu.com/answer/673397883",
+      "CreatedAt": 1557061241,
+      "FavTime": 1628997945,
+      "LikeCount": 29657,
+      "CommentCount": 592,
+      "FavoriteCount": 140774,
+      "Title": "高中数学有没有什么比较牛 X 的公式？",
+      "Summary": "既然是万赞！！！ 那我就不跟你们不客气了！解决数学问题不仅仅只是需要解题方法，在一定程度上还要具备正确的数学思维，很多学生在考试答题中总会遇到一些题，让他们觉得似曾相识的感觉。 由于时间紧张和考试心理等因素的影响，就会让平时相对简单的数学题复杂化 ，所以具备良好的解题方法便是重中之重。 无论你是理科生还是文科生，数学公式，你必须掌握。 提醒广大高考考生，越到接近考试的时候，越需要回顾一些重要的基础知…",
+      "Favlists": [
+        {
+          "UrlToken": 572711307,
+          "Title": "我的收藏夹",
+          "Url": "https://www.zhihu.com/collection/572711307"
+        }
+      ],
+      "Author": {
+        "Name": "优途雅思",
+        "UrlToken": "wang-luo-ying-xiao-ji-ran",
+        "Url": "https://www.zhihu.com/people/wang-luo-ying-xiao-ji-ran",
+        "Gender": 2,
+        "Headline": "海量学习干货，让雅思考试更简单。"
+      }
+    },
+    {
+      "ContentType": "answer",
+      "Url": "https://www.zhihu.com/answer/1013705627",
+      "CreatedAt": 1581567609,
+      "FavTime": 1596886771,
+      "LikeCount": 74125,
+      "CommentCount": 5288,
+      "FavoriteCount": 185389,
+      "Title": "如何与女生愉快地聊天？",
+      "Summary": "和女生怎么聊天？ 首先我想说女生真的别看，真的真的不要看，不骗你们啊，我说的都是真的，女生千万别看。 因为你们看了后就会占领评论区，会让评论区的男生绝望的(♯｀∧´) 聊天篇：首先追女生不要太迷信套路，套路本质上是花拳绣腿，中看不中用。 追女生的本质应该是提升与人沟通技巧，当你水准到一定地步后，你的话句句都是套路，会一直吸引妹子和你聊下去，才能吸引高质量妹子。 套路对于不擅长与女生聊天的男生来说，…",
+      "Favlists": [
+        {
+          "UrlToken": 572711307,
+          "Title": "我的收藏夹",
+          "Url": "https://www.zhihu.com/collection/572711307"
+        }
+      ],
+      "Author": {
+        "Name": "绝望的小韭菜",
+        "UrlToken": "xuan-men-zhi-guai-lu",
+        "Url": "https://www.zhihu.com/people/xuan-men-zhi-guai-lu",
+        "Gender": 2,
+        "Headline": "咨询或探讨vx：jwdxjc"
+      }
+    },
+    {
+      "ContentType": "answer",
+      "Url": "https://www.zhihu.com/answer/1011500677",
+      "CreatedAt": 1581471901,
+      "FavTime": 1596886759,
+      "LikeCount": 22275,
+      "CommentCount": 1456,
+      "FavoriteCount": 76877,
+      "Title": "女生最想收到男性朋友送的什么礼物？",
+      "Summary": "请注意，前方高能， 这不是一个私人倾向的礼物清单，而是宏桑用了3天，采访女粉群+主题直播后的权威结果。 本次直播平均在线2000+，在每个类型的礼物上，宏桑都会发起投票，比如：“相同价位，男朋友送xx会不会喜欢”，根据大家的反馈，本次文章只遴选了通过率超过80%的礼物。 [图片] 首先说一下情人节礼物的大策略。 1.没钱送心意，有钱送大牌。消费能力各有不同，钱少的情况下，投其所好，多用点心，比如亲手做的相册+留言簿，对应星…",
+      "Favlists": [
+        {
+          "UrlToken": 572711307,
+          "Title": "我的收藏夹",
+          "Url": "https://www.zhihu.com/collection/572711307"
+        }
+      ],
+      "Author": {
+        "Name": "宏桑",
+        "UrlToken": "hongsang",
+        "Url": "https://www.zhihu.com/people/hongsang",
+        "Gender": 2,
+        "Headline": "咨询可加微:hongsanghit"
+      }
+    }
+  ]
+}
