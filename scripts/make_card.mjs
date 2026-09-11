@@ -16,12 +16,17 @@ const limit = args.includes('--limit') ? Number(args[args.indexOf('--limit') + 1
 const PROMPT = (title, breakdown) => `你是知识卡片制作专家。下面是一条知乎收藏和 AI 对该问题下优质讨论的拆解。
 请把拆解整理成一张学习卡片，输出严格 JSON（不要 markdown 代码块），字段：
 coreView: string 核心观点一句话（≤50字）
-thread: {step: string, detail: string}[] 讲解脉络——作者/回答是怎么一步步把问题讲清楚的（3-5步，step 为这一步的小标题≤12字，detail 说明这一步在讲什么≤50字）。这是卡片的核心，要还原讲解的推进顺序和逻辑转折
-points: string[] 恰好3个关键知识点（每条≤40字）
+thread: {step: string, detail: string}[] 讲解脉络（3-5步，step 小标题≤12字，detail≤60字）。还原讲解的推进顺序和逻辑转折
+keyInsight: string 关键洞察——这个东西为什么成立/为什么巧妙：核心证明思路、关键技巧或直觉类比（≤100字；涉及公式一律用 LaTeX 保留，如 $A^TP+PA=-Q$；纯观点类内容可留空字符串）
+points: string[] 恰好3个关键知识点（每条≤40字，可含 LaTeX）
 quote: string 金句一条（≤30字）
 difficulty: "easy"|"medium"|"hard"
 topicTags: string[] 2-4个领域标签
-要求：忠于拆解内容，不编造拆解里没有的事实；语言说人话，专业术语要翻译。
+
+内容类型要求：
+- 理科/知识类：thread 必须还原「问题是什么 → 直觉怎么想 → 关键技巧 → 严格论证 → 应用与局限」的推进路径；keyInsight 必填；绝不能为了简短丢掉推导亮点和公式
+- 观点/讨论类：thread 还原观点交锋与论证结构；keyInsight 可留空
+通用要求：忠于拆解内容，不编造拆解里没有的事实；语言说人话。
 
 收藏标题：${title}
 拆解内容：
@@ -48,6 +53,7 @@ function parseCard(text) {
     || obj.thread.some((s) => typeof s?.step !== 'string' || typeof s?.detail !== 'string')) {
     throw new Error('thread invalid (need 3-5 steps with step/detail)');
   }
+  if (typeof obj.keyInsight !== 'string') throw new Error('keyInsight must be string');
   return obj;
 }
 
