@@ -1,5 +1,5 @@
 // Gemini 炼卡：直答拆解原文 -> 卡片 JSON（按 SPEC Schema）
-// 用法：node scripts/make_card.mjs [--limit N]
+// 用法：node --env-file=.env.local scripts/make_card.mjs [--limit N]
 import { readFile, writeFile, readdir, mkdir, rename } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -44,10 +44,14 @@ async function chat(prompt) {
 }
 
 function parseCard(text) {
-  let cleaned = text.replace(/```json|```/g, '').trim();
-  // 模型输出 LaTeX 时常见非法转义（如 \l、\utilde），把非法反斜杠补成双写
-  cleaned = cleaned.replace(/\\(?!["\\/bfnrt]|u[0-9a-fA-F]{4})/g, '\\\\');
-  const obj = JSON.parse(cleaned);
+  const cleaned = text.replace(/```json|```/g, '').trim();
+  let obj;
+  try {
+    obj = JSON.parse(cleaned);
+  } catch {
+    // 模型输出 LaTeX 时常见非法转义（如 \l、\utilde），把非法反斜杠补成双写
+    obj = JSON.parse(cleaned.replace(/\\(?!["\\/bfnrt]|u[0-9a-fA-F]{4})/g, '\\\\'));
+  }
   if (typeof obj.coreView !== 'string' || !Array.isArray(obj.points) || obj.points.length !== 3
     || typeof obj.quote !== 'string' || !['easy', 'medium', 'hard'].includes(obj.difficulty)
     || !Array.isArray(obj.topicTags)) throw new Error('schema invalid');

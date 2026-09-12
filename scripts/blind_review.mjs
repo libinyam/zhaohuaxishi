@@ -1,6 +1,6 @@
 // 盲审门禁 v2：忠实性 + 核心覆盖（卡片是「忠实浓缩」，不是全文复刻）
 // 两条红线：① 卡片里有拆解不支持的内容（幻觉）② 漏掉拆解的核心观点
-// 用法：node scripts/blind_review.mjs [--limit N]
+// 用法：node --env-file=.env.local scripts/blind_review.mjs [--limit N]
 import { readFile, writeFile, readdir, rename } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -25,9 +25,9 @@ async function chat(prompt) {
 }
 
 const parseJson = (t) => {
-  let c = t.replace(/```json|```/g, '').trim();
-  c = c.replace(/\\(?!["\\/bfnrt]|u[0-9a-fA-F]{4})/g, '\\\\');
-  return JSON.parse(c);
+  const c = t.replace(/```json|```/g, '').trim();
+  try { return JSON.parse(c); } catch { /* 转义非法时走兜底修复 */ }
+  return JSON.parse(c.replace(/\\(?!["\\/bfnrt]|u[0-9a-fA-F]{4})/g, '\\\\'));
 };
 
 const REVIEW_PROMPT = (card, breakdown) => `你是盲审考官。一张学习卡片声称是对「拆解原文」的忠实浓缩。卡片的产品定位是 2 分钟读完的精华摘要，不要求包含原文全部细节。
@@ -68,10 +68,9 @@ for (const f of files) {
   if (card.status !== 'pending_review') continue;
 
   const zhidaKey = card.id.replace('card_', '');
-  const breakdown = JSON.parse(await readFile(path.join(zhidaDir, `${zhidaKey}.json`), 'utf8'));
-
   console.log(`[${done + 1}] 盲审 ${card.id} 「${(card.source.title || '').slice(0, 25)}」`);
   try {
+    const breakdown = JSON.parse(await readFile(path.join(zhidaDir, `${zhidaKey}.json`), 'utf8'));
     const judged = parseJson(await chat(REVIEW_PROMPT(card, breakdown.content)));
     card.reviewScore = judged.score;
     card.reviewDetail = judged;

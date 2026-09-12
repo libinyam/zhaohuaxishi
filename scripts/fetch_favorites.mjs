@@ -25,6 +25,7 @@ await mkdir(path.join(root, 'data'), { recursive: true });
 const all = [];
 for (const list of lists) {
   let offset = '0';
+  const seenOffsets = new Set(['0']);
   for (;;) {
     const resp = await cli(['me', 'favorites', 'items', '--url-token', String(list.UrlToken), '--offset', offset, '--limit', '50']);
     const items = resp?.Data?.Items ?? [];
@@ -32,7 +33,11 @@ for (const list of lists) {
     all.push(...items);
     const paging = resp?.Data?.Paging;
     if (!paging || paging.IsEnd || items.length === 0) break;
-    offset = paging.NextOffset;
+    const next = paging.NextOffset;
+    if (typeof next !== 'string' || !next) throw new Error(`${list.Title}: 分页未结束但 NextOffset 缺失，终止防死循环`);
+    if (seenOffsets.has(next)) throw new Error(`${list.Title}: 分页 offset 重复 (${next})，疑似接口异常，终止`);
+    seenOffsets.add(next);
+    offset = next;
   }
 }
 
