@@ -91,13 +91,11 @@ for (const item of targets) {
     continue;
   } catch { /* 无缓存，继续 */ }
   const legacy = legacyKey(item.Url);
-  if (legacy !== key) {
-    try {
-      await readFile(path.join(cacheDir, `${legacy}.json`), 'utf8');
-      skipped++;
-      continue;
-    } catch { /* 旧命名缓存也没有 */ }
-  }
+  try {
+    await readFile(path.join(cacheDir, `${legacy}.json`), 'utf8');
+    skipped++;
+    continue;
+  } catch { /* 旧命名缓存也没有 */ }
 
   const query = buildQuery(item);
   if (dry) { console.log(`[dry] ${key} ${query.slice(0, 50)}...`); done++; continue; }
@@ -109,9 +107,9 @@ for (const item of targets) {
   }
 
   console.log(`[${done + 1}] 拆解 ${key} 「${(item.Title || '').slice(0, 25)}」（今日第 ${quota.count + 1} 次）`);
+  await bumpQuota(); // 单一计数点：本条即将发请求，无论成败计 1 次，重试不单独计
   try {
     const resp = await cliWithRetry(['answer', '--query', query, '--model', 'zhida-thinking-1p5']);
-    await bumpQuota(); // 请求发出即计数（按条目计，重试不单独计）
     const content = resp?.choices?.[0]?.message?.content;
     if (!content) throw new Error('empty content');
     const tmp = cacheFile + '.tmp';
@@ -121,7 +119,6 @@ for (const item of targets) {
     console.log(`    ok (${content.length} chars)`);
     await new Promise((r) => setTimeout(r, 3000)); // 温和节奏，避免触发频率限制
   } catch (e) {
-    await bumpQuota();
     failed++;
     console.error(`    FAIL: ${e.message.slice(0, 120)}`);
   }

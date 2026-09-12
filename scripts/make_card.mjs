@@ -64,13 +64,17 @@ function parseCard(text) {
   return obj;
 }
 
+// 只取 schema 字段组装卡片，防止模型回显多余键覆盖身份字段（id/source 等）
+const pickCardFields = ({ coreView, thread, keyInsight, points, quote, difficulty, topicTags }) =>
+  ({ coreView, thread, keyInsight, points, quote, difficulty, topicTags });
+
 const fav = JSON.parse(await readFile(path.join(root, 'data', 'favorites.json'), 'utf8'));
-// key 前缀 ContentType 防跨类型碰撞（与 breakdown.mjs 对齐）；旧命名（无前缀）缓存仍识别
+// key 前缀 ContentType 防跨类型碰撞（与 breakdown.mjs 对齐）；新旧两套命名都索引，旧命名缓存文件仍能找到收藏条目
 const legacyKey = (url) => (url || '').split('?')[0].split('/').pop();
 const byKey = new Map();
 for (const i of fav.items) {
   byKey.set(legacyKey(i.Url), i);
-  byKey.set(`${i.ContentType}_${legacyKey(i.Url)}`, i); // 新命名后写，碰撞时优先
+  byKey.set(`${i.ContentType}_${legacyKey(i.Url)}`, i);
 }
 const zhidaDir = path.join(root, 'data', 'cache', 'zhida');
 const cardsDir = path.join(root, 'data', 'cache', 'cards');
@@ -118,7 +122,7 @@ if (args.includes('--remake')) {
       }
       const full = {
         ...card,
-        ...remadeCard,
+        ...pickCardFields(remadeCard),
         status: 'pending_review',
         reviewScore: null,
         reviewDetail: null,
@@ -166,7 +170,7 @@ for (const f of files) {
         contentType: item.ContentType, title: item.Title, url: item.Url,
         authorName: item.Author?.Name ?? '', favTime: item.FavTime, likeCount: item.LikeCount,
       } : { title: breakdown.title, url: breakdown.url },
-      ...card,
+      ...pickCardFields(card),
       status: 'pending_review', reviewScore: null,
       nextReviewAt: Math.floor(Date.now() / 1000), reviewCount: 0,
       createdAt: Math.floor(Date.now() / 1000),

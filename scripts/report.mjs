@@ -83,8 +83,16 @@ try {
   const files = (await readdir(cardsDir)).filter((f) => f.endsWith('.json'));
   const tagCount = {};
   const statusCount = {};
+  let parsed = 0;
   for (const f of files) {
-    const card = JSON.parse(await readFile(path.join(cardsDir, f), 'utf8'));
+    let card;
+    try {
+      card = JSON.parse(await readFile(path.join(cardsDir, f), 'utf8'));
+    } catch (e) {
+      console.warn(`跳过损坏卡片 ${f}: ${e.message.slice(0, 80)}`);
+      continue;
+    }
+    parsed++;
     statusCount[card.status] = (statusCount[card.status] || 0) + 1;
     for (const t of card.topicTags || []) tagCount[t] = (tagCount[t] || 0) + 1;
   }
@@ -102,7 +110,8 @@ try {
     domainCount[domain] = (domainCount[domain] || 0) + count;
   }
   cards = {
-    total: files.length,
+    total: parsed,
+    corrupt: files.length - parsed,
     statusCount,
     // 计数口径：标签出现次数（每张卡 2-4 个标签）
     domainDist: Object.entries(domainCount).sort((a, b) => b[1] - a[1]).map(([domain, count]) => ({ domain, count })),
@@ -114,7 +123,9 @@ try {
     // 占位口径：approved 卡片数 / 总收藏数；真实消化比待复习队列 digested 状态上线
     ratio: items.length ? +((statusCount.approved || 0) / items.length).toFixed(2) : 0,
   };
-} catch { /* 卡片目录不存在则跳过 */ }
+} catch (e) {
+  console.warn(`cards 统计跳过: ${e.message.slice(0, 120)}`);
+}
 
 const report = {
   generatedAt: Date.now(),

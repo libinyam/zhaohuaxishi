@@ -1,5 +1,5 @@
 {
-  "generatedAt": 1789198063343,
+  "generatedAt": 1789199727761,
   "total": 93,
   "typeDist": {
     "article": 59,
@@ -91,6 +91,7 @@
   },
   "cards": {
     "total": 92,
+    "corrupt": 1,
     "statusCount": {
       "approved": 92
     },
