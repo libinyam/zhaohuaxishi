@@ -40,9 +40,17 @@
     "高中数学",
     "文献考证"
   ],
-  "status": "pending_review",
-  "reviewScore": null,
+  "status": "approved",
+  "reviewScore": 5,
   "nextReviewAt": 1789143902,
   "reviewCount": 0,
-  "createdAt": 1789143902
+  "createdAt": 1789143902,
+  "reviewDetail": {
+    "faithful": true,
+    "unsupportedClaims": [],
+    "coreCovered": true,
+    "missingCore": [],
+    "score": 5,
+    "comment": "忠实且精准地浓缩了原文如实说明资料缺失、剔除无关与单题解析、提出补充需求的核心逻辑。"
+  }
 }

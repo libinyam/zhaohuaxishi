@@ -40,9 +40,17 @@
     "逼近论",
     "应用数学"
   ],
-  "status": "pending_review",
-  "reviewScore": null,
+  "status": "approved",
+  "reviewScore": 5,
   "nextReviewAt": 1789142754,
   "reviewCount": 0,
-  "createdAt": 1789142754
+  "createdAt": 1789142754,
+  "reviewDetail": {
+    "faithful": true,
+    "unsupportedClaims": [],
+    "coreCovered": true,
+    "missingCore": [],
+    "score": 5,
+    "comment": "卡片高度忠实于拆解原文，准确提炼了切比雪夫多项式的定义、最小零偏差定理的反证论证逻辑、交错定理及应用延伸，结构精炼完整。"
+  }
 }

@@ -41,9 +41,17 @@
     "世界观架构",
     "文学批评"
   ],
-  "status": "pending_review",
-  "reviewScore": null,
+  "status": "approved",
+  "reviewScore": 5,
   "nextReviewAt": 1789142776,
   "reviewCount": 0,
-  "createdAt": 1789142776
+  "createdAt": 1789142776,
+  "reviewDetail": {
+    "faithful": true,
+    "unsupportedClaims": [],
+    "coreCovered": true,
+    "missingCore": [],
+    "score": 5,
+    "comment": "卡片准确提炼了原文中推荐派与批评反思派的两大核心维度，概念引用精准，无实质性幻觉。"
+  }
 }

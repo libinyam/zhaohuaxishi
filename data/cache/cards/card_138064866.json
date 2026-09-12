@@ -40,9 +40,17 @@
     "运筹优化",
     "多项式优化"
   ],
-  "status": "pending_review",
-  "reviewScore": null,
+  "status": "approved",
+  "reviewScore": 5,
   "nextReviewAt": 1789142787,
   "reviewCount": 0,
-  "createdAt": 1789142787
+  "createdAt": 1789142787,
+  "reviewDetail": {
+    "faithful": true,
+    "unsupportedClaims": [],
+    "coreCovered": true,
+    "missingCore": [],
+    "score": 5,
+    "comment": "卡片高度忠实于拆解原文，精准提炼了从非负与SOS不等价、阿廷定理到半定规划（SDP）凸松弛的核心脉络，无任何编造。"
+  }
 }

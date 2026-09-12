@@ -41,9 +41,17 @@
     "社交心理",
     "边界感"
   ],
-  "status": "pending_review",
-  "reviewScore": null,
+  "status": "approved",
+  "reviewScore": 5,
   "nextReviewAt": 1789142598,
   "reviewCount": 0,
-  "createdAt": 1789142598
+  "createdAt": 1789142598,
+  "reviewDetail": {
+    "faithful": true,
+    "unsupportedClaims": [],
+    "coreCovered": true,
+    "missingCore": [],
+    "score": 5,
+    "comment": "卡片提炼高度精准，完全忠实于拆解原文且完整覆盖了核心论证脉络。"
+  }
 }

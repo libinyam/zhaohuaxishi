@@ -40,9 +40,17 @@
     "数列极限",
     "Stolz定理"
   ],
-  "status": "pending_review",
-  "reviewScore": null,
+  "status": "approved",
+  "reviewScore": 5,
   "nextReviewAt": 1789142800,
   "reviewCount": 0,
-  "createdAt": 1789142800
+  "createdAt": 1789142800,
+  "reviewDetail": {
+    "faithful": true,
+    "unsupportedClaims": [],
+    "coreCovered": true,
+    "missingCore": [],
+    "score": 5,
+    "comment": "卡片准确提炼了拆解原文中第四题的核心论证脉络与拓展变式，严格忠实于原文信息。"
+  }
 }

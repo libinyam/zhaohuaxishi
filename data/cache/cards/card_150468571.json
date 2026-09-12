@@ -40,9 +40,17 @@
     "微积分",
     "反常积分"
   ],
-  "status": "pending_review",
-  "reviewScore": null,
+  "status": "approved",
+  "reviewScore": 5,
   "nextReviewAt": 1789142831,
   "reviewCount": 0,
-  "createdAt": 1789142831
+  "createdAt": 1789142831,
+  "reviewDetail": {
+    "faithful": true,
+    "unsupportedClaims": [],
+    "coreCovered": true,
+    "missingCore": [],
+    "score": 5,
+    "comment": "卡片准确提炼了原文中拉普拉斯积分的微分方程求解思路及相关拓展方法，无事实捏造，核心覆盖完整。"
+  }
 }

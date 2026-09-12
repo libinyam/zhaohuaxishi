@@ -41,9 +41,20 @@
     "试题解析",
     "插值误差"
   ],
-  "status": "pending_review",
-  "reviewScore": null,
+  "status": "rejected",
+  "reviewScore": 3.5,
   "nextReviewAt": 1789142768,
   "reviewCount": 0,
-  "createdAt": 1789142768
+  "createdAt": 1789142768,
+  "reviewDetail": {
+    "faithful": false,
+    "unsupportedClaims": [
+      "第四题的具体证明细节（'利用下凸函数的割线斜率性质与两端点约束'、'任一点上界由端点连线决定，下界由区间外侧割线斜率反向限制'）：拆解原文仅提及第四题题干为证明闭子区间上有界，未包含具体解法推导与几何控制步骤。",
+      "压轴题解法涉及'柯西余项技巧'及'多项式插值节点构造'：拆解原文仅提到第七题本质为插值误差问题，并未展开具体使用的数学技巧与余项形式。"
+    ],
+    "coreCovered": true,
+    "missingCore": [],
+    "score": 3.5,
+    "comment": "卡片精准提炼了试卷两极分化与各题核心考点，但外溢补充了原文未记载的具体解题推导细节（割线斜率上下界构造成因、柯西余项等），存在超纲信息。"
+  }
 }

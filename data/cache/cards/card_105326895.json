@@ -40,9 +40,17 @@
     "现代控制理论",
     "动力系统"
   ],
-  "status": "pending_review",
-  "reviewScore": null,
+  "status": "approved",
+  "reviewScore": 5,
   "nextReviewAt": 1789142620,
   "reviewCount": 0,
-  "createdAt": 1789142620
+  "createdAt": 1789142620,
+  "reviewDetail": {
+    "faithful": true,
+    "unsupportedClaims": [],
+    "coreCovered": true,
+    "missingCore": [],
+    "score": 5,
+    "comment": "卡片高度忠实于原文，准确且凝练地覆盖了李雅普诺夫方程的核心理论、谱条件推导、时域积分与工程局限。"
+  }
 }

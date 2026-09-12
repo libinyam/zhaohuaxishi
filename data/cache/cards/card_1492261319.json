@@ -40,9 +40,17 @@
     "线性代数",
     "矩阵论"
   ],
-  "status": "pending_review",
-  "reviewScore": null,
+  "status": "approved",
+  "reviewScore": 5,
   "nextReviewAt": 1789142821,
   "reviewCount": 0,
-  "createdAt": 1789142821
+  "createdAt": 1789142821,
+  "reviewDetail": {
+    "faithful": true,
+    "unsupportedClaims": [],
+    "coreCovered": true,
+    "missingCore": [],
+    "score": 5,
+    "comment": "卡片高度忠实于拆解原文，准确且完整地凝练了直观维度约束、代数同态降次以及 Krylov 几何视角的三层核心论证。"
+  }
 }

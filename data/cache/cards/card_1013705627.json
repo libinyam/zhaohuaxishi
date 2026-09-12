@@ -40,9 +40,17 @@
     "亲密关系",
     "认知心理"
   ],
-  "status": "pending_review",
-  "reviewScore": null,
+  "status": "approved",
+  "reviewScore": 5,
   "nextReviewAt": 1789142609,
   "reviewCount": 0,
-  "createdAt": 1789142609
+  "createdAt": 1789142609,
+  "reviewDetail": {
+    "faithful": true,
+    "unsupportedClaims": [],
+    "coreCovered": true,
+    "missingCore": [],
+    "score": 5,
+    "comment": "卡片准确提炼了原文的两大主流流派、底层共性与反思，事实性陈述均有据可循且核心无遗漏。"
+  }
 }
