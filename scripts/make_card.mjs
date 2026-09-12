@@ -1,5 +1,6 @@
 // Gemini 炼卡：直答拆解原文 -> 卡片 JSON（按 SPEC Schema）
-// 用法：node --env-file=.env.local scripts/make_card.mjs [--limit N]
+// 用法：node --env-file=.env.local scripts/make_card.mjs [--limit N] [--remake]
+// --remake：打回重炼模式，带盲审反馈重炼 rejected 卡片（最多 2 次，仍不过降级 summary_only）
 import { readFile, writeFile, readdir, mkdir, rename } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -64,10 +65,78 @@ function parseCard(text) {
 }
 
 const fav = JSON.parse(await readFile(path.join(root, 'data', 'favorites.json'), 'utf8'));
-const byKey = new Map(fav.items.map((i) => [(i.Url || '').split('?')[0].split('/').pop(), i]));
+// key 前缀 ContentType 防跨类型碰撞（与 breakdown.mjs 对齐）；旧命名（无前缀）缓存仍识别
+const legacyKey = (url) => (url || '').split('?')[0].split('/').pop();
+const byKey = new Map();
+for (const i of fav.items) {
+  byKey.set(legacyKey(i.Url), i);
+  byKey.set(`${i.ContentType}_${legacyKey(i.Url)}`, i); // 新命名后写，碰撞时优先
+}
 const zhidaDir = path.join(root, 'data', 'cache', 'zhida');
 const cardsDir = path.join(root, 'data', 'cache', 'cards');
 await mkdir(cardsDir, { recursive: true });
+
+// 打回重炼模式（issue #8）：rejected 卡片带盲审反馈重炼，最多 2 次，仍不过降级 summary_only
+// 拆解走 zhida 缓存，只消耗 Gemini，不动直答额度
+if (args.includes('--remake')) {
+  const MAX_REMAKE = 2;
+  const cardFiles = (await readdir(cardsDir)).filter((f) => f.endsWith('.json'));
+  let remade = 0, downgraded = 0, failedRemake = 0;
+  for (const f of cardFiles) {
+    if (remade >= limit) break;
+    const cardFile = path.join(cardsDir, f);
+    const card = JSON.parse(await readFile(cardFile, 'utf8'));
+    if (card.status !== 'rejected') continue;
+    const remakeCount = card.remakeCount || 0;
+    if (remakeCount >= MAX_REMAKE) {
+      card.status = 'summary_only';
+      const tmp = cardFile + '.tmp';
+      await writeFile(tmp, JSON.stringify(card, null, 2));
+      await rename(tmp, cardFile);
+      downgraded++;
+      console.log(`降级 summary_only（已重炼 ${remakeCount} 次仍不过）: ${card.id}`);
+      continue;
+    }
+    try {
+      const zhidaKey = card.id.replace('card_', '');
+      const breakdown = JSON.parse(await readFile(path.join(zhidaDir, `${zhidaKey}.json`), 'utf8'));
+      const fb = card.reviewDetail || {};
+      const feedback = [
+        ...(fb.unsupportedClaims?.length ? [`幻觉（拆解不支持，必须删除或改正）：${fb.unsupportedClaims.join('；')}`] : []),
+        ...(fb.missingCore?.length ? [`漏掉的核心（必须补上）：${fb.missingCore.join('；')}`] : []),
+      ].join('\n');
+      const prompt = PROMPT(breakdown.title, breakdown.content)
+        + `\n\n上次制作的卡片未通过盲审，请针对性修正：\n${feedback || '整体质量不达标，请更忠实地浓缩核心内容。'}`;
+      console.log(`[${remade + 1}] 重炼 ${card.id}（第 ${remakeCount + 1}/${MAX_REMAKE} 次）「${(card.source?.title || '').slice(0, 25)}」`);
+      const text = await chat(prompt);
+      let remadeCard;
+      try {
+        remadeCard = parseCard(text);
+      } catch {
+        const retryText = await chat(prompt + '\n\n重要：JSON 字符串中所有反斜杠必须双写（\\\\），LaTeX 公式改用中文文字描述。');
+        remadeCard = parseCard(retryText);
+      }
+      const full = {
+        ...card,
+        ...remadeCard,
+        status: 'pending_review',
+        reviewScore: null,
+        reviewDetail: null,
+        remakeCount: remakeCount + 1,
+      };
+      const tmp = cardFile + '.tmp';
+      await writeFile(tmp, JSON.stringify(full, null, 2));
+      await rename(tmp, cardFile);
+      remade++;
+      console.log(`    ok: ${full.coreView.slice(0, 40)}`);
+    } catch (e) {
+      failedRemake++;
+      console.error(`    FAIL: ${e.message.slice(0, 120)}`);
+    }
+  }
+  console.log(`remade=${remade} downgraded=${downgraded} failed=${failedRemake}`);
+  process.exit(0);
+}
 
 const files = (await readdir(zhidaDir)).filter((f) => f.endsWith('.json'));
 let done = 0, skipped = 0, failed = 0;

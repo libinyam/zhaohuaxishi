@@ -1,5 +1,5 @@
 {
-  "generatedAt": 1789139736051,
+  "generatedAt": 1789198063343,
   "total": 93,
   "typeDist": {
     "article": 59,
@@ -11,13 +11,13 @@
     "title": "女生最想收到男性朋友送的什么礼物？",
     "url": "https://www.zhihu.com/answer/1011500677",
     "favDate": "2020-08-08",
-    "ageDays": 2225
+    "ageDays": 2226
   },
   "newestItem": {
     "title": "数学译本",
     "url": "https://zhuanlan.zhihu.com/p/2072036215029813445",
-    "favDate": "2026-08-17",
-    "daysAgo": 25
+    "favDate": "2026-08-18",
+    "daysAgo": 26
   },
   "burstMonth": {
     "month": "2025-03",
@@ -88,5 +88,84 @@
   "persona": {
     "type": "三分钟热度型",
     "description": "收藏节奏断断续续，热情来得快去得也快"
+  },
+  "cards": {
+    "total": 92,
+    "statusCount": {
+      "approved": 92
+    },
+    "domainDist": [
+      {
+        "domain": "数学",
+        "count": 206
+      },
+      {
+        "domain": "人文社科",
+        "count": 36
+      },
+      {
+        "domain": "其他",
+        "count": 32
+      },
+      {
+        "domain": "学习方法",
+        "count": 9
+      },
+      {
+        "domain": "编程/CS",
+        "count": 6
+      },
+      {
+        "domain": "自然科学",
+        "count": 2
+      }
+    ],
+    "topTags": [
+      {
+        "tag": "数学分析",
+        "count": 16
+      },
+      {
+        "tag": "高等数学",
+        "count": 9
+      },
+      {
+        "tag": "高中数学",
+        "count": 8
+      },
+      {
+        "tag": "高等代数",
+        "count": 8
+      },
+      {
+        "tag": "数学竞赛",
+        "count": 8
+      },
+      {
+        "tag": "线性代数",
+        "count": 7
+      },
+      {
+        "tag": "圆锥曲线",
+        "count": 6
+      },
+      {
+        "tag": "微积分",
+        "count": 5
+      },
+      {
+        "tag": "数论",
+        "count": 5
+      },
+      {
+        "tag": "解析几何",
+        "count": 5
+      }
+    ]
+  },
+  "digestion": {
+    "collected": 93,
+    "approved": 92,
+    "ratio": 0.99
   }
 }

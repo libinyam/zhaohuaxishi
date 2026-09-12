@@ -140,7 +140,7 @@
   2. **核心覆盖**：拆解原文的核心观点与最关键论证步骤是否被捕捉；漏掉的列入 `missingCore`。只要求覆盖核心，细节缺失不算问题
 - 判定：`faithful=true` 且 `coreCovered=true` 为通过（`approved`），否则 `rejected`；评分 0-5 与判定明细落盘为 `reviewScore`/`reviewDetail`
 - 全部判定记录落盘，演示话术可引用通过率
-- **打回重炼循环（规划中，未实现）**：不通过则重炼（消耗 1 次直答额度），最多 2 次，仍不过降级 `summary_only`。前置条件：先落每日额度台账，防止重炼叠加烧穿直答 100 次/天
+- **打回重炼**：`make_card.mjs --remake` 带盲审反馈（幻觉清单/漏核清单）重炼 rejected 卡片，**最多 2 次**，仍不过降级 `summary_only`。拆解走 zhida 缓存，只消耗 Gemini，不动直答额度；直答侧由每日额度台账兜底（`data/quota/<日期>.json`，用量达 90/100 即拒绝请求，`breakdown.mjs --quota` 可查当日余量）
 
 ### 复习队列算法（MVP 简化版间隔重复）
 
