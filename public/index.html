@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>朝花夕拾 · 收藏夹消化引擎</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-stone-100 text-stone-800 min-h-screen">
+
+<header class="bg-white border-b border-stone-200 sticky top-0 z-10">
+  <div class="max-w-3xl mx-auto px-4 py-3 flex items-center justify-between">
+    <div>
+      <h1 class="text-xl font-bold text-amber-700">朝花夕拾</h1>
+      <p class="text-xs text-stone-500">早上的花，傍晚拾——趁收藏还没凉透</p>
+    </div>
+    <nav class="flex gap-1 text-sm">
+      <button data-tab="today" class="tab-btn px-3 py-1.5 rounded-full">今日复习</button>
+      <button data-tab="report" class="tab-btn px-3 py-1.5 rounded-full">考古报告</button>
+      <button data-tab="cards" class="tab-btn px-3 py-1.5 rounded-full">全部卡片</button>
+    </nav>
+  </div>
+</header>
+
+<main class="max-w-3xl mx-auto px-4 py-6">
+  <section id="tab-today"></section>
+  <section id="tab-report" class="hidden"></section>
+  <section id="tab-cards" class="hidden"></section>
+</main>
+
+<script src="app.js"></script>
+</body>
+</html>

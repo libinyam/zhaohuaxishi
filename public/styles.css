@@ -1,0 +1,51 @@
+/* 朝花夕拾 */
+.tab-btn { color: #78716c; transition: all .15s; }
+.tab-btn.active { background: #b45309; color: #fff; }
+.tab-btn:not(.active):hover { background: #f5f5f4; }
+
+.card-paper {
+  background: #fff;
+  border: 1px solid #e7e5e4;
+  border-radius: 1rem;
+  box-shadow: 0 1px 3px rgba(0,0,0,.05);
+}
+
+.thread-step {
+  position: relative;
+  padding-left: 1.75rem;
+}
+.thread-step::before {
+  content: attr(data-n);
+  position: absolute;
+  left: 0; top: 0.1rem;
+  width: 1.25rem; height: 1.25rem;
+  border-radius: 9999px;
+  background: #fef3c7;
+  color: #b45309;
+  font-size: .75rem;
+  font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+}
+.thread-step:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  left: 0.6rem; top: 1.5rem; bottom: -0.25rem;
+  width: 1px;
+  background: #fde68a;
+}
+
+.badge { font-size: .7rem; padding: .15rem .5rem; border-radius: 9999px; font-weight: 600; }
+.badge-easy { background: #dcfce7; color: #15803d; }
+.badge-medium { background: #fef9c3; color: #a16207; }
+.badge-hard { background: #fee2e2; color: #b91c1c; }
+.badge-source { background: #e0e7ff; color: #4338ca; cursor: help; }
+
+.bar-row { display: flex; align-items: center; gap: .5rem; font-size: .8rem; }
+.bar-track { flex: 1; background: #f5f5f4; border-radius: 9999px; height: .9rem; overflow: hidden; }
+.bar-fill { background: linear-gradient(90deg,#fbbf24,#b45309); height: 100%; border-radius: 9999px; transition: width .6s ease; }
+
+.katex { font-size: 1em; }
+.katex-display { margin: .5rem 0; overflow-x: auto; }
+
+.fade-in { animation: fadeIn .3s ease; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
