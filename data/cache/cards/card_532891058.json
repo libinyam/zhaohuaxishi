@@ -40,9 +40,17 @@
     "数学物理方法",
     "经典电动力学"
   ],
-  "status": "pending_review",
-  "reviewScore": null,
+  "status": "approved",
+  "reviewScore": 5,
   "nextReviewAt": 1789143426,
   "reviewCount": 0,
-  "createdAt": 1789143426
+  "createdAt": 1789143426,
+  "reviewDetail": {
+    "faithful": true,
+    "unsupportedClaims": [],
+    "coreCovered": true,
+    "missingCore": [],
+    "score": 5,
+    "comment": "卡片准确且精炼地还原了拆解原文的全部核心推导脉络与要点，论证步骤完整且无任何事实性编造。"
+  }
 }

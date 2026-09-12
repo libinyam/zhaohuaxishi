@@ -40,9 +40,17 @@
     "参数方程",
     "高考数学"
   ],
-  "status": "pending_review",
-  "reviewScore": null,
+  "status": "approved",
+  "reviewScore": 5,
   "nextReviewAt": 1789143388,
   "reviewCount": 0,
-  "createdAt": 1789143388
+  "createdAt": 1789143388,
+  "reviewDetail": {
+    "faithful": true,
+    "unsupportedClaims": [],
+    "coreCovered": true,
+    "missingCore": [],
+    "score": 5,
+    "comment": "卡片高度忠实于拆解原文，准确提炼了万能公式有理参数化及按需构造参数方程的核心脉络，无任何编造。"
+  }
 }

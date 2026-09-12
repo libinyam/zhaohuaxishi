@@ -36,9 +36,22 @@
     "圆锥曲线",
     "学习方法"
   ],
-  "status": "pending_review",
-  "reviewScore": null,
+  "status": "rejected",
+  "reviewScore": 1,
   "nextReviewAt": 1789143354,
   "reviewCount": 0,
-  "createdAt": 1789143354
+  "createdAt": 1789143354,
+  "reviewDetail": {
+    "faithful": false,
+    "unsupportedClaims": [
+      "“齐次化对称结构”在拆解原文中完全未出现，属于无中生有。",
+      "拆解原文明确声明“未找到原文章，无法回答其内容与结构，以下仅为其他文章常见模式参考（不代表该文章本身）”，卡片却将外部参考模式强行编造成该文章的实质性总结与核心观点。"
+    ],
+    "coreCovered": false,
+    "missingCore": [
+      "拆解原文的核心事实是“未检索到目标文章，内容无法考证，无法进行拆解”，卡片完全遗漏了这一核心前提。"
+    ],
+    "score": 1,
+    "comment": "卡片将拆解原文中作为旁证的‘其他文章参考模式’硬套为该文章的内容，还凭空捏造了‘齐次化’等概念，严重背离原文事实。"
+  }
 }

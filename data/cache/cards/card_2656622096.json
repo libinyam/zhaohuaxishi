@@ -41,9 +41,19 @@
     "考拉茨猜想",
     "公开问题"
   ],
-  "status": "pending_review",
-  "reviewScore": null,
+  "status": "rejected",
+  "reviewScore": 4,
   "nextReviewAt": 1789143126,
   "reviewCount": 0,
-  "createdAt": 1789143126
+  "createdAt": 1789143126,
+  "reviewDetail": {
+    "faithful": false,
+    "unsupportedClaims": [
+      "关键洞察中提及的“离散动力系统的潜在混沌性”在拆解原文中未出现，属于补充的外部事实性陈述，原文缺乏依据。"
+    ],
+    "coreCovered": true,
+    "missingCore": [],
+    "score": 4,
+    "comment": "卡片准确提炼了原文的核心观点、论证逻辑与案例脉络，但关键洞察中引入了原文未提及的‘离散动力系统的潜在混沌性’概念。"
+  }
 }

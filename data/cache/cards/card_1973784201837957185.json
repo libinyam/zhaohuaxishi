@@ -40,9 +40,17 @@
     "文学鉴赏",
     "美学"
   ],
-  "status": "pending_review",
-  "reviewScore": null,
+  "status": "approved",
+  "reviewScore": 5,
   "nextReviewAt": 1789143046,
   "reviewCount": 0,
-  "createdAt": 1789143046
+  "createdAt": 1789143046,
+  "reviewDetail": {
+    "faithful": true,
+    "unsupportedClaims": [],
+    "coreCovered": true,
+    "missingCore": [],
+    "score": 5,
+    "comment": "卡片高度忠实于拆解原文，精准提炼了核心美学观点并完整覆盖了原文论及的四位词人案例与鉴赏维度，归纳极为凝练。"
+  }
 }

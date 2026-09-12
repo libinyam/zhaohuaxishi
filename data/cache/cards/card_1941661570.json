@@ -40,9 +40,17 @@
     "皮肤健康",
     "生活常识"
   ],
-  "status": "pending_review",
-  "reviewScore": null,
+  "status": "approved",
+  "reviewScore": 5,
   "nextReviewAt": 1789143028,
   "reviewCount": 0,
-  "createdAt": 1789143028
+  "createdAt": 1789143028,
+  "reviewDetail": {
+    "faithful": true,
+    "unsupportedClaims": [],
+    "coreCovered": true,
+    "missingCore": [],
+    "score": 5,
+    "comment": "卡片高度忠实于原文，精准提炼了分型对症、病理机制及基础防线等核心逻辑，且无任何无端编造。"
+  }
 }

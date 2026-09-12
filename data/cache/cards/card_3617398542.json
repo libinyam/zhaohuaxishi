@@ -40,9 +40,19 @@
     "特殊函数",
     "微积分"
   ],
-  "status": "pending_review",
-  "reviewScore": null,
+  "status": "rejected",
+  "reviewScore": 4,
   "nextReviewAt": 1789143267,
   "reviewCount": 0,
-  "createdAt": 1789143267
+  "createdAt": 1789143267,
+  "reviewDetail": {
+    "faithful": false,
+    "unsupportedClaims": [
+      "卡片中提到“离散素数的局域密度近似为 1/ln t，累积计数天然对应连续积分 ∫ dt/ln t”，拆解原文中未提及素数局域密度及其对应累积积分的直观解释。"
+    ],
+    "coreCovered": true,
+    "missingCore": [],
+    "score": 4,
+    "comment": "卡片精准且完整地提炼了原文的核心脉络与结构，但引入了原文未提及的数论外部背景知识（素数局域密度为 1/ln t）。"
+  }
 }

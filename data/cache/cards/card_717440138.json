@@ -36,9 +36,17 @@
     "矩阵分析",
     "解题思维"
   ],
-  "status": "pending_review",
-  "reviewScore": null,
+  "status": "approved",
+  "reviewScore": 5,
   "nextReviewAt": 1789143664,
   "reviewCount": 0,
-  "createdAt": 1789143664
+  "createdAt": 1789143664,
+  "reviewDetail": {
+    "faithful": true,
+    "unsupportedClaims": [],
+    "coreCovered": true,
+    "missingCore": [],
+    "score": 5,
+    "comment": "卡片高度忠实于拆解原文，精准捕捉了由死路转向“策略性暴力”的核心论证脉络，无任何幻觉。"
+  }
 }

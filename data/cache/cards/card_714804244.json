@@ -36,9 +36,17 @@
     "公开课",
     "学习资源"
   ],
-  "status": "pending_review",
-  "reviewScore": null,
+  "status": "approved",
+  "reviewScore": 5,
   "nextReviewAt": 1789143656,
   "reviewCount": 0,
-  "createdAt": 1789143656
+  "createdAt": 1789143656,
+  "reviewDetail": {
+    "faithful": true,
+    "unsupportedClaims": [],
+    "coreCovered": true,
+    "missingCore": [],
+    "score": 5,
+    "comment": "准确提炼了资源整理型文章的核心主旨、课程分类与名师阵容，表述严谨且无任何幻觉。"
+  }
 }

@@ -40,9 +40,17 @@
     "期末复习",
     "模拟试卷"
   ],
-  "status": "pending_review",
-  "reviewScore": null,
+  "status": "approved",
+  "reviewScore": 5,
   "nextReviewAt": 1789143336,
   "reviewCount": 0,
-  "createdAt": 1789143336
+  "createdAt": 1789143336,
+  "reviewDetail": {
+    "faithful": true,
+    "unsupportedClaims": [],
+    "coreCovered": true,
+    "missingCore": [],
+    "score": 5,
+    "comment": "卡片准确说明了原文未能检索到目标文章的背景，并高度忠实、全面地提炼了原文所列替代模拟卷的核心要点与模考建议。"
+  }
 }

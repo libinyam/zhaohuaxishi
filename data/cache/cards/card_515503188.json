@@ -40,9 +40,17 @@
     "圆锥曲线",
     "高中数学"
   ],
-  "status": "pending_review",
-  "reviewScore": null,
+  "status": "approved",
+  "reviewScore": 5,
   "nextReviewAt": 1789143417,
   "reviewCount": 0,
-  "createdAt": 1789143417
+  "createdAt": 1789143417,
+  "reviewDetail": {
+    "faithful": true,
+    "unsupportedClaims": [],
+    "coreCovered": true,
+    "missingCore": [],
+    "score": 5,
+    "comment": "卡片高度忠实于原文，准确提炼了曲线系方程的核心代数原理、模型分类以及退化二次曲线构造的关键技巧。"
+  }
 }

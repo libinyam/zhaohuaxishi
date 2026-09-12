@@ -40,9 +40,17 @@
     "代数不等式",
     "极值问题"
   ],
-  "status": "pending_review",
-  "reviewScore": null,
+  "status": "approved",
+  "reviewScore": 5,
   "nextReviewAt": 1789143452,
   "reviewCount": 0,
-  "createdAt": 1789143452
+  "createdAt": 1789143452,
+  "reviewDetail": {
+    "faithful": true,
+    "unsupportedClaims": [],
+    "coreCovered": true,
+    "missingCore": [],
+    "score": 5,
+    "comment": "卡片准确提炼了原文中给出的解题框架与核心推断，概念与公式抽象均有据可依，无幻觉生成。"
+  }
 }

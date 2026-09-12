@@ -40,9 +40,17 @@
     "高等数学",
     "试题解析"
   ],
-  "status": "pending_review",
-  "reviewScore": null,
+  "status": "approved",
+  "reviewScore": 5,
   "nextReviewAt": 1789142849,
   "reviewCount": 0,
-  "createdAt": 1789142849
+  "createdAt": 1789142849,
+  "reviewDetail": {
+    "faithful": true,
+    "unsupportedClaims": [],
+    "coreCovered": true,
+    "missingCore": [],
+    "score": 5,
+    "comment": "卡片准确提炼了原文对试卷常规且套路化的核心评价，各道具体题目的方法与公式细节均与原文严格吻合。"
+  }
 }

@@ -35,9 +35,17 @@
     "信息处理",
     "学习方法"
   ],
-  "status": "pending_review",
-  "reviewScore": null,
+  "status": "approved",
+  "reviewScore": 5,
   "nextReviewAt": 1789143074,
   "reviewCount": 0,
-  "createdAt": 1789143074
+  "createdAt": 1789143074,
+  "reviewDetail": {
+    "faithful": true,
+    "unsupportedClaims": [],
+    "coreCovered": true,
+    "missingCore": [],
+    "score": 5,
+    "comment": "卡片准确且忠实地概括了原文因缺乏文本而无法展开分析并请求补充材料的核心信息，无臆造事实。"
+  }
 }

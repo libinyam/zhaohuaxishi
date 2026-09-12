@@ -36,9 +36,17 @@
     "复数",
     "数学竞赛"
   ],
-  "status": "pending_review",
-  "reviewScore": null,
+  "status": "approved",
+  "reviewScore": 5,
   "nextReviewAt": 1789143648,
   "reviewCount": 0,
-  "createdAt": 1789143648
+  "createdAt": 1789143648,
+  "reviewDetail": {
+    "faithful": true,
+    "unsupportedClaims": [],
+    "coreCovered": true,
+    "missingCore": [],
+    "score": 5,
+    "comment": "高度忠实原文，精准捕捉了特殊分数角三角和转化为复数单位根幂和的核心逻辑与关键公式。"
+  }
 }

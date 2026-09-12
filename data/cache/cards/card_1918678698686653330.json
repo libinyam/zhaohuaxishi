@@ -40,9 +40,17 @@
     "矩阵论",
     "线性代数"
   ],
-  "status": "pending_review",
-  "reviewScore": null,
+  "status": "approved",
+  "reviewScore": 5,
   "nextReviewAt": 1789142968,
   "reviewCount": 0,
-  "createdAt": 1789142968
+  "createdAt": 1789142968,
+  "reviewDetail": {
+    "faithful": true,
+    "unsupportedClaims": [],
+    "coreCovered": true,
+    "missingCore": [],
+    "score": 5,
+    "comment": "卡片高度忠实于拆解原文，精准提炼了谱分解开方、降阶公式相似性与Jordan块阶数刻画这三大核心论证链条，概括精炼且无幻觉。"
+  }
 }

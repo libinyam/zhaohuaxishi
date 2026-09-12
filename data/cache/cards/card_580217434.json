@@ -41,9 +41,17 @@
     "解析几何",
     "解题技巧"
   ],
-  "status": "pending_review",
-  "reviewScore": null,
+  "status": "approved",
+  "reviewScore": 5,
   "nextReviewAt": 1789143489,
   "reviewCount": 0,
-  "createdAt": 1789143489
+  "createdAt": 1789143489,
+  "reviewDetail": {
+    "faithful": true,
+    "unsupportedClaims": [],
+    "coreCovered": true,
+    "missingCore": [],
+    "score": 5,
+    "comment": "卡片高度忠实于拆解原文，精准提炼了轴点差的核心逻辑、代数推导路径与射影几何背景，无幻觉且覆盖完备。"
+  }
 }

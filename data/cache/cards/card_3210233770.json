@@ -36,9 +36,17 @@
     "知识管理",
     "认知工具"
   ],
-  "status": "pending_review",
-  "reviewScore": null,
+  "status": "approved",
+  "reviewScore": 5,
   "nextReviewAt": 1789143223,
   "reviewCount": 0,
-  "createdAt": 1789143223
+  "createdAt": 1789143223,
+  "reviewDetail": {
+    "faithful": true,
+    "unsupportedClaims": [],
+    "coreCovered": true,
+    "missingCore": [],
+    "score": 5,
+    "comment": "卡片高度忠实于原文，结构清晰且完整提炼了原文的服务准则、领域覆盖与支持目标。"
+  }
 }

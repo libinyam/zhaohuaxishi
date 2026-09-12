@@ -35,9 +35,17 @@
     "信息检索",
     "事实核查"
   ],
-  "status": "pending_review",
-  "reviewScore": null,
+  "status": "approved",
+  "reviewScore": 5,
   "nextReviewAt": 1789143678,
   "reviewCount": 0,
-  "createdAt": 1789143678
+  "createdAt": 1789143678,
+  "reviewDetail": {
+    "faithful": true,
+    "unsupportedClaims": [],
+    "coreCovered": true,
+    "missingCore": [],
+    "score": 5,
+    "comment": "卡片准确提炼了原文未检索到目标文章、拒绝臆测编造以及建议补充信息的全部核心内容，表述忠实无幻觉。"
+  }
 }

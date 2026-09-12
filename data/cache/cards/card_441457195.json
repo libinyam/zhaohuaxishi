@@ -40,9 +40,17 @@
     "数学分析",
     "级数收敛"
   ],
-  "status": "pending_review",
-  "reviewScore": null,
+  "status": "approved",
+  "reviewScore": 5,
   "nextReviewAt": 1789143327,
   "reviewCount": 0,
-  "createdAt": 1789143327
+  "createdAt": 1789143327,
+  "reviewDetail": {
+    "faithful": true,
+    "unsupportedClaims": [],
+    "coreCovered": true,
+    "missingCore": [],
+    "score": 5,
+    "comment": "卡片高度忠实于拆解原文，准确提取了典型框架、关键放缩公式及化归论证脉络，无任何脱离原文的编造。"
+  }
 }

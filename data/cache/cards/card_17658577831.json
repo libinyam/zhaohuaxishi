@@ -45,9 +45,17 @@
     "微积分",
     "不等式证明"
   ],
-  "status": "pending_review",
-  "reviewScore": null,
+  "status": "approved",
+  "reviewScore": 5,
   "nextReviewAt": 1789142890,
   "reviewCount": 0,
-  "createdAt": 1789142890
+  "createdAt": 1789142890,
+  "reviewDetail": {
+    "faithful": true,
+    "unsupportedClaims": [],
+    "coreCovered": true,
+    "missingCore": [],
+    "score": 5,
+    "comment": "卡片准确提炼了原文以方法为主线攻克积分不等式的核心思想，柯西不等式、变上限构造及各层级分析工具的归纳完全忠实于原文体系。"
+  }
 }

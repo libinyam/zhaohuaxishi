@@ -40,9 +40,17 @@
     "极限理论",
     "微分中值定理"
   ],
-  "status": "pending_review",
-  "reviewScore": null,
+  "status": "approved",
+  "reviewScore": 5,
   "nextReviewAt": 1789143749,
   "reviewCount": 0,
-  "createdAt": 1789143749
+  "createdAt": 1789143749,
+  "reviewDetail": {
+    "faithful": true,
+    "unsupportedClaims": [],
+    "coreCovered": true,
+    "missingCore": [],
+    "score": 5,
+    "comment": "卡片准确提炼了原文的数学证明脉络与核心分析方法，公式与步骤严谨忠实，是一份高质量的精华摘要。"
+  }
 }

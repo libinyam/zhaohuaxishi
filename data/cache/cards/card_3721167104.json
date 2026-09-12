@@ -40,9 +40,17 @@
     "渐近分析",
     "定积分"
   ],
-  "status": "pending_review",
-  "reviewScore": null,
+  "status": "approved",
+  "reviewScore": 5,
   "nextReviewAt": 1789143295,
   "reviewCount": 0,
-  "createdAt": 1789143295
+  "createdAt": 1789143295,
+  "reviewDetail": {
+    "faithful": true,
+    "unsupportedClaims": [],
+    "coreCovered": true,
+    "missingCore": [],
+    "score": 5,
+    "comment": "卡片高度忠实于拆解原文，无任何编造内容，且精准完整地概括了核心概念、适用条件与区间分割的论证主线。"
+  }
 }

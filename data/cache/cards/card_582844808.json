@@ -41,9 +41,21 @@
     "解析几何",
     "解题方法"
   ],
-  "status": "pending_review",
-  "reviewScore": null,
+  "status": "rejected",
+  "reviewScore": 3,
   "nextReviewAt": 1789143501,
   "reviewCount": 0,
-  "createdAt": 1789143501
+  "createdAt": 1789143501,
+  "reviewDetail": {
+    "faithful": false,
+    "unsupportedClaims": [
+      "“设而不求”的代数降维与对称转化（原文未提及“设而不求”）",
+      "齐次化能使二元分式快速脱参（原文仅列出方法名，未提及“二元分式脱参”机制）",
+      "将代数结论反向代入几何草图验证参数范围并保证逻辑闭环（原文仅提到几何法与代数法的对比，无反向代入检验闭环之说）"
+    ],
+    "coreCovered": true,
+    "missingCore": [],
+    "score": 3,
+    "comment": "卡片有效提炼了原文中提及的通法骨架与高观点技巧，但自行脑补了‘设而不求’、‘二元分式脱参’及‘双向检验闭环’等原文未包含的细节推论。"
+  }
 }

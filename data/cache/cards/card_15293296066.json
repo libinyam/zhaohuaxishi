@@ -41,9 +41,17 @@
     "网络梗",
     "科普"
   ],
-  "status": "pending_review",
-  "reviewScore": null,
+  "status": "approved",
+  "reviewScore": 5,
   "nextReviewAt": 1789142836,
   "reviewCount": 0,
-  "createdAt": 1789142836
+  "createdAt": 1789142836,
+  "reviewDetail": {
+    "faithful": true,
+    "unsupportedClaims": [],
+    "coreCovered": true,
+    "missingCore": [],
+    "score": 5,
+    "comment": "卡片高度忠实于拆解原文，准确提炼了试卷的恶搞本质与题目背后的数学猜想内核，概括精炼到位。"
+  }
 }

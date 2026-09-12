@@ -36,9 +36,17 @@
     "内容缺失",
     "知识整理"
   ],
-  "status": "pending_review",
-  "reviewScore": null,
+  "status": "approved",
+  "reviewScore": 5,
   "nextReviewAt": 1789143533,
   "reviewCount": 0,
-  "createdAt": 1789143533
+  "createdAt": 1789143533,
+  "reviewDetail": {
+    "faithful": true,
+    "unsupportedClaims": [],
+    "coreCovered": true,
+    "missingCore": [],
+    "score": 5,
+    "comment": "卡片高度忠实于原文的边界声明与事实陈述，准确传达了因原文缺失而拒绝编造的核心立场及给出的通用结构参考。"
+  }
 }

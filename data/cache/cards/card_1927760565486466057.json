@@ -40,9 +40,17 @@
     "概率方法",
     "生成函数"
   ],
-  "status": "pending_review",
-  "reviewScore": null,
+  "status": "approved",
+  "reviewScore": 5,
   "nextReviewAt": 1789142991,
   "reviewCount": 0,
-  "createdAt": 1789142991
+  "createdAt": 1789142991,
+  "reviewDetail": {
+    "faithful": true,
+    "unsupportedClaims": [],
+    "coreCovered": true,
+    "missingCore": [],
+    "score": 5,
+    "comment": "卡片严格忠实于原文事实与数学推导，精炼且完整地覆盖了概率方法与生成函数两大核心议题。"
+  }
 }

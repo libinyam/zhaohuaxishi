@@ -40,9 +40,17 @@
     "高等数学",
     "期末月考"
   ],
-  "status": "pending_review",
-  "reviewScore": null,
+  "status": "approved",
+  "reviewScore": 5,
   "nextReviewAt": 1789143485,
   "reviewCount": 0,
-  "createdAt": 1789143485
+  "createdAt": 1789143485,
+  "reviewDetail": {
+    "faithful": true,
+    "unsupportedClaims": [],
+    "coreCovered": true,
+    "missingCore": [],
+    "score": 5,
+    "comment": "卡片准确提炼了原文对试卷难度极低与套路化的核心定性，论据与后续预警均有据可查，无任何编造内容。"
+  }
 }

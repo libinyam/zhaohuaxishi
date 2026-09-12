@@ -40,9 +40,17 @@
     "实数完备性",
     "Baire纲定理"
   ],
-  "status": "pending_review",
-  "reviewScore": null,
+  "status": "approved",
+  "reviewScore": 5,
   "nextReviewAt": 1789143587,
   "reviewCount": 0,
-  "createdAt": 1789143587
+  "createdAt": 1789143587,
+  "reviewDetail": {
+    "faithful": true,
+    "unsupportedClaims": [],
+    "coreCovered": true,
+    "missingCore": [],
+    "score": 5,
+    "comment": "卡片高度忠实于原文，精准提炼了基于区间套定理的证明逻辑以及分层闭集法实现“逐点到局部一致”的核心范式。"
+  }
 }

@@ -36,9 +36,17 @@
     "数学竞赛",
     "学习资源"
   ],
-  "status": "pending_review",
-  "reviewScore": null,
+  "status": "approved",
+  "reviewScore": 5,
   "nextReviewAt": 1789142864,
   "reviewCount": 0,
-  "createdAt": 1789142864
+  "createdAt": 1789142864,
+  "reviewDetail": {
+    "faithful": true,
+    "unsupportedClaims": [],
+    "coreCovered": true,
+    "missingCore": [],
+    "score": 5,
+    "comment": "卡片准确提炼了原文的核心观点与论述脉络，无编造信息，忠实度与核心覆盖均表现优秀。"
+  }
 }

@@ -36,9 +36,17 @@
     "备考资料",
     "信息检索"
   ],
-  "status": "pending_review",
-  "reviewScore": null,
+  "status": "approved",
+  "reviewScore": 5,
   "nextReviewAt": 1789143742,
   "reviewCount": 0,
-  "createdAt": 1789143742
+  "createdAt": 1789143742,
+  "reviewDetail": {
+    "faithful": true,
+    "unsupportedClaims": [],
+    "coreCovered": true,
+    "missingCore": [],
+    "score": 5,
+    "comment": "卡片准确忠实地提炼了原文中关于目标文本缺失及现有检索结果构成的核心信息，无任何事实性编造。"
+  }
 }

@@ -40,9 +40,17 @@
     "丢番图逼近",
     "连分数算法"
   ],
-  "status": "pending_review",
-  "reviewScore": null,
+  "status": "approved",
+  "reviewScore": 5,
   "nextReviewAt": 1789143470,
   "reviewCount": 0,
-  "createdAt": 1789143470
+  "createdAt": 1789143470,
+  "reviewDetail": {
+    "faithful": true,
+    "unsupportedClaims": [],
+    "coreCovered": true,
+    "missingCore": [],
+    "score": 5,
+    "comment": "卡片高度忠实于拆解原文，精准且完整地提炼了无理测度的定义、连分数夹逼机制、具体常数应用及前沿算法探索等核心脉络。"
+  }
 }

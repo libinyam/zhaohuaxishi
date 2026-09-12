@@ -41,9 +41,17 @@
     "代数变形",
     "数学思维"
   ],
-  "status": "pending_review",
-  "reviewScore": null,
+  "status": "approved",
+  "reviewScore": 5,
   "nextReviewAt": 1789142857,
   "reviewCount": 0,
-  "createdAt": 1789142857
+  "createdAt": 1789142857,
+  "reviewDetail": {
+    "faithful": true,
+    "unsupportedClaims": [],
+    "coreCovered": true,
+    "missingCore": [],
+    "score": 5,
+    "comment": "卡片准确提炼了原文中以和差公式为起点的推导脉络、解题三原则及高阶代数化工具，内容完全忠实且核心全覆盖。"
+  }
 }

@@ -40,9 +40,17 @@
     "内容创作",
     "生活经验"
   ],
-  "status": "pending_review",
-  "reviewScore": null,
+  "status": "approved",
+  "reviewScore": 5,
   "nextReviewAt": 1789142957,
   "reviewCount": 0,
-  "createdAt": 1789142957
+  "createdAt": 1789142957,
+  "reviewDetail": {
+    "faithful": true,
+    "unsupportedClaims": [],
+    "coreCovered": true,
+    "missingCore": [],
+    "score": 5,
+    "comment": "卡片准确提炼了原文对高赞回答框架的拆解与分析，无捏造事实，核心论证要素覆盖全面。"
+  }
 }

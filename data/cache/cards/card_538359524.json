@@ -40,9 +40,17 @@
     "丢番图逼近",
     "实分析"
   ],
-  "status": "pending_review",
-  "reviewScore": null,
+  "status": "approved",
+  "reviewScore": 5,
   "nextReviewAt": 1789143462,
   "reviewCount": 0,
-  "createdAt": 1789143462
+  "createdAt": 1789143462,
+  "reviewDetail": {
+    "faithful": true,
+    "unsupportedClaims": [],
+    "coreCovered": true,
+    "missingCore": [],
+    "score": 5,
+    "comment": "卡片高度忠实于拆解文本所给出的参考框架，无编造内容，且精准覆盖了定义、理论基准与工具方法等核心要素。"
+  }
 }

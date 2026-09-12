@@ -44,9 +44,17 @@
     "矩阵论",
     "动力系统"
   ],
-  "status": "pending_review",
-  "reviewScore": null,
+  "status": "approved",
+  "reviewScore": 5,
   "nextReviewAt": 1789143995,
   "reviewCount": 0,
-  "createdAt": 1789143995
+  "createdAt": 1789143995,
+  "reviewDetail": {
+    "faithful": true,
+    "unsupportedClaims": [],
+    "coreCovered": true,
+    "missingCore": [],
+    "score": 5,
+    "comment": "卡片高度忠实于拆解原文，精炼准确地概括了Perron-Frobenius定理的核心论证脉络与主要性质，无任何事实性幻觉。"
+  }
 }

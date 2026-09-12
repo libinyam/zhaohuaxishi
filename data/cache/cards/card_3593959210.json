@@ -45,9 +45,17 @@
     "积分不等式",
     "化归思想"
   ],
-  "status": "pending_review",
-  "reviewScore": null,
+  "status": "approved",
+  "reviewScore": 5,
   "nextReviewAt": 1789143255,
   "reviewCount": 0,
-  "createdAt": 1789143255
+  "createdAt": 1789143255,
+  "reviewDetail": {
+    "faithful": true,
+    "unsupportedClaims": [],
+    "coreCovered": true,
+    "missingCore": [],
+    "score": 5,
+    "comment": "卡片高度忠实于拆解原文，准确提炼了离散化化归的核心解法及加权Hardy不等式的背景脉络，无任何编造内容。"
+  }
 }

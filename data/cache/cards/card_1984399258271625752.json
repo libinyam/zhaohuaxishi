@@ -40,9 +40,17 @@
     "线性代数",
     "矩阵理论"
   ],
-  "status": "pending_review",
-  "reviewScore": null,
+  "status": "approved",
+  "reviewScore": 5,
   "nextReviewAt": 1789143055,
   "reviewCount": 0,
-  "createdAt": 1789143055
+  "createdAt": 1789143055,
+  "reviewDetail": {
+    "faithful": true,
+    "unsupportedClaims": [],
+    "coreCovered": true,
+    "missingCore": [],
+    "score": 5,
+    "comment": "卡片准确提炼了矩阵非交换导致配方失效的核心痛点，并高度忠实、完整地还原了以公共特征向量和降维归纳为主线的论证骨架。"
+  }
 }

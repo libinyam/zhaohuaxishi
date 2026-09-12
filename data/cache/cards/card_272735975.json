@@ -40,9 +40,17 @@
     "证明方法",
     "认知策略"
   ],
-  "status": "pending_review",
-  "reviewScore": null,
+  "status": "approved",
+  "reviewScore": 5,
   "nextReviewAt": 1789143141,
   "reviewCount": 0,
-  "createdAt": 1789143141
+  "createdAt": 1789143141,
+  "reviewDetail": {
+    "faithful": true,
+    "unsupportedClaims": [],
+    "coreCovered": true,
+    "missingCore": [],
+    "score": 5,
+    "comment": "卡片高度忠实于拆解原文，精准提炼了核心观点并完整再现了案例构造脉络，无任何幻觉编造。"
+  }
 }

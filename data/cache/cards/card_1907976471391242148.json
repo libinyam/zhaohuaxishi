@@ -41,9 +41,17 @@
     "备考规划",
     "书单推荐"
   ],
-  "status": "pending_review",
-  "reviewScore": null,
+  "status": "approved",
+  "reviewScore": 5,
   "nextReviewAt": 1789142949,
   "reviewCount": 0,
-  "createdAt": 1789142949
+  "createdAt": 1789142949,
+  "reviewDetail": {
+    "faithful": true,
+    "unsupportedClaims": [],
+    "coreCovered": true,
+    "missingCore": [],
+    "score": 5,
+    "comment": "卡片高度忠实于原文，准确提炼了核心书单推荐、适配度考量与前置依赖等关键信息，无事实编造。"
+  }
 }

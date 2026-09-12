@@ -40,9 +40,17 @@
     "抽象代数",
     "初等数论"
   ],
-  "status": "pending_review",
-  "reviewScore": null,
+  "status": "approved",
+  "reviewScore": 5,
   "nextReviewAt": 1789142979,
   "reviewCount": 0,
-  "createdAt": 1789142979
+  "createdAt": 1789142979,
+  "reviewDetail": {
+    "faithful": true,
+    "unsupportedClaims": [],
+    "coreCovered": true,
+    "missingCore": [],
+    "score": 5,
+    "comment": "卡片严格忠实于原文论据，且精准完整地提炼了利用高斯整数环与UFD结构证明费马两平方和定理的核心脉络。"
+  }
 }

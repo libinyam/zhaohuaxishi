@@ -40,9 +40,17 @@
     "积分不等式",
     "中值定理"
   ],
-  "status": "pending_review",
-  "reviewScore": null,
+  "status": "approved",
+  "reviewScore": 5,
   "nextReviewAt": 1789143640,
   "reviewCount": 0,
-  "createdAt": 1789143640
+  "createdAt": 1789143640,
+  "reviewDetail": {
+    "faithful": true,
+    "unsupportedClaims": [],
+    "coreCovered": true,
+    "missingCore": [],
+    "score": 5,
+    "comment": "卡片高度忠实于拆解原文，准确提炼了不等式结论与关键证明框架（极值点划分与权函数柯西中值定理），无任何事实性幻觉。"
+  }
 }

@@ -40,9 +40,17 @@
     "矩阵分析",
     "微分学"
   ],
-  "status": "pending_review",
-  "reviewScore": null,
+  "status": "approved",
+  "reviewScore": 5,
   "nextReviewAt": 1789143022,
   "reviewCount": 0,
-  "createdAt": 1789143022
+  "createdAt": 1789143022,
+  "reviewDetail": {
+    "faithful": true,
+    "unsupportedClaims": [],
+    "coreCovered": true,
+    "missingCore": [],
+    "score": 5,
+    "comment": "忠实浓缩了原文的核心公式与四步证明脉络，逻辑严谨，无任何幻觉。"
+  }
 }

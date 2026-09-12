@@ -40,9 +40,17 @@
     "九州系列",
     "网文小说"
   ],
-  "status": "pending_review",
-  "reviewScore": null,
+  "status": "approved",
+  "reviewScore": 5,
   "nextReviewAt": 1789143207,
   "reviewCount": 0,
-  "createdAt": 1789143207
+  "createdAt": 1789143207,
+  "reviewDetail": {
+    "faithful": true,
+    "unsupportedClaims": [],
+    "coreCovered": true,
+    "missingCore": [],
+    "score": 5,
+    "comment": "卡片高度忠实于原文梳理的阅读顺序与停更原因，核心论点提炼精准且结构清晰。"
+  }
 }

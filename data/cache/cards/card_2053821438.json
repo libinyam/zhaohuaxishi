@@ -40,9 +40,17 @@
     "个人成长",
     "生活方式"
   ],
-  "status": "pending_review",
-  "reviewScore": null,
+  "status": "approved",
+  "reviewScore": 5,
   "nextReviewAt": 1789143086,
   "reviewCount": 0,
-  "createdAt": 1789143086
+  "createdAt": 1789143086,
+  "reviewDetail": {
+    "faithful": true,
+    "unsupportedClaims": [],
+    "coreCovered": true,
+    "missingCore": [],
+    "score": 5,
+    "comment": "卡片高度忠实于原文框架与核心论点，精准浓缩了认知重构、减法策略、多维协同及内核升华等关键论据，无任何幻觉内容。"
+  }
 }

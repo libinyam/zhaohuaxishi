@@ -40,9 +40,17 @@
     "函数迭代",
     "不动点法"
   ],
-  "status": "pending_review",
-  "reviewScore": null,
+  "status": "approved",
+  "reviewScore": 5,
   "nextReviewAt": 1789143346,
   "reviewCount": 0,
-  "createdAt": 1789143346
+  "createdAt": 1789143346,
+  "reviewDetail": {
+    "faithful": true,
+    "unsupportedClaims": [],
+    "coreCovered": true,
+    "missingCore": [],
+    "score": 5,
+    "comment": "卡片高度忠实于原文，概念与公式准确无幻觉，且精准概括了函数迭代与共轭变换的核心脉络。"
+  }
 }

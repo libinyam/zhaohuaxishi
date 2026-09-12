@@ -40,9 +40,17 @@
     "网络文学",
     "当代小说"
   ],
-  "status": "pending_review",
-  "reviewScore": null,
+  "status": "approved",
+  "reviewScore": 5,
   "nextReviewAt": 1789143694,
   "reviewCount": 0,
-  "createdAt": 1789143694
+  "createdAt": 1789143694,
+  "reviewDetail": {
+    "faithful": true,
+    "unsupportedClaims": [],
+    "coreCovered": true,
+    "missingCore": [],
+    "score": 5,
+    "comment": "卡片准确提炼了原文的核心推荐作、作品优缺点及情感内核，无幻觉且论证脉络覆盖完整。"
+  }
 }

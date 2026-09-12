@@ -36,9 +36,17 @@
     "思维模型",
     "问题求解"
   ],
-  "status": "pending_review",
-  "reviewScore": null,
+  "status": "approved",
+  "reviewScore": 5,
   "nextReviewAt": 1789143312,
   "reviewCount": 0,
-  "createdAt": 1789143312
+  "createdAt": 1789143312,
+  "reviewDetail": {
+    "faithful": true,
+    "unsupportedClaims": [],
+    "coreCovered": true,
+    "missingCore": [],
+    "score": 5,
+    "comment": "卡片准确提炼了原文在未能检索到原专栏文章前提下的背景补充与推测，诚实保留了限制条件且无实质性事实编造。"
+  }
 }

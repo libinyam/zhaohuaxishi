@@ -40,9 +40,17 @@
     "多重对数函数",
     "符号积分"
   ],
-  "status": "pending_review",
-  "reviewScore": null,
+  "status": "approved",
+  "reviewScore": 5,
   "nextReviewAt": 1789143381,
   "reviewCount": 0,
-  "createdAt": 1789143381
+  "createdAt": 1789143381,
+  "reviewDetail": {
+    "faithful": true,
+    "unsupportedClaims": [],
+    "coreCovered": true,
+    "missingCore": [],
+    "score": 5,
+    "comment": "卡片高度忠实于原文，准确提炼了双元代数体系、多重对数导数降阶分部积分法以及将定积分推广为不定积分的核心逻辑与数学表达。"
+  }
 }

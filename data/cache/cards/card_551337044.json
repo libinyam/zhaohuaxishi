@@ -41,9 +41,17 @@
     "高中数学",
     "射影几何"
   ],
-  "status": "pending_review",
-  "reviewScore": null,
+  "status": "approved",
+  "reviewScore": 5,
   "nextReviewAt": 1789143478,
   "reviewCount": 0,
-  "createdAt": 1789143478
+  "createdAt": 1789143478,
+  "reviewDetail": {
+    "faithful": true,
+    "unsupportedClaims": [],
+    "coreCovered": true,
+    "missingCore": [],
+    "score": 5,
+    "comment": "卡片高度忠实于拆解原文的推断框架与思想背景，脉络清晰且核心要点覆盖完整。"
+  }
 }

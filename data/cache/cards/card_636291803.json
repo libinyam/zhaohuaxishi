@@ -41,9 +41,17 @@
     "矩阵理论",
     "考研数学"
   ],
-  "status": "pending_review",
-  "reviewScore": null,
+  "status": "approved",
+  "reviewScore": 5,
   "nextReviewAt": 1789143537,
   "reviewCount": 0,
-  "createdAt": 1789143537
+  "createdAt": 1789143537,
+  "reviewDetail": {
+    "faithful": true,
+    "unsupportedClaims": [],
+    "coreCovered": true,
+    "missingCore": [],
+    "score": 5,
+    "comment": "卡片高度忠实于拆解原文的框架与论证结构，准确提炼了从QR分解、Schur定理到酉矩阵同时化推广的核心主线。"
+  }
 }

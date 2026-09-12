@@ -40,9 +40,17 @@
     "集合论",
     "试题解析"
   ],
-  "status": "pending_review",
-  "reviewScore": null,
+  "status": "approved",
+  "reviewScore": 5,
   "nextReviewAt": 1789143733,
   "reviewCount": 0,
-  "createdAt": 1789143733
+  "createdAt": 1789143733,
+  "reviewDetail": {
+    "faithful": true,
+    "unsupportedClaims": [],
+    "coreCovered": true,
+    "missingCore": [],
+    "score": 5,
+    "comment": "卡片忠实且精准地提炼了拆解原文的核心证明步骤与关键论据，逻辑清晰无幻觉。"
+  }
 }

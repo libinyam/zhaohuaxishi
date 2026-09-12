@@ -40,9 +40,17 @@
     "大学数学",
     "竞赛评价"
   ],
-  "status": "pending_review",
-  "reviewScore": null,
+  "status": "approved",
+  "reviewScore": 5,
   "nextReviewAt": 1789142940,
   "reviewCount": 0,
-  "createdAt": 1789142940
+  "createdAt": 1789142940,
+  "reviewDetail": {
+    "faithful": true,
+    "unsupportedClaims": [],
+    "coreCovered": true,
+    "missingCore": [],
+    "score": 5,
+    "comment": "卡片高度忠实于拆解原文，精准提炼了逐题复盘、数物及分析赛道的核心批评点，归纳凝练到位。"
+  }
 }

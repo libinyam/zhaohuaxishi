@@ -41,9 +41,17 @@
     "知识转化",
     "思维模型"
   ],
-  "status": "pending_review",
-  "reviewScore": null,
+  "status": "approved",
+  "reviewScore": 5,
   "nextReviewAt": 1789142930,
   "reviewCount": 0,
-  "createdAt": 1789142930
+  "createdAt": 1789142930,
+  "reviewDetail": {
+    "faithful": true,
+    "unsupportedClaims": [],
+    "coreCovered": true,
+    "missingCore": [],
+    "score": 5,
+    "comment": "卡片高度忠实于原文，准确提炼了核心论点及三位作家的知识转化方法论，无事实性编造，概括精炼。"
+  }
 }

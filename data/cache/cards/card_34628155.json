@@ -40,9 +40,17 @@
     "微积分",
     "无穷积分"
   ],
-  "status": "pending_review",
-  "reviewScore": null,
+  "status": "approved",
+  "reviewScore": 5,
   "nextReviewAt": 1789143233,
   "reviewCount": 0,
-  "createdAt": 1789143233
+  "createdAt": 1789143233,
+  "reviewDetail": {
+    "faithful": true,
+    "unsupportedClaims": [],
+    "coreCovered": true,
+    "missingCore": [],
+    "score": 5,
+    "comment": "卡片高度忠实于原文提供的综合框架，准确提炼了柯西准则、条件收敛、非负有界及尺度壳层分析等核心要点。"
+  }
 }

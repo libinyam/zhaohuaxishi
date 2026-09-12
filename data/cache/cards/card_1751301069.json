@@ -40,9 +40,17 @@
     "复分析",
     "矩阵论"
   ],
-  "status": "pending_review",
-  "reviewScore": null,
+  "status": "approved",
+  "reviewScore": 5,
   "nextReviewAt": 1789142875,
   "reviewCount": 0,
-  "createdAt": 1789142875
+  "createdAt": 1789142875,
+  "reviewDetail": {
+    "faithful": true,
+    "unsupportedClaims": [],
+    "coreCovered": true,
+    "missingCore": [],
+    "score": 5,
+    "comment": "卡片严格依据原文提炼，准确抓住了复分析求解柯西矩阵逆的核心论证链条，无任何幻觉。"
+  }
 }

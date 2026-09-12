@@ -40,9 +40,17 @@
     "消费反欺诈",
     "护肤辟谣"
   ],
-  "status": "pending_review",
-  "reviewScore": null,
+  "status": "approved",
+  "reviewScore": 5,
   "nextReviewAt": 1789143550,
   "reviewCount": 0,
-  "createdAt": 1789143550
+  "createdAt": 1789143550,
+  "reviewDetail": {
+    "faithful": true,
+    "unsupportedClaims": [],
+    "coreCovered": true,
+    "missingCore": [],
+    "score": 5,
+    "comment": "卡片高度忠实于原文，精准提炼了原文对营销软文矩阵话术与虚假科普逻辑的深度拆解，核心观点全覆盖。"
+  }
 }

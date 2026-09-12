@@ -40,9 +40,17 @@
     "数学竞赛",
     "微分方程延拓"
   ],
-  "status": "pending_review",
-  "reviewScore": null,
+  "status": "approved",
+  "reviewScore": 5,
   "nextReviewAt": 1789143184,
   "reviewCount": 0,
-  "createdAt": 1789143184
+  "createdAt": 1789143184,
+  "reviewDetail": {
+    "faithful": true,
+    "unsupportedClaims": [],
+    "coreCovered": true,
+    "missingCore": [],
+    "score": 5,
+    "comment": "卡片高度忠实于拆解原文，精炼提炼了两问的核心证明脉络与关键定理，无任何幻觉编造。"
+  }
 }

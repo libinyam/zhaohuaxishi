@@ -36,9 +36,19 @@
     "数学系",
     "课程体系"
   ],
-  "status": "pending_review",
-  "reviewScore": null,
+  "status": "rejected",
+  "reviewScore": 3.5,
   "nextReviewAt": 1789143215,
   "reviewCount": 0,
-  "createdAt": 1789143215
+  "createdAt": 1789143215,
+  "reviewDetail": {
+    "faithful": false,
+    "unsupportedClaims": [
+      "“低年级通常围绕分析、代数、几何三门课程搭建数学思维骨架”及“高年级课程根据专业方向分类设置”中的低年级/高年级阶段划分与搭建思维骨架在原文中未提及，属于自行补充的常识外推。"
+    ],
+    "coreCovered": true,
+    "missingCore": [],
+    "score": 3.5,
+    "comment": "卡片准确捕捉了原文检索受限的背景及数学系课程体系核心，但要点中引入了原文未提及的‘低年级/高年级’与‘思维骨架’等推断性表述。"
+  }
 }

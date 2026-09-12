@@ -36,9 +36,17 @@
     "知识协作",
     "大模型应用"
   ],
-  "status": "pending_review",
-  "reviewScore": null,
+  "status": "approved",
+  "reviewScore": 5,
   "nextReviewAt": 1789143094,
   "reviewCount": 0,
-  "createdAt": 1789143094
+  "createdAt": 1789143094,
+  "reviewDetail": {
+    "faithful": true,
+    "unsupportedClaims": [],
+    "coreCovered": true,
+    "missingCore": [],
+    "score": 5,
+    "comment": "卡片高度忠实于拆解原文，准确且完整地覆盖了核心论点、核心痛点与解决方案，提炼精准无幻觉。"
+  }
 }

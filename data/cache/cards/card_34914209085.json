@@ -40,9 +40,17 @@
     "网络文学",
     "写作技法"
   ],
-  "status": "pending_review",
-  "reviewScore": null,
+  "status": "approved",
+  "reviewScore": 5,
   "nextReviewAt": 1789143245,
   "reviewCount": 0,
-  "createdAt": 1789143245
+  "createdAt": 1789143245,
+  "reviewDetail": {
+    "faithful": true,
+    "unsupportedClaims": [],
+    "coreCovered": true,
+    "missingCore": [],
+    "score": 5,
+    "comment": "卡片高度忠实于原文论据与论证脉络，精准提炼了核心观点与机制分析，概括精炼到位。"
+  }
 }

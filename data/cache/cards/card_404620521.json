@@ -40,9 +40,17 @@
     "数值分析",
     "数学证明"
   ],
-  "status": "pending_review",
-  "reviewScore": null,
+  "status": "approved",
+  "reviewScore": 5,
   "nextReviewAt": 1789143303,
   "reviewCount": 0,
-  "createdAt": 1789143303
+  "createdAt": 1789143303,
+  "reviewDetail": {
+    "faithful": true,
+    "unsupportedClaims": [],
+    "coreCovered": true,
+    "missingCore": [],
+    "score": 5,
+    "comment": "卡片高度忠实于原文提供的内容框架，精准浓缩了核心数学思想与证明脉络，无任何臆造内容。"
+  }
 }

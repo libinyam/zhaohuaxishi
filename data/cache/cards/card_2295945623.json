@@ -40,9 +40,17 @@
     "叶芝",
     "文学评论"
   ],
-  "status": "pending_review",
-  "reviewScore": null,
+  "status": "approved",
+  "reviewScore": 5,
   "nextReviewAt": 1789143112,
   "reviewCount": 0,
-  "createdAt": 1789143112
+  "createdAt": 1789143112,
+  "reviewDetail": {
+    "faithful": true,
+    "unsupportedClaims": [],
+    "coreCovered": true,
+    "missingCore": [],
+    "score": 5,
+    "comment": "卡片准确提炼了原文的核心论点、论证线索及现实分歧背景，无编造幻觉，高度忠实且完整。"
+  }
 }

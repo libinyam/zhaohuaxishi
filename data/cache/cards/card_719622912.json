@@ -36,9 +36,17 @@
     "数学分析",
     "渐近估计"
   ],
-  "status": "pending_review",
-  "reviewScore": null,
+  "status": "approved",
+  "reviewScore": 5,
   "nextReviewAt": 1789143672,
   "reviewCount": 0,
-  "createdAt": 1789143672
+  "createdAt": 1789143672,
+  "reviewDetail": {
+    "faithful": true,
+    "unsupportedClaims": [],
+    "coreCovered": true,
+    "missingCore": [],
+    "score": 5,
+    "comment": "卡片高度忠实于拆解原文，准确概括了连接离散与连续的核心定位，并完整覆盖了阿贝尔求和与伯努利数两大关键论证支撑。"
+  }
 }

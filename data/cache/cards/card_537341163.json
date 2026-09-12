@@ -40,9 +40,19 @@
     "丢番图逼近",
     "连分数"
   ],
-  "status": "pending_review",
-  "reviewScore": null,
+  "status": "rejected",
+  "reviewScore": 4,
   "nextReviewAt": 1789143441,
   "reviewCount": 0,
-  "createdAt": 1789143441
+  "createdAt": 1789143441,
+  "reviewDetail": {
+    "faithful": false,
+    "unsupportedClaims": [
+      "黄金分割比的连分数展开全为1（原文仅提及黄金比在此达到极限/作为反例，未提及连分数展开全为1的具体机制）"
+    ],
+    "coreCovered": true,
+    "missingCore": [],
+    "score": 4,
+    "comment": "卡片准确提炼了原文推断的核心定理与论证骨架，仅在黄金分割比的连分数细节上引入了原文未提及的数论外延事实。"
+  }
 }

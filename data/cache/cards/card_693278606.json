@@ -40,9 +40,17 @@
     "多项式理论",
     "近世代数"
   ],
-  "status": "pending_review",
-  "reviewScore": null,
+  "status": "approved",
+  "reviewScore": 5,
   "nextReviewAt": 1789143574,
   "reviewCount": 0,
-  "createdAt": 1789143574
+  "createdAt": 1789143574,
+  "reviewDetail": {
+    "faithful": true,
+    "unsupportedClaims": [],
+    "coreCovered": true,
+    "missingCore": [],
+    "score": 5,
+    "comment": "卡片高度忠实于拆解原文，准确提炼了 Eisenstein 背景对比、两类判别法的系数镜像条件及基于模估计与高斯引理的反证法核心逻辑。"
+  }
 }

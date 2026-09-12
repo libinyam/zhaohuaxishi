@@ -40,9 +40,17 @@
     "世界观架构",
     "文学创作论"
   ],
-  "status": "pending_review",
-  "reviewScore": null,
+  "status": "approved",
+  "reviewScore": 5,
   "nextReviewAt": 1789143719,
   "reviewCount": 0,
-  "createdAt": 1789143719
+  "createdAt": 1789143719,
+  "reviewDetail": {
+    "faithful": true,
+    "unsupportedClaims": [],
+    "coreCovered": true,
+    "missingCore": [],
+    "score": 5,
+    "comment": "卡片准确且精炼地提炼了原文中关于九州世界观分层与硬编码问题的核心论据，完全忠实且覆盖全面。"
+  }
 }

@@ -41,9 +41,17 @@
     "极值点偏移",
     "幂级数"
   ],
-  "status": "pending_review",
-  "reviewScore": null,
+  "status": "approved",
+  "reviewScore": 5,
   "nextReviewAt": 1789143281,
   "reviewCount": 0,
-  "createdAt": 1789143281
+  "createdAt": 1789143281,
+  "reviewDetail": {
+    "faithful": true,
+    "unsupportedClaims": [],
+    "coreCovered": true,
+    "missingCore": [],
+    "score": 5,
+    "comment": "精准提炼了利用拉格朗日反演与开方正则化解决极值点偏移的核心步骤与算子公式，忠实度与覆盖度俱佳。"
+  }
 }

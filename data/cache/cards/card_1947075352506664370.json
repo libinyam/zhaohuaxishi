@@ -40,9 +40,17 @@
     "写作技巧",
     "文本分析"
   ],
-  "status": "pending_review",
-  "reviewScore": null,
+  "status": "approved",
+  "reviewScore": 5,
   "nextReviewAt": 1789143037,
   "reviewCount": 0,
-  "createdAt": 1789143037
+  "createdAt": 1789143037,
+  "reviewDetail": {
+    "faithful": true,
+    "unsupportedClaims": [],
+    "coreCovered": true,
+    "missingCore": [],
+    "score": 5,
+    "comment": "卡片准确凝练了原文关于江南文风技术拆解的核心论点与核心手法，无编造幻觉，高度忠实且概括精准。"
+  }
 }

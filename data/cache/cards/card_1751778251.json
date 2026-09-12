@@ -41,9 +41,17 @@
     "希尔伯特矩阵",
     "柯西行列式"
   ],
-  "status": "pending_review",
-  "reviewScore": null,
+  "status": "approved",
+  "reviewScore": 5,
   "nextReviewAt": 1789142880,
   "reviewCount": 0,
-  "createdAt": 1789142880
+  "createdAt": 1789142880,
+  "reviewDetail": {
+    "faithful": true,
+    "unsupportedClaims": [],
+    "coreCovered": true,
+    "missingCore": [],
+    "score": 5,
+    "comment": "卡片高度忠实于拆解原文，完整且精炼地提炼了柯西矩阵泛化、零极点定形与留数定参的核心论证链条。"
+  }
 }

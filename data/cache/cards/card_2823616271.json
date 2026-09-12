@@ -40,9 +40,17 @@
     "解题技巧",
     "实分析"
   ],
-  "status": "pending_review",
-  "reviewScore": null,
+  "status": "approved",
+  "reviewScore": 5,
   "nextReviewAt": 1789143196,
   "reviewCount": 0,
-  "createdAt": 1789143196
+  "createdAt": 1789143196,
+  "reviewDetail": {
+    "faithful": true,
+    "unsupportedClaims": [],
+    "coreCovered": true,
+    "missingCore": [],
+    "score": 5,
+    "comment": "卡片高度忠实于拆解原文，精准提炼了两道题的核心解法策略与论证洞察，无事实幻觉，浓缩质量优秀。"
+  }
 }

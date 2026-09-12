@@ -40,9 +40,17 @@
     "代数不等式",
     "分析技巧"
   ],
-  "status": "pending_review",
-  "reviewScore": null,
+  "status": "approved",
+  "reviewScore": 5,
   "nextReviewAt": 1789143319,
   "reviewCount": 0,
-  "createdAt": 1789143319
+  "createdAt": 1789143319,
+  "reviewDetail": {
+    "faithful": true,
+    "unsupportedClaims": [],
+    "coreCovered": true,
+    "missingCore": [],
+    "score": 5,
+    "comment": "卡片准确提炼了原文中基于续篇梳理出的方法论与核心推导逻辑，无编造内容且覆盖全面。"
+  }
 }

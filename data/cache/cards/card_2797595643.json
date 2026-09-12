@@ -40,9 +40,17 @@
     "复变函数",
     "定积分"
   ],
-  "status": "pending_review",
-  "reviewScore": null,
+  "status": "approved",
+  "reviewScore": 5,
   "nextReviewAt": 1789143175,
   "reviewCount": 0,
-  "createdAt": 1789143175
+  "createdAt": 1789143175,
+  "reviewDetail": {
+    "faithful": true,
+    "unsupportedClaims": [],
+    "coreCovered": true,
+    "missingCore": [],
+    "score": 5,
+    "comment": "卡片严格依据原文提取了两条核心求解脉络（复变围道积分法与三角展开法），概念准确且无事实性幻觉，高度凝练符合产品定位。"
+  }
 }

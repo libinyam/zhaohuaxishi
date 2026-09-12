@@ -41,9 +41,17 @@
     "推荐算法",
     "认知心理学"
   ],
-  "status": "pending_review",
-  "reviewScore": null,
+  "status": "approved",
+  "reviewScore": 5,
   "nextReviewAt": 1789142901,
   "reviewCount": 0,
-  "createdAt": 1789142901
+  "createdAt": 1789142901,
+  "reviewDetail": {
+    "faithful": true,
+    "unsupportedClaims": [],
+    "coreCovered": true,
+    "missingCore": [],
+    "score": 5,
+    "comment": "高度忠实且结构完整，精准提炼了平台机制、读者谈判与首因效应三重视角及核心类比。"
+  }
 }

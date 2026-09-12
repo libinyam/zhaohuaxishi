@@ -41,9 +41,17 @@
     "圆锥曲线",
     "应试技巧"
   ],
-  "status": "pending_review",
-  "reviewScore": null,
+  "status": "approved",
+  "reviewScore": 5,
   "nextReviewAt": 1789143361,
   "reviewCount": 0,
-  "createdAt": 1789143361
+  "createdAt": 1789143361,
+  "reviewDetail": {
+    "faithful": true,
+    "unsupportedClaims": [],
+    "coreCovered": true,
+    "missingCore": [],
+    "score": 5,
+    "comment": "卡片高度忠实于拆解原文所列的运算框架与技巧要点，核心论点提炼精准且无事实性幻觉。"
+  }
 }
