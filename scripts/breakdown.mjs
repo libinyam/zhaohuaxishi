@@ -7,11 +7,6 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const root = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
-const CLI = process.env.ZHIHU_CLI;
-if (!CLI) {
-  console.error('缺少 ZHIHU_CLI 环境变量，请指向 zhihu-cli 可执行文件\n  例如：export ZHIHU_CLI=/path/to/zhihu-cli（Windows 示例见 README）');
-  process.exit(1);
-}
 const args = process.argv.slice(2);
 const limit = args.includes('--limit') ? Number(args[args.indexOf('--limit') + 1]) : Infinity;
 const dry = args.includes('--dry');
@@ -43,6 +38,13 @@ if (args.includes('--quota')) {
   const q = await readQuota();
   console.log(`今日直答额度：已用 ${q.count}/${DAILY_LIMIT}，剩余 ${DAILY_LIMIT - q.count}（阈值 ${QUOTA_THRESHOLD} 触发拒绝）`);
   process.exit(0);
+}
+
+// --quota 只读本地台账不需要 CLI；真正要发请求才检查
+const CLI = process.env.ZHIHU_CLI;
+if (!CLI) {
+  console.error('缺少 ZHIHU_CLI 环境变量，请指向 zhihu-cli 可执行文件\n  例如：export ZHIHU_CLI=/path/to/zhihu-cli（Windows 示例见 README）');
+  process.exit(1);
 }
 
 function cli(cliArgs) {

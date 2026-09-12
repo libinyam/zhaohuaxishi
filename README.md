@@ -79,8 +79,9 @@ GEMINI_API_KEY=your-key
 # 指定 zhihu-cli 可执行文件路径（拉收藏/直答拆解需要，且需已配置 Access Secret）
 # 方式一：写进 .env.local（推荐，随 --env-file 一并加载）
 #   ZHIHU_CLI=C:\Users\...\AppData\Local\ZhihuCLI\current\zhihu-cli.exe
-# 方式二：会话内 export
-#   export ZHIHU_CLI=/path/to/zhihu-cli
+# 方式二：会话内设置
+#   Git Bash:    export ZHIHU_CLI=/path/to/zhihu-cli
+#   PowerShell:  $env:ZHIHU_CLI = "$env:LOCALAPPDATA\ZhihuCLI\current\zhihu-cli.exe"
 
 # 数据管线（--env-file 要求 Node ≥ 20.6；export 方式则无需 --env-file）
 node --env-file=.env.local scripts/fetch_favorites.mjs   # 拉取收藏
