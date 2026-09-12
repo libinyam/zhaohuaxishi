@@ -1,6 +1,7 @@
 // 朝花夕拾 Web 服务：静态页面 + 卡片/报告/复习队列 API
 // vanilla Node，无构建步骤
 import http from 'node:http';
+import { timingSafeEqual } from 'node:crypto';
 import { readFile, readdir, writeFile, rename, appendFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -155,12 +156,19 @@ const server = http.createServer(async (req, res) => {
       for await (const chunk of req) body += chunk;
       const { id } = JSON.parse(body || '{}');
       if (!id) return json(res, { ok: false, error: 'missing id' }, 400);
+      // id 白名单校验：合法格式 card_<key>，防路径穿越写出 cards 目录
+      if (!/^[\w-]+$/.test(id)) return json(res, { ok: false, error: 'invalid id' }, 400);
       return json(res, { ok: true, card: await markReviewed(id) });
     }
     // 手动触发当日推送（演示用；需 PUSH_TRIGGER_TOKEN，未配置则关闭）
     if (url.pathname === '/api/push/trigger' && req.method === 'POST') {
       const token = process.env.PUSH_TRIGGER_TOKEN;
-      if (!token || url.searchParams.get('token') !== token) return json(res, { ok: false, error: 'forbidden' }, 403);
+      // token 走请求头（URL query 会进网关/访问日志），常量时间比较
+      const given = Buffer.from(req.headers['x-push-token'] ?? '');
+      const want = Buffer.from(token ?? '');
+      const ok = given.length > 0 && given.length === want.length && timingSafeEqual(given, want);
+      if (!ok) return json(res, { ok: false, error: 'forbidden' }, 403);
+      if (!SENDKEY) return json(res, { ok: false, error: 'SCT_SENDKEY 未配置' }, 503);
       const result = await pushDailyCards('manual');
       return json(res, { ok: result.pushed > 0, ...result });
     }

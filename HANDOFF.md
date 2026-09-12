@@ -14,7 +14,7 @@
 3. **SPEC.md 已封版**（经三轮外部评审 + 一轮盲审方法论修正）
 4. **Sealos 部署已上线**：`https://lnuhxmgreuxd.sealoshzh.site`（全 API 已验证）。镜像 `ccr.ccs.tencentyun.com/zhaohuaxishi/zhaohuaxishi:0.1.0`（腾讯云 TCR 个人版免费，仓库**公有**——镜像内无密钥可放心；密钥走环境变量）。Dockerfile 在仓库根目录，改代码后：`docker build -t zhaohuaxishi:<版本> .` → tag → push → Sealos 变更镜像版本。注意：打卡状态写容器本地文件，Sealos 重启容器会重置（演示期可接受）
 
-5. **Server酱推送已上线**（镜像 0.2.0）：每日 08:00（UTC+8，自研零依赖调度替代 node-cron——保持镜像无 npm 依赖）三卡合并 1 条微信推送；1s/5s/25s 退避重试 3 次 + `data/push-deadletter.jsonl` 死信；推送日期落盘 `data/push-state.json` 防容器重启重推（两个运行产物已 gitignore）。手动触发：`POST /api/push/trigger?token=$PUSH_TRIGGER_TOKEN`（演示日现场点给评委看微信震动）。Sealos 环境变量已配 `SCT_SENDKEY` / `PUSH_TRIGGER_TOKEN`；本地起服务用 `node --env-file=.env.local server.mjs`（**注意：本地和 Sealos 同时跑会双推，本地测完就关**）。9/12 晚实测推送成功
+5. **Server酱推送已上线**（镜像 0.2.0）：每日 08:00（UTC+8，自研零依赖调度替代 node-cron——保持镜像无 npm 依赖）三卡合并 1 条微信推送；1s/5s/25s 退避重试 3 次 + `data/push-deadletter.jsonl` 死信；推送日期落盘 `data/push-state.json` 防容器重启重推（两个运行产物已 gitignore）。手动触发：`POST /api/push/trigger` + 请求头 `x-push-token: $PUSH_TRIGGER_TOKEN`（演示日现场点给评委看微信震动）。Sealos 环境变量已配 `SCT_SENDKEY` / `PUSH_TRIGGER_TOKEN`；本地起服务用 `node --env-file=.env.local server.mjs`（**注意：本地和 Sealos 同时跑会双推，本地测完就关**）。9/12 晚实测推送成功
 
 ## 关键环境事实（新会话必须知道）
 
