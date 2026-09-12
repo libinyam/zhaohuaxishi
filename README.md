@@ -76,11 +76,17 @@
 GEMINI_BASE_URL=https://your-relay/v1
 GEMINI_API_KEY=your-key
 
-# 数据管线（需要 zhihu-cli 已配置 Access Secret）
+# 指定 zhihu-cli 可执行文件路径（拉收藏/直答拆解需要，且需已配置 Access Secret）
+# Windows 示例：
+export ZHIHU_CLI="$LOCALAPPDATA/ZhihuCLI/current/zhihu-cli.exe"
+# macOS/Linux 示例：
+export ZHIHU_CLI=/path/to/zhihu-cli
+
+# 数据管线
 node scripts/fetch_favorites.mjs   # 拉取收藏
-node scripts/breakdown.mjs         # 直答拆解（烧每日额度，有缓存自动跳过）
+node scripts/breakdown.mjs         # 直答拆解（烧每日额度，有缓存自动跳过；--quota 查当日余量）
 # 炼卡/盲审依赖 Gemini 凭证，需加载 .env.local（--env-file 要求 Node ≥ 20.6）
-node --env-file=.env.local scripts/make_card.mjs      # 炼卡
+node --env-file=.env.local scripts/make_card.mjs      # 炼卡（--remake 打回重炼）
 node --env-file=.env.local scripts/blind_review.mjs   # 盲审
 node scripts/report.mjs            # 考古报告
 ```

@@ -7,7 +7,11 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const root = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
-const CLI = process.env.ZHIHU_CLI || 'C:\\Users\\李斌\\AppData\\Local\\ZhihuCLI\\current\\zhihu-cli.exe';
+const CLI = process.env.ZHIHU_CLI;
+if (!CLI) {
+  console.error('缺少 ZHIHU_CLI 环境变量，请指向 zhihu-cli 可执行文件\n  例如：export ZHIHU_CLI=/path/to/zhihu-cli（Windows 示例见 README）');
+  process.exit(1);
+}
 const args = process.argv.slice(2);
 const limit = args.includes('--limit') ? Number(args[args.indexOf('--limit') + 1]) : Infinity;
 const dry = args.includes('--dry');
