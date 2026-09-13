@@ -335,7 +335,8 @@ function renderSidebar() {
       </div>
     </div>` : ''}
 
-    <!-- 分组 3：知识白板空间 -->
+    <!-- 分组 3/4：知识空间分类与数据洞察（领域分布与收藏画像属站主隐私，仅登录可见；issue #38） -->
+    ${appState.oauth?.authorized ? `
     <div class="sidebar-group">
       <div class="sidebar-group-title">
         <span>知识空间分类</span>
@@ -360,7 +361,6 @@ function renderSidebar() {
       </div>
     </div>
 
-    <!-- 分组 4：数据中心 -->
     <div class="sidebar-group">
       <div class="sidebar-group-title">
         <span>数据洞察</span>
@@ -374,7 +374,21 @@ function renderSidebar() {
           <span class="text-[10px] font-mono text-stone-400">${appState.report?.total ?? '…'}条</span>
         </button>
       </div>
-    </div>
+    </div>` : `
+    <div class="sidebar-group">
+      <div class="sidebar-group-title">
+        <span>数据洞察</span>
+      </div>
+      <div class="space-y-0.5">
+        <button class="sidebar-nav-item ${appState.tab === 'report' ? 'active' : ''}" onclick="window.selectTab('report')">
+          <div class="flex items-center gap-2">
+            <span class="text-stone-400">✦</span>
+            <span class="text-xs">收藏考古报告</span>
+          </div>
+          <span class="text-[10px] font-mono text-stone-400">已脱敏</span>
+        </button>
+      </div>
+    </div>`}
   `;
 }
 
@@ -399,11 +413,12 @@ function renderReportInStage(el, r) {
       <span class="text-xs text-stone-400 font-mono">基于 ${r.total} 条真实收藏分析${appState.reportSource === 'mine' ? '（我的收藏）' : ''}</span>
     </div>
 
+    ${r.persona ? `
     <div class="card-paper persona-hero p-7 mb-5 text-center fade-in">
       <div class="text-xs text-stone-400 mb-1.5 tracking-widest uppercase font-mono">Your Collection Persona</div>
       <div class="font-serif-display text-3xl font-bold text-cin mb-2">${esc(r.persona.type)}</div>
       <p class="text-xs text-stone-600 max-w-md mx-auto leading-relaxed">${esc(r.persona.description)}</p>
-    </div>
+    </div>` : ''}
 
     <div class="grid grid-cols-3 gap-3 mb-5">
       <div class="card-paper p-4 text-center">
@@ -415,7 +430,7 @@ function renderReportInStage(el, r) {
         <div class="text-xs text-stone-500 mt-1">收藏跨度</div>
       </div>
       <div class="card-paper p-4 text-center">
-        <div class="font-serif-display text-2xl font-bold text-stone-900">${r.newestItem.daysAgo}<span class="text-xs">天</span></div>
+        <div class="font-serif-display text-2xl font-bold text-stone-900">${r.newestItem ? r.newestItem.daysAgo : '—'}<span class="text-xs">天</span></div>
         <div class="text-xs text-stone-500 mt-1">距上次收藏</div>
       </div>
     </div>
@@ -433,7 +448,7 @@ function renderReportInStage(el, r) {
       <div class="flex gap-1.5 flex-wrap mt-3">${(r.cards.topTags || []).map((t) => `<span class="badge badge-tag">${esc(t.tag)} ${t.count}</span>`).join('')}</div>
     </div>` : ''}
 
-    ${r.total > 0 ? `
+    ${r.oldestItem ? `
     <div class="card-paper p-5 mb-5">
       <h3 class="section-head text-sm mb-2">最老的一条收藏</h3>
       <a class="text-cin hover:underline text-sm font-medium" href="${esc(r.oldestItem.url)}" target="_blank" rel="noopener">${esc(r.oldestItem.title)}</a>
@@ -885,8 +900,8 @@ function renderReportTab(stage) {
   if (!authorized) {
     parts.push(`
       <div class="card-paper p-5 mb-5 fade-in text-center border-amber-200/80 bg-amber-50/40">
-        <p class="text-sm text-stone-700 font-medium mb-1">这是站主的示例报告</p>
-        <p class="text-xs text-stone-500 mb-3">登录知乎，看看你自己的收藏人格和 72h 保质期——只读取收藏元数据，不会消耗你的任何额度。</p>
+        <p class="text-sm text-stone-700 font-medium mb-1">这是站主的示例报告（已脱敏）</p>
+        <p class="text-xs text-stone-500 mb-3">公开示例只保留聚合数字，人格画像、领域分布等隐私内容已隐藏——登录知乎，看看你自己的收藏人格和 72h 保质期，只读取收藏元数据，不会消耗你的任何额度。</p>
         <a href="/auth/login" class="btn-ink inline-flex items-center gap-1.5 px-4 py-2 text-xs rounded-lg">知乎登录，生成我的考古报告</a>
       </div>`);
   }
@@ -925,7 +940,7 @@ function renderReportTab(stage) {
 
   // 海报入口（有报告数据才显示）
   const shown = authorized ? appState.myReport : appState.report;
-  if (shown) {
+  if (shown && !shown.sanitized) {
     holder.insertAdjacentHTML('beforeend', `
       <div class="text-center mb-8 fade-in">
         <button class="btn-ink px-5 py-2.5 text-sm rounded-lg" onclick="window.makePoster()">📮 生成分享海报</button>

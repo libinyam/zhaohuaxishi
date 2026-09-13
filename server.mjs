@@ -366,6 +366,17 @@ const ROUTES = [
   {
     method: 'GET', path: '/api/report', handler: async (req, res) => {
       const report = JSON.parse(await readFile(path.join(root, 'data', 'report.json'), 'utf8'));
+      // 匿名访客只给脱敏聚合版：人格画像/最老收藏/领域分布属站主隐私（issue #38）
+      if (!oauth.currentUid(req, res)) {
+        return json(res, {
+          sanitized: true,
+          total: report.total,
+          spanDays: report.spanDays,
+          decayBuckets: report.decayBuckets,
+          monthly: report.monthly,
+          newestItem: report.newestItem ? { daysAgo: report.newestItem.daysAgo } : null,
+        });
+      }
       return json(res, report);
     },
   },
@@ -376,10 +387,23 @@ const ROUTES = [
       const filtered = status ? cards.filter((c) => c.status === status) : cards;
       // 全员盲审 5 分，分数排序无信息量，改按收藏时间倒序
       filtered.sort((a, b) => (b.source?.favTime ?? 0) - (a.source?.favTime ?? 0));
+      // 匿名访客不下发关注关系与头像（社交关系隐私，issue #38）
+      if (!oauth.currentUid(req, res)) {
+        for (const c of filtered) if (c.source) { delete c.source.authorFollowed; delete c.source.authorAvatar; }
+      }
       return json(res, { total: filtered.length, cards: filtered });
     },
   },
-  { method: 'GET', path: '/api/queue', handler: async (req, res) => json(res, buildQueue(await loadCardsEnriched())) },
+  {
+    method: 'GET', path: '/api/queue', handler: async (req, res) => {
+      const queue = buildQueue(await loadCardsEnriched());
+      if (!oauth.currentUid(req, res)) {
+        for (const c of [...queue.today, ...queue.upNext]) if (c.source) { delete c.source.authorFollowed; delete c.source.authorAvatar; }
+        delete queue.stats.followed;
+      }
+      return json(res, queue);
+    },
+  },
   {
     method: 'POST', path: '/api/review', handler: async (req, res) => {
       const body = await readBody(req, 1e6);
