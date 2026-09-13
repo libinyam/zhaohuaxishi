@@ -1,3 +1,4 @@
 .env.local
 data/push-state.json
 data/push-deadletter.jsonl
+data/quota/

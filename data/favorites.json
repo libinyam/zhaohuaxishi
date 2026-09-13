@@ -1,15 +1,440 @@
 {
-  "fetchedAt": 1789139530791,
-  "total": 93,
+  "fetchedAt": 1789301346219,
+  "total": 110,
   "items": [
+    {
+      "ContentType": "answer",
+      "Url": "https://www.zhihu.com/answer/2076765585652896764",
+      "CreatedAt": 1787919500,
+      "FavTime": 1789268692,
+      "LikeCount": 662,
+      "CommentCount": 37,
+      "FavoriteCount": 535,
+      "Title": "如何评价戴从容教授的世界首个中文全译本《芬尼根的守灵夜》？",
+      "Summary": "结论：“ 令人钦佩的徒劳”（Aaaaaadmirable waste of time)。这不是说译者做的不好，因此翻出来的东西浪费我们的时间，而是任何人翻译《芬尼根的守灵夜》的难度都不在语言或文学上，而是： 《芬尼根的守灵夜》根本就不是用任何一种“语言”写成的。因此尝试翻译它是徒劳的。它也不是仅仅“用了独特的表达方法”，而是詹姆斯·乔伊斯在写作之前的构思层面上，就已经在尝试让文本“无法翻译”。我们来看看开头就知道了。 在解释之…",
+      "Favlists": [
+        {
+          "UrlToken": 794313753,
+          "Title": "我的收藏",
+          "Url": "https://www.zhihu.com/collection/794313753"
+        }
+      ],
+      "Author": {
+        "Name": "卓聿CountGiger",
+        "UrlToken": "ji-ge-2-62",
+        "Url": "https://www.zhihu.com/people/ji-ge-2-62",
+        "Gender": 0,
+        "Headline": "叙事艺术研究者 正在学着写剧本"
+      }
+    },
+    {
+      "ContentType": "answer",
+      "Url": "https://www.zhihu.com/answer/2080789360220313092",
+      "CreatedAt": 1788878842,
+      "FavTime": 1789268676,
+      "LikeCount": 453,
+      "CommentCount": 101,
+      "FavoriteCount": 124,
+      "Title": "为什么同为顶流网文网站，起点全力打击AI文，扶持人类写手，番茄新规却似乎在打击人类写手，扶持AI文？",
+      "Summary": "昨天番茄出来的新规吧，我大概看了一下。 因为我很久没有在番茄写书了，我都跑了一两年了，不过番茄之前还有一两本百万字的。 过年的时候一个月还给5000呢，我刚刚上去看一眼，8月给了我100块。 我一直在各种作家群里面潜水，之前7-9月份的时候，听说工作室在疯狂刷量。 导致LV5的作家开新书，书城流量都是0。 简单点说就是流量夭折了，工作室开几千上万个号，在书城刷。 看到自家的AI文就点进去，刷到其他的书就划走。 导致，正…",
+      "Favlists": [
+        {
+          "UrlToken": 794313753,
+          "Title": "我的收藏",
+          "Url": "https://www.zhihu.com/collection/794313753"
+        }
+      ],
+      "Author": {
+        "Name": "清清",
+        "UrlToken": "an-ni-77-65",
+        "Url": "https://www.zhihu.com/people/an-ni-77-65",
+        "Gender": 1,
+        "Headline": "乡村女兽医，非全硕士，阅文签约作家，擅长处理考证、情感咨询。"
+      }
+    },
+    {
+      "ContentType": "answer",
+      "Url": "https://www.zhihu.com/answer/2082193886852669543",
+      "CreatedAt": 1789213707,
+      "FavTime": 1789268666,
+      "LikeCount": 1387,
+      "CommentCount": 159,
+      "FavoriteCount": 217,
+      "Title": "名校硕士五轮面试全过却因第一学历专科遭拒，为何不能从一开始就说明学历要求？如此看重第一学历合理吗？",
+      "Summary": "说实在的，这件事里最让我不理解的，并不是企业为什么会看第一学历，而是为什么直到五轮面试结束以后，企业才突然拿第一学历说事。 毕竟高考仍然是全社会予以最多关注的一场大考，也是认可度最高的一场考试，研究生阶段的考试以及博士申请的考核，认可度和普及度都没有高考那么得到全社会的普遍认可，一个企业觉得高考筛选出来的人更符合自己的需求，并没什么问题，要不然拼命卷高考的学生和家长图得又是个啥…… 只是，如果第一…",
+      "Favlists": [
+        {
+          "UrlToken": 794313753,
+          "Title": "我的收藏",
+          "Url": "https://www.zhihu.com/collection/794313753"
+        }
+      ],
+      "Author": {
+        "Name": "佳人李大花",
+        "UrlToken": "lxxwgdxg",
+        "Url": "https://www.zhihu.com/people/lxxwgdxg",
+        "Gender": 1,
+        "Headline": "人工智能交叉领域｜拒绝转载"
+      }
+    },
+    {
+      "ContentType": "answer",
+      "Url": "https://www.zhihu.com/answer/2082154444469302019",
+      "CreatedAt": 1789204304,
+      "FavTime": 1789268651,
+      "LikeCount": 7125,
+      "CommentCount": 678,
+      "FavoriteCount": 519,
+      "Title": "店主举报元青花杯失踪后，两个月遭 5 部门检查15次，是否存在恶意投诉？举报者的合法权益该如何保障？",
+      "Summary": "5个部门，2个月15次检查，显然是捅了马蜂窝了。 上面这三个数字排一排，再把时间起点标一下，举报元青花杯失踪之后，而且之前开了一年多，零次检查，这很难说是巧合了。 [1] [视频] 估计查的这些问题单拿出来看，永远是“正常流程”，“群众反映”，“依法依规”，但把时间线一拉，交叉一比对，味道真就全变了。 [2]事情要从今年6月底说起，张先生实名举报菏泽古沉船考古遗失文物，举报对象是山东省文旅厅。 [图片] 其证据看起来也不是凭空捏造…",
+      "Favlists": [
+        {
+          "UrlToken": 794313753,
+          "Title": "我的收藏",
+          "Url": "https://www.zhihu.com/collection/794313753"
+        }
+      ],
+      "Author": {
+        "Name": "阿汪",
+        "UrlToken": "yang-yue-37-9",
+        "Url": "https://www.zhihu.com/people/yang-yue-37-9",
+        "Gender": 1,
+        "Headline": "经法双修女斗士"
+      }
+    },
+    {
+      "ContentType": "answer",
+      "Url": "https://www.zhihu.com/answer/2082091475651899751",
+      "CreatedAt": 1789189291,
+      "FavTime": 1789268642,
+      "LikeCount": 786,
+      "CommentCount": 111,
+      "FavoriteCount": 177,
+      "Title": "如何看待25位菲奖得主发布联合声明《AI在数学领域的严重错位》？是否意味着传统数学研究模式的崩溃？",
+      "Summary": "数学界长期存在一个值得反思的问题： 究竟是谁有权决定什么是“重要的数学”？在几何化猜想尚未解决的时代，低维拓扑领域中存在大量以“朝几何化猜想推进”为名义展开的研究。其中当然有许多真正重要的数学，但也不能否认，有些研究与最终问题之间的关系非常遥远，甚至很难看出明确的联系。Thurston 当时对于“数学家究竟应该做什么”的思考，本身就反映了这一问题。 以 Fields Medal 为代表的评价体系，同样存在这种问题。少数…",
+      "Favlists": [
+        {
+          "UrlToken": 794313753,
+          "Title": "我的收藏",
+          "Url": "https://www.zhihu.com/collection/794313753"
+        }
+      ],
+      "Author": {
+        "Name": "上杉夏香",
+        "UrlToken": "90-38-85-9",
+        "Url": "https://www.zhihu.com/people/90-38-85-9",
+        "Gender": 2,
+        "Headline": "活着"
+      }
+    },
+    {
+      "ContentType": "answer",
+      "Url": "https://www.zhihu.com/answer/2078876608593651582",
+      "CreatedAt": 1788422807,
+      "FavTime": 1789268274,
+      "LikeCount": 6442,
+      "CommentCount": 501,
+      "FavoriteCount": 3147,
+      "Title": "为什么我们老是错过互联网、比特币、买房、淘宝这样的暴富机会？",
+      "Summary": "币圈流传最广的一个故事，主角叫四十八万哥。 他把家里攒的四十八万买房首付，全仓买了比特币，还在论坛发帖天天记账。然后赶上大熊市，币价跌了八成，账户里最低只剩九万。家里人逼，网友笑，熬了两年，他撑不住了，三千块钱一枚割肉清仓，注销账号，人间蒸发。 他前脚走，牛市后脚就来。后来比特币一枚涨到几十万，他当初那一百枚币，峰值值大几千万。 每次币价创新高，这个帖子就被人翻出来鞭尸。评论区全在摇头，说他要是再…",
+      "Favlists": [
+        {
+          "UrlToken": 794313753,
+          "Title": "我的收藏",
+          "Url": "https://www.zhihu.com/collection/794313753"
+        }
+      ],
+      "Author": {
+        "Name": "脑洞太大",
+        "UrlToken": "61-82-83-37-7",
+        "Url": "https://www.zhihu.com/people/61-82-83-37-7",
+        "Gender": 2,
+        "Headline": ""
+      }
+    },
+    {
+      "ContentType": "answer",
+      "Url": "https://www.zhihu.com/answer/2036455195031381878",
+      "CreatedAt": 1778308754,
+      "FavTime": 1789268121,
+      "LikeCount": 814,
+      "CommentCount": 227,
+      "FavoriteCount": 715,
+      "Title": "如何评价学历实现阶级跃升的时代已经彻底结束？",
+      "Summary": "你要是押注LLM，凭做题卷到985计算机，然后本科多用用AI发至少三篇一作A（ACL/AAAI这种都成）；或者你硕士期间努努力用好codex发个5篇A。你去大厂打打价，去初创公司招摇撞骗一下，看看能不能拿到期望的薪资？ 非要说什么人文社科中文，生化环材，土木水利，有什么意义呢？你就是清华北大又如何，最明确的获利营生也就是签MCN。 你哪怕双非做到上面的事情你也比清北混的好。别说什么学校差没资源，现在100多块钱一个月的codex比…",
+      "Favlists": [
+        {
+          "UrlToken": 794313753,
+          "Title": "我的收藏",
+          "Url": "https://www.zhihu.com/collection/794313753"
+        }
+      ],
+      "Author": {
+        "Name": "泛月",
+        "UrlToken": "fan-yue-71-80-35",
+        "Url": "https://www.zhihu.com/people/fan-yue-71-80-35",
+        "Gender": 2,
+        "Headline": "Sample Me, Generate World."
+      }
+    },
+    {
+      "ContentType": "answer",
+      "Url": "https://www.zhihu.com/answer/1974233426979738310",
+      "CreatedAt": 1763473928,
+      "FavTime": 1789268080,
+      "LikeCount": 2633,
+      "CommentCount": 180,
+      "FavoriteCount": 3054,
+      "Title": "文学史上有什么接近完美的作品？",
+      "Summary": "如果一个人第一次接触桃花扇，往往会被它的体量吓到：传奇体，四十四出，里面人物众多，典故密布，情节跨度横跨整个南明十余年。它并不像那些只要读一遍就能明白的剧本；反而像一座需要慢慢攀登的高山，只有在理解了它的时代、它的笔法、它的民族记忆后，才会意识到：这部戏从头到尾都在说一件事，一个王朝如何走向灭亡，一个人如何在废墟中保存体面，一种情感如何在历史的风暴里被洗净、被逼问、被迫作出历史的抉择。 换句话说…",
+      "Favlists": [
+        {
+          "UrlToken": 794313753,
+          "Title": "我的收藏",
+          "Url": "https://www.zhihu.com/collection/794313753"
+        }
+      ],
+      "Author": {
+        "Name": "鞭临天下",
+        "UrlToken": "wen-yi-zai-dao-7",
+        "Url": "https://www.zhihu.com/people/wen-yi-zai-dao-7",
+        "Gender": 2,
+        "Headline": "个人站点：bltx.fyi"
+      }
+    },
+    {
+      "ContentType": "answer",
+      "Url": "https://www.zhihu.com/answer/2056817273940210239",
+      "CreatedAt": 1783163451,
+      "FavTime": 1789268003,
+      "LikeCount": 14410,
+      "CommentCount": 259,
+      "FavoriteCount": 7263,
+      "Title": "为什么大萧条时，资本家宁愿把牛奶倒掉，也不分给穷人？",
+      "Summary": "愚蠢! 这也不能怪题主，中学历史教育真是给人祸害不浅。 中国的历史课本只是现象堆砌，属于儿童科普读物的水平。课本告诉你哪年发生了什么，哪个人做了什么决定，然后给出个评价让你背。 于是很多人学的不是历史，是历史故事会。 看历史，看成了打游戏做任务。 达成什么条件，\"咣当\"一下，东西就自动刷新出来了。 背后是什么在支撑，根本就不去讲。 我举个例子。 有一些，我和一个女博主见面，晚上十点多我们去逛小吃街，她想买…",
+      "Favlists": [
+        {
+          "UrlToken": 794313753,
+          "Title": "我的收藏",
+          "Url": "https://www.zhihu.com/collection/794313753"
+        }
+      ],
+      "Author": {
+        "Name": "小帽officials",
+        "UrlToken": "76-17-31-44-78",
+        "Url": "https://www.zhihu.com/people/76-17-31-44-78",
+        "Gender": 0,
+        "Headline": "喜欢空洞骑士，05后，人文社科科普博主(不键政)，法律-情感-文学等相关咨询请私信"
+      }
+    },
+    {
+      "ContentType": "pin",
+      "Url": "https://www.zhihu.com/pin/2080925824119731625",
+      "CreatedAt": 1788911494,
+      "FavTime": 1789267978,
+      "LikeCount": 296,
+      "CommentCount": 50,
+      "FavoriteCount": 241,
+      "Title": "Leetcode 时代的落幕",
+      "Summary": "刚刚看到Deepseek Harness 负责人的帖子，提到了DS现在招聘已经砍掉了代码题，更多从系统设计题角度来考察了。 的确，单纯的代码没有任何意义了，数学都能解，代码更是上一代的东西了。 [图片]",
+      "Favlists": [
+        {
+          "UrlToken": 794313753,
+          "Title": "我的收藏",
+          "Url": "https://www.zhihu.com/collection/794313753"
+        }
+      ],
+      "Author": {
+        "Name": "平凡",
+        "UrlToken": "jzwa",
+        "Url": "https://www.zhihu.com/people/jzwa",
+        "Gender": 2,
+        "Headline": "英国大学讲师（AP）｜AI｜专栏作家｜pingfan.me"
+      }
+    },
+    {
+      "ContentType": "article",
+      "Url": "https://zhuanlan.zhihu.com/p/1974868444362056717",
+      "CreatedAt": 1763625682,
+      "FavTime": 1789267934,
+      "LikeCount": 502,
+      "CommentCount": 15,
+      "FavoriteCount": 1169,
+      "Title": "转自天涯论坛：庾信风华——《哀江南赋并序》通解  作者：乱石惊涛 1/4",
+      "Summary": "庾信在他的《枯树赋》里有一段描写：“重重碎锦，片片真花；纷披草树，散乱烟霞”，用来形容《哀江南赋》再合适不过了。欢迎你加入这次《哀江南赋》之旅，不用担心文字典故的障碍，我都已经替你疏通拆解好了，留给你的只有赏心悦目，心旷神怡了。 清朝初年有位词章高手陈维崧，对庾信的《哀江南赋》推崇的五体投地。他认为这篇赋可以〝奴仆庄骚，出入左国〞。意思是说象屈原、庄子这个级别的作家也就配给庾信大师拎个包打打下手…",
+      "Favlists": [
+        {
+          "UrlToken": 794313753,
+          "Title": "我的收藏",
+          "Url": "https://www.zhihu.com/collection/794313753"
+        }
+      ],
+      "Author": {
+        "Name": "郑艳磊",
+        "UrlToken": "zheng-yan-lei",
+        "Url": "https://www.zhihu.com/people/zheng-yan-lei",
+        "Gender": 2,
+        "Headline": "电池应用工程师"
+      }
+    },
+    {
+      "ContentType": "answer",
+      "Url": "https://www.zhihu.com/answer/2069822223762961969",
+      "CreatedAt": 1786264073,
+      "FavTime": 1789267911,
+      "LikeCount": 59,
+      "CommentCount": 9,
+      "FavoriteCount": 34,
+      "Title": "北大课程烂的一批，真的吗?",
+      "Summary": "坐标北大数院，来答一波。 个人觉得北大的课程整体还可以，不错的居多，但也有个别课不太行。 专业课来说，就我上过的来看ysw、ly、lww、yxy、lbp等等（就不一一列举了）这些老师的课质量都挺高，我从他们的课上收获了不少。这些老师都相对年轻（应该都是80后），自己学术成果也都很不错，因此课也能讲得很清楚（因为他们自己对这些内容简直不要太熟悉）。但也有个别年纪比较大的老师的课极度混沌……（应该是这些老师因为时代原…",
+      "Favlists": [
+        {
+          "UrlToken": 794313753,
+          "Title": "我的收藏",
+          "Url": "https://www.zhihu.com/collection/794313753"
+        }
+      ],
+      "Author": {
+        "Name": "3Brown1Blue",
+        "UrlToken": "16-45-23-88-22",
+        "Url": "https://www.zhihu.com/people/16-45-23-88-22",
+        "Gender": 2,
+        "Headline": "北大数院大三学生 | discouraged 中"
+      }
+    },
+    {
+      "ContentType": "answer",
+      "Url": "https://www.zhihu.com/answer/2075594249895264443",
+      "CreatedAt": 1787640231,
+      "FavTime": 1789212491,
+      "LikeCount": 20676,
+      "CommentCount": 553,
+      "FavoriteCount": 8985,
+      "Title": "为什么我感觉宋濂的《送东阳马生序》有点装？",
+      "Summary": "你觉得装，是因为你不知道宋濂当时有多屌 换个场景， 2018年夏天，恒大总部。 那一年的应届毕业生刚刚入职，公司组织了一场新员工座谈会。 会议结束以后，大家排队合影。 人渐渐散了。 一个年轻人因为刚才在座谈会上发过言，被工作人员叫住，多留了一会儿。 许家印从台上下来，随口问了一句： “刚毕业？” “刚毕业。” “第一份工作？” “对。” “哪里人？” “河南。” 许家印停了一下。 “河南哪儿的？” “周口，太康。”…",
+      "Favlists": [
+        {
+          "UrlToken": 794313753,
+          "Title": "我的收藏",
+          "Url": "https://www.zhihu.com/collection/794313753"
+        }
+      ],
+      "Author": {
+        "Name": "我来监督沙瑞金",
+        "UrlToken": "meng-fan-m",
+        "Url": "https://www.zhihu.com/people/meng-fan-m",
+        "Gender": 2,
+        "Headline": "好好学习，天天向上"
+      }
+    },
+    {
+      "ContentType": "answer",
+      "Url": "https://www.zhihu.com/answer/2081334821083784075",
+      "CreatedAt": 1789008890,
+      "FavTime": 1789212479,
+      "LikeCount": 9623,
+      "CommentCount": 298,
+      "FavoriteCount": 1131,
+      "Title": "为什么《牛来》能申请到龙标？",
+      "Summary": "你想象的：广电总局捏着鼻子勉强给牛来发了龙标。 实际上：广电总局看到牛来后喜出望外，恨不得昭告天下“这就是龙标电影的典范”。 为什么？因为 审核《牛来》这件工作太轻松了，你只需要忍住无聊和吐槽的欲望，在那坐86分钟就行了，甚至间歇走个神都不碍事。但对其他电影的审核，那可就是一件繁琐熬人到极点的苦差事了。你需要一帧一帧地盯着画面，对照电影分级表，去评估是否过于血腥、暴力、裸露，还要看镜头里的世界地图是…",
+      "Favlists": [
+        {
+          "UrlToken": 794313753,
+          "Title": "我的收藏",
+          "Url": "https://www.zhihu.com/collection/794313753"
+        }
+      ],
+      "Author": {
+        "Name": "仲生",
+        "UrlToken": "liu-ruo-han-8-10",
+        "Url": "https://www.zhihu.com/people/liu-ruo-han-8-10",
+        "Gender": 2,
+        "Headline": "港深地区律师，在线提供法律咨询"
+      }
+    },
+    {
+      "ContentType": "answer",
+      "Url": "https://www.zhihu.com/answer/2059756420631990291",
+      "CreatedAt": 1783864199,
+      "FavTime": 1789212458,
+      "LikeCount": 49,
+      "CommentCount": 7,
+      "FavoriteCount": 60,
+      "Title": "哪首现代诗歌最让你感到震撼或共鸣？",
+      "Summary": "痖弦的这首《深渊》把我震懵了！这诗意、哲思的结合力量之猛烈像核弹爆炸，看的过程整个人处于兴奋和不安不断上扬的新奇体验，天啦，这是怎么写出来的。 《深渊》 我要生存，除此无他；同时我发现了他的不快。 ——沙特 孩子们常在你发茨间迷失。 春天最初的激流，藏在你荒芜的瞳孔背后。 一部分岁月呼喊着，肉体展开黑夜的节庆。 在有毒的月光中，在血的三角洲， 所有的灵魂蛇立起来，扑向一个垂在十字架上的 憔悴的额头。 这是…",
+      "Favlists": [
+        {
+          "UrlToken": 794313753,
+          "Title": "我的收藏",
+          "Url": "https://www.zhihu.com/collection/794313753"
+        }
+      ],
+      "Author": {
+        "Name": "余水照",
+        "UrlToken": "bijiaohaowan",
+        "Url": "https://www.zhihu.com/people/bijiaohaowan",
+        "Gender": 2,
+        "Headline": "写作-拍摄-发呆"
+      }
+    },
+    {
+      "ContentType": "answer",
+      "Url": "https://www.zhihu.com/answer/3135908470",
+      "CreatedAt": 1690344817,
+      "FavTime": 1789212422,
+      "LikeCount": 3605,
+      "CommentCount": 379,
+      "FavoriteCount": 3743,
+      "Title": "为什么金庸的小说读起来那么流畅顺滑？怎么做到的？",
+      "Summary": "[图片] 看看这段，金庸删去了多少文字，造就了他小说的流畅顺滑，我敢说这样的文笔，中国没有几个。图片是连载版到修订版得修订过程。 再增加一个例子。 金庸小说为什么阅读如此流畅，不在于连载版，而在于修订版。修订版比较于连载版，不仅在于语言的锤炼，很多时候也在于语序的转换。 我把周伯通抢吃牛肉这一段连载版和修订版全都放在这里比较，大家可以管中窥豹，得悉金庸小说的奥秘。 先上旧版： 【三人（旧版的法王、潇湘子、杨过…",
+      "Favlists": [
+        {
+          "UrlToken": 794313753,
+          "Title": "我的收藏",
+          "Url": "https://www.zhihu.com/collection/794313753"
+        }
+      ],
+      "Author": {
+        "Name": "雪茶凉咏",
+        "UrlToken": "lin-wen-qin-67",
+        "Url": "https://www.zhihu.com/people/lin-wen-qin-67",
+        "Gender": 0,
+        "Headline": ""
+      }
+    },
+    {
+      "ContentType": "answer",
+      "Url": "https://www.zhihu.com/answer/2078369206047879662",
+      "CreatedAt": 1788301832,
+      "FavTime": 1789212403,
+      "LikeCount": 12,
+      "CommentCount": 7,
+      "FavoriteCount": 13,
+      "Title": "如何评价《龙族》作者江南的文笔？",
+      "Summary": "一眼看去都在夸，我来泼一瓢冷水。 “对于网文是降维打击”，好吧，这个评价貌似依旧很高。 （二更，解释一下误会，泼冷水的意思是江南的文笔没有夸张到天花乱坠的地步。 个人给出的评价为爆杀网文，逊色纯文学。 评价部分到此结束。 下面是如何学习江南将纯文学运用语言的技巧到通俗文学里的底层分析，一家之言） 文笔好不好，首先得定义文笔。 但很多人的认识里，文笔就是驾驭文字的能力，其实过于简单粗暴了。 之所以你会觉得…",
+      "Favlists": [
+        {
+          "UrlToken": 794313753,
+          "Title": "我的收藏",
+          "Url": "https://www.zhihu.com/collection/794313753"
+        }
+      ],
+      "Author": {
+        "Name": "量子之眸",
+        "UrlToken": "tang-jin-2-94",
+        "Url": "https://www.zhihu.com/people/tang-jin-2-94",
+        "Gender": 2,
+        "Headline": "我那腐烂的梦"
+      }
+    },
     {
       "ContentType": "article",
       "Url": "https://zhuanlan.zhihu.com/p/2072036215029813445",
       "CreatedAt": 1786791940,
       "FavTime": 1786983010,
-      "LikeCount": 415,
+      "LikeCount": 429,
       "CommentCount": 73,
-      "FavoriteCount": 586,
+      "FavoriteCount": 606,
       "Title": "数学译本",
       "Summary": "大家好，这两天我做了一个网站： https://mathtranslations.org/ 做这个网站，最初其实是因为我一直觉得现在数学书的 AI 翻译处在一个很尴尬的阶段。 大模型已经让个人翻译一本外文数学书变得越来越容易。实际上，现在已经有不少人在自己翻译教材、专著和讲义，但这些译本往往散落在个人硬盘、群聊和网盘里：有人已经翻过了，其他人不知道；有人发现了错误，也很难反馈；一个人停止维护以后，译本可能就这样消失了。 所以我想做一个公开的…",
       "Favlists": [
@@ -32,7 +457,7 @@
       "Url": "https://www.zhihu.com/answer/809952554",
       "CreatedAt": 1567318565,
       "FavTime": 1779179511,
-      "LikeCount": 839,
+      "LikeCount": 840,
       "CommentCount": 72,
       "FavoriteCount": 2130,
       "Title": "各位大佬能帮我全面了解一下九州系列吗？",
@@ -82,9 +507,9 @@
       "Url": "https://www.zhihu.com/answer/1903945960482116565",
       "CreatedAt": 1746716090,
       "FavTime": 1778424900,
-      "LikeCount": 825,
+      "LikeCount": 827,
       "CommentCount": 40,
-      "FavoriteCount": 1098,
+      "FavoriteCount": 1099,
       "Title": "南派三叔、江南、刘慈欣，他们是从哪里知道那么多的知识的，如何构建整个故事体系和跌宕起伏的剧情?",
       "Summary": "看到个江南的采访，顺手就引用一个江南的，希望对题主能有帮助。中华读书报：《龙族》的想象所涉及的门类非常多样：东西方各民族关于龙的神话传说故事，各个国家与地区的人文风貌，世界各地独特的自然风光，上至远古文明，下至未来科技——在创作中，你觉得有什么难度吗？ 江南：这可真是个费力的工作，需要非常多的参考资料。我大学时候是个非常喜欢杂学的读者，从欧洲的巫术、炼金术到中国的奇谭逸闻我都喜欢看，但当时研究得…",
       "Favlists": [
@@ -182,9 +607,9 @@
       "Url": "https://www.zhihu.com/answer/1895055713438523995",
       "CreatedAt": 1744596490,
       "FavTime": 1776825675,
-      "LikeCount": 2571,
+      "LikeCount": 2572,
       "CommentCount": 133,
-      "FavoriteCount": 2769,
+      "FavoriteCount": 2772,
       "Title": "为什么很多网文大神强调‘前三章定生死’？读者耐心真的只剩3章了吗？",
       "Summary": "还搁这鼓捣读者耐心呢，我给你举几个例子。 加西亚·马尔克斯： 奥内西莫·桑切斯参议员遇到他生命中的那个女人的时候，距离他的死亡只剩六个月零十一天。——《超越爱情的永恒之死》，以及他的另外几篇短篇小说叫做《纯真的埃伦蒂拉和他残忍的祖母令人难以置信的悲惨故事》《世上最美的溺水者》《出售奇迹的好人布拉曼卡》《幽灵船的最后一次航行》，这都不用开头了，篇名就是钩子。 欧·亨利： 这是阳春三月里的一天。 在你写…",
       "Favlists": [
@@ -282,9 +707,9 @@
       "Url": "https://www.zhihu.com/answer/1947075352506664370",
       "CreatedAt": 1756998938,
       "FavTime": 1775662851,
-      "LikeCount": 1567,
+      "LikeCount": 1570,
       "CommentCount": 99,
-      "FavoriteCount": 2896,
+      "FavoriteCount": 2899,
       "Title": "江南的文风有什么特点？如何模仿？",
       "Summary": "我可以给你解构他用了什么技巧，但是想要模仿非常困难，因为能够把这些技巧用到出神入化的网文作家，到现在也只有他一个人而已。 全景镜头这是江南营造电影效果最常用的技巧之一，通过描绘四周的景象营造特定的氛围，例子如下： 绘梨衣解开手帕，夕阳如海潮般涌入她的视野，巨大的日轮已经触及了海面，数千万吨的海水在他脚下缓缓的荡漾，湖水在黑色的山崖下碎成白色的水花，风吹着数万公顷的森林，傍晚的树林远看也像海，苍红色…",
       "Favlists": [
@@ -357,9 +782,9 @@
       "Url": "https://www.zhihu.com/answer/1984399258271625752",
       "CreatedAt": 1765897651,
       "FavTime": 1767171789,
-      "LikeCount": 71,
+      "LikeCount": 72,
       "CommentCount": 2,
-      "FavoriteCount": 83,
+      "FavoriteCount": 84,
       "Title": "A和B是两个方阵，A^2+B^2=2AB，如何证明A和B的行列式相等呢？",
       "Summary": "[图片] 同样的标准型+分块矩阵+数学归纳法的打法做这种矩阵方程限制然后推导A,B某种矩阵关系的问题。 [公式] 证明 [公式] 令 [公式] 由 [公式] 移项得 [公式] [公式] 若 [公式] 可逆，由 (★) 得 [公式] 所以 [公式] 与 [公式] 相似，特征多项式相同，当然 [公式] 若 [公式] 不可逆，就在核空间取向量。也就是考虑标注型，让原…",
       "Favlists": [
@@ -559,7 +984,7 @@
       "FavTime": 1753777274,
       "LikeCount": 600,
       "CommentCount": 11,
-      "FavoriteCount": 2748,
+      "FavoriteCount": 2749,
       "Title": "北京大学数学课程相关视频",
       "Summary": "今天无意中发现了一个网站：北京大学教学媒体资源服务平台 https://resource.pku.edu.cn/index.php?r=course%2Findex ，发现里面有一些精品的课程，于是将里面的数学相关可成整理出来。 [图片] 北大精品课离散数学（2013） 屈婉玲课程链接： https://resource.pku.edu.cn/index.php?r=course/detail&id=295 [图片] 院系重点课偏微分方程 楚健春课程链接： https://resource.pku.edu.cn/index.php?r=course/detail&id=403 内容简介： Introduction to partial differential equations（楚健春）This course is an introduction to the study of second order elliptic…",
       "Favlists": [
@@ -902,7 +1327,7 @@
       "FavTime": 1743125062,
       "LikeCount": 1279,
       "CommentCount": 45,
-      "FavoriteCount": 3265,
+      "FavoriteCount": 3266,
       "Title": "降维打击——不等式中的黑魔法",
       "Summary": "注：本文参考但不限于《Problems from the book》，为了更好地阅读本文章，您需要且仅需要 知道定积分的基本定义对初等不等式有所兴趣认真聆听⑨老师的讲解那么，⑨のさんすう教室はじまるよー! 一、引入数学竞赛圈子里流传着这样一个故事。冷岗松询问韦东奕一道题目的做法，而韦东奕只是看了看，就说：“只需证左边的项非负即可。”据冷岗松的描述（似乎在新星网的一篇文章中有提到）即便是如此简单的一句话，也让他思考了整整…",
       "Favlists": [
@@ -1227,7 +1652,7 @@
       "FavTime": 1739700906,
       "LikeCount": 5564,
       "CommentCount": 291,
-      "FavoriteCount": 14338,
+      "FavoriteCount": 14339,
       "Title": "数学装逼神器——高端三角恒等变换",
       "Summary": "我们先来看几个式子： [公式] [公式] [公式] [公式] …… 我第一次见到它们时的反应是这样： [图片] [图片] 不过它们确确实实激发了我的好…",
       "Favlists": [
@@ -1450,9 +1875,9 @@
       "Url": "https://zhuanlan.zhihu.com/p/16053030711",
       "CreatedAt": 1735823890,
       "FavTime": 1735949443,
-      "LikeCount": 80,
+      "LikeCount": 79,
       "CommentCount": 10,
-      "FavoriteCount": 142,
+      "FavoriteCount": 141,
       "Title": "南开大学2024-2025学年第一学期“数学分析I”期末考试试题解析(自制版)",
       "Summary": "求 @淘气的小杨桃 大佬捞捞我 [图片] 一、证明：函数 [公式] 有反函数 [公式] ，并求 [公式] .我这题算错了，离大谱. [公式] [公式] ，于是函数单调，故存在反函数.同时 [公式] ，再次求导有 [公式]",
       "Favlists": [
@@ -1601,7 +2026,7 @@
       "CreatedAt": 1662096235,
       "FavTime": 1730822230,
       "LikeCount": 970,
-      "CommentCount": 175,
+      "CommentCount": 177,
       "FavoriteCount": 2470,
       "Title": "数学界有哪些通俗易懂的 open problem？",
       "Summary": "以下40道题，希望有大佬可以教教我 大概本科一二年级的学生就可以完全理解题意，高中生也能基本看懂 门槛是很低的 不过据说：95%的人都做不出来这些高数题！不知道是真是假 [图片] [图片] [图片] [图片] [图片] [图片] [图片] 做出来任何一个立马v你5000$，加油！",
@@ -1777,7 +2202,7 @@
       "FavTime": 1715185398,
       "LikeCount": 14019,
       "CommentCount": 2163,
-      "FavoriteCount": 36874,
+      "FavoriteCount": 36873,
       "Title": "为什么医生对祛痘这么不屑一顾？",
       "Summary": "脸上长痘算啥事？！ 目前研究发现有个蛋白酶对痘痘效果特别好，也就100多块钱， 涂抹15次左右，满脸的红黑痘印就都消了，之后更是一颗痘都没长过！ 这在之根本就不敢想，以前考研的时候熬夜脸上的痘不仅下不去，还越攒越多 当时考完回家，小侄女见了都嫌弃我，说我脸怎么烂了 搞都我出门都不敢抬头了，这种感觉大概只有痘痘星人能理解了，超级自卑。 所以等到4月3号复试结束，我就开始挂皮肤科的号， 是真麻烦啊，外地挂号只能下…",
       "Favlists": [
@@ -2018,9 +2443,9 @@
       "Url": "https://zhuanlan.zhihu.com/p/367058597",
       "CreatedAt": 1619141942,
       "FavTime": 1660949978,
-      "LikeCount": 3312,
+      "LikeCount": 3314,
       "CommentCount": 170,
-      "FavoriteCount": 8905,
+      "FavoriteCount": 8910,
       "Title": "极值点偏移与拉格朗日反演",
       "Summary": "本文介绍一种几乎可以解决所有高考中所谓的“极值点偏移”的导数问题，按道理来说我都要大学毕业了，为啥还要关心高中的东西？这是因为这个方法涉及了一阶导为0函数的拉格朗日反演，在之后的物理应用上面还是挺有用的，所以我想记录一下（主要还是论文参考文献插吐了，随便算点东西调剂一下）。同时我尽量想办法让高中生都能看懂（应该能看懂，一方面我数学也就高中水平，另一方面现在高中生不是人均泰勒洛必达淑芬全刷完嘛）或…",
       "Favlists": [
@@ -2093,9 +2518,9 @@
       "Url": "https://zhuanlan.zhihu.com/p/463270128",
       "CreatedAt": 1643558687,
       "FavTime": 1658219461,
-      "LikeCount": 6620,
+      "LikeCount": 6622,
       "CommentCount": 69,
-      "FavoriteCount": 32348,
+      "FavoriteCount": 32351,
       "Title": "做了个圆锥曲线总结（到处偷文章）",
       "Summary": "第一次整这种东西，该批评就批评吧，能给我可操作的方法就更好了，感激不尽 基本上都是高中生能用的，个人认为很实用的 本文不再更新，2022新全国一卷考生，心态崩了，不想继续了解数学了 好消息是，已经有许多人整合了技巧，而且都是大佬，推荐这几位 奇趣数学苑 亦铭高考生想学习其他技巧，奇鸣 可能 能教导你1.定比问题 如AB/CD=入 ？（与向量相关的问题）执傲：【解析几何】圆锥曲线与向量有关的问题(1) 这个大佬有很多好…",
       "Favlists": [
@@ -2118,9 +2543,9 @@
       "Url": "https://zhuanlan.zhihu.com/p/499839696",
       "CreatedAt": 1650126995,
       "FavTime": 1651382070,
-      "LikeCount": 1804,
+      "LikeCount": 1807,
       "CommentCount": 55,
-      "FavoriteCount": 4674,
+      "FavoriteCount": 4675,
       "Title": "恐怖技巧——交换求和",
       "Summary": "近日，在学习数论及做习题的过程中，多次遇到求和号的交换技巧。不禁回想起高中第一次接触交换求和这一朴素但不平凡的技巧时的震撼，方才意识到，每当它出现于解答中，都会给我以极大地触动。这是一种夹杂暴力与技巧的手法，本质上，它仅仅是改变了求和的顺序而已，求和式本身没有任何改变，但往往能带来惊喜的效果。 然在实际操作中，如何交换求和，却是令人头疼的问题。尤其是在数论中，多个求和号并不仅仅是简单的 [公式]",
       "Favlists": [
@@ -2220,7 +2645,7 @@
       "FavTime": 1637476516,
       "LikeCount": 21340,
       "CommentCount": 355,
-      "FavoriteCount": 53547,
+      "FavoriteCount": 53543,
       "Title": "男生如何变帅？",
       "Summary": "60天从满脸黑头、痘印、粉刺的挫男，进化成行走的型男！！！老夫终于体会到了这个世界对帅哥的善意了！ 女生的主动搭讪，陌生人的莫名信任！等等 [图片] 我现在的心情真的挺忐忑的，都没脸看自己以前的照片，就像是翻QQ空间一样，回忆里全是黑历史 【高能预警】 [图片] 现在朋友们都说我是去整容了，把爷笑死了，哥有钱整容，我去洗脚不好吗？ 强调一下， 哥是纯的，没有整过，可能是之前太过粗糙，现在变化有点大。 [图片] 所以下面的要认真看，认真学…",
       "Favlists": [
@@ -2245,7 +2670,7 @@
       "FavTime": 1628997945,
       "LikeCount": 29657,
       "CommentCount": 592,
-      "FavoriteCount": 140774,
+      "FavoriteCount": 140772,
       "Title": "高中数学有没有什么比较牛 X 的公式？",
       "Summary": "既然是万赞！！！ 那我就不跟你们不客气了！解决数学问题不仅仅只是需要解题方法，在一定程度上还要具备正确的数学思维，很多学生在考试答题中总会遇到一些题，让他们觉得似曾相识的感觉。 由于时间紧张和考试心理等因素的影响，就会让平时相对简单的数学题复杂化 ，所以具备良好的解题方法便是重中之重。 无论你是理科生还是文科生，数学公式，你必须掌握。 提醒广大高考考生，越到接近考试的时候，越需要回顾一些重要的基础知…",
       "Favlists": [
@@ -2268,9 +2693,9 @@
       "Url": "https://www.zhihu.com/answer/1013705627",
       "CreatedAt": 1581567609,
       "FavTime": 1596886771,
-      "LikeCount": 74125,
+      "LikeCount": 74124,
       "CommentCount": 5288,
-      "FavoriteCount": 185389,
+      "FavoriteCount": 185391,
       "Title": "如何与女生愉快地聊天？",
       "Summary": "和女生怎么聊天？ 首先我想说女生真的别看，真的真的不要看，不骗你们啊，我说的都是真的，女生千万别看。 因为你们看了后就会占领评论区，会让评论区的男生绝望的(♯｀∧´) 聊天篇：首先追女生不要太迷信套路，套路本质上是花拳绣腿，中看不中用。 追女生的本质应该是提升与人沟通技巧，当你水准到一定地步后，你的话句句都是套路，会一直吸引妹子和你聊下去，才能吸引高质量妹子。 套路对于不擅长与女生聊天的男生来说，…",
       "Favlists": [
@@ -2293,7 +2718,7 @@
       "Url": "https://www.zhihu.com/answer/1011500677",
       "CreatedAt": 1581471901,
       "FavTime": 1596886759,
-      "LikeCount": 22275,
+      "LikeCount": 22274,
       "CommentCount": 1456,
       "FavoriteCount": 76877,
       "Title": "女生最想收到男性朋友送的什么礼物？",

@@ -7,11 +7,13 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createOAuth } from './lib/oauth.mjs';
 import { computeReport } from './lib/report-core.mjs';
+import { createAsk } from './lib/ask.mjs';
 
 const root = path.dirname(fileURLToPath(import.meta.url));
 const PORT = process.env.PORT || 4173;
 const DAY = 86400;
 const oauth = createOAuth();
+const asker = createAsk(root);
 
 const MIME = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript; charset=utf-8', '.css': 'text/css; charset=utf-8', '.json': 'application/json; charset=utf-8', '.png': 'image/png', '.jpg': 'image/jpeg', '.svg': 'image/svg+xml' };
 
@@ -176,7 +178,7 @@ const server = http.createServer(async (req, res) => {
   const url = new URL(req.url, `http://${req.headers.host}`);
   try {
     // 方法白名单：只读端点只收 GET/HEAD，POST 仅限三个写端点，其余 405
-    const POST_ROUTES = ['/api/review', '/api/push/trigger', '/api/oauth/logout'];
+    const POST_ROUTES = ['/api/review', '/api/push/trigger', '/api/oauth/logout', '/api/ask'];
     const methodOk = req.method === 'GET' || req.method === 'HEAD'
       || (req.method === 'POST' && POST_ROUTES.includes(url.pathname));
     if (!methodOk) return json(res, { ok: false, error: 'method not allowed' }, 405);
@@ -214,6 +216,49 @@ const server = http.createServer(async (req, res) => {
         if (e.code === 'ACCESS_SECRET_MISSING') return json(res, { ok: false, error: e.message, notReady: true }, 503);
         console.error('[oauth] 评委报告生成失败：', e.code || '', e.message);
         return json(res, { ok: false, error: e.message }, 502);
+      }
+    }
+    // ---- 追问：卡片详情接直答，每登录用户每日 2 次 + 每出口 IP 每日硬顶，缓存命中免费（SPEC「追问限流实现」）----
+    // 身份只认 OAuth 知乎 uid（issue #36：自报 UUID 头 / 匿名 cookie 全由客户端控制，轮换即重置配额，已关闭）
+    // 出口 IP：Sealos 网关注入 X-Forwarded-For（取第一个），直连回退 socket.remoteAddress
+    const clientIp = () => req.headers['x-forwarded-for']?.split(',')[0].trim() || req.socket.remoteAddress || 'unknown';
+    const askLogin = () => {
+      const uid = oauth.currentUid(req, res);
+      if (!uid) {
+        json(res, { ok: false, error: '追问需要先登录知乎', loginRequired: true }, 401);
+        return null;
+      }
+      return uid;
+    };
+    if (url.pathname === '/api/ask/quota') {
+      const uid = askLogin();
+      if (!uid) return;
+      return json(res, { ok: true, ...(await asker.quotaFor(uid, clientIp())) });
+    }
+    if (url.pathname === '/api/ask' && req.method === 'POST') {
+      const uid = askLogin();
+      if (!uid) return;
+      let body = '';
+      for await (const chunk of req) body += chunk;
+      if (body.length > 4096) return json(res, { ok: false, error: '请求体过大' }, 400);
+      let parsed;
+      try { parsed = JSON.parse(body || '{}'); } catch { return json(res, { ok: false, error: 'bad json' }, 400); }
+      const { cardId, question } = parsed;
+      if (!/^[\w-]+$/.test(String(cardId || ''))) return json(res, { ok: false, error: 'invalid cardId' }, 400);
+      const q = String(question || '').trim();
+      if (!q || q.length > asker.MAX_QUESTION_LEN) {
+        return json(res, { ok: false, error: `问题需 1-${asker.MAX_QUESTION_LEN} 字` }, 400);
+      }
+      const card = (await loadCardsEnriched()).find((c) => c.id === cardId);
+      if (!card) return json(res, { ok: false, error: '卡片不存在' }, 404);
+      try {
+        const result = await asker.ask(uid, card, q, clientIp());
+        if (!result.ok && result.quotaExceeded) return json(res, result, 429);
+        if (!result.ok && result.notReady) return json(res, result, 503);
+        return json(res, result);
+      } catch (e) {
+        console.error('[ask] 直答调用失败：', e.message);
+        return json(res, { ok: false, error: '直答服务暂时不可用，请稍后重试' }, 502);
       }
     }
     if (url.pathname === '/api/report') {

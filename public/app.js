@@ -92,10 +92,10 @@ function cardHtml(c, { reviewable = false, isDone = false } = {}) {
     </div>
 
     <!-- 标题与出处 -->
-    <h3 class="font-serif-display text-lg md:text-xl font-bold leading-snug mb-2 text-stone-900">
-      <a class="hover:text-amber-700 transition-colors inline-flex items-start gap-1" href="${esc(c.source?.url)}" target="_blank" rel="noopener">
+    <h3 class="font-serif-display text-2xl md:text-3xl font-bold leading-snug mb-2 text-stone-900">
+      <a class="hover-cin transition-colors inline-flex items-start gap-1" href="${esc(c.source?.url)}" target="_blank" rel="noopener">
         <span>${esc(c.source?.title)}</span>
-        <span class="text-xs text-amber-700 font-sans mt-1 opacity-75">↗</span>
+        <span class="text-xs text-cin font-sans mt-1 opacity-75">↗</span>
       </a>
     </h3>
 
@@ -106,7 +106,7 @@ function cardHtml(c, { reviewable = false, isDone = false } = {}) {
 
     <!-- 核心立论 -->
     <div class="thesis-box">
-      <div class="font-medium text-stone-900 leading-relaxed"><span class="marker-hl font-semibold">核心提炼 ·</span> ${esc(c.coreView)}</div>
+      <div class="font-medium leading-relaxed"><span class="thesis-label">核心提炼</span>${esc(c.coreView)}</div>
     </div>
 
     <!-- 关键洞察 / 公式推导 -->
@@ -143,12 +143,13 @@ function cardHtml(c, { reviewable = false, isDone = false } = {}) {
 }
 
 function renderMath(el) {
-  if (window.renderMathInElement) {
-    renderMathInElement(el, { delimiters: [
-      { left: '$$', right: '$$', display: true },
-      { left: '$', right: '$', display: false },
-    ], throwOnError: false });
-  }
+  if (!window.renderMathInElement) return;
+  // 快速预检：没有 $ 就跳过逐文本节点的正则扫描（108 张卡时开销明显）
+  if (!el.textContent.includes('$')) return;
+  renderMathInElement(el, { delimiters: [
+    { left: '$$', right: '$$', display: true },
+    { left: '$', right: '$', display: false },
+  ], throwOnError: false });
 }
 
 // ---------- 双栏工作台状态管理 (对齐图二) ----------
@@ -156,7 +157,7 @@ const appState = {
   tab: 'today',             // 'today' | 'cards' | 'report'
   activeCardId: null,       // id of the card focused in stage
   activeDomain: 'all',      // 'all' | 'math' | 'humanities' | 'growth' | 'tech'
-  cardViewMode: 'list',     // 'list' | 'whiteboard'
+  cardViewMode: 'whiteboard', // 'list' | 'whiteboard'
   queue: null,
   allCards: null,
   report: null,
@@ -183,7 +184,7 @@ function renderOAuthSlot() {
       </div>`;
   } else if (o?.configured !== false) {
     slot.innerHTML = `
-      <a href="/auth/login" class="inline-flex items-center gap-1.5 text-xs bg-[#056de8] text-white rounded-full px-3.5 py-1.5 hover:bg-[#0454b8] transition-colors shadow-sm">
+      <a href="/auth/login" class="inline-flex items-center gap-1.5 text-xs bg-[#1f1d1a] text-white rounded-full px-3.5 py-1.5 hover:bg-black transition-colors shadow-sm">
         <span>知乎登录</span>
       </a>`;
   }
@@ -210,11 +211,11 @@ function categorizeCard(c) {
 }
 
 const SECTIONS = [
-  { key: 'math', title: '数理逻辑空间', sub: 'Mathematical Systems', cls: 'wb-section-math', icon: '📐' },
-  { key: 'humanities', title: '人文哲思空间', sub: 'Humanities & Mind', cls: 'wb-section-humanities', icon: '🏛️' },
-  { key: 'growth', title: '认知与成长空间', sub: 'Mental Models & Growth', cls: 'wb-section-growth', icon: '💡' },
-  { key: 'tech', title: '技术与工程空间', sub: 'Engineering & Code', cls: 'wb-section-tech', icon: '💻' },
-  { key: 'other', title: '通识与精选空间', sub: 'General Insights', cls: 'wb-section-other', icon: '✦' },
+  { key: 'math', title: '数理逻辑空间', sub: 'Mathematical Systems', cls: 'wb-section-math', dot: '#5e8248' },
+  { key: 'humanities', title: '人文哲思空间', sub: 'Humanities & Mind', cls: 'wb-section-humanities', dot: '#7b4e88' },
+  { key: 'growth', title: '认知与成长空间', sub: 'Mental Models & Growth', cls: 'wb-section-growth', dot: '#8c5d2e' },
+  { key: 'tech', title: '技术与工程空间', sub: 'Engineering & Code', cls: 'wb-section-tech', dot: '#3a687d' },
+  { key: 'other', title: '通识与精选空间', sub: 'General Insights', cls: 'wb-section-other', dot: '#73736f' },
 ];
 
 function whiteboardHtml(cards) {
@@ -301,7 +302,7 @@ function renderSidebar() {
           return `
           <button class="sidebar-nav-item ${isActive ? 'active' : ''} ${isDone ? 'is-done' : ''}" onclick="window.selectQueueCard('${esc(c.id)}')">
             <div class="flex items-center gap-2 min-w-0 flex-1 pr-1">
-              <span class="text-xs shrink-0 ${isDone ? 'text-emerald-600 font-bold' : isActive ? 'text-white' : 'text-stone-400'}">
+              <span class="text-xs shrink-0 ${isDone ? 'text-emerald-600 font-bold' : isActive ? 'text-cin font-bold' : 'text-stone-400'}">
                 ${isDone ? '✓' : (i + 1)}
               </span>
               <span class="truncate text-xs">${esc(c.source?.title)}</span>
@@ -352,7 +353,7 @@ function renderSidebar() {
         ${SECTIONS.map(s => `
         <button class="sidebar-nav-item ${appState.tab === 'cards' && appState.activeDomain === s.key && !appState.activeCardId ? 'active' : ''}" onclick="window.selectDomain('${s.key}')">
           <div class="flex items-center gap-2">
-            <span class="text-xs">${s.icon}</span>
+            <span class="sidebar-domain-dot" style="background:${s.dot}"></span>
             <span class="text-xs">${s.title}</span>
           </div>
           <span class="sidebar-badge text-[10px]">${domainCounts[s.key] || 0}</span>
@@ -368,7 +369,7 @@ function renderSidebar() {
       <div class="space-y-0.5">
         <button class="sidebar-nav-item ${appState.tab === 'report' ? 'active' : ''}" onclick="window.selectTab('report')">
           <div class="flex items-center gap-2">
-            <span>🏺</span>
+            <span class="text-stone-400">✦</span>
             <span class="text-xs">收藏考古报告</span>
           </div>
           <span class="text-[10px] font-mono text-stone-400">${appState.report?.total ?? '…'}条</span>
@@ -401,7 +402,7 @@ function renderReportInStage(el, r) {
 
     <div class="card-paper persona-hero p-7 mb-5 text-center fade-in">
       <div class="text-xs text-stone-400 mb-1.5 tracking-widest uppercase font-mono">Your Collection Persona</div>
-      <div class="font-serif-display text-3xl font-bold text-amber-700 mb-2">${esc(r.persona.type)}</div>
+      <div class="font-serif-display text-3xl font-bold text-cin mb-2">${esc(r.persona.type)}</div>
       <p class="text-xs text-stone-600 max-w-md mx-auto leading-relaxed">${esc(r.persona.description)}</p>
     </div>
 
@@ -436,7 +437,7 @@ function renderReportInStage(el, r) {
     ${r.total > 0 ? `
     <div class="card-paper p-5 mb-5">
       <h3 class="section-head text-sm mb-2">最老的一条收藏</h3>
-      <a class="text-amber-800 hover:underline text-sm font-medium" href="${esc(r.oldestItem.url)}" target="_blank" rel="noopener">${esc(r.oldestItem.title)}</a>
+      <a class="text-cin hover:underline text-sm font-medium" href="${esc(r.oldestItem.url)}" target="_blank" rel="noopener">${esc(r.oldestItem.title)}</a>
       <div class="text-xs text-stone-400 mt-1">收藏于 ${r.oldestItem.favDate}，已经静静躺了 ${Math.round(r.oldestItem.ageDays / 365)} 年</div>
     </div>` : ''}
   `;
@@ -507,10 +508,12 @@ function renderStage() {
       <!-- 卡片主体展台 -->
       <div id="stage-card-wrapper" class="fade-in">
         ${cardHtml(currentCard, { reviewable: true, isDone })}
+        ${askBoxHtml(currentCard.id)}
       </div>
     `;
 
     renderMath(stage);
+    bindAskBox(stage);
 
     // 绑定打卡事件
     stage.querySelectorAll('.review-btn').forEach(btn => {
@@ -587,7 +590,8 @@ function renderStage() {
       </div>
     `;
 
-    renderMath(stage);
+    // 白板模式是摘要视图，跳过 KaTeX 全量扫描；列表模式才渲染公式
+    if (appState.cardViewMode === 'list') renderMath(stage);
 
     $('#btn-view-wb')?.addEventListener('click', () => {
       appState.cardViewMode = 'whiteboard';
@@ -664,6 +668,16 @@ function renderReportTab(stage) {
     renderReportInStage(holder, appState.report);
   }
 
+  // 海报入口（有报告数据才显示）
+  const shown = appState.reportSource === 'mine' && authorized ? appState.myReport : appState.report;
+  if (shown) {
+    holder.insertAdjacentHTML('beforeend', `
+      <div class="text-center mb-8 fade-in">
+        <button class="btn-ink px-5 py-2.5 text-sm rounded-lg" onclick="window.makePoster()">📮 生成分享海报</button>
+        <p class="text-[11px] text-stone-400 mt-2">收藏人格是主钩子，适合晒到想法/朋友圈</p>
+      </div>`);
+  }
+
   stage.innerHTML = parts.join('');
   stage.appendChild(holder);
 }
@@ -710,7 +724,7 @@ window.selectQueueCard = function (id) {
 window.selectSingleCard = function (id) {
   appState.tab = 'cards';
   appState.activeCardId = id;
-  appState.cardViewMode = 'list';
+  // 不重置 cardViewMode：精读完点「返回全景白板」应回到白板，而不是被切回列表
   location.hash = id;
   renderWorkbench();
 };
@@ -746,6 +760,87 @@ window.stepQueue = function (delta) {
     renderWorkbench();
   }
 };
+
+// ---------- 追问（卡片详情接直答，每登录用户每日 2 次 + 每出口 IP 每日 20 次硬顶） ----------
+// 身份只认知乎 OAuth 会话（issue #36：自报 UUID / 匿名 cookie 已关闭），未登录引导走登录入口
+
+function askBoxHtml(cardId) {
+  return `
+  <div class="card-paper p-5 mb-5 fade-in ask-box" data-card-id="${esc(cardId)}">
+    <div class="flex items-center justify-between mb-3">
+      <h3 class="section-head text-sm">💬 追问这张卡</h3>
+      <span class="text-[11px] text-stone-400 ask-remaining">…</span>
+    </div>
+    <div class="flex gap-2">
+      <input type="text" class="ask-input flex-1 min-w-0 text-sm px-3 py-2 rounded-lg border border-stone-200 bg-white/80 focus:outline-none focus:border-amber-400 transition-colors" placeholder="就这张卡片继续提问，比如：这个证明的直觉是什么？" maxlength="200">
+      <button class="ask-btn btn-ink px-4 py-2 text-sm shrink-0">提问</button>
+    </div>
+    <div class="ask-result hidden mt-4 pt-3 border-t border-dashed border-[#eee7d7]"></div>
+  </div>`;
+}
+
+function bindAskBox(stage) {
+  const box = stage.querySelector('.ask-box');
+  if (!box) return;
+  const cardId = box.dataset.cardId;
+  const input = box.querySelector('.ask-input');
+  const btn = box.querySelector('.ask-btn');
+  const remainingEl = box.querySelector('.ask-remaining');
+  const resultEl = box.querySelector('.ask-result');
+
+  const renderRemaining = (n) => {
+    remainingEl.textContent = n > 0 ? `今日还可追问 ${n} 次` : '今日额度已用完';
+    if (n <= 0) { input.disabled = true; btn.disabled = true; }
+  };
+
+  // 未登录（或会话中途过期）：收起输入框，引导登录（与报告页未登录 CTA 同风格）
+  const showLoginPrompt = () => {
+    remainingEl.textContent = '';
+    input.classList.add('hidden');
+    btn.classList.add('hidden');
+    resultEl.classList.remove('hidden');
+    resultEl.innerHTML = `
+      <p class="text-xs text-stone-500 mb-2.5">登录知乎后即可追问这张卡——只读取授权身份，不消耗你的任何额度。</p>
+      <a href="/auth/login" class="btn-ink inline-flex items-center gap-1.5 px-4 py-2 text-xs rounded-lg">知乎登录后追问</a>`;
+  };
+
+  if (!appState.oauth?.authorized) { showLoginPrompt(); return; }
+
+  fetchJson('/api/ask/quota')
+    .then((r) => renderRemaining(r.remaining))
+    .catch(() => { remainingEl.textContent = ''; });
+
+  const submit = async () => {
+    const question = input.value.trim();
+    if (!question) return;
+    btn.disabled = true;
+    btn.textContent = '直答思考中…';
+    resultEl.classList.remove('hidden');
+    resultEl.innerHTML = `<p class="text-xs text-stone-400 animate-pulse">正在就「${esc(question.slice(0, 30))}」检索知乎讨论并生成回答，直答可能需要十几秒…</p>`;
+    try {
+      const r = await fetch('/api/ask', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ cardId, question }),
+      }).then((resp) => resp.json());
+      if (r.loginRequired) { showLoginPrompt(); return; }
+      if (!r.ok) throw new Error(r.error || '追问失败');
+      resultEl.innerHTML = `
+        <div class="text-xs text-amber-700 mb-1.5 font-medium">直答 · ${r.cached ? '缓存命中（未消耗额度）' : '基于该问题下的知乎讨论'}</div>
+        <div class="text-sm text-stone-700 leading-relaxed" style="white-space:pre-wrap">${esc(r.answer)}</div>`;
+      input.value = '';
+      renderRemaining(r.remaining);
+      btn.textContent = '提问';
+      btn.disabled = r.remaining <= 0;
+    } catch (e) {
+      resultEl.innerHTML = `<p class="text-xs text-red-500">${esc(e.message)}</p>`;
+      btn.textContent = '提问';
+      btn.disabled = false;
+    }
+  };
+  btn.addEventListener('click', submit);
+  input.addEventListener('keydown', (e) => { if (e.key === 'Enter') submit(); });
+}
 
 // 键盘快捷键监听
 window.addEventListener('keydown', (e) => {
@@ -822,5 +917,203 @@ window.addEventListener('hashchange', () => {
     window.selectTab(h);
   }
 });
+
+// ---------- 考古报告海报（Canvas 纯前端生成，收藏人格为主钩子） ----------
+function posterWrap(ctx, text, maxWidth) {
+  // 中文按字断行
+  const lines = [];
+  let line = '';
+  for (const ch of String(text)) {
+    if (ch === '\n') { lines.push(line); line = ''; continue; }
+    if (ctx.measureText(line + ch).width > maxWidth && line) { lines.push(line); line = ch; }
+    else line += ch;
+  }
+  if (line) lines.push(line);
+  return lines;
+}
+
+async function drawPoster(r) {
+  await document.fonts.ready;
+  const W = 750, H = 1180, S = 2, PAD = 48;
+  const canvas = document.createElement('canvas');
+  canvas.width = W * S;
+  canvas.height = H * S;
+  const ctx = canvas.getContext('2d');
+  ctx.scale(S, S);
+
+  const SERIF = '"Noto Serif SC", "Songti SC", serif';
+  const INK = '#1c1917', INK2 = '#57534e', INK3 = '#a8a29e', AMBER = '#b45309', LINE = '#e7e0d2', PAPER = '#f7f3ea';
+
+  // 纸面 + 细边框
+  ctx.fillStyle = PAPER;
+  ctx.fillRect(0, 0, W, H);
+  ctx.strokeStyle = LINE;
+  ctx.lineWidth = 1;
+  ctx.strokeRect(16.5, 16.5, W - 33, H - 33);
+
+  let y = 64;
+  // 顶部 kicker + 日期
+  ctx.fillStyle = INK3;
+  ctx.font = '13px sans-serif';
+  ctx.textAlign = 'left';
+  ctx.fillText('知 乎 收 藏 考 古 报 告', PAD, y);
+  ctx.textAlign = 'right';
+  ctx.fillText(new Date().toLocaleDateString('sv-SE'), W - PAD, y);
+  ctx.textAlign = 'left';
+  y += 18;
+  ctx.beginPath(); ctx.moveTo(PAD, y); ctx.lineTo(W - PAD, y); ctx.stroke();
+
+  // 收藏人格（主钩子，居中）
+  y += 74;
+  ctx.textAlign = 'center';
+  ctx.fillStyle = INK3;
+  ctx.font = '15px sans-serif';
+  ctx.fillText('你的收藏人格是', W / 2, y);
+  y += 62;
+  ctx.fillStyle = AMBER;
+  ctx.font = `bold 52px ${SERIF}`;
+  ctx.fillText(r.persona.type, W / 2, y);
+  y += 34;
+  ctx.fillStyle = INK2;
+  ctx.font = '15px sans-serif';
+  for (const ln of posterWrap(ctx, r.persona.description, W - PAD * 2 - 40).slice(0, 2)) {
+    ctx.fillText(ln, W / 2, y);
+    y += 24;
+  }
+  ctx.textAlign = 'left';
+
+  // 三宫格数据
+  y += 40;
+  const stats = [
+    [String(r.total), '收藏总数'],
+    [`${Math.round(r.spanDays / 365)} 年`, '收藏跨度'],
+    [`${r.newestItem.daysAgo} 天`, '距上次收藏'],
+  ];
+  const colW = (W - PAD * 2) / 3;
+  stats.forEach(([v, label], i) => {
+    const cx = PAD + colW * i + colW / 2;
+    ctx.textAlign = 'center';
+    ctx.fillStyle = INK;
+    ctx.font = `bold 30px ${SERIF}`;
+    ctx.fillText(v, cx, y);
+    ctx.fillStyle = INK3;
+    ctx.font = '12px sans-serif';
+    ctx.fillText(label, cx, y + 24);
+    if (i > 0) {
+      ctx.beginPath(); ctx.moveTo(PAD + colW * i, y - 24); ctx.lineTo(PAD + colW * i, y + 22); ctx.stroke();
+    }
+  });
+  ctx.textAlign = 'left';
+
+  // 收藏年代分布
+  y += 72;
+  ctx.fillStyle = INK;
+  ctx.font = `bold 16px ${SERIF}`;
+  ctx.fillText('收藏年代分布', PAD, y);
+  y += 14;
+  const buckets = Object.entries(r.decayBuckets);
+  const bMax = Math.max(...buckets.map(([, v]) => v), 1);
+  const barX = PAD + 76, barW = W - PAD * 2 - 76 - 44;
+  for (const [label, v] of buckets) {
+    y += 26;
+    ctx.fillStyle = INK3;
+    ctx.font = '12px sans-serif';
+    ctx.fillText(label, PAD, y + 4);
+    ctx.fillStyle = '#ede6d8';
+    ctx.fillRect(barX, y - 5, barW, 10);
+    if (v > 0) {
+      ctx.fillStyle = AMBER;
+      ctx.fillRect(barX, y - 5, Math.max(4, (v / bMax) * barW), 10);
+    }
+    ctx.fillStyle = INK2;
+    ctx.textAlign = 'right';
+    ctx.fillText(String(v), W - PAD, y + 4);
+    ctx.textAlign = 'left';
+  }
+  y += 26;
+  ctx.fillStyle = INK3;
+  ctx.font = '12px sans-serif';
+  ctx.fillText('「1 年以上」的大概率已经凉透了——72h 是收藏的黄金期。', PAD, y);
+
+  // 爆发月 + 最常收藏作者
+  y += 48;
+  ctx.fillStyle = INK;
+  ctx.font = `bold 16px ${SERIF}`;
+  ctx.fillText('收藏瞬间', PAD, y);
+  y += 28;
+  ctx.font = '13px sans-serif';
+  ctx.fillStyle = INK2;
+  if (r.burstMonth?.month) {
+    ctx.fillText(`⚡ ${r.burstMonth.month} 月一口气收藏了 ${r.burstMonth.count} 条`, PAD, y);
+    y += 24;
+  }
+  if (r.topAuthors?.length) {
+    ctx.fillText(`✍️ 最常收藏的作者：${r.topAuthors.slice(0, 3).map((a) => a.name).join('、')}`, PAD, y);
+    y += 24;
+  }
+
+  // 最老的一条收藏
+  if (r.total > 0 && r.oldestItem.title) {
+    y += 28;
+    ctx.fillStyle = INK;
+    ctx.font = `bold 16px ${SERIF}`;
+    ctx.fillText('最老的一条收藏', PAD, y);
+    y += 28;
+    ctx.fillStyle = AMBER;
+    ctx.font = `14px ${SERIF}`;
+    for (const ln of posterWrap(ctx, r.oldestItem.title, W - PAD * 2).slice(0, 2)) {
+      ctx.fillText(ln, PAD, y);
+      y += 22;
+    }
+    ctx.fillStyle = INK3;
+    ctx.font = '12px sans-serif';
+    ctx.fillText(`收藏于 ${r.oldestItem.favDate}，已经静静躺了 ${Math.round(r.oldestItem.ageDays / 365)} 年`, PAD, y);
+  }
+
+  // footer
+  ctx.beginPath(); ctx.moveTo(PAD, H - 84); ctx.lineTo(W - PAD, H - 84); ctx.stroke();
+  ctx.fillStyle = INK;
+  ctx.font = `bold 17px ${SERIF}`;
+  ctx.fillText('朝花夕拾', PAD, H - 52);
+  ctx.fillStyle = INK3;
+  ctx.font = '12px sans-serif';
+  ctx.fillText('早上的花，傍晚拾 · 让好内容不再被遗忘', PAD, H - 30);
+  ctx.textAlign = 'right';
+  ctx.fillText('lnuhxmgreuxd.sealoshzh.site', W - PAD, H - 30);
+  ctx.textAlign = 'left';
+
+  return canvas.toDataURL('image/png');
+}
+
+window.makePoster = async function () {
+  const r = appState.reportSource === 'mine' && appState.oauth?.authorized ? appState.myReport : appState.report;
+  if (!r) return;
+  // loading 遮罩
+  const overlay = document.createElement('div');
+  overlay.className = 'fixed inset-0 z-50 flex items-center justify-center bg-black/55 p-4';
+  overlay.innerHTML = `<div class="text-white text-sm animate-pulse">正在绘制海报…</div>`;
+  document.body.appendChild(overlay);
+  try {
+    const url = await drawPoster(r);
+    overlay.innerHTML = `
+      <div class="bg-white rounded-xl p-4 max-w-sm w-full shadow-2xl fade-in">
+        <img src="${url}" alt="收藏考古报告海报" class="w-full rounded-lg border border-stone-200">
+        <div class="flex items-center gap-3 mt-3">
+          <a href="${url}" download="朝花夕拾-收藏考古报告.png" class="btn-ink flex-1 text-center px-4 py-2.5 text-sm rounded-lg">保存图片</a>
+          <button class="poster-close flex-1 px-4 py-2.5 text-sm rounded-lg border border-stone-300 text-stone-600 hover:bg-stone-50">关闭</button>
+        </div>
+        <p class="text-[11px] text-stone-400 mt-2 text-center">手机上也可以长按图片保存</p>
+      </div>`;
+    overlay.querySelector('.poster-close').addEventListener('click', () => overlay.remove());
+    overlay.addEventListener('click', (e) => { if (e.target === overlay) overlay.remove(); });
+  } catch (e) {
+    overlay.innerHTML = `
+      <div class="bg-white rounded-xl p-6 max-w-xs text-center">
+        <p class="text-sm text-stone-500 mb-3">海报生成失败：${esc(e.message)}</p>
+        <button class="poster-close btn-ink px-4 py-2 text-sm rounded-lg">关闭</button>
+      </div>`;
+    overlay.querySelector('.poster-close').addEventListener('click', () => overlay.remove());
+  }
+};
 
 initApp();

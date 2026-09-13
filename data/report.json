@@ -1,12 +1,12 @@
 {
-  "generatedAt": 1789267206000,
-  "total": 93,
+  "generatedAt": 1789301913000,
+  "total": 110,
   "typeDist": {
-    "article": 59,
-    "answer": 33,
-    "pin": 1
+    "answer": 48,
+    "pin": 2,
+    "article": 60
   },
-  "spanDays": 2200,
+  "spanDays": 2227,
   "oldestItem": {
     "title": "女生最想收到男性朋友送的什么礼物？",
     "url": "https://www.zhihu.com/answer/1011500677",
@@ -14,16 +14,17 @@
     "ageDays": 2227
   },
   "newestItem": {
-    "title": "数学译本",
-    "url": "https://zhuanlan.zhihu.com/p/2072036215029813445",
-    "favDate": "2026-08-18",
-    "daysAgo": 26
+    "title": "如何评价戴从容教授的世界首个中文全译本《芬尼根的守灵夜》？",
+    "url": "https://www.zhihu.com/answer/2076765585652896764",
+    "favDate": "2026-09-13",
+    "daysAgo": 0
   },
   "burstMonth": {
-    "month": "2025-03",
-    "count": 11
+    "month": "2026-09",
+    "count": 17
   },
   "monthly": {
+    "2026-09": 17,
     "2026-08": 1,
     "2026-05": 3,
     "2026-04": 8,
@@ -78,7 +79,7 @@
     }
   ],
   "decayBuckets": {
-    "3天内": 0,
+    "3天内": 17,
     "1周内": 0,
     "1月内": 1,
     "半年内": 11,
@@ -90,23 +91,23 @@
     "description": "收藏节奏断断续续，热情来得快去得也快"
   },
   "cards": {
-    "total": 92,
+    "total": 108,
     "corrupt": 0,
     "statusCount": {
-      "approved": 92
+      "approved": 108
     },
     "domainDist": [
       {
         "domain": "数学",
-        "count": 206
-      },
-      {
-        "domain": "人文社科",
-        "count": 36
+        "count": 207
       },
       {
         "domain": "其他",
-        "count": 32
+        "count": 60
+      },
+      {
+        "domain": "人文社科",
+        "count": 58
       },
       {
         "domain": "学习方法",
@@ -114,7 +115,7 @@
       },
       {
         "domain": "编程/CS",
-        "count": 6
+        "count": 7
       },
       {
         "domain": "自然科学",
@@ -147,6 +148,10 @@
         "count": 7
       },
       {
+        "tag": "文学评论",
+        "count": 6
+      },
+      {
         "tag": "圆锥曲线",
         "count": 6
       },
@@ -157,16 +162,12 @@
       {
         "tag": "数论",
         "count": 5
-      },
-      {
-        "tag": "解析几何",
-        "count": 5
       }
     ]
   },
   "digestion": {
-    "collected": 93,
-    "approved": 92,
-    "ratio": 0.99
+    "collected": 110,
+    "approved": 108,
+    "ratio": 0.98
   }
 }
