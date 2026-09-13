@@ -49,7 +49,7 @@ const doneStore = {
 };
 
 // ---------- 卡片渲染 ----------
-function cardHtml(c, { reviewable = false, isDone = false } = {}) {
+function cardHtml(c, { reviewable = false, isDone = false, sourceBadge = '知乎拆解' } = {}) {
   const [diffText, diffCls] = DIFF[c.difficulty] || DIFF.medium;
   const cleanId = String(c.id || '').replace(/^card_/, '');
   const displayId = cleanId ? `NO. ${cleanId.slice(-6)}` : 'SPECIMEN';
@@ -82,7 +82,7 @@ function cardHtml(c, { reviewable = false, isDone = false } = {}) {
     <div class="specimen-header">
       <div class="flex items-center gap-2">
         <span class="font-mono text-[11px] font-semibold text-stone-500 tracking-wider">${displayId}</span>
-        <span class="badge badge-source" title="AI 拆解综合了该问题下多篇高赞回答，不局限于你收藏的这条；点击标题链接阅读你收藏的原回答">知乎拆解</span>
+        <span class="badge badge-source" title="AI 拆解综合了该问题下多篇高赞回答，不局限于你收藏的这条；点击标题链接阅读你收藏的原回答">${esc(sourceBadge)}</span>
       </div>
       <div class="flex items-center gap-2">
         <span class="badge ${diffCls}">${diffText}</span>
@@ -163,11 +163,14 @@ const appState = {
   oauth: null,              // /api/oauth/status：{ configured, authorized, profile }
   pushSub: null,            // /api/push/subscription：{ subscribed }；null = 未登录或未拉取
   oauthLanding: null,       // 'ok' | 'error'（授权回调着陆提示，展示一次后清除）
-  reportSource: 'site',     // 'site' 站主示例 | 'mine' 我的报告
+  reportSource: 'site',     // 'site' 站主示例 | 'mine' 我的报告（已授权用户固定 'mine'，无站主示例入口）
   myReport: null,
   myReportMeta: null,
   myReportLoading: false,
   myReportError: null,
+  myCard: undefined,        // /api/my/card 状态：undefined=未拉取；{status:'idle'|'breaking_down'|'making_card'|'reviewing'|'done'|'failed'|...}
+  myCardFetching: false,
+  myCardPolling: false,
 };
 
 // ---------- 知乎登录入口 ----------
@@ -198,6 +201,8 @@ window.oauthLogout = async function () {
   appState.myReport = null;
   appState.myReportMeta = null;
   appState.myReportError = null;
+  appState.myCard = undefined;
+  appState.myCardPolling = false;
   renderOAuthSlot();
   renderWorkbench();
 };
@@ -682,7 +687,184 @@ function bindPushSubCard(stage) {
   }
 }
 
-// ---------- 考古报告 Tab（站主示例 / 我的报告） ----------
+// ---------- 考古报告 Tab ----------
+// 已授权用户不再有「站主示例/我的报告」切换，直接只显示「我的报告」（9/13 晚产品修订）；
+// 未登录用户看到的完全不变：站主示例 + 登录 CTA
+function loadMyReport(force = false) {
+  if (!appState.oauth?.authorized) return;
+  if (!force && (appState.myReport || appState.myReportLoading)) return;
+  appState.myReportLoading = true;
+  appState.myReportError = null;
+  fetch('/api/my/report').then((resp) => resp.json()).then((r) => {
+    if (!r.ok) throw new Error(r.error || '我的报告生成失败');
+    appState.myReport = r.report;
+    appState.myReportMeta = r.meta;
+  }).catch((e) => {
+    appState.myReportError = e.message;
+  }).finally(() => {
+    appState.myReportLoading = false;
+    renderWorkbench();
+  });
+}
+
+// ---------- 现场炼卡（每登录用户每天 1 张，全站每天 20 张先到先得） ----------
+const MYCARD_STAGES = [
+  ['breaking_down', '直答拆解中', '直答正在读该问题下的优质讨论'],
+  ['making_card', 'AI 炼卡中', '把拆解浓缩成 2 分钟卡片'],
+  ['reviewing', '盲审把关中', '忠实性 + 核心覆盖双检查'],
+];
+const MYCARD_RUNNING = MYCARD_STAGES.map(([k]) => k);
+
+function myCardSlotHtml() {
+  const mc = appState.myCard;
+  if (mc === undefined) {
+    return `<div class="card-paper p-5 mb-5 animate-pulse"><div class="h-4 bg-stone-200 rounded w-1/3 mb-2"></div><div class="h-3 bg-stone-200 rounded w-2/3"></div></div>`;
+  }
+  // 完成：用现有卡片渲染函数完整渲染（角标点出来源错位声明，KaTeX 由调用方触发）
+  if (mc.status === 'done' && mc.card) {
+    const src = mc.source || mc.card.source || {};
+    return `
+      <h3 class="section-head text-sm mb-3 fade-in">✨ 我的第一张卡片</h3>
+      ${cardHtml(mc.card, { sourceBadge: '拆解自该问题下的优质讨论' })}
+      <p class="text-[11px] text-stone-400 mb-5 -mt-3 fade-in">拆解自你${src.pickedFrom72h ? ' 72 小时内最新' : '最新'}收藏的《<a class="text-cin hover:underline" href="${esc(src.url)}" target="_blank" rel="noopener">${esc(src.title)}</a>》${mc.card.reviewScore >= 5 ? '，已通过盲审' : ''}。每天限 1 张，明天还能再来。</p>`;
+  }
+  // 进行中：分阶段进度
+  if (MYCARD_RUNNING.includes(mc.status)) {
+    const idx = MYCARD_STAGES.findIndex(([k]) => k === mc.status);
+    return `
+      <div class="card-paper p-6 mb-5 fade-in border-amber-200/80">
+        <h3 class="section-head text-sm mb-1">✨ 正在现场炼卡</h3>
+        <p class="text-[11px] text-stone-400 mb-4">对象：你${mc.source?.pickedFrom72h ? ' 72 小时内最新' : '最新'}的收藏《${esc(mc.source?.title || '')}》</p>
+        <div class="space-y-2.5">
+          ${MYCARD_STAGES.map(([k, label, sub], i) => `
+            <div class="flex items-center gap-2.5 text-xs ${i < idx ? 'text-emerald-700' : i === idx ? 'text-stone-900 font-medium' : 'text-stone-300'}">
+              <span class="w-4 text-center shrink-0 ${i === idx ? 'animate-pulse' : ''}">${i < idx ? '✓' : i === idx ? '⏳' : '·'}</span>
+              <span class="shrink-0">${label}</span>
+              <span class="${i === idx ? 'text-stone-400' : 'text-stone-300'} truncate">${sub}</span>
+            </div>`).join('')}
+        </div>
+        <p class="text-[11px] text-stone-400 mt-4">直答拆解需要几十秒，全程约 1-2 分钟，页面会自动更新。</p>
+      </div>`;
+  }
+  // 前端轮询超时：服务端任务可能仍在跑，给刷新入口
+  if (mc.status === 'timeout') {
+    return `
+      <div class="card-paper p-6 mb-5 text-center fade-in">
+        <p class="text-stone-500 text-sm mb-3">生成时间超出预期，服务端可能仍在继续。</p>
+        <button id="mycard-refresh-btn" class="btn-ink px-4 py-2 text-sm">刷新查看</button>
+      </div>`;
+  }
+  // 失败（盲审打回/直答紧张等）：未消耗用户的 1 张，可重试
+  if (mc.status === 'failed') {
+    return `
+      <div class="card-paper p-6 mb-5 text-center fade-in">
+        <div class="text-3xl mb-2">🥀</div>
+        <p class="text-stone-500 text-sm mb-3">${esc(mc.error || '生成失败，请稍后重试')}</p>
+        <button id="mycard-start-btn" class="btn-ink px-4 py-2 text-sm">重试</button>
+      </div>`;
+  }
+  // 发起即被拒：名额满（429）/ 无收藏（422）/ 其他错误
+  if (mc.status === 'rejected-msg') {
+    return `
+      <div class="card-paper p-6 mb-5 text-center fade-in border-amber-200/80 bg-amber-50/40">
+        <p class="text-sm text-stone-600 mb-1">${esc(mc.error)}</p>
+        ${mc.quotaExceeded ? '<p class="text-[11px] text-stone-400">全站每天限 20 张，先到先得，明天 0 点重置</p>' : ''}
+        ${!mc.quotaExceeded && !mc.noFavorites ? '<button id="mycard-refresh-btn" class="btn-ink px-4 py-2 text-sm mt-3">重试</button>' : ''}
+      </div>`;
+  }
+  // idle：炼卡入口
+  const used = mc.quota?.used ?? 0;
+  const cap = mc.quota?.cap ?? 20;
+  const full = used >= cap;
+  return `
+    <div class="card-paper p-6 mb-5 fade-in border-amber-200/80 bg-gradient-to-br from-amber-50/60 to-orange-50/40">
+      <h3 class="section-head text-sm mb-2">✨ 生成我的第一张卡片</h3>
+      <p class="text-xs text-stone-600 leading-relaxed mb-1">选你 <b>72 小时内最新的一条收藏</b>，现场走完直答拆解 → AI 炼卡 → 盲审把关，拆成一张 2 分钟卡片。</p>
+      <p class="text-[11px] text-stone-400 mb-4">每天限 1 张 · 全站每天限 ${cap} 张，先到先得（今日已用 ${used}/${cap}）</p>
+      ${full
+        ? '<p class="text-xs text-amber-700 font-medium">今日体验名额已用完，明天再来</p>'
+        : '<button id="mycard-start-btn" class="btn-ink px-5 py-2.5 text-sm">现场炼卡</button>'}
+    </div>`;
+}
+
+function fetchMyCardStatus(force = false) {
+  if (!appState.oauth?.authorized || appState.myCardFetching) return;
+  if (!force && appState.myCard !== undefined) return;
+  appState.myCardFetching = true;
+  fetch('/api/my/card').then((resp) => resp.json()).then((r) => {
+    if (r.ok) {
+      appState.myCard = r;
+      if (MYCARD_RUNNING.includes(r.status)) pollMyCard();
+    } else {
+      appState.myCard = { status: 'rejected-msg', error: r.error || '状态拉取失败' };
+    }
+  }).catch(() => {
+    appState.myCard = { status: 'rejected-msg', error: '网络开小差了，点击重试' };
+  }).finally(() => {
+    appState.myCardFetching = false;
+    renderWorkbench();
+  });
+}
+
+// 2s 轮询任务状态，最多 3 分钟；阶段变化即刷新界面
+function pollMyCard() {
+  if (appState.myCardPolling) return;
+  appState.myCardPolling = true;
+  const startedAt = Date.now();
+  const tick = async () => {
+    if (Date.now() - startedAt > 180000) {
+      appState.myCardPolling = false;
+      appState.myCard = { status: 'timeout' };
+      renderWorkbench();
+      return;
+    }
+    try {
+      const r = await fetch('/api/my/card').then((resp) => resp.json());
+      if (r.ok) {
+        const prev = appState.myCard?.status;
+        appState.myCard = r;
+        if (!MYCARD_RUNNING.includes(r.status)) {
+          appState.myCardPolling = false;
+          renderWorkbench();
+          return;
+        }
+        if (r.status !== prev) renderWorkbench();
+      }
+    } catch { /* 网络抖动，继续轮询 */ }
+    setTimeout(tick, 2000);
+  };
+  tick();
+}
+
+function bindMyCardSlot(stage) {
+  const startBtn = stage.querySelector('#mycard-start-btn');
+  if (startBtn) {
+    startBtn.addEventListener('click', async () => {
+      startBtn.disabled = true;
+      startBtn.textContent = '发起中…';
+      try {
+        const resp = await fetch('/api/my/card', { method: 'POST' });
+        const r = await resp.json();
+        if (r.loginRequired || r.error === 'loginRequired') {
+          appState.myCard = { status: 'rejected-msg', error: '登录已过期，请重新登录后再试' };
+        } else if (!r.ok) {
+          appState.myCard = { status: 'rejected-msg', error: r.error || '发起失败，请稍后重试', quotaExceeded: r.quotaExceeded, noFavorites: r.noFavorites };
+        } else {
+          appState.myCard = r;
+          if (MYCARD_RUNNING.includes(r.status)) pollMyCard();
+        }
+      } catch {
+        appState.myCard = { status: 'rejected-msg', error: '网络开小差了，点击重试' };
+      }
+      renderWorkbench();
+    });
+  }
+  const refreshBtn = stage.querySelector('#mycard-refresh-btn');
+  if (refreshBtn) {
+    refreshBtn.addEventListener('click', () => fetchMyCardStatus(true));
+  }
+}
+
 function renderReportTab(stage) {
   const parts = [];
 
@@ -691,12 +873,13 @@ function renderReportTab(stage) {
     const ok = appState.oauthLanding === 'ok';
     parts.push(`
       <div class="card-paper p-4 mb-4 fade-in ${ok ? 'border-emerald-200 bg-emerald-50/60' : 'border-red-200 bg-red-50/60'}">
-        <p class="text-xs ${ok ? 'text-emerald-700' : 'text-red-600'}">${ok ? '✓ 知乎授权成功，可以生成你自己的收藏考古报告了。' : '登录没有完成（可能被取消或会话过期），点右上角「知乎登录」重试。'}</p>
+        <p class="text-xs ${ok ? 'text-emerald-700' : 'text-red-600'}">${ok ? '✓ 知乎授权成功，这是你自己的收藏考古报告。' : '登录没有完成（可能被取消或会话过期），点右上角「知乎登录」重试。'}</p>
       </div>`);
     appState.oauthLanding = null;
   }
 
   const authorized = appState.oauth?.authorized;
+  appState.reportSource = authorized ? 'mine' : 'site';
 
   // 未登录 CTA
   if (!authorized) {
@@ -708,14 +891,12 @@ function renderReportTab(stage) {
       </div>`);
   }
 
-  // 已登录：来源切换
+  // 已登录：只显示「我的报告」（含微信订阅 + 现场炼卡入口），无站主示例切换
   if (authorized) {
+    loadMyReport();
     parts.push(`
       <div class="flex items-center gap-2 mb-4 fade-in">
-        <div class="flex items-center bg-[#edeae4] p-1 rounded-lg border border-[#e1ded8]">
-          <button class="view-toggle-btn ${appState.reportSource === 'mine' ? '' : 'active'}" onclick="window.selectReportSource('site')">站主示例</button>
-          <button class="view-toggle-btn ${appState.reportSource === 'mine' ? 'active' : ''}" onclick="window.selectReportSource('mine')">我的报告</button>
-        </div>
+        <span class="text-sm font-bold text-stone-900">我的考古报告</span>
         ${appState.myReportMeta ? `<span class="text-[10px] text-stone-400 font-mono">${appState.myReportMeta.favlists} 个收藏夹 · ${appState.myReportMeta.requests} 次接口调用${appState.myReportMeta.truncated ? ' · 已达上限截断' : ''}</span>` : ''}
       </div>`);
     parts.push(pushSubCardHtml());
@@ -723,7 +904,7 @@ function renderReportTab(stage) {
 
   const holder = document.createElement('div');
 
-  if (appState.reportSource === 'mine' && authorized) {
+  if (authorized) {
     if (appState.myReportLoading) {
       holder.innerHTML = SKELETON;
     } else if (appState.myReportError) {
@@ -735,13 +916,15 @@ function renderReportTab(stage) {
         </div>`;
     } else if (appState.myReport) {
       renderReportInStage(holder, appState.myReport);
+      fetchMyCardStatus();
+      holder.insertAdjacentHTML('beforeend', myCardSlotHtml());
     }
   } else {
     renderReportInStage(holder, appState.report);
   }
 
   // 海报入口（有报告数据才显示）
-  const shown = appState.reportSource === 'mine' && authorized ? appState.myReport : appState.report;
+  const shown = authorized ? appState.myReport : appState.report;
   if (shown) {
     holder.insertAdjacentHTML('beforeend', `
       <div class="text-center mb-8 fade-in">
@@ -753,25 +936,14 @@ function renderReportTab(stage) {
   stage.innerHTML = parts.join('');
   stage.appendChild(holder);
   bindPushSubCard(stage);
+  bindMyCardSlot(stage);
+  if (appState.myCard?.status === 'done') renderMath(stage);
 }
 
-window.selectReportSource = async function (src, force = false) {
-  appState.reportSource = src;
-  if (src === 'mine' && appState.oauth?.authorized && (force || (!appState.myReport && !appState.myReportLoading))) {
-    appState.myReportLoading = true;
-    appState.myReportError = null;
-    renderStage();
-    try {
-      const r = await fetch('/api/my/report').then((resp) => resp.json());
-      if (!r.ok) throw new Error(r.error || '我的报告生成失败');
-      appState.myReport = r.report;
-      appState.myReportMeta = r.meta;
-    } catch (e) {
-      appState.myReportError = e.message;
-    } finally {
-      appState.myReportLoading = false;
-    }
-  }
+window.selectReportSource = function (src, force = false) {
+  // 已授权用户没有「站主示例」入口，强制落在「我的报告」
+  appState.reportSource = appState.oauth?.authorized ? 'mine' : 'site';
+  if (appState.reportSource === 'mine') loadMyReport(force);
   renderWorkbench();
 };
 

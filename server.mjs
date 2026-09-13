@@ -9,6 +9,7 @@ import { fileURLToPath } from 'node:url';
 import { createOAuth } from './lib/oauth.mjs';
 import { computeReport } from './lib/report-core.mjs';
 import { createAsk } from './lib/ask.mjs';
+import { createMyCard } from './lib/mycard.mjs';
 import { cstDateStr, msUntilNextCst } from './lib/time.mjs';
 
 const root = path.dirname(fileURLToPath(import.meta.url));
@@ -16,6 +17,7 @@ const PORT = process.env.PORT || 4173;
 const DAY = 86400;
 const oauth = createOAuth();
 const asker = createAsk(root);
+const mycard = createMyCard(root);
 
 const MIME = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript; charset=utf-8', '.css': 'text/css; charset=utf-8', '.json': 'application/json; charset=utf-8', '.png': 'image/png', '.jpg': 'image/jpeg', '.svg': 'image/svg+xml' };
 
@@ -305,6 +307,23 @@ const ROUTES = [
         console.error('[oauth] 评委报告生成失败：', e.code || '', e.message);
         return json(res, { ok: false, error: e.message }, 502);
       }
+    },
+  },
+
+  // 现场炼卡：登录用户每天 1 张、全站每天 20 张先到先得（lib/mycard.mjs：异步任务 + 落盘恢复，收藏走 fetchMyFavorites 会话缓存）
+  {
+    method: 'POST', path: '/api/my/card', handler: async (req, res) => {
+      const uid = oauth.currentUid(req, res);
+      if (!uid) return json(res, { ok: false, error: 'loginRequired', loginRequired: true }, 401);
+      const r = await mycard.start(uid, () => oauth.fetchMyFavorites(req, res));
+      return json(res, r.body, r.code);
+    },
+  },
+  {
+    method: 'GET', path: '/api/my/card', handler: async (req, res) => {
+      const uid = oauth.currentUid(req, res);
+      if (!uid) return json(res, { ok: false, error: 'loginRequired', loginRequired: true }, 401);
+      return json(res, await mycard.statusFor(uid));
     },
   },
 

@@ -4,7 +4,7 @@
 import { readFile, writeFile, readdir, mkdir, rename } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { createGeminiChat, parseLlmJson } from './lib/gemini.mjs';
+import { createGeminiChat, parseLlmJson } from '../lib/gemini.mjs';
 
 const root = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
 const BASE = process.env.GEMINI_BASE_URL;

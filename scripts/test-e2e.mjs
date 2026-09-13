@@ -118,7 +118,7 @@ try {
       eq((await get(r, { method: 'HEAD' })).status === 405, false, `HEAD ${r} 不应 405`);
     }
     // 写端点：POST 放行（不落 405），其他方法 405
-    for (const r of ['/api/review', '/api/push/trigger', '/api/oauth/logout', '/api/ask']) {
+    for (const r of ['/api/review', '/api/push/trigger', '/api/oauth/logout', '/api/ask', '/api/my/card']) {
       for (const m of ['PUT', 'DELETE', 'PATCH']) {
         eq((await get(r, { method: m })).status, 405, `${m} ${r}`);
       }
@@ -306,6 +306,111 @@ try {
       globalThis.fetch = realFetch;
       if (realSecret === undefined) delete process.env.ZHIHU_ACCESS_SECRET;
       else process.env.ZHIHU_ACCESS_SECRET = realSecret;
+      await rm(unitRoot, { recursive: true, force: true, maxRetries: 5, retryDelay: 200 });
+    }
+  });
+
+  await test('/api/my/card：未登录 GET/POST → 401 loginRequired', async () => {
+    for (const m of ['GET', 'POST']) {
+      const r = await get('/api/my/card', { method: m });
+      eq(r.status, 401, `${m} 状态码`);
+      eq((await r.json()).loginRequired, true, `${m} loginRequired 标记`);
+    }
+  });
+
+  // 现场炼卡内核直测（HTTP 层无法伪造 OAuth 会话，直接驱动 lib/mycard 模块；fetch 全部打桩，零真实额度消耗）
+  await test('现场炼卡单元（lib/mycard）：状态机/同天缓存/全局 20 张/无收藏/失败重试/直答阈值', async () => {
+    const { createMyCard } = await import(new URL('../lib/mycard.mjs', import.meta.url));
+    const unitRoot = await mkdtemp(path.join(tmpdir(), 'zhsx-mycard-unit-'));
+    const realFetch = globalThis.fetch;
+    const saved = {};
+    for (const k of ['ZHIHU_ACCESS_SECRET', 'GEMINI_BASE_URL', 'GEMINI_API_KEY']) {
+      saved[k] = process.env[k];
+    }
+    process.env.ZHIHU_ACCESS_SECRET = 'e2e-fake-secret';
+    process.env.GEMINI_BASE_URL = 'http://fake-gemini';
+    process.env.GEMINI_API_KEY = 'e2e-fake-key';
+    let zhidaCalls = 0;
+    let geminiFailOnce = false;
+    const cardJson = JSON.stringify({
+      coreView: '核心观点', thread: [{ step: 's1', detail: 'd1' }, { step: 's2', detail: 'd2' }, { step: 's3', detail: 'd3' }],
+      keyInsight: '', points: ['p1', 'p2', 'p3'], quote: '金句', difficulty: 'easy', topicTags: ['测试'],
+    });
+    globalThis.fetch = async (url, opts) => {
+      if (String(url).includes('developer.zhihu.com')) {
+        zhidaCalls++;
+        return { json: async () => ({ choices: [{ message: { content: '拆解原文：核心观点与论证结构' } }], model: 'zhida-thinking-1p5' }) };
+      }
+      // Gemini 中转站：盲审 prompt 含「盲审考官」，其余为炼卡
+      if (geminiFailOnce) { geminiFailOnce = false; return { ok: false, status: 500, text: async () => 'boom' }; }
+      const prompt = JSON.parse(opts.body).messages[0].content;
+      const out = prompt.includes('盲审考官')
+        ? { faithful: true, unsupportedClaims: [], coreCovered: true, missingCore: [], score: 5, comment: '忠实' }
+        : JSON.parse(cardJson);
+      return { ok: true, json: async () => ({ choices: [{ message: { content: JSON.stringify(out) } }] }) };
+    };
+    const nowSec = Math.floor(Date.now() / 1000);
+    const fav = (over = {}) => ({ ContentType: 'answer', Url: 'https://www.zhihu.com/answer/12345', Title: '测试问题？', FavTime: nowSec, Author: { Name: 'Tester' }, LikeCount: 1, ...over });
+    const waitJob = async (mc, uid) => {
+      for (let i = 0; i < 200; i++) {
+        const s = await mc.statusFor(uid);
+        if (s.status === 'done' || s.status === 'failed') return s;
+        await new Promise((r) => setTimeout(r, 25));
+      }
+      throw new Error('任务 5s 内未完成');
+    };
+    try {
+      const mc = createMyCard(unitRoot);
+      const favs = async () => ({ items: [fav()] });
+      // 完整管线：发起 → 状态机 → done，卡片过盲审
+      const start = await mc.start('u_a', favs);
+      eq(start.code, 200, '发起状态码');
+      eq(start.body.status, 'breaking_down', '初始阶段');
+      const done = await waitJob(mc, 'u_a');
+      eq(done.status, 'done', '任务完成');
+      eq(done.card.status, 'approved', '盲审通过');
+      eq(done.card.id, 'card_answer_12345', '卡片 id');
+      if ('reviewDetail' in done.card) throw new Error('下发结果含 reviewDetail');
+      eq(zhidaCalls, 1, '直答调用次数');
+      // 同天重复请求：直接返回缓存结果，不再烧额度
+      const again = await mc.start('u_a', favs);
+      eq(again.body.status, 'done', '重复请求返回 done');
+      eq(again.body.already, true, 'already 标记');
+      eq(zhidaCalls, 1, '重复请求未再调直答');
+      // 服务重启恢复：新建实例读落盘结果
+      const mc2 = createMyCard(unitRoot);
+      eq((await mc2.statusFor('u_a')).status, 'done', '重启后恢复 done');
+      // 无收藏 → 422
+      const empty = await mc.start('u_empty', async () => ({ items: [] }));
+      eq(empty.code, 422, '无收藏状态码');
+      eq(empty.body.noFavorites, true, 'noFavorites 标记');
+      // 失败后重试：Gemini 挂一次 → failed，再发起成功（失败不算用户的 1 张）
+      geminiFailOnce = true;
+      await mc.start('u_b', favs);
+      eq((await waitJob(mc, 'u_b')).status, 'failed', 'Gemini 故障任务失败');
+      await mc.start('u_b', favs);
+      eq((await waitJob(mc, 'u_b')).status, 'done', '失败后重试成功');
+      // 直答台账阈值：count=90 时新内容（无缓存）任务失败且不发出请求
+      const quotaPath = path.join(unitRoot, 'data', 'quota');
+      const today = JSON.parse(await readFile(path.join(quotaPath, `${new Date(Date.now() + 8 * 3600 * 1000).toISOString().slice(0, 10)}.json`), 'utf8'));
+      today.count = 90;
+      await import('node:fs/promises').then((fs) => fs.writeFile(path.join(quotaPath, `${today.date}.json`), JSON.stringify(today)));
+      await mc.start('u_c', async () => ({ items: [fav({ Url: 'https://www.zhihu.com/answer/99999' })] }));
+      const throttled = await waitJob(mc, 'u_c');
+      eq(throttled.status, 'failed', '阈值任务失败');
+      if (!throttled.error.includes('直答')) throw new Error(`阈值错误文案异常：${throttled.error}`);
+      // 全局 20 张已满 → 429（用新用户绕过 done 缓存）
+      today.mycards = 20;
+      await import('node:fs/promises').then((fs) => fs.writeFile(path.join(quotaPath, `${today.date}.json`), JSON.stringify(today)));
+      const full = await mc.start('u_d', favs);
+      eq(full.code, 429, '全局满状态码');
+      eq(full.body.quotaExceeded, true, 'quotaExceeded 标记');
+    } finally {
+      globalThis.fetch = realFetch;
+      for (const k of Object.keys(saved)) {
+        if (saved[k] === undefined) delete process.env[k];
+        else process.env[k] = saved[k];
+      }
       await rm(unitRoot, { recursive: true, force: true, maxRetries: 5, retryDelay: 200 });
     }
   });
