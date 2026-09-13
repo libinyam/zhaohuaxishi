@@ -1,5 +1,31 @@
 // Use textContent for API content; only application-owned card routes become links.
 
+// ---------- 滚动淡入（New API 同款：threshold .15 + 底部 -40px，同区块内按 DOM 序级联 90ms，封顶 450ms） ----------
+const revealIO = new IntersectionObserver((entries) => {
+  for (const e of entries) {
+    if (e.isIntersecting) { e.target.classList.add('in'); revealIO.unobserve(e.target); }
+  }
+}, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+
+function staggerReveal(scope) {
+  const els = [...scope.querySelectorAll('.reveal')].filter((n) => !n.classList.contains('in'));
+  els.forEach((n, i) => n.style.setProperty('--reveal-delay', Math.min(i * 90, 450) + 'ms'));
+  els.forEach((n) => revealIO.observe(n));
+}
+
+function setupReveal() {
+  const selectors = ['.hero > *', '.rhythm > p', '.section-heading', '.feature-row', '.closing-botanical', '.closing-copy > *'];
+  const seen = new Set();
+  for (const sel of selectors) {
+    document.querySelectorAll(sel).forEach((n) => {
+      if (!seen.has(n)) { seen.add(n); n.classList.add('reveal'); }
+    });
+  }
+  document.querySelectorAll('main > section').forEach((sec) => staggerReveal(sec));
+}
+
+setupReveal();
+
 function el(tag, cls, text) {
   const node = document.createElement(tag);
   if (cls) node.className = cls;
@@ -53,7 +79,7 @@ function selectHomepageCards(cards) {
 }
 
 function createCardPreview(card) {
-  const link = el('a', 'wall-card');
+  const link = el('a', 'wall-card reveal');
   link.href = `/app.html#${encodeURIComponent(card.id)}`;
   const meta = el('div', 'wall-card-meta');
   const author = card.source?.authorName;
@@ -74,6 +100,7 @@ async function loadHomepageCards(cards) {
   const status = document.getElementById('wall-status');
   const selected = selectHomepageCards(cards);
   document.getElementById('card-wall').replaceChildren(...selected.map(createCardPreview));
+  staggerReveal(document.getElementById('card-wall'));
   status.hidden = selected.length > 0;
   if (!selected.length) status.textContent = '暂时没有可展示的卡片，可以先进入工作台看看。';
 }

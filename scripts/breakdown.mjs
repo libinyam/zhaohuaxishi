@@ -5,6 +5,7 @@ import { execFile } from 'node:child_process';
 import { writeFile, readFile, mkdir, rename } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { cstDateStr } from '../lib/time.mjs';
 
 const root = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
 const args = process.argv.slice(2);
@@ -12,18 +13,14 @@ const limit = args.includes('--limit') ? Number(args[args.indexOf('--limit') + 1
 const dry = args.includes('--dry');
 
 // 每日额度台账：直答 100 次/天，达到阈值即拒绝，防重炼循环等叠加烧穿
+// 切日口径与 lib/ask.mjs 一致（UTC+8，见 lib/time.mjs），两边共用同一台账文件
 const DAILY_LIMIT = 100;
 const QUOTA_THRESHOLD = 90;
 const quotaDir = path.join(root, 'data', 'quota');
-const localDate = () => {
-  const d = new Date();
-  const pad = (n) => String(n).padStart(2, '0');
-  return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
-};
-const quotaFile = path.join(quotaDir, `${localDate()}.json`);
+const quotaFile = path.join(quotaDir, `${cstDateStr()}.json`);
 
 async function readQuota() {
-  try { return JSON.parse(await readFile(quotaFile, 'utf8')); } catch { return { date: localDate(), count: 0 }; }
+  try { return JSON.parse(await readFile(quotaFile, 'utf8')); } catch { return { date: cstDateStr(), count: 0 }; }
 }
 async function bumpQuota() {
   const q = await readQuota();

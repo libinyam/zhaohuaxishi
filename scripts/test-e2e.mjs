@@ -149,6 +149,12 @@ try {
     eq((await post('/api/review', JSON.stringify({ id: 'card_no_such_9' }))).status, 404, '状态码');
   });
 
+  await test('/api/review：超大 body（2MB）→ 413，且服务存活（#30）', async () => {
+    const r = await post('/api/review', `{"id":"${'x'.repeat(2e6)}"}`);
+    eq(r.status, 413, '状态码');
+    eq((await get('/api/health')).status, 200, '超限后服务存活');
+  });
+
   await test('/api/review：连打 4 次转 digested，无 NaN', async () => {
     let last;
     for (let i = 0; i < 4; i++) {
@@ -221,6 +227,13 @@ try {
     }
     const filtered = await (await get('/api/cards?status=approved')).json();
     if (filtered.cards.some((c) => c.status !== 'approved')) throw new Error('status=approved 过滤混入其他状态');
+  });
+
+  await test('/api/cards：不下发 reviewDetail，保留 reviewScore（#35）', async () => {
+    const body = await (await get('/api/cards')).json();
+    if (body.cards.length === 0) throw new Error('无卡片，无法校验');
+    if (body.cards.some((c) => 'reviewDetail' in c)) throw new Error('响应仍含 reviewDetail');
+    if (!body.cards.some((c) => typeof c.reviewScore === 'number')) throw new Error('响应缺 reviewScore');
   });
 
   await test('/api/ask：未登录追问 → 401 loginRequired（issue #36）', async () => {

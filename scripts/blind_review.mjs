@@ -4,6 +4,7 @@
 import { readFile, writeFile, readdir, rename } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { createGeminiChat, parseLlmJson } from './lib/gemini.mjs';
 
 const root = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
 const BASE = process.env.GEMINI_BASE_URL;
@@ -11,24 +12,10 @@ const KEY = process.env.GEMINI_API_KEY;
 const MODEL = process.env.GEMINI_MODEL_PRO || 'gemini-3.8-flash-high';
 if (!BASE || !KEY) { console.error('缺少 GEMINI_BASE_URL / GEMINI_API_KEY 环境变量'); process.exit(1); }
 
+const chat = createGeminiChat({ base: BASE, key: KEY, model: MODEL, temperature: 0.1 });
+
 const args = process.argv.slice(2);
 const limit = args.includes('--limit') ? Number(args[args.indexOf('--limit') + 1]) : Infinity;
-
-async function chat(prompt) {
-  const resp = await fetch(`${BASE}/chat/completions`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${KEY}` },
-    body: JSON.stringify({ model: MODEL, messages: [{ role: 'user', content: prompt }], temperature: 0.1 }),
-  });
-  if (!resp.ok) throw new Error(`gemini http ${resp.status}: ${(await resp.text()).slice(0, 200)}`);
-  return (await resp.json()).choices[0].message.content;
-}
-
-const parseJson = (t) => {
-  const c = t.replace(/```json|```/g, '').trim();
-  try { return JSON.parse(c); } catch { /* 转义非法时走兜底修复 */ }
-  return JSON.parse(c.replace(/\\(?!["\\/bfnrt]|u[0-9a-fA-F]{4})/g, '\\\\'));
-};
 
 const REVIEW_PROMPT = (card, breakdown) => `你是盲审考官。一张学习卡片声称是对「拆解原文」的忠实浓缩。卡片的产品定位是 2 分钟读完的精华摘要，不要求包含原文全部细节。
 
@@ -71,7 +58,7 @@ for (const f of files) {
   console.log(`[${done + 1}] 盲审 ${card.id} 「${(card.source.title || '').slice(0, 25)}」`);
   try {
     const breakdown = JSON.parse(await readFile(path.join(zhidaDir, `${zhidaKey}.json`), 'utf8'));
-    const judged = parseJson(await chat(REVIEW_PROMPT(card, breakdown.content)));
+    const judged = parseLlmJson(await chat(REVIEW_PROMPT(card, breakdown.content)));
     card.reviewScore = judged.score;
     card.reviewDetail = judged;
     if (judged.faithful && judged.coreCovered) {

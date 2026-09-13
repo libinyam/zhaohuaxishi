@@ -1,6 +1,5 @@
-// 朝花夕拾前端逻辑
+// 朝花夕拾前端逻辑（esc / categorizeCard 在 shared.js，需先加载）
 const $ = (sel) => document.querySelector(sel);
-const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
 const DIFF = { easy: ['简单', 'badge-easy'], medium: ['中等', 'badge-medium'], hard: ['困难', 'badge-hard'] };
 
@@ -201,14 +200,7 @@ window.oauthLogout = async function () {
   renderWorkbench();
 };
 
-function categorizeCard(c) {
-  const text = (c.topicTags || []).join(' ') + ' ' + (c.source?.title || '');
-  if (/数学|代数|微积分|几何|数论|竞赛|分析|方程|极限|级数|拓扑/.test(text)) return 'math';
-  if (/人际|心理|送礼|哲学|文学|九州|历史|社会|关系|生活/.test(text)) return 'humanities';
-  if (/编程|算法|代码|Python|CS|开发|架构|软件|AI|大模型/.test(text)) return 'tech';
-  if (/思维|成长|学习|复利|方法|习惯|效率|认知|模型/.test(text)) return 'growth';
-  return 'other';
-}
+// categorizeCard 已抽到 shared.js（issue #32，分类正则单一来源）
 
 const SECTIONS = [
   { key: 'math', title: '数理逻辑空间', sub: 'Mathematical Systems', cls: 'wb-section-math', dot: '#5e8248' },

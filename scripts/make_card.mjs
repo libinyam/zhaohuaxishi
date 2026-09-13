@@ -4,12 +4,15 @@
 import { readFile, writeFile, readdir, mkdir, rename } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { createGeminiChat, parseLlmJson } from './lib/gemini.mjs';
 
 const root = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
 const BASE = process.env.GEMINI_BASE_URL;
 const KEY = process.env.GEMINI_API_KEY;
 const MODEL = process.env.GEMINI_MODEL_FLASH || 'gemini-2.5-flash';
 if (!BASE || !KEY) { console.error('缺少 GEMINI_BASE_URL / GEMINI_API_KEY 环境变量'); process.exit(1); }
+
+const chat = createGeminiChat({ base: BASE, key: KEY, model: MODEL, temperature: 0.3 });
 
 const args = process.argv.slice(2);
 const limit = args.includes('--limit') ? Number(args[args.indexOf('--limit') + 1]) : Infinity;
@@ -33,26 +36,8 @@ topicTags: string[] 2-4个领域标签
 拆解内容：
 ${breakdown}`;
 
-async function chat(prompt) {
-  const resp = await fetch(`${BASE}/chat/completions`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${KEY}` },
-    body: JSON.stringify({ model: MODEL, messages: [{ role: 'user', content: prompt }], temperature: 0.3 }),
-  });
-  if (!resp.ok) throw new Error(`gemini http ${resp.status}: ${(await resp.text()).slice(0, 200)}`);
-  const data = await resp.json();
-  return data.choices[0].message.content;
-}
-
 function parseCard(text) {
-  const cleaned = text.replace(/```json|```/g, '').trim();
-  let obj;
-  try {
-    obj = JSON.parse(cleaned);
-  } catch {
-    // 模型输出 LaTeX 时常见非法转义（如 \l、\utilde），把非法反斜杠补成双写
-    obj = JSON.parse(cleaned.replace(/\\(?!["\\/bfnrt]|u[0-9a-fA-F]{4})/g, '\\\\'));
-  }
+  const obj = parseLlmJson(text);
   if (typeof obj.coreView !== 'string' || !Array.isArray(obj.points) || obj.points.length !== 3
     || typeof obj.quote !== 'string' || !['easy', 'medium', 'hard'].includes(obj.difficulty)
     || !Array.isArray(obj.topicTags)) throw new Error('schema invalid');
