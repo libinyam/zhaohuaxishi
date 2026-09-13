@@ -26,7 +26,8 @@
 - **LaTeX 转义坑**：Gemini 输出 JSON 时 `\u` 后非十六进制会炸 JSON.parse——make_card.mjs 已有 sanitizer + 重试降级，改 prompt 时保留这层防护
 - **盲审方法论**：卡片是「忠实浓缩」，禁止用全文细节考摘要（v1 教训，57 张冤案）；v2 = 幻觉检查 + 核心覆盖
 - **P3 加固批次（9/13 晚，#30/#32-#35）**：① 路由表驱动（`ROUTES`，server.mjs），方法白名单自动推导；handler 抛带 `code` 的错误由分发层统一映射（ENOENT→404 / LOGIN_REQUIRED→401 / ACCESS_SECRET_MISSING→503）；**分发必须 `return await handler()`，省掉 await 异步异常会逃出 try/catch 崩进程**。② 单实例假设：OAuth 会话在进程内存、配额/推送状态落盘 JSON——多实例部署或重启保活前需会话外置（Redis/持久卷）。③ 前端依赖全部 vendor 化进 `public/vendor/`（Tailwind 运行时 + KaTeX 0.16.11 含 20 个 woff2 字体，共 ~1MB，Dockerfile 整体 COPY public 自动进镜像）；**中文 webfont（fontsource/Google Fonts）已放弃**，SC 字体按 unicode-range 拆成上百个子集，vendor 复杂度太高，CSS 里本就有系统字体栈兜底（Songti/PingFang/雅黑），视觉差异可接受。④ 重复代码收敛：`lib/gemini.mjs`（chat+parseLlmJson，make_card/blind_review/mycard 共用；9/13 晚从 scripts/lib/ 上移到 lib/——Dockerfile 与 e2e 副本不含 scripts/，server 侧 import 会崩）、`lib/time.mjs`（CST 切日三函数，server/ask/report-core/breakdown 共用）、`public/shared.js`（esc+categorizeCard，app.html 先于 app.js 加载）。⑤ `/api/cards` 不再下发 `reviewDetail`（管线内部字段，响应瘦身 ~30%）。⑥ `/api/review` body 上限 1e6（413），`/api/ask` 4096，统一走 `readBody()` 超限断累积但继续排空
-- **回归入口**：`node scripts/test-e2e.mjs`（隔离副本跑全量断言，25 用例；`--stress` 加 600 次会话淘洗压测）
+- **回归入口**：`node scripts/test-e2e.mjs`（隔离副本跑全量断言，26 用例；`--stress` 加 600 次会话淘洗压测）
+- **匿名脱敏（9/14，镜像 0.7.1，#38）**：未登录访客的 `/api/report` 只回聚合数字（`sanitized:true`，无 persona/oldestItem/cards），`/api/cards`、`/api/queue` 剥离 `authorFollowed`/`authorAvatar`；前端按字段条件隐藏人格画像/领域分布/最老收藏/海报按钮，侧栏知识空间分组仅登录可见。这是故意的隐私设计（issue #38 温和版），勿当 bug 修复；landing 卡片墙的「关注作者」标注对匿名回退为「作者」属正常
 
 ## 剩余任务（冲刺 9/13-15，按优先级）
 
