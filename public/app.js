@@ -161,6 +161,7 @@ const appState = {
   allCards: null,
   report: null,
   oauth: null,              // /api/oauth/status：{ configured, authorized, profile }
+  pushSub: null,            // /api/push/subscription：{ subscribed }；null = 未登录或未拉取
   oauthLanding: null,       // 'ok' | 'error'（授权回调着陆提示，展示一次后清除）
   reportSource: 'site',     // 'site' 站主示例 | 'mine' 我的报告
   myReport: null,
@@ -192,6 +193,7 @@ function renderOAuthSlot() {
 window.oauthLogout = async function () {
   try { await fetchJson('/api/oauth/logout', { method: 'POST' }); } catch { /* 网络失败也按本地登出处理 */ }
   appState.oauth = null;
+  appState.pushSub = null;
   appState.reportSource = 'site';
   appState.myReport = null;
   appState.myReportMeta = null;
@@ -603,6 +605,83 @@ function renderStage() {
   }
 }
 
+// ---------- 微信提醒订阅（Server酱 SendKey，需知乎登录） ----------
+function pushSubCardHtml() {
+  const sub = appState.pushSub;
+  return `
+    <div class="card-paper p-5 mb-5 fade-in">
+      <h3 class="section-head text-sm mb-2">🔔 微信提醒</h3>
+      ${sub?.subscribed ? `
+      <div class="flex items-center justify-between flex-wrap gap-2">
+        <p class="text-xs text-emerald-700">✓ 已订阅每日微信提醒（每日 08:00，3 张复习卡片）</p>
+        <button id="push-unsub-btn" class="px-3 py-1.5 text-xs rounded-lg border border-stone-300 text-stone-500 hover:bg-stone-50 transition-colors shrink-0">退订</button>
+      </div>` : `
+      <p class="text-xs text-stone-500 mb-3 leading-relaxed">订阅后每日 08:00 微信收到 3 张复习卡片。需要先去 <a class="text-cin hover:underline" href="https://sct.ftqq.com" target="_blank" rel="noopener">sct.ftqq.com</a> 微信扫码登录，获取自己的 SendKey。</p>
+      <div class="flex gap-2 flex-wrap">
+        <input id="push-key-input" type="text" maxlength="128" autocomplete="off" placeholder="粘贴你的 SendKey（SCT 开头）" class="flex-1 min-w-0 text-sm px-3 py-2 rounded-lg border border-stone-200 bg-white/80 focus:outline-none focus:border-amber-400 transition-colors">
+        <button id="push-sub-btn" class="btn-ink px-4 py-2 text-sm shrink-0">订阅并测试</button>
+      </div>`}
+      <p id="push-sub-msg" class="text-xs mt-2 hidden"></p>
+    </div>`;
+}
+
+function bindPushSubCard(stage) {
+  const msg = stage.querySelector('#push-sub-msg');
+  if (!msg) return;
+  const showMsg = (text, ok) => {
+    msg.className = `text-xs mt-2 ${ok ? 'text-emerald-700' : 'text-red-500'}`;
+    msg.textContent = text;
+  };
+  const subBtn = stage.querySelector('#push-sub-btn');
+  if (subBtn) {
+    const input = stage.querySelector('#push-key-input');
+    const submit = async () => {
+      const sendKey = input.value.trim();
+      if (!sendKey) { showMsg('请先粘贴 SendKey', false); return; }
+      subBtn.disabled = true;
+      subBtn.textContent = '测试推送中…';
+      try {
+        const r = await fetch('/api/push/subscribe', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ sendKey }),
+        }).then((resp) => resp.json());
+        if (!r.ok) throw new Error(r.error || '订阅失败');
+        appState.pushSub = { subscribed: true };
+        renderWorkbench();
+        const m = $('#push-sub-msg');
+        if (m) {
+          m.className = 'text-xs mt-2 text-emerald-700';
+          m.textContent = '测试消息已发送，请查看微信';
+        }
+      } catch (e) {
+        showMsg(e.message, false);
+        subBtn.disabled = false;
+        subBtn.textContent = '订阅并测试';
+      }
+    };
+    subBtn.addEventListener('click', submit);
+    input.addEventListener('keydown', (e) => { if (e.key === 'Enter') submit(); });
+  }
+  const unsubBtn = stage.querySelector('#push-unsub-btn');
+  if (unsubBtn) {
+    unsubBtn.addEventListener('click', async () => {
+      unsubBtn.disabled = true;
+      unsubBtn.textContent = '退订中…';
+      try {
+        const r = await fetch('/api/push/unsubscribe', { method: 'POST' }).then((resp) => resp.json());
+        if (!r.ok) throw new Error(r.error || '退订失败');
+        appState.pushSub = { subscribed: false };
+        renderWorkbench();
+      } catch (e) {
+        showMsg(e.message, false);
+        unsubBtn.disabled = false;
+        unsubBtn.textContent = '退订';
+      }
+    });
+  }
+}
+
 // ---------- 考古报告 Tab（站主示例 / 我的报告） ----------
 function renderReportTab(stage) {
   const parts = [];
@@ -639,6 +718,7 @@ function renderReportTab(stage) {
         </div>
         ${appState.myReportMeta ? `<span class="text-[10px] text-stone-400 font-mono">${appState.myReportMeta.favlists} 个收藏夹 · ${appState.myReportMeta.requests} 次接口调用${appState.myReportMeta.truncated ? ' · 已达上限截断' : ''}</span>` : ''}
       </div>`);
+    parts.push(pushSubCardHtml());
   }
 
   const holder = document.createElement('div');
@@ -672,6 +752,7 @@ function renderReportTab(stage) {
 
   stage.innerHTML = parts.join('');
   stage.appendChild(holder);
+  bindPushSubCard(stage);
 }
 
 window.selectReportSource = async function (src, force = false) {
@@ -863,6 +944,10 @@ async function initApp() {
     appState.allCards = allCards;
     appState.report = report;
     appState.oauth = oauthStatus;
+    // 已登录才拉订阅状态（未登录接口会 401）
+    if (appState.oauth?.authorized) {
+      appState.pushSub = await fetchJson('/api/push/subscription').catch(() => null);
+    }
 
     // 根据 URL hash 决定初始状态；hash 里可能带 ?oauth=ok/error（授权回调着陆），先 strip query 再匹配 tab
     const h = location.hash.slice(1);

@@ -83,13 +83,70 @@ const SENDKEY = process.env.SCT_SENDKEY || '';
 const SITE_BASE = (process.env.SITE_BASE_URL || 'https://lnuhxmgreuxd.sealoshzh.site').replace(/\/+$/, '');
 const PUSH_STATE = path.join(root, 'data', 'push-state.json');
 const DEAD_LETTER = path.join(root, 'data', 'push-deadletter.jsonl');
+const SUBSCRIPTIONS = path.join(root, 'data', 'push-subscriptions.json');
+const MAX_SUBSCRIPTIONS = 100; // 不含站长 env key
+
+// SendKey 是密钥：日志/死信只留前 8 位，完整值永不落日志
+const maskKey = (k) => `${String(k).slice(0, 8)}…`;
+
+// 订阅台账：{ "<uid>": { sendKey, name, subscribedAt } }，文件不存在按空处理
+// 读-改-写用 Promise 链串行化（同 lib/ask.mjs 配额台账写法）
+let subsLock = Promise.resolve();
+function withSubsLock(fn) {
+  const run = subsLock.then(fn);
+  subsLock = run.catch(() => {});
+  return run;
+}
+async function readSubs() {
+  try { return JSON.parse(await readFile(SUBSCRIPTIONS, 'utf8')); } catch { return {}; }
+}
+async function writeSubs(subs) {
+  const tmp = SUBSCRIPTIONS + '.tmp';
+  await writeFile(tmp, JSON.stringify(subs, null, 2));
+  await rename(tmp, SUBSCRIPTIONS);
+}
 
 // 容器时区不可靠，固定按 UTC+8（中国无夏令时）计算「下一个 08:00」（实现见 lib/time.mjs）
 function msUntilNext8AM() {
   return msUntilNextCst(8);
 }
 
-// 选卡 → 组装 Server酱消息 → 指数退避重试（1s/5s/25s），仍失败记死信
+// 向单个 SendKey 发一条消息，1s/5s/25s 指数退避重试 3 次
+async function sendSct(sendKey, title, desp) {
+  const delays = [1000, 5000, 25000];
+  let lastErr;
+  for (let attempt = 0; attempt <= delays.length; attempt++) {
+    try {
+      const resp = await fetch(`https://sctapi.ftqq.com/${sendKey}.send`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ title, desp }),
+      });
+      const result = await resp.json();
+      if (result.code === 0) return { ok: true };
+      lastErr = new Error(`Server酱 code=${result.code}: ${result.message}`);
+    } catch (e) { lastErr = e; }
+    if (attempt < delays.length) await new Promise((r) => setTimeout(r, delays[attempt]));
+  }
+  return { ok: false, error: String(lastErr) };
+}
+
+// 订阅时的测试推送：单次不重试，errormsg 原样透传（Server酱错误信息不含密钥）
+async function sendSctOnce(sendKey, title, desp) {
+  try {
+    const resp = await fetch(`https://sctapi.ftqq.com/${sendKey}.send`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ title, desp }),
+      signal: AbortSignal.timeout(15000),
+    });
+    const result = await resp.json();
+    if (result.code === 0) return { ok: true };
+    return { ok: false, error: String(result.message || `Server酱 code=${result.code}`).slice(0, 200) };
+  } catch { return { ok: false, error: '测试推送网络失败，请稍后重试' }; }
+}
+
+// 选卡 → 组装 Server酱消息 → 先发站长 env key（行为不变），再逐个发订阅者（各自独立重试，单失败不中断）
 async function pushDailyCards(trigger = 'cron') {
   const { today } = buildQueue(await loadCardsEnriched());
   if (today.length === 0) { console.log('[push] 今日队列为空，跳过'); return { pushed: 0 }; }
@@ -97,28 +154,33 @@ async function pushDailyCards(trigger = 'cron') {
   const desp = today.map((c, i) =>
     `### ${i + 1}. 《${c.source.title}》\n\n${c.coreView}\n\n[趁还记得为什么收藏它，花 2 分钟看完 →](${SITE_BASE}/#${c.id})`
   ).join('\n\n---\n\n');
-  const delays = [1000, 5000, 25000];
-  let lastErr;
-  for (let attempt = 0; attempt <= delays.length; attempt++) {
-    try {
-      const resp = await fetch(`https://sctapi.ftqq.com/${SENDKEY}.send`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ title, desp }),
-      });
-      const result = await resp.json();
-      if (result.code === 0) {
-        console.log(`[push] 成功（${trigger}），${today.length} 张`);
-        return { pushed: today.length };
-      }
-      lastErr = new Error(`Server酱 code=${result.code}: ${result.message}`);
-    } catch (e) { lastErr = e; }
-    if (attempt < delays.length) await new Promise((r) => setTimeout(r, delays[attempt]));
+
+  const owner = await sendSct(SENDKEY, title, desp);
+  if (!owner.ok) {
+    const record = { at: new Date().toISOString(), trigger, error: owner.error, cards: today.map((c) => c.id) };
+    await appendFile(DEAD_LETTER, JSON.stringify(record) + '\n');
+    console.error('[push] 站长推送重试 3 次均失败，已记死信：', owner.error);
+  } else {
+    console.log(`[push] 成功（${trigger}），${today.length} 张`);
   }
-  const record = { at: new Date().toISOString(), trigger, error: String(lastErr), cards: today.map((c) => c.id) };
-  await appendFile(DEAD_LETTER, JSON.stringify(record) + '\n');
-  console.error('[push] 重试 3 次均失败，已记死信：', lastErr);
-  return { pushed: 0, error: String(lastErr) };
+
+  // 订阅者推送：与站长同样的内容、同样的重试节奏；失败记死信（uid + sendKey 脱敏）
+  const subs = await readSubs();
+  const entries = Object.entries(subs);
+  let subOk = 0;
+  let subFail = 0;
+  for (const [uid, sub] of entries) {
+    const r = await sendSct(sub.sendKey, title, desp);
+    if (r.ok) { subOk++; continue; }
+    subFail++;
+    const record = { at: new Date().toISOString(), trigger, uid, sendKey: maskKey(sub.sendKey), error: r.error, cards: today.map((c) => c.id) };
+    await appendFile(DEAD_LETTER, JSON.stringify(record) + '\n');
+    console.error(`[push] 订阅者 ${uid}（${maskKey(sub.sendKey)}）推送失败，已记死信：`, r.error);
+  }
+  if (entries.length) console.log(`[push] 订阅者推送完成（${trigger}）：成功 ${subOk}，失败 ${subFail}`);
+
+  // 返回值只看站长结果：订阅者成败不影响 push-state.json 防重推落盘
+  return owner.ok ? { pushed: today.length, subs: { ok: subOk, fail: subFail } } : { pushed: 0, error: owner.error, subs: { ok: subOk, fail: subFail } };
 }
 
 // cron 入口：每天只推一次（日期状态落盘，容器重启不重复推）
@@ -325,6 +387,64 @@ const ROUTES = [
       if (!SENDKEY) return json(res, { ok: false, error: 'SCT_SENDKEY 未配置' }, 503);
       const result = await pushDailyCards('manual');
       return json(res, { ok: result.pushed > 0, ...result });
+    },
+  },
+
+  // ---- 微信订阅推送：知乎登录用户绑自己的 Server酱 SendKey，每日 08:00 随站长推送收到同样的 3 张卡 ----
+  {
+    method: 'GET', path: '/api/push/subscription', handler: async (req, res) => {
+      const uid = oauth.currentUid(req, res);
+      if (!uid) return json(res, { ok: false, error: 'loginRequired' }, 401);
+      const subs = await readSubs();
+      // 不回传 sendKey（密钥不出库）
+      return json(res, { ok: true, subscribed: Boolean(subs[uid]) });
+    },
+  },
+  {
+    method: 'POST', path: '/api/push/subscribe', handler: async (req, res) => {
+      const uid = oauth.currentUid(req, res);
+      if (!uid) return json(res, { ok: false, error: 'loginRequired' }, 401);
+      const body = await readBody(req, 4096);
+      if (body === null) return json(res, { ok: false, error: '请求体过大' }, 413);
+      let parsed;
+      try { parsed = JSON.parse(body || '{}'); } catch { return json(res, { ok: false, error: 'bad json' }, 400); }
+      const sendKey = String(parsed.sendKey ?? '').trim();
+      if (!/^[A-Za-z0-9_-]{1,128}$/.test(sendKey)) {
+        return json(res, { ok: false, error: 'SendKey 格式不正确（1-128 位，仅限字母/数字/_/-）' }, 400);
+      }
+      // 名额预检（写库前在锁内还会复核一次，并发订阅不超上限；同 uid 重复订阅=覆盖，不占新名额）
+      const precheck = await withSubsLock(async () => {
+        const subs = await readSubs();
+        return { full: !subs[uid] && Object.keys(subs).length >= MAX_SUBSCRIPTIONS };
+      });
+      if (precheck.full) return json(res, { ok: false, error: '订阅名额已满（100）' }, 429);
+      // 先验后写：测试推送通过才入库，失败透传 Server酱 errormsg
+      const test = await sendSctOnce(sendKey, '朝花夕拾 · 订阅成功', '订阅成功！每日 08:00（UTC+8）你将收到 3 张复习卡片的微信推送。');
+      if (!test.ok) return json(res, { ok: false, error: `测试推送失败：${test.error}` }, 422);
+      const written = await withSubsLock(async () => {
+        const subs = await readSubs();
+        if (!subs[uid] && Object.keys(subs).length >= MAX_SUBSCRIPTIONS) return false;
+        subs[uid] = { sendKey, name: null, subscribedAt: Date.now() };
+        await writeSubs(subs);
+        return true;
+      });
+      if (!written) return json(res, { ok: false, error: '订阅名额已满（100）' }, 429);
+      console.log(`[push] 新订阅 ${uid}（${maskKey(sendKey)}）`);
+      return json(res, { ok: true });
+    },
+  },
+  {
+    method: 'POST', path: '/api/push/unsubscribe', handler: async (req, res) => {
+      const uid = oauth.currentUid(req, res);
+      if (!uid) return json(res, { ok: false, error: 'loginRequired' }, 401);
+      await withSubsLock(async () => {
+        const subs = await readSubs();
+        if (subs[uid]) {
+          delete subs[uid];
+          await writeSubs(subs);
+        }
+      });
+      return json(res, { ok: true });
     },
   },
 ];
