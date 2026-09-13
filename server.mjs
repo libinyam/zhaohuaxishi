@@ -349,7 +349,9 @@ const ROUTES = [
       if (!q || q.length > asker.MAX_QUESTION_LEN) {
         return json(res, { ok: false, error: `问题需 1-${asker.MAX_QUESTION_LEN} 字` }, 400);
       }
-      const card = (await loadCardsEnriched()).find((c) => c.id === cardId);
+      let card = (await loadCardsEnriched()).find((c) => c.id === cardId);
+      // 用户自己的卡册（现场炼卡产出）也可追问
+      if (!card) card = (await mycard.listCards(uid)).find((c) => c.id === cardId);
       if (!card) return json(res, { ok: false, error: '卡片不存在' }, 404);
       try {
         const result = await asker.ask(uid, card, q, clientIp(req));
@@ -382,6 +384,16 @@ const ROUTES = [
   },
   {
     method: 'GET', path: '/api/cards', handler: async (req, res, url) => {
+      // scope=mine：登录用户只看自己的卡册（现场炼卡产出），站长示例完全不可见
+      if (url.searchParams.get('scope') === 'mine') {
+        const uid = oauth.currentUid(req, res);
+        if (!uid) return json(res, { ok: false, error: 'loginRequired', loginRequired: true }, 401);
+        const mine = await mycard.listCards(uid);
+        const status = url.searchParams.get('status');
+        const filtered = status ? mine.filter((c) => c.status === status) : mine;
+        filtered.sort((a, b) => (b.source?.favTime ?? 0) - (a.source?.favTime ?? 0));
+        return json(res, { total: filtered.length, cards: filtered });
+      }
       const cards = await loadCardsEnriched();
       const status = url.searchParams.get('status');
       const filtered = status ? cards.filter((c) => c.status === status) : cards;
@@ -395,7 +407,13 @@ const ROUTES = [
     },
   },
   {
-    method: 'GET', path: '/api/queue', handler: async (req, res) => {
+    method: 'GET', path: '/api/queue', handler: async (req, res, url) => {
+      // scope=mine：登录用户的复习队列只由自己的卡册构成
+      if (url.searchParams.get('scope') === 'mine') {
+        const uid = oauth.currentUid(req, res);
+        if (!uid) return json(res, { ok: false, error: 'loginRequired', loginRequired: true }, 401);
+        return json(res, buildQueue(await mycard.listCards(uid)));
+      }
       const queue = buildQueue(await loadCardsEnriched());
       if (!oauth.currentUid(req, res)) {
         for (const c of [...queue.today, ...queue.upNext]) if (c.source) { delete c.source.authorFollowed; delete c.source.authorAvatar; }
@@ -411,10 +429,18 @@ const ROUTES = [
       let payload;
       try { payload = JSON.parse(body || '{}'); }
       catch { return json(res, { ok: false, error: 'invalid json' }, 400); }
-      const { id } = payload;
+      const { id, scope } = payload;
       if (!id) return json(res, { ok: false, error: 'missing id' }, 400);
       // id 白名单校验：合法格式 card_<key>，防路径穿越写出 cards 目录
       if (!/^[\w-]+$/.test(id)) return json(res, { ok: false, error: 'invalid id' }, 400);
+      // scope=mine：复习进度写到用户自己的卡册，绝不动站长卡片（同 id 收藏可能两边都存在）
+      if (scope === 'mine') {
+        const uid = oauth.currentUid(req, res);
+        if (!uid) return json(res, { ok: false, error: 'loginRequired', loginRequired: true }, 401);
+        const card = await mycard.markReviewed(uid, id);
+        if (!card) return json(res, { ok: false, error: '卡片不存在' }, 404);
+        return json(res, { ok: true, card });
+      }
       return json(res, { ok: true, card: await markReviewed(id) });
     },
   },

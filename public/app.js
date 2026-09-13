@@ -171,6 +171,7 @@ const appState = {
   myCard: undefined,        // /api/my/card 状态：undefined=未拉取；{status:'idle'|'breaking_down'|'making_card'|'reviewing'|'done'|'failed'|...}
   myCardFetching: false,
   myCardPolling: false,
+  scope: 'site',            // 'site' 站主示例 | 'mine' 我的卡册（登录后队列/白板只展示自己的卡片）
 };
 
 // ---------- 知乎登录入口 ----------
@@ -198,13 +199,14 @@ window.oauthLogout = async function () {
   appState.oauth = null;
   appState.pushSub = null;
   appState.reportSource = 'site';
+  appState.scope = 'site';
   appState.myReport = null;
   appState.myReportMeta = null;
   appState.myReportError = null;
   appState.myCard = undefined;
   appState.myCardPolling = false;
   renderOAuthSlot();
-  renderWorkbench();
+  initApp(); // 队列/卡册需切回站主示例数据
 };
 
 // categorizeCard 已抽到 shared.js（issue #32，分类正则单一来源）
@@ -371,7 +373,7 @@ function renderSidebar() {
             <span class="text-stone-400">✦</span>
             <span class="text-xs">收藏考古报告</span>
           </div>
-          <span class="text-[10px] font-mono text-stone-400">${appState.report?.total ?? '…'}条</span>
+          <span class="text-[10px] font-mono text-stone-400">${appState.scope === 'mine' ? '我的' : `${appState.report?.total ?? '…'}条`}</span>
         </button>
       </div>
     </div>` : `
@@ -477,7 +479,14 @@ function renderStage() {
     }
 
     if (!currentCard) {
-      stage.innerHTML = `<div class="card-paper p-8 text-center text-stone-400">队列为空，去「知识空间」选择卡片复习吧。</div>`;
+      stage.innerHTML = appState.scope === 'mine'
+        ? `<div class="card-paper p-8 text-center fade-in">
+            <div class="text-3xl mb-2">🌱</div>
+            <p class="text-stone-700 text-sm font-medium mb-1">你还没有自己的卡片</p>
+            <p class="text-stone-400 text-xs mb-4">去「考古报告」现场炼卡，把你最新的收藏炼成第一张 2 分钟卡片。</p>
+            <button class="btn-ink px-4 py-2 text-sm" onclick="window.selectTab('report')">去现场炼卡</button>
+          </div>`
+        : `<div class="card-paper p-8 text-center text-stone-400">队列为空，去「知识空间」选择卡片复习吧。</div>`;
       return;
     }
 
@@ -516,7 +525,7 @@ function renderStage() {
       <div class="card-paper p-5 mb-5 text-center fade-in bg-gradient-to-r from-amber-50/50 to-orange-50/50 border-amber-200/80">
         <div class="text-3xl mb-1.5 celebrate-flower">🌸</div>
         <div class="font-bold text-stone-900 text-sm">今日的花已全部拾完</div>
-        <p class="text-xs text-stone-500 mt-1">明早 8:00 微信准时推送新卡片，趁热消化。</p>
+        <p class="text-xs text-stone-500 mt-1">${appState.scope === 'mine' ? '明天还能再炼一张新卡，趁热消化。' : '明早 8:00 微信准时推送新卡片，趁热消化。'}</p>
       </div>` : ''}
 
       <!-- 卡片主体展台 -->
@@ -538,7 +547,7 @@ function renderStage() {
           const r = await fetchJson('/api/review', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ id: btn.dataset.id }),
+            body: JSON.stringify({ id: btn.dataset.id, scope: appState.scope }),
           });
           if (!r.ok) throw new Error(r.error || 'review failed');
           doneStore.add(btn.dataset.id);
@@ -578,6 +587,17 @@ function renderStage() {
   // 2. 如果处于「白板空间」Tab
   if (appState.tab === 'cards') {
     let cards = appState.allCards?.cards || [];
+    // 我的卡册为空：不给看站长示例，引导去现场炼卡
+    if (appState.scope === 'mine' && !cards.length) {
+      stage.innerHTML = `
+        <div class="card-paper p-10 text-center fade-in">
+          <div class="text-3xl mb-2">🌱</div>
+          <p class="text-stone-700 text-sm font-medium mb-1">你的知识白板还是空的</p>
+          <p class="text-stone-400 text-xs mb-4">登录后这里只展示你自己的卡片——去「考古报告」现场炼卡，每天 1 张。</p>
+          <button class="btn-ink px-4 py-2 text-sm" onclick="window.selectTab('report')">去现场炼卡</button>
+        </div>`;
+      return;
+    }
     if (appState.activeDomain && appState.activeDomain !== 'all') {
       cards = cards.filter(c => categorizeCard(c) === appState.activeDomain);
     }
@@ -746,17 +766,21 @@ function myCardSlotHtml() {
   // 进行中：分阶段进度
   if (MYCARD_RUNNING.includes(mc.status)) {
     const idx = MYCARD_STAGES.findIndex(([k]) => k === mc.status);
+    // 阶段行三态查表（替代嵌套三元，#42）
+    const STAGE_ROW_CLS = { done: 'text-emerald-700', current: 'text-stone-900 font-medium', todo: 'text-stone-300' };
+    const STAGE_ICON = { done: '✓', current: '⏳', todo: '·' };
+    const stageState = (i) => (i < idx ? 'done' : i === idx ? 'current' : 'todo');
     return `
       <div class="card-paper p-6 mb-5 fade-in border-amber-200/80">
         <h3 class="section-head text-sm mb-1">✨ 正在现场炼卡</h3>
         <p class="text-[11px] text-stone-400 mb-4">对象：你${mc.source?.pickedFrom72h ? ' 72 小时内最新' : '最新'}的收藏《${esc(mc.source?.title || '')}》</p>
         <div class="space-y-2.5">
-          ${MYCARD_STAGES.map(([k, label, sub], i) => `
-            <div class="flex items-center gap-2.5 text-xs ${i < idx ? 'text-emerald-700' : i === idx ? 'text-stone-900 font-medium' : 'text-stone-300'}">
-              <span class="w-4 text-center shrink-0 ${i === idx ? 'animate-pulse' : ''}">${i < idx ? '✓' : i === idx ? '⏳' : '·'}</span>
+          ${MYCARD_STAGES.map(([k, label, sub], i) => { const st = stageState(i); return `
+            <div class="flex items-center gap-2.5 text-xs ${STAGE_ROW_CLS[st]}">
+              <span class="w-4 text-center shrink-0 ${st === 'current' ? 'animate-pulse' : ''}">${STAGE_ICON[st]}</span>
               <span class="shrink-0">${label}</span>
-              <span class="${i === idx ? 'text-stone-400' : 'text-stone-300'} truncate">${sub}</span>
-            </div>`).join('')}
+              <span class="${st === 'current' ? 'text-stone-400' : 'text-stone-300'} truncate">${sub}</span>
+            </div>`; }).join('')}
         </div>
         <p class="text-[11px] text-stone-400 mt-4">直答拆解需要几十秒，全程约 1-2 分钟，页面会自动更新。</p>
       </div>`;
@@ -802,6 +826,25 @@ function myCardSlotHtml() {
     </div>`;
 }
 
+// 现场炼卡错误透出：机器码 → 用户可读文案（GET / POST / 轮询三处共用，#41）
+function myCardError(r, fallback = '操作失败，请稍后重试') {
+  if (r?.loginRequired || r?.error === 'loginRequired') return '登录已过期，请重新登录后再试';
+  return r?.error || fallback;
+}
+
+// 炼卡完成后同步「我的卡册」数据源，让今日复习/白板立刻能看到新卡
+async function refreshMineQueue() {
+  if (appState.scope !== 'mine') return;
+  try {
+    const [queue, allCards] = await Promise.all([
+      fetchJson('/api/queue?scope=mine'),
+      fetchJson('/api/cards?status=approved&scope=mine'),
+    ]);
+    appState.queue = queue;
+    appState.allCards = allCards;
+  } catch { /* 下次进 tab 会重新拉取 */ }
+}
+
 function fetchMyCardStatus(force = false) {
   if (!appState.oauth?.authorized || appState.myCardFetching) return;
   if (!force && appState.myCard !== undefined) return;
@@ -809,9 +852,10 @@ function fetchMyCardStatus(force = false) {
   fetch('/api/my/card').then((resp) => resp.json()).then((r) => {
     if (r.ok) {
       appState.myCard = r;
+      if (r.status === 'done') refreshMineQueue();
       if (MYCARD_RUNNING.includes(r.status)) pollMyCard();
     } else {
-      appState.myCard = { status: 'rejected-msg', error: r.error || '状态拉取失败' };
+      appState.myCard = { status: 'rejected-msg', error: myCardError(r, '状态拉取失败') };
     }
   }).catch(() => {
     appState.myCard = { status: 'rejected-msg', error: '网络开小差了，点击重试' };
@@ -834,12 +878,22 @@ function pollMyCard() {
       return;
     }
     try {
-      const r = await fetch('/api/my/card').then((resp) => resp.json());
+      const resp = await fetch('/api/my/card');
+      // 4xx（尤其 401 会话过期）无恢复可能：直接终止轮询并透出映射后的文案（#41）
+      if (resp.status >= 400 && resp.status < 500) {
+        const r = await resp.json().catch(() => ({}));
+        appState.myCardPolling = false;
+        appState.myCard = { status: 'rejected-msg', error: myCardError(r, '状态拉取失败') };
+        renderWorkbench();
+        return;
+      }
+      const r = await resp.json();
       if (r.ok) {
         const prev = appState.myCard?.status;
         appState.myCard = r;
         if (!MYCARD_RUNNING.includes(r.status)) {
           appState.myCardPolling = false;
+          if (r.status === 'done') await refreshMineQueue();
           renderWorkbench();
           return;
         }
@@ -860,12 +914,11 @@ function bindMyCardSlot(stage) {
       try {
         const resp = await fetch('/api/my/card', { method: 'POST' });
         const r = await resp.json();
-        if (r.loginRequired || r.error === 'loginRequired') {
-          appState.myCard = { status: 'rejected-msg', error: '登录已过期，请重新登录后再试' };
-        } else if (!r.ok) {
-          appState.myCard = { status: 'rejected-msg', error: r.error || '发起失败，请稍后重试', quotaExceeded: r.quotaExceeded, noFavorites: r.noFavorites };
+        if (!r.ok) {
+          appState.myCard = { status: 'rejected-msg', error: myCardError(r, '发起失败，请稍后重试'), quotaExceeded: r.quotaExceeded, noFavorites: r.noFavorites };
         } else {
           appState.myCard = r;
+          if (r.status === 'done') await refreshMineQueue();
           if (MYCARD_RUNNING.includes(r.status)) pollMyCard();
         }
       } catch {
@@ -927,7 +980,7 @@ function renderReportTab(stage) {
         <div class="card-paper p-6 text-center fade-in">
           <div class="text-3xl mb-2">🥀</div>
           <p class="text-stone-500 text-sm mb-3">${esc(appState.myReportError)}</p>
-          <button class="retry-btn btn-ink px-4 py-2 text-sm" onclick="window.selectReportSource('mine', true)">重试</button>
+          <button class="retry-btn btn-ink px-4 py-2 text-sm" onclick="window.selectReportSource(true)">重试</button>
         </div>`;
     } else if (appState.myReport) {
       renderReportInStage(holder, appState.myReport);
@@ -955,8 +1008,8 @@ function renderReportTab(stage) {
   if (appState.myCard?.status === 'done') renderMath(stage);
 }
 
-window.selectReportSource = function (src, force = false) {
-  // 已授权用户没有「站主示例」入口，强制落在「我的报告」
+window.selectReportSource = function (force = false) {
+  // 已授权用户没有「站主示例」入口，强制落在「我的报告」（#42：src 参数已废弃，来源在此自行推导）
   appState.reportSource = appState.oauth?.authorized ? 'mine' : 'site';
   if (appState.reportSource === 'mine') loadMyReport(force);
   renderWorkbench();
@@ -1119,18 +1172,21 @@ async function initApp() {
   if (sb) sb.innerHTML = `<div class="sidebar-panel animate-pulse h-96 bg-white/60"></div>`;
 
   try {
+    // 登录态先行：决定队列/卡册用站长示例还是「我的卡册」（登录后站长内容完全不可见）
+    const oauthStatus = await fetchJson('/api/oauth/status').catch(() => null);
+    appState.oauth = oauthStatus;
+    appState.scope = oauthStatus?.authorized ? 'mine' : 'site';
+    const mine = appState.scope === 'mine';
     // queue/cards 是页面核心数据，失败必须让 Promise.all reject 走 showError；
-    // report/oauth 属可选增强，允许降级为 null
-    const [queue, allCards, report, oauthStatus] = await Promise.all([
-      fetchJson('/api/queue'),
-      fetchJson('/api/cards?status=approved'),
+    // report 属可选增强，允许降级为 null
+    const [queue, allCards, report] = await Promise.all([
+      fetchJson(mine ? '/api/queue?scope=mine' : '/api/queue'),
+      fetchJson(mine ? '/api/cards?status=approved&scope=mine' : '/api/cards?status=approved'),
       fetchJson('/api/report').catch(() => null),
-      fetchJson('/api/oauth/status').catch(() => null),
     ]);
     appState.queue = queue;
     appState.allCards = allCards;
     appState.report = report;
-    appState.oauth = oauthStatus;
     // 已登录才拉订阅状态（未登录接口会 401）
     if (appState.oauth?.authorized) {
       appState.pushSub = await fetchJson('/api/push/subscription').catch(() => null);
@@ -1145,7 +1201,7 @@ async function initApp() {
       // 已登录默认落到「我的报告」
       if (oauthResult === 'ok' && appState.oauth?.authorized) {
         appState.reportSource = 'mine';
-        window.selectReportSource('mine');
+        window.selectReportSource();
       }
     }
     if (tab.startsWith('card_')) {

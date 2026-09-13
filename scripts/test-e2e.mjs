@@ -4,7 +4,7 @@
 import http from 'node:http';
 import net from 'node:net';
 import { spawn } from 'node:child_process';
-import { mkdtemp, cp, readdir, readFile, rm } from 'node:fs/promises';
+import { mkdtemp, cp, readdir, readFile, writeFile, mkdir, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -339,7 +339,7 @@ try {
     globalThis.fetch = async (url, opts) => {
       if (String(url).includes('developer.zhihu.com')) {
         zhidaCalls++;
-        return { json: async () => ({ choices: [{ message: { content: '拆解原文：核心观点与论证结构' } }], model: 'zhida-thinking-1p5' }) };
+        return { ok: true, status: 200, json: async () => ({ choices: [{ message: { content: '拆解原文：核心观点与论证结构' } }], model: 'zhida-thinking-1p5' }) };
       }
       // Gemini 中转站：盲审 prompt 含「盲审考官」，其余为炼卡
       if (geminiFailOnce) { geminiFailOnce = false; return { ok: false, status: 500, text: async () => 'boom' }; }
@@ -380,6 +380,21 @@ try {
       // 服务重启恢复：新建实例读落盘结果
       const mc2 = createMyCard(unitRoot);
       eq((await mc2.statusFor('u_a')).status, 'done', '重启后恢复 done');
+      // 我的卡册（/api/cards?scope=mine 数据源）：累积列出 + 独立复习进度
+      const mineCards = await mc2.listCards('u_a');
+      eq(mineCards.length, 1, '卡册列出 1 张');
+      eq(mineCards[0].id, 'card_answer_12345', '卡册卡片 id');
+      if ('reviewDetail' in mineCards[0]) throw new Error('卡册下发含 reviewDetail');
+      eq((await mc2.listCards('u_nobody')).length, 0, '无记录用户空卡册');
+      const reviewed = await mc2.markReviewed('u_a', 'card_answer_12345');
+      eq(reviewed.reviewCount, 1, '复习计数 +1');
+      if (!(reviewed.nextReviewAt > nowSec)) throw new Error('nextReviewAt 未推进');
+      await mc2.markReviewed('u_a', 'card_answer_12345');
+      const third = await mc2.markReviewed('u_a', 'card_answer_12345');
+      eq(third.status, 'digested', '3 次复习后 digested');
+      eq(third.nextReviewAt, null, 'digested 后 nextReviewAt 清空');
+      eq(await mc2.markReviewed('u_a', 'card_nope'), null, '未知 id 返回 null');
+      eq((await mc2.listCards('u_a'))[0].status, 'digested', '复习进度落盘');
       // 无收藏 → 422
       const empty = await mc.start('u_empty', async () => ({ items: [] }));
       eq(empty.code, 422, '无收藏状态码');
@@ -405,6 +420,112 @@ try {
       const full = await mc.start('u_d', favs);
       eq(full.code, 429, '全局满状态码');
       eq(full.body.quotaExceeded, true, 'quotaExceeded 标记');
+    } finally {
+      globalThis.fetch = realFetch;
+      for (const k of Object.keys(saved)) {
+        if (saved[k] === undefined) delete process.env[k];
+        else process.env[k] = saved[k];
+      }
+      await rm(unitRoot, { recursive: true, force: true, maxRetries: 5, retryDelay: 200 });
+    }
+  });
+
+  // #38 跨天日期闸门 / #39 并发串行只烧 1 名额 / #40 尝试上限与 MYCARD_GLOBAL_CAP / #42 直答 502 可读文案
+  await test('现场炼卡单元②（#38-#40/#42）：跨天闸门 / 并发串行 / 尝试上限 3 次 / env 覆盖 / 502 文案', async () => {
+    const { createMyCard } = await import(new URL('../lib/mycard.mjs', import.meta.url));
+    const unitRoot = await mkdtemp(path.join(tmpdir(), 'zhsx-mycard-unit2-'));
+    const realFetch = globalThis.fetch;
+    const saved = {};
+    for (const k of ['ZHIHU_ACCESS_SECRET', 'GEMINI_BASE_URL', 'GEMINI_API_KEY', 'MYCARD_GLOBAL_CAP']) {
+      saved[k] = process.env[k];
+    }
+    process.env.ZHIHU_ACCESS_SECRET = 'e2e-fake-secret';
+    process.env.GEMINI_BASE_URL = 'http://fake-gemini';
+    process.env.GEMINI_API_KEY = 'e2e-fake-key';
+    let zhida502 = false;
+    const cardJson = JSON.stringify({
+      coreView: '核心观点', thread: [{ step: 's1', detail: 'd1' }, { step: 's2', detail: 'd2' }, { step: 's3', detail: 'd3' }],
+      keyInsight: '', points: ['p1', 'p2', 'p3'], quote: '金句', difficulty: 'easy', topicTags: ['测试'],
+    });
+    globalThis.fetch = async (url, opts) => {
+      if (String(url).includes('developer.zhihu.com')) {
+        if (zhida502) return { ok: false, status: 502, text: async () => '<html>bad gateway</html>', json: async () => { throw new Error('not json'); } };
+        return { ok: true, status: 200, json: async () => ({ choices: [{ message: { content: '拆解原文' } }], model: 'zhida-thinking-1p5' }) };
+      }
+      const prompt = JSON.parse(opts.body).messages[0].content;
+      const out = prompt.includes('盲审考官')
+        ? { faithful: true, unsupportedClaims: [], coreCovered: true, missingCore: [], score: 5, comment: '忠实' }
+        : JSON.parse(cardJson);
+      return { ok: true, json: async () => ({ choices: [{ message: { content: JSON.stringify(out) } }] }) };
+    };
+    const nowSec = Math.floor(Date.now() / 1000);
+    const fav = (over = {}) => ({ ContentType: 'answer', Url: 'https://www.zhihu.com/answer/777', Title: '测试问题？', FavTime: nowSec, Author: { Name: 'T' }, LikeCount: 1, ...over });
+    const waitJob = async (mc, uid) => {
+      for (let i = 0; i < 200; i++) {
+        const s = await mc.statusFor(uid);
+        if (s.status === 'done' || s.status === 'failed') return s;
+        await new Promise((r) => setTimeout(r, 25));
+      }
+      throw new Error('任务 5s 内未完成');
+    };
+    const quotaToday = async () => JSON.parse(await readFile(path.join(unitRoot, 'data', 'quota', `${new Date(Date.now() + 8 * 3600 * 1000).toISOString().slice(0, 10)}.json`), 'utf8'));
+    try {
+      const mc = createMyCard(unitRoot);
+      // #38：昨天的落盘 done 记录不得阻挡今天（日期闸门），可重新发起
+      const mycardsDir = path.join(unitRoot, 'data', 'cache', 'mycards');
+      await mkdir(mycardsDir, { recursive: true });
+      await writeFile(path.join(mycardsDir, `${encodeURIComponent('u_stale')}.json`), JSON.stringify({
+        date: '2000-01-01', uid: 'u_stale', status: 'done', card: { id: 'card_old' }, source: { title: '旧卡' }, finishedAt: 0,
+      }));
+      eq((await mc.statusFor('u_stale')).status, 'idle', '跨天落盘 done 记录应失效为 idle');
+      const restart = await mc.start('u_stale', async () => ({ items: [fav()] }));
+      eq(restart.body.already, undefined, '跨天后重新发起不带 already');
+      eq((await waitJob(mc, 'u_stale')).status, 'done', '跨天后重新炼卡成功');
+
+      // #39：同 uid 并发双发——串行化后第二个看到占位返回 already，全局名额只烧 1
+      const before = (await quotaToday()).mycards;
+      let release;
+      const gateP = new Promise((r) => { release = r; });
+      const slowFavs = async () => { await gateP; return { items: [fav({ Url: 'https://www.zhihu.com/answer/888' })] }; };
+      const p1 = mc.start('u_race', slowFavs);
+      const p2 = mc.start('u_race', slowFavs);
+      release();
+      const [r1, r2] = await Promise.all([p1, p2]);
+      eq([r1, r2].filter((r) => r.body.already).length, 1, '并发双发恰有一个 already');
+      eq([r1, r2].filter((r) => r.body.jobId).length, 2, '两个请求都有 jobId');
+      eq((await quotaToday()).mycards - before, 1, '并发双发只烧 1 个全站名额');
+      eq((await waitJob(mc, 'u_race')).status, 'done', '并发任务完成');
+
+      // #40 + #42.1：直答 502 HTML → 可读文案；失败可重试但每天限 3 次，第 4 次 429 且不再烧名额
+      zhida502 = true;
+      const failFavs = async () => ({ items: [fav({ Url: 'https://www.zhihu.com/answer/999' })] });
+      for (let attempt = 1; attempt <= 3; attempt++) {
+        await mc.start('u_fail', failFavs);
+        const s = await waitJob(mc, 'u_fail');
+        eq(s.status, 'failed', `第 ${attempt} 次尝试失败`);
+        if (!s.error.includes('直答服务暂时不可用（HTTP 502）')) throw new Error(`502 文案不可读：${s.error}`);
+      }
+      const blocked = await mc.start('u_fail', failFavs);
+      eq(blocked.code, 429, '第 4 次尝试状态码');
+      eq(blocked.body.attemptsExceeded, true, 'attemptsExceeded 标记');
+      if (!blocked.body.error.includes('尝试次数')) throw new Error(`尝试上限文案异常：${blocked.body.error}`);
+      zhida502 = false;
+
+      // #40：MYCARD_GLOBAL_CAP 环境变量覆盖（新模块实例 + 新台账目录，cap=1 时第二人 429）
+      process.env.MYCARD_GLOBAL_CAP = '1';
+      const { createMyCard: createMyCardCapped } = await import(new URL('../lib/mycard.mjs?cap-override', import.meta.url));
+      const cappedRoot = await mkdtemp(path.join(tmpdir(), 'zhsx-mycard-cap-'));
+      try {
+        const mcCapped = createMyCardCapped(cappedRoot);
+        eq(mcCapped.GLOBAL_DAILY_CAP, 1, 'env 覆盖全局名额');
+        await mcCapped.start('u_x', async () => ({ items: [fav()] }));
+        eq((await waitJob(mcCapped, 'u_x')).status, 'done', 'cap=1 第一人成功');
+        const over = await mcCapped.start('u_y', async () => ({ items: [fav()] }));
+        eq(over.code, 429, 'cap=1 第二人状态码');
+        eq(over.body.quotaExceeded, true, 'cap=1 quotaExceeded 标记');
+      } finally {
+        await rm(cappedRoot, { recursive: true, force: true, maxRetries: 5, retryDelay: 200 });
+      }
     } finally {
       globalThis.fetch = realFetch;
       for (const k of Object.keys(saved)) {
