@@ -29,7 +29,7 @@
 ## 剩余任务（冲刺 9/13-15，按优先级）
 
 1. ~~部署 Sealos~~ ✅ 已完成（见上）
-2. **OAuth**：9/13 黑客松平台自动发 app_id/app_key（用户账号在 ring/moltbook 空间）。官方脚手架在 `../zhihu-hello/`（基础版，OAuth 版需重新生成，注意 Windows 补丁）。app_key 走安全输入，不进对话不进代码。回调域用 `lnuhxmgreuxd.sealoshzh.site`
+2. **OAuth**：代码已完成（镜像待打包 0.3.0，**线上联调待做**）。9/13 10:00 作品提交窗口开放后队长在活动页（`https://www.zhihu.com/hackathon?activity_code=zhihu_hackathon_2026_p2`）队伍详情「创建项目」拿到 app_id/app_key。实现：`lib/oauth.mjs`（会话 Map + state 严格校验原子消费 + token 交换 + 评委收藏元数据拉取，硬上限 15 请求/500 条）+ `lib/report-core.mjs`（报告核心抽纯函数，固定 UTC+8，空收藏有空态）+ server.mjs 路由 `/auth/login`、`/auth/callback`、`/api/oauth/status`、`/api/oauth/logout`、`/api/my/report` + 前端登录按钮/我的报告切换。环境变量 4 个：`ZHIHU_OAUTH_APP_ID`（公开）/`ZHIHU_OAUTH_APP_KEY`/`ZHIHU_ACCESS_SECRET`/`ZHIHU_OAUTH_REDIRECT_URI`（默认 sealoshzh 回调，与赛事页登记逐字符一致含尾部斜杠）。**关键协议事实**：回调参数是 `authorization_code`（换 token 表单字段仍叫 `code`）；黑客松服务已支持 state 透传（旧文档「不回 state」作废）；`/user` 只用 Bearer token 不要 Access Secret；`uid` 和 `UrlToken` 都是 Int64——响应统一走按字段名定点替换的 lossless 解析（`"(UrlToken|uid)"`），裸长数字正则会误伤标题；`code:20000` 是成功；favlists 接口无分页（Limit 50 封顶）。新 skill 包在 `../zhihu-cli-skill-0.7.2-beta.20260911131715.zip`，解压于 `../.tmp/zhihu-cli-skill-0.7.2/`。本地已验证：全路由行为正确、state 拒绝/过期、回归无损（本地验证后**本地服务已关停**，防与 Sealos 双推）。上线步骤：`.env.local` 补 4 个变量（用户亲手贴 key）→ docker build 0.3.0 → push TCR → Sealos 换镜像 + 配同样 4 个环境变量 → 真实授权联调（checklist 见会话计划：登记值逐字符核对、本人点授权、quota 记录、坏 state 拒绝、ACCESS_SECRET 缺失文案）
 3. ~~Server酱推送~~ ✅ 已完成（见「已完成」第 5 条）
 4. **追问功能**：卡片详情接直答（`answer` 命令），每用户每日限 2 次（cookie UUID 计数），先查 `data/cache/answers/` 缓存
 5. **考古报告海报**：Canvas 生成分享图（收藏人格是主钩子）

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>朝花夕拾 · 收藏夹消化引擎</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/noto-serif-sc@5/400.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/noto-serif-sc@5/700.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body class="text-stone-800 min-h-screen">
+
+<header class="site-header sticky top-0 z-20">
+  <div class="max-w-5xl mx-auto px-5 py-3 flex items-center justify-between gap-4">
+    <div class="flex items-center gap-3">
+      <a href="/" class="flex items-center gap-2 group">
+        <div class="w-8 h-8 rounded-lg bg-stone-900 text-stone-100 flex items-center justify-center font-serif text-sm font-bold shadow-sm transition-transform group-hover:scale-105">拾</div>
+        <div>
+          <h1 class="font-serif-display text-lg font-bold brand leading-none text-stone-900">朝花夕拾</h1>
+          <p class="text-[10px] text-stone-400 mt-1 leading-none">趁收藏还没凉透</p>
+        </div>
+      </a>
+    </div>
+
+    <!-- Heptabase 标志性居中药丸胶囊导航 -->
+    <nav class="pill-switcher shadow-sm">
+      <button data-tab="today" class="pill-item active">今日复习</button>
+      <button data-tab="cards" class="pill-item">知识白板</button>
+      <button data-tab="report" class="pill-item">考古报告</button>
+    </nav>
+
+    <div class="flex items-center gap-3">
+      <div id="oauth-slot" class="flex items-center gap-2"></div>
+      <div class="hidden sm:flex items-center gap-3">
+        <span class="text-xs text-stone-400 bg-white/70 border border-stone-200/80 px-2.5 py-1 rounded-full font-mono">72h 黄金期</span>
+        <a href="/" class="text-xs text-stone-500 hover:text-stone-900 transition-colors">回首页</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="max-w-6xl mx-auto px-4 py-6" id="app-main-container">
+  <div class="app-workbench flex flex-col md:flex-row gap-6 items-start">
+    <!-- 左侧边栏列表 (对齐图二) -->
+    <aside class="w-full md:w-80 shrink-0 sidebar-panel" id="app-sidebar"></aside>
+    <!-- 右侧内容主展台 -->
+    <section class="flex-1 w-full min-w-0" id="app-stage"></section>
+  </div>
+</main>
+
+<script src="app.js"></script>
+</body>
+</html>

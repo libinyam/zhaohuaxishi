@@ -5,12 +5,15 @@ import { timingSafeEqual } from 'node:crypto';
 import { readFile, readdir, writeFile, rename, appendFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { createOAuth } from './lib/oauth.mjs';
+import { computeReport } from './lib/report-core.mjs';
 
 const root = path.dirname(fileURLToPath(import.meta.url));
 const PORT = process.env.PORT || 4173;
 const DAY = 86400;
+const oauth = createOAuth();
 
-const MIME = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript; charset=utf-8', '.css': 'text/css; charset=utf-8', '.json': 'application/json; charset=utf-8', '.png': 'image/png', '.svg': 'image/svg+xml' };
+const MIME = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript; charset=utf-8', '.css': 'text/css; charset=utf-8', '.json': 'application/json; charset=utf-8', '.png': 'image/png', '.jpg': 'image/jpeg', '.svg': 'image/svg+xml' };
 
 async function loadCards() {
   const dir = path.join(root, 'data', 'cache', 'cards');
@@ -18,6 +21,35 @@ async function loadCards() {
   const cards = [];
   for (const f of files) {
     try { cards.push(JSON.parse(await readFile(path.join(dir, f), 'utf8'))); } catch { /* skip */ }
+  }
+  return cards;
+}
+
+// 关注数据：收藏 URL → 作者 UrlToken → 是否已关注（scripts/fetch-followees.mjs 生成）
+async function loadFollowees() {
+  try {
+    const d = JSON.parse(await readFile(path.join(root, 'data', 'followees.json'), 'utf8'));
+    return d.followees || {};
+  } catch { return {}; }
+}
+
+async function loadAuthorIndex() {
+  try {
+    const d = JSON.parse(await readFile(path.join(root, 'data', 'favorites.json'), 'utf8'));
+    const m = new Map();
+    for (const it of d.items || []) if (it.Url && it.Author?.UrlToken) m.set(it.Url, it.Author);
+    return m;
+  } catch { return new Map(); }
+}
+
+async function loadCardsEnriched() {
+  const [cards, followees, authors] = await Promise.all([loadCards(), loadFollowees(), loadAuthorIndex()]);
+  for (const c of cards) {
+    const a = authors.get(c.source?.url);
+    if (!a) continue;
+    c.source.authorUrlToken = a.UrlToken;
+    const f = followees[a.UrlToken];
+    if (f) { c.source.authorFollowed = true; c.source.authorAvatar = f.avatar; }
   }
   return cards;
 }
@@ -32,8 +64,10 @@ function buildQueue(cards) {
     .sort((a, b) => (a.nextReviewAt ?? 0) - (b.nextReviewAt ?? 0));
   const backlog = approved.filter((c) => !fresh.includes(c) && !due.includes(c))
     .sort((a, b) => (b.source?.favTime ?? 0) - (a.source?.favTime ?? 0));
-  const queue = [...fresh, ...due, ...backlog];
-  return { today: queue.slice(0, 3), upNext: queue.slice(3, 9), stats: { approved: approved.length, fresh: fresh.length, due: due.length } };
+  // 每层内已关注作者优先（sort 稳定，不打乱层内原有排序）
+  const followedFirst = (arr) => arr.sort((a, b) => (b.source?.authorFollowed ? 1 : 0) - (a.source?.authorFollowed ? 1 : 0));
+  const queue = [...followedFirst(fresh), ...followedFirst(due), ...followedFirst(backlog)];
+  return { today: queue.slice(0, 3), upNext: queue.slice(3, 9), stats: { approved: approved.length, fresh: fresh.length, due: due.length, followed: approved.filter((c) => c.source?.authorFollowed).length } };
 }
 
 const INTERVALS = [1 * DAY, 3 * DAY, 7 * DAY]; // 复习间隔：+1/+3/+7 天后 digested
@@ -56,7 +90,7 @@ function msUntilNext8AM() {
 
 // 选卡 → 组装 Server酱消息 → 指数退避重试（1s/5s/25s），仍失败记死信
 async function pushDailyCards(trigger = 'cron') {
-  const { today } = buildQueue(await loadCards());
+  const { today } = buildQueue(await loadCardsEnriched());
   if (today.length === 0) { console.log('[push] 今日队列为空，跳过'); return { pushed: 0 }; }
   const title = `朝花夕拾｜今日 ${today.length} 张复习卡`;
   const desp = today.map((c, i) =>
@@ -133,28 +167,82 @@ function json(res, obj, code = 200) {
   res.end(JSON.stringify(obj));
 }
 
+function redirect(res, location) {
+  res.writeHead(302, { Location: location, 'Cache-Control': 'no-store' });
+  res.end();
+}
+
 const server = http.createServer(async (req, res) => {
   const url = new URL(req.url, `http://${req.headers.host}`);
   try {
+    // 方法白名单：只读端点只收 GET/HEAD，POST 仅限三个写端点，其余 405
+    const POST_ROUTES = ['/api/review', '/api/push/trigger', '/api/oauth/logout'];
+    const methodOk = req.method === 'GET' || req.method === 'HEAD'
+      || (req.method === 'POST' && POST_ROUTES.includes(url.pathname));
+    if (!methodOk) return json(res, { ok: false, error: 'method not allowed' }, 405);
     if (url.pathname === '/api/health') return json(res, { ok: true, project: 'zhaohuaxishi' });
+    // ---- 知乎 OAuth（黑客松流程，lib/oauth.mjs）----
+    if (url.pathname === '/api/oauth/status') return json(res, oauth.status(req, res));
+    if (url.pathname === '/auth/login') {
+      try { return redirect(res, oauth.loginUrl(req, res)); }
+      catch (e) {
+        console.error('[oauth] login 发起失败：', e.message);
+        return json(res, { ok: false, error: e.message }, 503);
+      }
+    }
+    if (url.pathname === '/auth/callback') {
+      try {
+        await oauth.handleCallback(req, res, url);
+        return redirect(res, '/app.html#report?oauth=ok');
+      } catch (e) {
+        // 错误明细只进服务端日志，不进 URL（防敏感信息泄露 + 防开放重定向注入）
+        console.error('[oauth] 回调处理失败：', e.code || '', e.message);
+        return redirect(res, '/app.html#report?oauth=error');
+      }
+    }
+    if (url.pathname === '/api/oauth/logout' && req.method === 'POST') {
+      oauth.logout(req, res);
+      return json(res, { ok: true });
+    }
+    // 评委自己的收藏考古报告：只拉元数据现场算，不炼卡（SPEC 能力矩阵）
+    if (url.pathname === '/api/my/report') {
+      try {
+        const { items, meta } = await oauth.fetchMyFavorites(req, res);
+        return json(res, { ok: true, meta, report: computeReport(items) });
+      } catch (e) {
+        if (e.code === 'LOGIN_REQUIRED') return json(res, { ok: false, error: e.message, loginRequired: true }, 401);
+        if (e.code === 'ACCESS_SECRET_MISSING') return json(res, { ok: false, error: e.message, notReady: true }, 503);
+        console.error('[oauth] 评委报告生成失败：', e.code || '', e.message);
+        return json(res, { ok: false, error: e.message }, 502);
+      }
+    }
     if (url.pathname === '/api/report') {
       const report = JSON.parse(await readFile(path.join(root, 'data', 'report.json'), 'utf8'));
       return json(res, report);
     }
     if (url.pathname === '/api/cards') {
-      const cards = await loadCards();
+      const cards = await loadCardsEnriched();
       const status = url.searchParams.get('status');
       const filtered = status ? cards.filter((c) => c.status === status) : cards;
-      filtered.sort((a, b) => (b.reviewScore ?? 0) - (a.reviewScore ?? 0));
+      // 全员盲审 5 分，分数排序无信息量，改按收藏时间倒序
+      filtered.sort((a, b) => (b.source?.favTime ?? 0) - (a.source?.favTime ?? 0));
       return json(res, { total: filtered.length, cards: filtered });
     }
     if (url.pathname === '/api/queue') {
-      return json(res, buildQueue(await loadCards()));
+      return json(res, buildQueue(await loadCardsEnriched()));
+    }
+    if (url.pathname === '/api/followees') {
+      const followees = await loadFollowees();
+      const list = Object.values(followees).map((f) => ({ name: f.name, avatar: f.avatar }));
+      return json(res, { total: list.length, followees: list });
     }
     if (url.pathname === '/api/review' && req.method === 'POST') {
       let body = '';
       for await (const chunk of req) body += chunk;
-      const { id } = JSON.parse(body || '{}');
+      let payload;
+      try { payload = JSON.parse(body || '{}'); }
+      catch { return json(res, { ok: false, error: 'invalid json' }, 400); }
+      const { id } = payload;
       if (!id) return json(res, { ok: false, error: 'missing id' }, 400);
       // id 白名单校验：合法格式 card_<key>，防路径穿越写出 cards 目录
       if (!/^[\w-]+$/.test(id)) return json(res, { ok: false, error: 'invalid id' }, 400);

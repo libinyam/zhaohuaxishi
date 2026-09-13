@@ -1,5 +1,5 @@
 {
-  "generatedAt": 1789199727761,
+  "generatedAt": 1789267206000,
   "total": 93,
   "typeDist": {
     "article": 59,
@@ -11,7 +11,7 @@
     "title": "女生最想收到男性朋友送的什么礼物？",
     "url": "https://www.zhihu.com/answer/1011500677",
     "favDate": "2020-08-08",
-    "ageDays": 2226
+    "ageDays": 2227
   },
   "newestItem": {
     "title": "数学译本",
@@ -91,7 +91,7 @@
   },
   "cards": {
     "total": 92,
-    "corrupt": 1,
+    "corrupt": 0,
     "statusCount": {
       "approved": 92
     },
