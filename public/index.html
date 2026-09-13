@@ -5,83 +5,137 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>朝花夕拾 · 知乎收藏夹消化引擎</title>
 <script src="https://cdn.tailwindcss.com"></script>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/mulish@5/200.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/mulish@5/300.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/mulish@5/400.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/mulish@5/600.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/mulish@5/800.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource-variable/public-sans@5/index.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/inter@5/400.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/inter@5/500.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/inter@5/600.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/inter@5/700.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/inter@5/800.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/noto-serif-sc@5/400.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/noto-serif-sc@5/700.css">
-<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="icon" type="image/png" href="/assets/logo-64.png">
 <link rel="stylesheet" href="landing.css">
 </head>
 <body class="rw-body min-h-screen">
 
 <!-- ================= 导航 ================= -->
 <header class="rw-nav sticky top-0 z-30">
-  <div class="max-w-6xl mx-auto px-6 py-3.5 flex items-center justify-between">
+  <div class="max-w-6xl mx-auto px-6 py-3.5 relative flex items-center justify-between">
     <a href="/" class="flex items-center gap-2.5 group">
-      <div class="w-8 h-8 rounded-lg bg-[#1f1f1f] text-white flex items-center justify-center rw-serif text-sm font-bold transition-transform group-hover:scale-105">拾</div>
-      <span class="rw-serif text-lg font-bold text-[#1f1f1f]">朝花夕拾</span>
+      <img src="/assets/logo-64.png" alt="朝花夕拾" class="w-8 h-8 transition-transform group-hover:scale-110">
+      <span class="text-[17px] font-bold tracking-tight text-[#171717]">朝花夕拾</span>
     </a>
-    <nav class="flex items-center gap-7">
-      <a href="#how" class="rw-nav-link hidden md:inline">运作原理</a>
-      <a href="#wall" class="rw-nav-link hidden md:inline">卡片墙</a>
-      <a href="#features" class="rw-nav-link hidden md:inline">功能</a>
-      <a href="/app.html" class="rw-btn !py-2 !px-4 !text-xs">
+    <nav class="hidden md:flex items-center gap-8 absolute left-1/2 -translate-x-1/2">
+      <a href="#how" class="rw-nav-link">运作原理</a>
+      <a href="#wall" class="rw-nav-link">卡片墙</a>
+      <a href="#features" class="rw-nav-link">功能</a>
+    </nav>
+    <div class="flex items-center gap-6">
+      <a href="/app.html#report" class="rw-nav-link hidden sm:inline">考古报告</a>
+      <a href="/app.html" class="rw-btn !py-2 !px-4 !text-[13px] !rounded-full">
         <span>进入产品</span><span class="text-[10px]">→</span>
       </a>
-    </nav>
+    </div>
   </div>
 </header>
 
 <main class="max-w-6xl mx-auto px-6">
 
   <!-- ================= Hero ================= -->
-  <section class="pt-16 pb-20 md:pt-24 md:pb-28 grid md:grid-cols-12 gap-12 items-center">
-    <div class="md:col-span-6">
-      <p class="rw-kicker mb-6 rw-reveal">知乎收藏夹消化引擎</p>
-      <h1 class="rw-title rw-reveal">让你收藏的内容，<br>真正被<span class="rw-mark">读完</span>。</h1>
-      <p class="text-[#6b7280] mt-6 max-w-md leading-relaxed rw-reveal text-base font-light">
-        朝花夕拾把你知乎收藏夹里的硬核讨论与深度好文，拆解成 2 分钟读完的知识卡片，每天清晨推到你的微信。
-      </p>
-      <div class="mt-9 flex flex-wrap items-center gap-3 rw-reveal">
-        <a href="/app.html" class="rw-btn"><span>开始拾花</span><span>→</span></a>
-        <a href="#wall" class="rw-btn-ghost"><span>看看真实卡片</span></a>
+  <section class="pt-16 pb-20 md:pt-28 md:pb-32 grid md:grid-cols-12 gap-12 lg:gap-16 items-center relative">
+    <div class="md:col-span-6 lg:col-span-6 z-10">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#faf8f5] border border-[#e8e4dc] mb-6 rw-reveal">
+        <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+        <span class="rw-kicker !text-[11px] !text-[#78716c] !tracking-[0.2em] font-mono">SPACED REPETITION FOR ZHIHU</span>
       </div>
-      <p class="mt-4 text-xs text-[#9ca3af] rw-reveal">无需注册 · 用你自己的收藏夹直接演示</p>
+      <h1 class="rw-title rw-reveal text-[#171717]">
+        让你的知乎收藏，<br>真正被<span class="rw-mark">读完</span>。
+      </h1>
+      <p class="text-[#57534e] mt-6 max-w-lg leading-relaxed rw-reveal text-base md:text-lg">
+        告别“收藏即学会”的数字囤积幻觉。朝花夕拾把你收藏的硬核讨论拆解为 2 分钟知识标本，在 72 小时黄金记忆期内，每天清晨推到你的微信。
+      </p>
+      <div class="mt-9 flex flex-wrap items-center gap-4 rw-reveal">
+        <a href="/app.html" class="rw-btn group">
+          <span>进入拾花工作台</span>
+          <span class="text-xs transition-transform group-hover:translate-x-1">→</span>
+        </a>
+        <a href="#wall" class="rw-btn-ghost">
+          <span>浏览真实卡片墙</span>
+        </a>
+      </div>
+      <div class="mt-5 flex items-center gap-4 text-xs text-[#78716c] rw-reveal font-mono">
+        <span class="flex items-center gap-1.5">
+          <svg class="w-3.5 h-3.5 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+          无需注册
+        </span>
+        <span>·</span>
+        <span>知乎收藏夹直连</span>
+        <span>·</span>
+        <span>72h 黄金期预警</span>
+      </div>
     </div>
 
-    <div class="md:col-span-6 rw-reveal">
-      <!-- 浏览器 mockup：内嵌真实卡片预览 -->
-      <div class="rw-browser">
-        <div class="rw-browser-bar">
-          <span class="rw-dot bg-[#ff5f57]"></span>
-          <span class="rw-dot bg-[#febc2e]"></span>
-          <span class="rw-dot bg-[#28c840]"></span>
-          <span class="rw-url">zhaohuaxishi.app/#今日复习</span>
+    <div class="md:col-span-6 lg:col-span-6 rw-reveal">
+      <!-- 带有 3D 悬浮胶囊的浏览器 Mockup -->
+      <div class="rw-browser-wrap">
+        <div class="rw-float-pill -top-3 -right-2 md:-right-4">
+          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+          <span class="font-mono text-[11px]">08:00 AM · 今日 3 张已就绪</span>
         </div>
-        <div class="p-5 bg-[#fafafa]">
-          <div class="rw-card p-5">
-            <div class="flex items-center justify-between mb-3">
-              <div class="flex items-center gap-2">
-                <span class="font-mono text-[10px] font-semibold text-[#9ca3af] tracking-wider">NO. 809543</span>
-                <span class="rw-badge">知乎拆解</span>
-              </div>
-              <div class="flex items-center gap-1.5">
-                <span class="rw-badge rw-badge-diff">中等</span>
-                <span class="rw-badge rw-badge-hl">盲审通过</span>
-              </div>
+
+        <div class="rw-browser">
+          <div class="rw-browser-bar">
+            <div class="flex items-center gap-1.5">
+              <span class="rw-dot rw-dot-red"></span>
+              <span class="rw-dot rw-dot-yellow"></span>
+              <span class="rw-dot rw-dot-green"></span>
             </div>
-            <h3 class="rw-serif text-lg font-bold leading-snug text-[#1f1f1f] mb-3">复利不是数学题，而是一种生活方式</h3>
-            <div class="bg-[#fff9db] border-l-2 border-[#f5e58a] px-3 py-2.5 text-[13px] leading-relaxed text-[#4b4b4b] rounded-r-md">
-              真正的复利来自于在长时间里做正确而微小的事，它考验的不是智商，而是对抗短期波动的耐心与自律。
+            <div class="rw-url">
+              <svg class="w-2.5 h-2.5 text-[#78716c] shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+              <span>zhaohuaxishi.site/specimen/809543</span>
             </div>
-            <div class="flex items-center justify-between mt-4 pt-3 border-t border-dashed border-[#eee] text-[11px] text-[#9ca3af]">
-              <div class="flex gap-1.5">
-                <span class="rw-badge">思维模型</span>
-                <span class="rw-badge">长期主义</span>
+            <span class="text-[10px] font-mono text-[#78716c] ml-auto hidden sm:inline">NO. 809543</span>
+          </div>
+
+          <div class="p-5 md:p-6 bg-[#faf9f6]">
+            <div class="rw-card p-6 bg-white shadow-sm border border-[#ebe7df]">
+              <div class="flex items-center justify-between mb-3 text-[11px]">
+                <div class="flex items-center gap-2">
+                  <span class="font-mono font-semibold text-[#8c857b]">SPECIMEN #809543</span>
+                  <span class="rw-badge rw-badge-zhihu">知乎高赞拆解</span>
+                </div>
+                <div class="flex items-center gap-1.5">
+                  <span class="rw-badge rw-badge-diff">中等难度</span>
+                  <span class="rw-badge rw-badge-hl">盲审通过</span>
+                </div>
               </div>
-              <span>2 分钟读完</span>
+
+              <h3 class="rw-serif text-lg md:text-xl font-bold leading-snug text-[#171717] mb-3">
+                复利不是数学题，而是一种生活方式
+              </h3>
+
+              <div class="bg-[#fbf9f4] border-l-2 border-[#f2cf58] px-3.5 py-3 text-[13px] leading-relaxed text-[#44403c] rounded-r-md mb-4">
+                <span class="font-bold text-[#171717]">核心提炼 · </span>真正的复利来自于在长时间里做<span class="rw-mark-subtle font-medium">正确而微小的事</span>，它考验的不是智商，而是对抗短期波动的耐心。
+              </div>
+
+              <div class="space-y-2 text-xs text-[#57534e] pb-3 border-b border-dashed border-[#ebe7df]">
+                <div class="flex items-start gap-2">
+                  <span class="font-mono text-[10px] text-[#78716c] mt-0.5">01</span>
+                  <span><strong>破除线性直觉</strong>：人脑偏好即时反馈，初期收益微弱时最容易放弃。</span>
+                </div>
+                <div class="flex items-start gap-2">
+                  <span class="font-mono text-[10px] text-[#78716c] mt-0.5">02</span>
+                  <span><strong>跨越奇点门槛</strong>：真正的爆发期永远在周期的后 20%，坚持是唯一门票。</span>
+                </div>
+              </div>
+
+              <div class="flex items-center justify-between mt-3 text-[11px] text-[#78716c]">
+                <div class="flex gap-1.5">
+                  <span class="rw-badge">思维模型</span>
+                  <span class="rw-badge">认知复利</span>
+                </div>
+                <span class="font-mono">2 分钟读完</span>
+              </div>
             </div>
           </div>
         </div>
@@ -92,69 +146,80 @@
   <!-- ================= 数字带 ================= -->
   <section class="py-12 border-t border-b rw-hairline grid grid-cols-3 text-center rw-reveal">
     <div class="py-2">
-      <span class="rw-title-2 !font-extralight">72<span class="text-base">h</span></span>
-      <div class="text-xs text-[#9ca3af] mt-2 tracking-wide">收藏黄金期</div>
+      <span class="rw-title-2 font-medium">72<span class="text-base">h</span></span>
+      <div class="text-xs text-[#78716c] mt-2 tracking-wide">收藏黄金期</div>
     </div>
     <div class="py-2 border-l rw-hairline">
-      <span class="rw-title-2 !font-extralight">2<span class="text-base">min</span></span>
-      <div class="text-xs text-[#9ca3af] mt-2 tracking-wide">每张读完</div>
+      <span class="rw-title-2 font-medium">2<span class="text-base">min</span></span>
+      <div class="text-xs text-[#78716c] mt-2 tracking-wide">每张读完</div>
     </div>
     <div class="py-2 border-l rw-hairline">
-      <span class="rw-title-2 !font-extralight">3<span class="text-base">张</span></span>
-      <div class="text-xs text-[#9ca3af] mt-2 tracking-wide">每日推送</div>
+      <span class="rw-title-2 font-medium">3<span class="text-base">张</span></span>
+      <div class="text-xs text-[#78716c] mt-2 tracking-wide">每日推送</div>
     </div>
   </section>
 
   <!-- ================= How it works ================= -->
-  <section class="py-20 md:py-28" id="how">
-    <div class="text-center mb-16 rw-reveal">
-      <p class="rw-kicker mb-4">How it works</p>
-      <h2 class="rw-title-2">三步，让收藏真正变成你的知识。</h2>
+  <section class="py-20 md:py-32" id="how">
+    <div class="text-center mb-16 md:mb-24 rw-reveal">
+      <span class="rw-kicker text-amber-700">WORKFLOW ARCHITECTURE</span>
+      <h2 class="rw-title-2 mt-2">三步，让收藏真正转化为你的认知。</h2>
+      <p class="text-[#78716c] text-sm mt-3">对标 Readwise 经典流式体验，专为中文知乎深度内容重构。</p>
     </div>
 
     <!-- Step 1: 照常收藏 -->
-    <div class="grid md:grid-cols-2 gap-10 md:gap-16 items-center mb-20 md:mb-28">
+    <div class="grid md:grid-cols-2 gap-10 md:gap-16 items-center mb-24 md:mb-32">
       <div class="rw-reveal">
         <div class="flex items-center gap-4 mb-5">
           <div class="rw-step-icon">01</div>
-          <h3 class="text-2xl font-light text-[#1f1f1f]">照常收藏</h3>
+          <h3 class="text-2xl font-semibold text-[#171717]">照常收藏，零心智迁移成本</h3>
         </div>
-        <p class="text-[#6b7280] leading-loose text-[15px] font-light max-w-md">
-          在知乎上正常收藏你感兴趣的内容，无需改变任何使用习惯。朝花夕拾在后台安静同步你的收藏夹，盯紧 <span class="rw-mark">72 小时黄金期</span>。
+        <p class="text-[#57534e] leading-relaxed text-[15px] max-w-md">
+          在知乎 App 或网页端正常点击收藏，无需改变任何使用习惯。朝花夕拾在后台安静同步你的收藏夹，死死盯住 <span class="rw-mark">72 小时黄金记忆期</span>。
         </p>
+        <div class="mt-5 flex items-center gap-3 text-xs text-[#78716c] font-mono">
+          <span class="inline-block w-2 h-2 rounded-full bg-blue-500"></span>
+          <span>知乎官方公开收藏夹直连 · 自动感知新收藏</span>
+        </div>
       </div>
       <div class="rw-reveal">
         <div class="rw-browser">
           <div class="rw-browser-bar">
-            <span class="rw-dot bg-[#ff5f57]"></span>
-            <span class="rw-dot bg-[#febc2e]"></span>
-            <span class="rw-dot bg-[#28c840]"></span>
-            <span class="rw-url">zhihu.com/collection/我的收藏</span>
+            <div class="flex items-center gap-1.5">
+              <span class="rw-dot rw-dot-red"></span>
+              <span class="rw-dot rw-dot-yellow"></span>
+              <span class="rw-dot rw-dot-green"></span>
+            </div>
+            <div class="rw-url">
+              <span class="text-blue-600 font-bold">Z</span>
+              <span>zhihu.com/collection/我的收藏夹</span>
+            </div>
+            <span class="text-[10px] font-mono text-[#78716c] ml-auto">93 ITEMS</span>
           </div>
           <div>
             <div class="rw-fav-row">
-              <span class="rw-fav-star">★</span>
+              <div class="rw-fav-icon">知</div>
               <div class="flex-1 min-w-0">
-                <div class="text-[13px] font-semibold text-[#1f1f1f] truncate">复利不是数学题，而是一种生活方式</div>
-                <div class="text-[11px] text-[#9ca3af] mt-0.5">收藏于 2 小时前 · 415 赞同</div>
+                <div class="text-[13px] font-semibold text-[#171717] truncate">复利不是数学题，而是一种生活方式</div>
+                <div class="text-[11px] text-[#78716c] mt-0.5">收藏于 2 小时前 · 作者 kasaaa</div>
               </div>
-              <span class="rw-badge rw-badge-hl shrink-0">72h 内</span>
+              <span class="rw-badge rw-badge-hl shrink-0">72h 黄金期 · 剩余 70h</span>
             </div>
             <div class="rw-fav-row">
-              <span class="rw-fav-star">★</span>
+              <div class="rw-fav-icon">知</div>
               <div class="flex-1 min-w-0">
-                <div class="text-[13px] font-semibold text-[#1f1f1f] truncate">数学分析月考试题拆解：插值误差为何断层难</div>
-                <div class="text-[11px] text-[#9ca3af] mt-0.5">收藏于 1 天前 · 50 赞同</div>
+                <div class="text-[13px] font-semibold text-[#171717] truncate">为什么送礼是门高难度的人际技术？</div>
+                <div class="text-[11px] text-[#78716c] mt-0.5">收藏于 1 天前 · 作者 曲千灯</div>
               </div>
-              <span class="rw-badge rw-badge-hl shrink-0">72h 内</span>
+              <span class="rw-badge rw-badge-hl shrink-0">72h 黄金期 · 剩余 46h</span>
             </div>
-            <div class="rw-fav-row opacity-50">
-              <span class="rw-fav-star" style="background:#f0f0f0;color:#bbb">★</span>
-              <div class="flex-1 min-w-0 space-y-2 py-1">
-                <div class="rw-skeleton-line w-3/4"></div>
-                <div class="rw-skeleton-line w-1/3 !h-1.5"></div>
+            <div class="rw-fav-row opacity-45">
+              <div class="rw-fav-icon !bg-stone-100 !text-stone-400">🥀</div>
+              <div class="flex-1 min-w-0">
+                <div class="text-[13px] font-medium text-[#78716c] truncate line-through">Laplace 方法与渐近分析简论</div>
+                <div class="text-[11px] text-[#78716c] mt-0.5">收藏于 2 年前 · 980 赞同</div>
               </div>
-              <span class="rw-badge shrink-0">已凉透</span>
+              <span class="rw-badge shrink-0 text-stone-400">已凉透落灰</span>
             </div>
           </div>
         </div>
@@ -162,34 +227,46 @@
     </div>
 
     <!-- Step 2: AI 拆成卡片 -->
-    <div class="grid md:grid-cols-2 gap-10 md:gap-16 items-center mb-20 md:mb-28">
+    <div class="grid md:grid-cols-2 gap-10 md:gap-16 items-center mb-24 md:mb-32">
       <div class="rw-reveal md:order-2">
         <div class="flex items-center gap-4 mb-5">
           <div class="rw-step-icon">02</div>
-          <h3 class="text-2xl font-light text-[#1f1f1f]">AI 拆成卡片</h3>
+          <h3 class="text-2xl font-semibold text-[#171717]">AI 结构化拆解，提炼知识标本</h3>
         </div>
-        <p class="text-[#6b7280] leading-loose text-[15px] font-light max-w-md">
-          综合该问题下的优质讨论，提炼核心观点、梳理讲解脉络、沉淀要点与金句，去除噪音，保留精华——再经盲审打分，<span class="rw-mark">只有好卡片才能出库</span>。
+        <p class="text-[#57534e] leading-relaxed text-[15px] max-w-md">
+          多智能体综合知乎长回答与多篇高赞讨论，剥离口水话与情绪输出，提炼出核心立论、推导脉络与记忆金句。再经双盲评分审查，<span class="rw-mark">只有高分卡片才允许出库</span>。
         </p>
+        <div class="mt-5 flex items-center gap-4 text-xs text-[#78716c] font-mono">
+          <span>LaTeX 完美渲染</span>
+          <span>·</span>
+          <span>思维逻辑链</span>
+          <span>·</span>
+          <span>双盲质检</span>
+        </div>
       </div>
       <div class="rw-reveal md:order-1">
-        <div class="rw-card p-5 max-w-md mx-auto">
-          <div class="flex items-center justify-between mb-3">
-            <span class="font-mono text-[10px] font-semibold text-[#9ca3af] tracking-wider">NO. 809543</span>
-            <span class="rw-badge rw-badge-hl">盲审通过</span>
+        <div class="rw-card p-6 max-w-md mx-auto bg-white border border-[#ebe7df] shadow-sm">
+          <div class="flex items-center justify-between mb-3 text-[11px]">
+            <span class="font-mono font-semibold text-[#8c857b]">SPECIMEN #809543</span>
+            <span class="rw-badge rw-badge-hl">盲审评分 5.0 / 5</span>
           </div>
-          <h4 class="rw-serif text-base font-bold text-[#1f1f1f] mb-3">复利不是数学题，而是一种生活方式</h4>
-          <div class="space-y-2.5 text-[13px] text-[#4b4b4b] leading-relaxed">
-            <div class="flex gap-2.5">
-              <span class="shrink-0 w-5 h-5 rounded-full bg-[#1f1f1f] text-white text-[10px] flex items-center justify-center mt-0.5">1</span>
-              <div><span class="font-semibold">破除线性直觉</span> · 人脑适应线性增量，初期收益微弱时容易放弃。</div>
+          <h4 class="rw-serif text-base font-bold text-[#171717] mb-3">复利不是数学题，而是一种生活方式</h4>
+          
+          <div class="bg-[#fbf9f4] border-l-2 border-[#f2cf58] p-3 text-[13px] leading-relaxed text-[#44403c] rounded-r mb-3">
+            真正的复利来自于在长时间里做<span class="rw-mark-subtle font-medium">正确而微小的事</span>，对抗短期波动的耐心才是核心门槛。
+          </div>
+
+          <div class="space-y-2 text-xs text-[#57534e] pb-3 border-b border-dashed border-[#ebe7df]">
+            <div class="flex gap-2">
+              <span class="font-mono text-[#78716c] shrink-0">1.</span>
+              <div><span class="font-semibold text-[#171717]">线性思维局限</span>：人脑适应线性收益，在爆发期前 80% 的静默期最易半途而废。</div>
             </div>
-            <div class="flex gap-2.5">
-              <span class="shrink-0 w-5 h-5 rounded-full bg-[#1f1f1f] text-white text-[10px] flex items-center justify-center mt-0.5">2</span>
-              <div><span class="font-semibold">跨越奇点门槛</span> · 爆发期位于周期后 20%，坚持是唯一门票。</div>
+            <div class="flex gap-2">
+              <span class="font-mono text-[#78716c] shrink-0">2.</span>
+              <div><span class="font-semibold text-[#171717]">跨越非线性拐点</span>：复利的威力全部集中在后 20%，坚持做对的事是唯一护城河。</div>
             </div>
           </div>
-          <div class="mt-4 pt-3 border-t border-dashed border-[#eee] text-center text-[12px] text-[#8a7400] rw-serif">
+          <div class="mt-3 text-center text-[11.5px] text-[#854d0e] rw-serif">
             「最伟大的力量不是瞬间的爆发，而是微小改变的持续累加。」
           </div>
         </div>
@@ -201,36 +278,46 @@
       <div class="rw-reveal">
         <div class="flex items-center gap-4 mb-5">
           <div class="rw-step-icon">03</div>
-          <h3 class="text-2xl font-light text-[#1f1f1f]">清晨推到微信</h3>
+          <h3 class="text-2xl font-semibold text-[#171717]">清晨主动推送到微信</h3>
         </div>
-        <p class="text-[#6b7280] leading-loose text-[15px] font-light max-w-md">
-          每天早 8 点，3 张卡片准时出现在你的微信里。点开链接花 6 分钟读完，<span class="rw-mark">趁你还记得为什么收藏它</span>。
+        <p class="text-[#57534e] leading-relaxed text-[15px] max-w-md">
+          每天早晨 8:00，当日精选的 3 张知识卡片准时以服务号模板消息送达微信。无需单独打开 App，通勤路上点开链接花 6 分钟读完，<span class="rw-mark">趁你还记得为什么收藏它</span>。
         </p>
+        <div class="mt-5 flex items-center gap-3 text-xs text-[#78716c] font-mono">
+          <span class="inline-block w-2 h-2 rounded-full bg-emerald-500"></span>
+          <span>Server酱微信直连 · 每日 08:00 自动触达</span>
+        </div>
       </div>
       <div class="rw-reveal">
         <div class="rw-wechat max-w-sm mx-auto">
-          <div class="rw-wechat-bar">服务通知</div>
-          <div class="p-4 space-y-3">
-            <div class="rw-bubble-time">早上 8:00</div>
+          <div class="rw-wechat-bar">
+            <span>微信 · 服务通知</span>
+            <span class="text-[10px] font-mono text-[#999] absolute right-3">08:00 AM</span>
+          </div>
+          <div class="p-4 space-y-2.5">
             <div class="rw-wx-card">
               <div class="rw-wx-head">
-                <span class="rw-wx-icon">拾</span>
-                <span class="font-semibold text-[#333]">朝花夕拾</span>
-                <span class="ml-auto">8:00</span>
-              </div>
-              <div class="rw-wx-body">
-                <div class="flex items-center justify-between gap-2 mb-1.5">
-                  <div class="text-[15px] font-bold text-[#1f1f1f]">今日复习提醒</div>
-                  <span class="rw-wx-gold shrink-0">72h 黄金期 · 倒计时</span>
+                <div class="flex items-center gap-2">
+                  <span class="rw-wx-icon">拾</span>
+                  <span class="font-semibold text-[#171717] text-xs">朝花夕拾</span>
                 </div>
-                <div class="text-[12px] text-[#888] mb-2.5">今日 3 篇待消化</div>
-                <div class="space-y-1.5 text-[13px] text-[#4b4b4b] leading-relaxed">
-                  <div>1. 《复利不是数学题，而是一种生活方式》</div>
-                  <div>2. 《数学分析月考试题拆解》</div>
-                  <div>3. 《为什么送礼是门学问》</div>
+                <span class="text-[10px] text-[#78716c] font-mono">刚刚</span>
+              </div>
+              <div class="p-3.5 space-y-2">
+                <div class="text-[14px] font-bold text-[#171717]">今日 3 张知乎深度卡片已备好</div>
+                <div class="text-[11px] text-[#78716c] leading-relaxed">
+                  你的知乎收藏夹中有 2 篇处于 72h 黄金唤醒期，1 篇到期复习。
+                </div>
+                <div class="bg-[#faf9f6] rounded p-2 text-xs text-[#44403c] space-y-1 font-mono">
+                  <div class="truncate">1. 《复利不是数学题，而是一种生活方式》</div>
+                  <div class="truncate">2. 《为什么送礼是门高难度的人际技术？》</div>
+                  <div class="truncate">3. 《南开大学数分月考试题拆解》</div>
                 </div>
               </div>
-              <span class="rw-wx-link">花 2 分钟阅读 →</span>
+              <a href="/app.html" class="rw-wx-link">
+                <span>花 2 分钟读完今日第一篇</span>
+                <span class="text-xs font-sans">→</span>
+              </a>
             </div>
           </div>
         </div>
@@ -243,73 +330,233 @@
     <div class="text-center mb-14 rw-reveal">
       <p class="rw-kicker mb-4">From real collections</p>
       <h2 class="rw-title-2">这些卡片，来自真实的收藏夹。</h2>
-      <p class="text-[#9ca3af] text-sm mt-4 font-light">每一张都由 AI 从知乎收藏中拆解而来，点开即可精读。</p>
+      <p class="text-[#78716c] text-sm mt-4">每一张都由 AI 从知乎收藏中拆解而来，点开即可精读。</p>
     </div>
     <div id="rw-wall" class="rw-wall"></div>
-    <p id="rw-wall-empty" class="hidden text-center text-sm text-[#9ca3af]">卡片加载中…</p>
+    <p id="rw-wall-empty" class="hidden text-center text-sm text-[#78716c]">卡片加载中…</p>
   </section>
 
-  <!-- ================= 功能小节 ================= -->
-  <section class="py-20 md:py-28 border-t rw-hairline space-y-24" id="features">
-    <div class="grid md:grid-cols-2 gap-10 md:gap-16 items-center rw-reveal">
-      <div>
-        <h3 class="rw-title-2 mb-5">间隔重复，<br>对抗遗忘曲线。</h3>
-        <p class="text-[#6b7280] leading-loose text-[15px] font-light max-w-md">
-          每张卡片按 +1 / +3 / +7 天的节奏安排三轮复习。点下「已消化」，它会在最合适的时间再次找到你；三轮过后，知识正式归档为「已消化」。
+  <!-- ================= 功能小节（深度认知科学与空间视觉） ================= -->
+  <section class="py-20 md:py-32 border-t rw-hairline space-y-28 md:space-y-36" id="features">
+    
+    <!-- Feature 1: 艾宾浩斯曲线 -->
+    <div class="grid md:grid-cols-12 gap-10 md:gap-14 items-center rw-reveal">
+      <div class="md:col-span-5">
+        <span class="rw-kicker text-amber-700">SPACED REPETITION ENGINE</span>
+        <h3 class="rw-title-2 mt-2 mb-5">
+          间隔重复，<br>对抗艾宾浩斯遗忘曲线。
+        </h3>
+        <p class="text-[#57534e] leading-relaxed text-[15px]">
+          未被复述的记忆在 72 小时内会极速衰退至 20% 以下。朝花夕拾遵循认知间隔原理，在 +1d、+3d、+7d 的关键遗忘节点精准唤醒。三轮复习完成，卡片正式内化归档。
         </p>
+        <div class="mt-6 flex items-center gap-4 text-xs text-[#78716c] font-mono">
+          <div><span class="text-sm font-bold text-[#171717]">72h</span> 遗忘悬崖</div>
+          <span class="text-[#d6d3cc]">|</span>
+          <div><span class="text-sm font-bold text-[#171717]">3 次</span> 间隔复习</div>
+          <span class="text-[#d6d3cc]">|</span>
+          <div><span class="text-sm font-bold text-[#171717]">>90%</span> 长期留存</div>
+        </div>
       </div>
-      <div class="flex items-center justify-center gap-3 md:gap-4">
-        <div class="rw-card px-5 py-4 text-center">
-          <div class="text-xl font-extralight">+1<span class="text-xs">天</span></div>
-          <div class="text-[10px] text-[#9ca3af] mt-1">第一拾</div>
-        </div>
-        <span class="text-[#d1d5db]">→</span>
-        <div class="rw-card px-5 py-4 text-center">
-          <div class="text-xl font-extralight">+3<span class="text-xs">天</span></div>
-          <div class="text-[10px] text-[#9ca3af] mt-1">第二拾</div>
-        </div>
-        <span class="text-[#d1d5db]">→</span>
-        <div class="rw-card px-5 py-4 text-center">
-          <div class="text-xl font-extralight">+7<span class="text-xs">天</span></div>
-          <div class="text-[10px] text-[#9ca3af] mt-1">第三拾</div>
-        </div>
-        <span class="text-[#d1d5db]">→</span>
-        <div class="rw-card px-5 py-4 text-center !border-[#d7ecdf] !bg-[#f0f9f4]">
-          <div class="text-xl">🌸</div>
-          <div class="text-[10px] text-[#2f7d4f] mt-1">已消化</div>
+
+      <div class="md:col-span-7">
+        <div class="rw-curve-card bg-white">
+          <div class="flex items-center justify-between pb-3 mb-3 border-b border-[#f2efe9] text-xs">
+            <div class="flex items-center gap-2 font-medium text-[#171717]">
+              <span class="w-2 h-2 rounded-full bg-amber-500"></span>
+              <span>记忆留存率变化模型 (Memory Retention)</span>
+            </div>
+            <span class="font-mono text-[11px] text-[#78716c]">EBBINGHAUS ENGINE</span>
+          </div>
+
+          <!-- 优雅的矢量遗忘衰减与复习跃迁曲线 -->
+          <div class="relative py-2">
+            <svg viewBox="0 0 540 160" class="w-full h-auto overflow-visible">
+              <defs>
+                <linearGradient id="curveFill" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stop-color="#fef08a" stop-opacity="0.35"/>
+                  <stop offset="100%" stop-color="#fef08a" stop-opacity="0.0"/>
+                </linearGradient>
+              </defs>
+              <line x1="40" y1="30" x2="520" y2="30" stroke="#f0eee8" stroke-dasharray="3 3"/>
+              <line x1="40" y1="80" x2="520" y2="80" stroke="#f0eee8" stroke-dasharray="3 3"/>
+              <line x1="40" y1="130" x2="520" y2="130" stroke="#f0eee8" stroke-dasharray="3 3"/>
+              
+              <path d="M 40 30 Q 80 120 120 120 L 120 35 Q 180 85 240 85 L 240 35 Q 330 65 420 65 L 420 35 Q 470 45 520 45 L 520 150 L 40 150 Z" fill="url(#curveFill)" />
+
+              <!-- 自然遗忘红色虚线 -->
+              <path d="M 40 30 Q 110 135 240 145 T 520 150" fill="none" stroke="#f87171" stroke-width="1.8" stroke-dasharray="4 4" opacity="0.6"/>
+
+              <!-- 朝花夕拾唤醒复习曲线 -->
+              <path d="M 40 30 Q 80 120 120 120 L 120 35 Q 180 85 240 85 L 240 35 Q 330 65 420 65 L 420 35 Q 470 45 520 45" fill="none" stroke="#171717" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+
+              <circle cx="40" cy="30" r="4" fill="#171717"/>
+              <circle cx="120" cy="35" r="4" fill="#d97706"/>
+              <circle cx="240" cy="35" r="4" fill="#d97706"/>
+              <circle cx="420" cy="35" r="4" fill="#d97706"/>
+              <circle cx="520" cy="45" r="5" fill="#059669"/>
+            </svg>
+
+            <!-- X 轴刻度标签 -->
+            <div class="flex justify-between text-[11px] font-mono text-[#78716c] mt-2 px-1">
+              <div>
+                <span class="block font-semibold text-[#171717]">Day 0</span>
+                <span class="text-[10px]">初始收藏</span>
+              </div>
+              <div class="text-center">
+                <span class="block font-semibold text-amber-800">+1 天</span>
+                <span class="text-[10px]">第一拾 (唤醒)</span>
+              </div>
+              <div class="text-center">
+                <span class="block font-semibold text-amber-800">+3 天</span>
+                <span class="text-[10px]">第二拾 (巩固)</span>
+              </div>
+              <div class="text-center">
+                <span class="block font-semibold text-amber-800">+7 天</span>
+                <span class="text-[10px]">第三拾 (内化)</span>
+              </div>
+              <div class="text-right">
+                <span class="block font-semibold text-emerald-700">永久留存</span>
+                <span class="text-emerald-600 font-bold text-[10px]">已消化 ✓</span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
 
-    <div class="grid md:grid-cols-2 gap-10 md:gap-16 items-center rw-reveal">
-      <div class="md:order-2">
-        <h3 class="rw-title-2 mb-5">知识白板，<br>看清你的收藏版图。</h3>
-        <p class="text-[#6b7280] leading-loose text-[15px] font-light max-w-md">
-          所有卡片按数理、人文、认知、技术自动分区，摊在一块白板视界上。哪些领域在积累、哪些在积灰，一眼看穿。
+    <!-- Feature 2: Heptabase 空间白板 -->
+    <div class="grid md:grid-cols-12 gap-10 md:gap-14 items-center rw-reveal">
+      <div class="md:col-span-5 md:order-2">
+        <span class="rw-kicker text-indigo-700">SPATIAL KNOWLEDGE MATRIX</span>
+        <h3 class="rw-title-2 mt-2 mb-5">
+          知识白板，<br>看清你的收藏空间版图。
+        </h3>
+        <p class="text-[#57534e] leading-relaxed text-[15px]">
+          不再是沉睡在单列列表里的冷冰冰标题。朝花夕拾按照认知科学将所有卡片映射到数理、人文、认知、技术 4 大莫兰迪白板视界中。知识与知识互相呼应，形成空间网络。
         </p>
+        <div class="mt-6">
+          <a href="/app.html#cards" class="text-xs font-semibold text-[#171717] hover:underline inline-flex items-center gap-1.5 group">
+            <span>浏览全景白板视界</span>
+            <span class="transition-transform group-hover:translate-x-0.5">↗</span>
+          </a>
+        </div>
       </div>
-      <div class="md:order-1 grid grid-cols-2 gap-3 max-w-md mx-auto w-full">
-        <div class="rw-card rw-pastel-math p-4"><div class="text-lg">📐</div><div class="text-xs font-semibold mt-1.5">数理逻辑空间</div><div class="text-[10px] text-[#9ca3af] mt-0.5">32 张便签</div></div>
-        <div class="rw-card rw-pastel-humanities p-4"><div class="text-lg">🏛️</div><div class="text-xs font-semibold mt-1.5">人文哲思空间</div><div class="text-[10px] text-[#9ca3af] mt-0.5">27 张便签</div></div>
-        <div class="rw-card rw-pastel-growth p-4"><div class="text-lg">💡</div><div class="text-xs font-semibold mt-1.5">认知与成长空间</div><div class="text-[10px] text-[#9ca3af] mt-0.5">21 张便签</div></div>
-        <div class="rw-card rw-pastel-tech p-4"><div class="text-lg">💻</div><div class="text-xs font-semibold mt-1.5">技术与工程空间</div><div class="text-[10px] text-[#9ca3af] mt-0.5">12 张便签</div></div>
+
+      <div class="md:col-span-7 md:order-1">
+        <div class="rw-wb-canvas">
+          <div class="flex items-center justify-between mb-3 px-1 text-[11px] text-[#78716c]">
+            <div class="flex items-center gap-1.5">
+              <span class="w-2 h-2 rounded-full bg-[#171717]"></span>
+              <span class="font-medium text-[#171717]">Heptabase 空间白板模式</span>
+            </div>
+            <span class="font-mono text-[10px]">92 张便签实时分布</span>
+          </div>
+
+          <div class="grid grid-cols-2 gap-3">
+            <div class="rw-wb-tile rw-pastel-math">
+              <div class="flex items-center justify-between text-[11px] mb-2 font-mono">
+                <span class="font-bold text-[#3f572f]">数理逻辑空间</span>
+                <span class="text-[#5e8248]">32 张</span>
+              </div>
+              <div class="text-xs font-medium text-[#2d3e22] line-clamp-1">插值误差为何断层难？</div>
+              <div class="text-[10px] text-[#638450] mt-1 line-clamp-1">#数学分析 #微积分学习</div>
+            </div>
+
+            <div class="rw-wb-tile rw-pastel-humanities">
+              <div class="flex items-center justify-between text-[11px] mb-2 font-mono">
+                <span class="font-bold text-[#56365f]">人文哲思空间</span>
+                <span class="text-[#7b4e88]">27 张</span>
+              </div>
+              <div class="text-xs font-medium text-[#3f2746] line-clamp-1">《九州缥缈录》之后阅读顺序</div>
+              <div class="text-[10px] text-[#81558d] mt-1 line-clamp-1">#今何在 #九州世界观</div>
+            </div>
+
+            <div class="rw-wb-tile rw-pastel-growth">
+              <div class="flex items-center justify-between text-[11px] mb-2 font-mono">
+                <span class="font-bold text-[#674421]">认知与成长空间</span>
+                <span class="text-[#8c5d2e]">21 张</span>
+              </div>
+              <div class="text-xs font-medium text-[#4b3219] line-clamp-1">复利不是数学题，而是生活方式</div>
+              <div class="text-[10px] text-[#936636] mt-1 line-clamp-1">#长期主义 #非线性思维</div>
+            </div>
+
+            <div class="rw-wb-tile rw-pastel-tech">
+              <div class="flex items-center justify-between text-[11px] mb-2 font-mono">
+                <span class="font-bold text-[#2a4d5e]">技术与工程空间</span>
+                <span class="text-[#3a687d]">12 张</span>
+              </div>
+              <div class="text-xs font-medium text-[#1e3642] line-clamp-1">什么年代了还在用 Cholesky 分解</div>
+              <div class="text-[10px] text-[#447287] mt-1 line-clamp-1">#算法优化 #线性代数</div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
-    <div class="grid md:grid-cols-2 gap-10 md:gap-16 items-center rw-reveal">
-      <div>
-        <h3 class="rw-title-2 mb-5">收藏考古报告，<br>直面你的数字囤积。</h3>
-        <p class="text-[#6b7280] leading-loose text-[15px] font-light max-w-md">
-          收藏跨度多少年？最老的一条收藏躺了多久？你的收藏画像是「松鼠型」还是「仓鼠型」？一份考古报告，看清自己和收藏夹的关系。
+    <!-- Feature 3: 收藏画像考古证书 -->
+    <div class="grid md:grid-cols-12 gap-10 md:gap-14 items-center rw-reveal">
+      <div class="md:col-span-5">
+        <span class="rw-kicker text-orange-800">COLLECTION ARCHAEOLOGY</span>
+        <h3 class="rw-title-2 mt-2 mb-5">
+          收藏考古报告，<br>直面你的数字囤积症。
+        </h3>
+        <p class="text-[#57534e] leading-relaxed text-[15px]">
+          你的收藏跨越了多少年？最老的一篇回答沉睡了多久？你是“囤而不读”的松鼠型学者，还是精准收割的猎手？一份考古画像，让你看清自己和收藏夹的真实关系。
         </p>
+        <div class="mt-6">
+          <a href="/app.html#report" class="text-xs font-semibold text-[#171717] hover:underline inline-flex items-center gap-1.5 group">
+            <span>查看完整考古分析报告</span>
+            <span class="transition-transform group-hover:translate-x-0.5">→</span>
+          </a>
+        </div>
       </div>
-      <div class="rw-card p-5 max-w-md mx-auto w-full">
-        <div class="text-[10px] tracking-[0.3em] uppercase text-[#9ca3af] text-center mb-2">Your Collection Persona</div>
-        <div class="rw-serif text-2xl font-bold text-center text-[#8a6d00] mb-4">资深知识松鼠</div>
-        <div class="grid grid-cols-3 gap-2 text-center">
-          <div class="bg-[#fafafa] rounded-lg py-3"><div class="text-lg font-light">93</div><div class="text-[10px] text-[#9ca3af] mt-0.5">收藏总数</div></div>
-          <div class="bg-[#fafafa] rounded-lg py-3"><div class="text-lg font-light">9<span class="text-xs">年</span></div><div class="text-[10px] text-[#9ca3af] mt-0.5">收藏跨度</div></div>
-          <div class="bg-[#fafafa] rounded-lg py-3"><div class="text-lg font-light">365<span class="text-xs">天</span></div><div class="text-[10px] text-[#9ca3af] mt-0.5">距上次收藏</div></div>
+
+      <div class="md:col-span-7">
+        <div class="rw-cert-card">
+          <div class="rw-cert-seal">
+            <span>朝花夕拾</span>
+            <span>考古认证</span>
+          </div>
+
+          <div class="text-[10px] tracking-[0.25em] font-mono text-[#78716c] uppercase mb-1">YOUR COLLECTION PERSONA CERTIFICATE</div>
+          <div class="rw-serif text-2xl md:text-3xl font-bold text-[#854d0e] mb-2">资深知识松鼠 · Speculative Hoarder</div>
+          <p class="text-xs text-[#78716c] max-w-sm mb-5 leading-relaxed">
+            极高热情的深度内容收集者。擅长发现珍贵文献与硬核回答，但 70% 的藏品在收藏后便沉入海底，极度需要 72h 黄金期唤醒。
+          </p>
+
+          <div class="grid grid-cols-3 gap-2.5 text-center mb-4">
+            <div class="bg-[#faf9f6] border border-[#f0eee8] rounded-lg py-2.5">
+              <div class="text-xl font-medium text-[#171717]">93<span class="text-xs text-[#78716c] ml-0.5">条</span></div>
+              <div class="text-[10px] text-[#78716c] mt-0.5">收藏总数</div>
+            </div>
+            <div class="bg-[#faf9f6] border border-[#f0eee8] rounded-lg py-2.5">
+              <div class="text-xl font-medium text-[#171717]">9<span class="text-xs text-[#78716c] ml-0.5">年</span></div>
+              <div class="text-[10px] text-[#78716c] mt-0.5">时间跨度</div>
+            </div>
+            <div class="bg-[#faf9f6] border border-[#f0eee8] rounded-lg py-2.5">
+              <div class="text-xl font-medium text-[#171717]">365<span class="text-xs text-[#78716c] ml-0.5">天</span></div>
+              <div class="text-[10px] text-[#78716c] mt-0.5">沉睡未读</div>
+            </div>
+          </div>
+
+          <!-- 年代沉淀条形对比 -->
+          <div class="space-y-1.5 text-xs">
+            <div class="flex items-center justify-between text-[11px] text-[#78716c]">
+              <span>72 小时黄金期内（趁热可读）</span>
+              <span class="font-mono text-amber-700 font-bold">7%</span>
+            </div>
+            <div class="w-full h-1.5 bg-[#f0eee8] rounded-full overflow-hidden">
+              <div class="h-full bg-amber-500 rounded-full" style="width: 7%"></div>
+            </div>
+
+            <div class="flex items-center justify-between text-[11px] text-[#78716c] pt-1">
+              <span>1 年以上沉睡（已经凉透）</span>
+              <span class="font-mono text-[#78716c]">72%</span>
+            </div>
+            <div class="w-full h-1.5 bg-[#f0eee8] rounded-full overflow-hidden">
+              <div class="h-full bg-stone-400 rounded-full" style="width: 72%"></div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -321,10 +568,10 @@
     <div class="mt-10 rw-reveal">
       <a href="/app.html" class="rw-btn !px-8 !py-3.5 !text-base"><span>开始拾花</span><span>→</span></a>
     </div>
-    <p class="mt-5 text-xs text-[#9ca3af] rw-reveal">每天早 8 点，3 张卡片，6 分钟。</p>
+    <p class="mt-5 text-xs text-[#78716c] rw-reveal">每天早 8 点，3 张卡片，6 分钟。</p>
   </section>
 
-  <footer class="py-8 border-t rw-hairline text-xs text-[#9ca3af] flex flex-wrap gap-3 justify-between">
+  <footer class="py-8 border-t rw-hairline text-xs text-[#78716c] flex flex-wrap gap-3 justify-between">
     <span>朝花夕拾 ｜ 知乎收藏夹消化引擎 ｜ 让好内容不再被遗忘</span>
     <span class="space-x-4">
       <a href="#how" class="hover:text-[#1f1f1f] transition-colors">运作原理</a>
@@ -341,14 +588,6 @@ document.querySelectorAll('.rw-reveal').forEach((el) => io.observe(el));
 
 // ---------- 真实卡片分享墙 ----------
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
-
-// 双层重叠降级：首字徽标垫底，图片加载成功则盖住，被防盗链拦截时 this.remove() 露出底色
-function avatarHtml(name, avatar) {
-  const initial = (name || '拾').trim().charAt(0);
-  const fallback = `<span class="rw-avatar-fallback">${esc(initial)}</span>`;
-  if (!avatar) return `<span class="rw-avatar-wrap">${fallback}</span>`;
-  return `<span class="rw-avatar-wrap">${fallback}<img class="rw-avatar" src="${esc(avatar)}" alt="${esc(name)}" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()"></span>`;
-}
 
 function daysAgoText(favTime) {
   if (!favTime) return '';
@@ -369,26 +608,36 @@ function rwDomain(c) {
   return 'other';
 }
 
+function formatHighlightedCoreView(text) {
+  if (!text) return '';
+  const parts = text.split(/([，。；！])/);
+  if (parts.length >= 3) {
+    return esc(parts[0]) + esc(parts[1]) + `<span class="rw-mark-subtle">${esc(parts[2])}</span>` + esc(parts.slice(3).join(''));
+  }
+  return `<span class="rw-mark-subtle">${esc(text)}</span>`;
+}
+
 async function loadShareWall() {
   const wall = document.getElementById('rw-wall');
   const section = document.getElementById('wall');
   try {
-    const [cardsRes, folRes] = await Promise.all([
-      fetch('/api/cards?status=approved'),
-      fetch('/api/followees'),
-    ]);
-    if (!cardsRes.ok || !folRes.ok) throw new Error('load failed');
-    const cards = (await cardsRes.json()).cards || [];
-    const followees = (await folRes.json()).followees || [];
+    const cardsRes = await fetch('/api/cards?status=approved').then(r => r.json()).catch(() => ({ cards: [] }));
+    const cards = cardsRes.cards || [];
     if (!cards.length) { section.style.display = 'none'; return; }
 
-    // 领域分桶，桶内已关注作者优先、再按盲审分；轮转打散保证各领域均有代表上墙
-    const buckets = { math: [], humanities: [], growth: [], tech: [], other: [] };
-    cards.forEach((c) => buckets[rwDomain(c)].push(c));
+    // 领域分桶，保证各领域均有代表卡片上墙（数理、人文、认知、技术）
+    const buckets = { humanities: [], growth: [], tech: [], math: [], other: [] };
+    cards.forEach((c) => {
+      const d = rwDomain(c);
+      if (buckets[d]) buckets[d].push(c);
+      else buckets.other.push(c);
+    });
+
     Object.values(buckets).forEach((b) => b.sort((x, y) =>
       ((y.source?.authorFollowed ? 1 : 0) - (x.source?.authorFollowed ? 1 : 0)) || ((y.reviewScore ?? 0) - (x.reviewScore ?? 0))));
+
     const picked = [];
-    const order = ['humanities', 'growth', 'tech', 'math', 'other'];
+    const order = ['growth', 'humanities', 'tech', 'math', 'other'];
     while (picked.length < 12) {
       let progressed = false;
       for (const k of order) {
@@ -398,31 +647,39 @@ async function loadShareWall() {
       if (!progressed) break;
     }
 
-    wall.innerHTML = picked.map((c, i) => {
-      const picker = followees.length ? followees[i % followees.length] : null;
-      const author = c.source?.authorName || '知乎作者';
-      const headName = picker ? picker.name : author;
-      const headAvatar = picker ? picker.avatar : c.source?.authorAvatar;
-      const tags = (c.topicTags || []).slice(0, 3).map((t) => `<span class="rw-badge">${esc(t)}</span>`).join(' ');
+    wall.innerHTML = picked.map((c) => {
+      // 诚实标注（issue #27）：不伪造分享者，只表达「站主已拾起的真实卡片」
+      const tags = (c.topicTags || []).slice(0, 2).map((t) => `<span class="rw-badge">#${esc(t)}</span>`).join(' ');
+
       return `
-      <a class="rw-share rw-reveal" href="/app.html#${esc(c.id)}">
-        <div class="flex items-center gap-2.5 mb-3">
-          ${avatarHtml(headName, headAvatar)}
+      <a class="rw-share rw-reveal group" href="/app.html#${esc(c.id)}">
+        <div class="flex items-center gap-2.5 mb-3.5">
+          <span class="rw-avatar-wrap"><span class="rw-avatar-fallback">拾</span></span>
           <div class="min-w-0 flex-1">
-            <div class="text-[13px] font-bold text-[#1f1f1f] truncate">${esc(headName)}</div>
-            <div class="text-[11px] text-[#9ca3af]">拾花人 · ${daysAgoText(c.source?.favTime)}</div>
+            <div class="flex items-center gap-1.5">
+              <span class="text-[13px] font-bold text-[#171717] truncate">已被拾起</span>
+              <span class="text-[10px] text-amber-700 bg-amber-50 px-1.5 py-0.2 rounded font-mono">知识空间</span>
+            </div>
+            <div class="text-[11px] text-[#78716c] mt-0.5">${daysAgoText(c.source?.favTime)}</div>
           </div>
-          ${picker ? '<span class="rw-badge rw-badge-hl shrink-0">你关注的</span>' : ''}
+          <span class="rw-badge rw-badge-diff text-[10px]">盲审通过</span>
         </div>
-        <h4 class="rw-serif text-[15px] font-bold leading-snug text-[#1f1f1f] mb-1">${esc(c.source?.title)}</h4>
-        <div class="text-[11px] text-[#9ca3af] mb-2">原回答作者 · ${esc(author)}</div>
-        <p class="text-[13px] text-[#6b7280] leading-relaxed rw-clamp-3">${esc(c.coreView)}</p>
-        <div class="flex items-center justify-between mt-3.5 pt-3 border-t border-dashed border-[#f0f0f0]">
-          <div class="flex flex-wrap gap-1.5">${tags}</div>
-          <span class="text-[11px] text-[#9ca3af] shrink-0 ml-2">精读 →</span>
+
+        <h4 class="rw-serif text-[15px] font-bold leading-snug text-[#171717] mb-2.5 group-hover:text-amber-800 transition-colors">
+          ${esc(c.source?.title)}
+        </h4>
+
+        <p class="text-[13px] text-[#57534e] leading-relaxed rw-clamp-3 mb-1">
+          ${formatHighlightedCoreView(c.coreView)}
+        </p>
+
+        <div class="flex items-center justify-between mt-3.5 pt-3 border-t border-dashed border-[#ebe7df]">
+          <div class="flex flex-wrap gap-1">${tags}</div>
+          <span class="text-[11px] font-medium text-[#171717] group-hover:underline shrink-0 ml-2">精读卡片 ↗</span>
         </div>
       </a>`;
     }).join('');
+
     document.getElementById('rw-wall-empty').classList.add('hidden');
     wall.querySelectorAll('.rw-reveal').forEach((el) => io.observe(el));
   } catch {

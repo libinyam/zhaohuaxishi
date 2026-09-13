@@ -279,7 +279,7 @@ function renderSidebar() {
   sb.innerHTML = `
     <!-- 用户/状态卡片 -->
     <div class="sidebar-profile">
-      <div class="w-8 h-8 rounded-lg bg-stone-900 text-stone-100 flex items-center justify-center font-serif text-sm font-bold shadow-sm">拾</div>
+      <img src="/assets/logo-64.png" alt="朝花夕拾" class="w-8 h-8">
       <div class="min-w-0 flex-1">
         <div class="text-xs font-bold text-stone-900 truncate">拾花人工作台</div>
         <div class="text-[10px] text-stone-400 mt-0.5">趁你的收藏还没凉透</div>

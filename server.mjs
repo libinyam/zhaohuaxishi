@@ -180,7 +180,7 @@ const server = http.createServer(async (req, res) => {
     const methodOk = req.method === 'GET' || req.method === 'HEAD'
       || (req.method === 'POST' && POST_ROUTES.includes(url.pathname));
     if (!methodOk) return json(res, { ok: false, error: 'method not allowed' }, 405);
-    if (url.pathname === '/api/health') return json(res, { ok: true, project: 'zhaohuaxishi' });
+    if (url.pathname === '/api/health') return json(res, { ok: true, project: 'zhaohuaxishi', sessions: oauth.sessionCount() });
     // ---- 知乎 OAuth（黑客松流程，lib/oauth.mjs）----
     if (url.pathname === '/api/oauth/status') return json(res, oauth.status(req, res));
     if (url.pathname === '/auth/login') {
@@ -230,11 +230,6 @@ const server = http.createServer(async (req, res) => {
     }
     if (url.pathname === '/api/queue') {
       return json(res, buildQueue(await loadCardsEnriched()));
-    }
-    if (url.pathname === '/api/followees') {
-      const followees = await loadFollowees();
-      const list = Object.values(followees).map((f) => ({ name: f.name, avatar: f.avatar }));
-      return json(res, { total: list.length, followees: list });
     }
     if (url.pathname === '/api/review' && req.method === 'POST') {
       let body = '';

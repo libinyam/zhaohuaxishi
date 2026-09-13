@@ -12,23 +12,32 @@ const env = Object.fromEntries(
     .filter((l) => l.includes('='))
     .map((l) => { const i = l.indexOf('='); return [l.slice(0, i).trim(), l.slice(i + 1).trim()]; })
 );
-const CLI = env.ZHIHU_CLI;
+const CLI = process.env.ZHIHU_CLI || env.ZHIHU_CLI;
 if (!CLI) { console.error('.env.local 缺少 ZHIHU_CLI'); process.exit(1); }
 
 const run = (args) => new Promise((resolve, reject) =>
-  execFile(CLI, args, { encoding: 'utf8', maxBuffer: 1 << 24 }, (e, stdout) => {
-    if (e) return reject(e);
+  execFile(CLI, args, { encoding: 'utf8', maxBuffer: 1 << 24 }, (e, stdout, stderr) => {
+    if (e) return reject(new Error(`cli ${args.join(' ')}: ${stderr || e.message}`));
     try { resolve(JSON.parse(stdout)); } catch { reject(new Error('CLI 输出非 JSON: ' + stdout.slice(0, 200))); }
   }));
 
+// 分页守卫照搬 fetch_favorites.mjs（issue #4 同款）：NextOffset 缺失/重复即终止，防接口异常死循环
 const followees = {};
-let offset = 0;
+const seenOffsets = new Set(['0']);
+let offset = '0';
 for (;;) {
-  const r = await run(['me', 'followees', '--offset', String(offset), '--limit', '50']);
+  const r = await run(['me', 'followees', '--offset', offset, '--limit', '50']);
   if (r.Code !== 0) { console.error('CLI 错误:', JSON.stringify(r).slice(0, 300)); process.exit(1); }
-  for (const it of r.Data.Items) followees[it.UrlToken] = { name: it.Fullname, avatar: it.AvatarUrl };
-  if (r.Data.Paging.IsEnd) break;
-  offset = Number(r.Data.Paging.NextOffset);
+  const items = r.Data?.Items ?? [];
+  for (const it of items) followees[it.UrlToken] = { name: it.Fullname, avatar: it.AvatarUrl };
+  const paging = r.Data?.Paging;
+  if (!paging || paging.IsEnd || items.length === 0) break;
+  const next = paging.NextOffset;
+  if (next == null || next === '') throw new Error('分页未结束但 NextOffset 缺失，终止防死循环');
+  const nextStr = String(next);
+  if (seenOffsets.has(nextStr)) throw new Error(`分页 offset 重复 (${nextStr})，疑似接口异常，终止`);
+  seenOffsets.add(nextStr);
+  offset = nextStr;
 }
 
 const out = path.join(root, 'data', 'followees.json');

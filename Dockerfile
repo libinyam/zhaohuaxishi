@@ -3,6 +3,7 @@ FROM node:24-alpine
 
 WORKDIR /app
 COPY --chown=node:node server.mjs ./
+COPY --chown=node:node lib ./lib
 COPY --chown=node:node public ./public
 COPY --chown=node:node data ./data
 
