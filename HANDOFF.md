@@ -39,6 +39,8 @@
 6. **演示准备**：✅ 素材与缓存已就绪（9/13 下午，镜像 0.5.1）。用户当天新收藏 17 条，管线全量重跑：110 收藏 → 16 新拆解 → 16 新卡盲审 16/16 PASS → 报告重生（burstMonth=2026-09 共 17 条，72h 黄金期叙事完美成型）。追问缓存已预热 12 条（线上+本地双份）：主演示卡=《芬尼根的守灵夜》`card_answer_2076765585652896764`（现场问法固定为「这本书讲了什么」，另有「为什么这本书难翻译」「值得读吗」两个变体），其余 9 张新卡各预热「这篇讲了什么」；预热脚本 `.tmp/preheat-ask.mjs`（改 BASE 即切线上/本地）。**关键**：ask 缓存存容器/本地文件系统不打进镜像——Sealos 重启或换镜像后线上缓存丢失，须用脚本重跑预热；本地兜底机重启不丢。今日额度：拆解 31/100。剩余：断网兜底演练（本地离线完整走 1 遍）、提交材料（截止 9/15 10:00）
 7. **现场炼卡 + 报告页去站主示例**（9/13 晚）：登录用户可把自己的收藏现场炼成卡片。实现：`lib/mycard.mjs`（scripts 三道工序适配为 server 内异步任务：直答拆解 → Gemini 炼卡 → 盲审，prompt/模型照抄 scripts，拆解用 `zhida-thinking-1p5`、HTTP 超时 120s，炼卡 `GEMINI_MODEL_FLASH`、盲审 `GEMINI_MODEL_PRO`）+ server.mjs 路由 `POST/GET /api/my/card` + 前端报告页炼卡卡片位（2s 轮询、3 分钟超时、分阶段进度）。限流：每用户每天 1 张（仅成功计入，失败/盲审打回可重试），全站每天 20 张先到先得——任务发起即写台账 `data/quota/<date>.json` 的 `mycards` 字段，失败不退（防刷）；结果落盘 `data/cache/mycards/<uid>.json`，同天重复请求直接返回缓存。盲审打回即任务失败（诚实提示，不出卡）。**Sealos 部署必须补环境变量 `GEMINI_BASE_URL` / `GEMINI_API_KEY`**（另两个模型变量可选，有默认值），缺失时接口返回 503「功能未就绪」不 crash。注意：mycard 与 ask 各自持台账锁，并发极端场景理论上有丢计可能（演示体量可接受）；zhida 拆解命中 `data/cache/zhida/` 缓存时不烧直答额度。报告页产品改动：已授权用户不再出现「站主示例/我的报告」切换，直接只显示我的报告（含炼卡入口）；未登录路径不变（站主示例 + 登录 CTA）
 
+8. **我的卡册 scope=mine**（9/14 凌晨，镜像 0.7.2）：登录后队列/白板只展示用户自己的卡片，站长示例完全不可见。实现：mycard 落盘改历史卡册（`<uid>.json` 加 `cards` 数组，approved 按 id 去重累积封顶 50，导出 `listCards`/`markReviewed`）；`/api/cards`、`/api/queue` 加 `?scope=mine`（未登录 401 loginRequired），`POST /api/review` body 加 `scope:'mine'` 走用户独立复习进度（**绝不动站长卡片**——同一收藏两边可能各有一张同 id 卡），`/api/ask` 站卡未命中时兜底查用户卡册；前端 initApp 先拉 oauth status 再决定数据源（`appState.scope`），空态 CTA 引导去考古报告炼卡，炼卡 done 后 `refreshMineQueue()` 自动刷新，退出登录调 initApp 重拉站主数据。landing 页不调 scope=mine（公开展示面保持站长内容）。e2e 27 PASS
+
 ## 用户协作偏好
 
 - 中文交流；有外部 AI 评审习惯（会把别家模型的批评贴进来，**先核实再改**，曾驳回过两条不成立的）
