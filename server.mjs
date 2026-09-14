@@ -318,8 +318,9 @@ function redirect(res, location) {
   res.end();
 }
 
-// 出口 IP：Sealos 网关注入 X-Forwarded-For（取第一个），直连回退 socket.remoteAddress
-const clientIp = (req) => req.headers['x-forwarded-for']?.split(',')[0].trim() || req.socket.remoteAddress || 'unknown';
+// 出口 IP：取 XFF 最后一跳（离本服务最近、由 Sealos 网关注入；首值可被客户端伪造轮换以绕过 IP 限流，issue #47）
+// 无论网关是「覆写」还是「追加」XFF，最后一跳都是网关看到的真实客户端；直连时回退 socket.remoteAddress
+const clientIp = (req) => req.headers['x-forwarded-for']?.split(',').pop().trim() || req.socket.remoteAddress || 'unknown';
 
 // 追问身份只认 OAuth 知乎 uid（issue #36：自报 UUID 头 / 匿名 cookie 全由客户端控制，轮换即重置配额，已关闭）
 function askLogin(req, res) {
