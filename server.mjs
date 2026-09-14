@@ -237,37 +237,45 @@ async function pushDailyCards(trigger = 'cron', { skipOwner = false, skipSubs = 
     if (entries.length) console.log(`[push] 订阅者推送完成（${trigger}）：成功 ${subOk}，失败 ${subFail}`);
   }
 
-  // subsDone：订阅者循环执行完毕即视为当日已处理（单个失败已记死信，重推整批会让已成功订阅者重复收卡，issue #48）
   // ownerOk 含「队列为空跳过」：当日已处理完毕；只有站长通道真失败才留给下次补推（届时只补站长这一路）
   return {
     pushed: ownerCards,
     ownerOk: owner.ok,
     ...(owner.ok ? {} : { error: owner.error }),
     subs: { ok: subOk, fail: subFail },
-    subsDone: true,
   };
+}
+
+// 当日推送进度：读（含旧格式兼容）与按通道分字段落盘，cron 与手动 trigger 共用（issue #48）
+async function readPushState() {
+  let state = {};
+  try { state = JSON.parse(await readFile(PUSH_STATE, 'utf8')); } catch { /* 首次 */ }
+  // 旧格式 { date, at } 无分通道字段，表示当日两通道都已完成
+  return state.date === cstDateStr()
+    ? { ownerDone: state.ownerDone ?? true, subsDone: state.subsDone ?? true }
+    : {};
+}
+
+// subsDone 恒为 true：订阅者循环执行完毕即视为当日已处理（单个失败记死信不重发，重推整批会让已成功订阅者重复收卡）
+async function recordPushState(ownerOk) {
+  const done = await readPushState();
+  const tmp = PUSH_STATE + '.tmp';
+  await writeFile(tmp, JSON.stringify({
+    date: cstDateStr(),
+    ownerDone: Boolean(done.ownerDone) || ownerOk,
+    subsDone: true,
+    at: Date.now(),
+  }));
+  await rename(tmp, PUSH_STATE);
 }
 
 // cron 入口：每天只推一次。状态按通道分字段落盘（issue #48）——订阅者循环执行完即记 subsDone，
 // 站长通道失败只留 ownerDone=false，下次 tick/重启只补推站长这一路，订阅者不被重推
 async function dailyPushJob() {
-  let state = {};
-  try { state = JSON.parse(await readFile(PUSH_STATE, 'utf8')); } catch { /* 首次 */ }
-  const todayCst = cstDateStr();
-  // 旧格式 { date, at } 无分通道字段，表示当日两通道都已完成
-  const done = state.date === todayCst
-    ? { ownerDone: state.ownerDone ?? true, subsDone: state.subsDone ?? true }
-    : {};
+  const done = await readPushState();
   if (done.ownerDone && done.subsDone) { console.log('[push] 今日已推送过，跳过'); return; }
   const result = await pushDailyCards('cron', { skipOwner: Boolean(done.ownerDone), skipSubs: Boolean(done.subsDone) });
-  const tmp = PUSH_STATE + '.tmp';
-  await writeFile(tmp, JSON.stringify({
-    date: todayCst,
-    ownerDone: Boolean(done.ownerDone) || result.ownerOk,
-    subsDone: true,
-    at: Date.now(),
-  }));
-  await rename(tmp, PUSH_STATE);
+  await recordPushState(result.ownerOk);
 }
 
 function scheduleDailyPush() {
@@ -538,6 +546,8 @@ const ROUTES = [
       if (!ok) return json(res, { ok: false, error: 'forbidden' }, 403);
       if (!SENDKEY) return json(res, { ok: false, error: 'SCT_SENDKEY 未配置' }, 503);
       const result = await pushDailyCards('manual');
+      // 手动推完同样落盘当日进度（保持 force-push 语义可反复演示，但 08:00 cron 不再把同一批卡重推给订阅者）
+      await recordPushState(result.ownerOk);
       return json(res, { ok: result.pushed > 0, ...result });
     },
   },
