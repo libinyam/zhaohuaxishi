@@ -29,7 +29,7 @@
 - **回归入口**：`node scripts/test-e2e.mjs`（隔离副本跑全量断言，35 用例；`--stress` 加 600 次会话淘洗压测）
 - **匿名脱敏（9/14，镜像 0.7.1，#38；9/14 加强，#43）**：未登录访客的 `/api/report` 只回聚合数字（`sanitized:true`，无 persona/oldestItem/cards）。#38 温和版只剥离 `authorFollowed`/`authorAvatar`；**#43 加强版（应站主要求）**：`/api/cards` 匿名限量 6 张示例（`sanitized:true`，`total` 仍为全量数），`/api/cards`、`/api/queue` 匿名再剥离 `source.url`/`source.favTime`（原文链接+收藏时间），前端 `cardHtml` 无 url 时标题渲染纯文本、不显示「收藏于」，白板头加「公开示例已脱敏」徽标。卡片标题与拆解内容本身是 demo 主体，仍保留公开。前端按字段条件隐藏人格画像/领域分布/最老收藏/海报按钮，侧栏知识空间分组仅登录可见；landing 卡片墙的「关注作者」标注对匿名回退为「作者」属正常
 - **P4 收尾批次（9/15，#54/#55/#56）**：① 直答 HTTP 调用收敛到 `lib/zhida.mjs`——ask（`zhida-fast-1p5`）与 mycard（`zhida-thinking-1p5`）共用鉴权/响应解析/#42 可读错误文案（`直答服务暂时不可用（HTTP xxx）` 等），配额回滚逻辑仍留在各自调用方；ask.mjs 删除死常量 `ZHIDA_DAILY_LIMIT`。② mycard 失败错误下发前端前经 `publicError` 白名单映射：用户可读文案（盲审未通过 / 直答类 / 额度紧张）原样放行，内部错误（gemini http 报文、schema invalid 等）统一为「卡片生成失败，请稍后重试」；日志与落盘 `rec.error` 保留原文。③ FavTime **秒级**契约写入 report-core/mycard 注释；computeReport 对 `FavTime > 1e11`（疑似毫秒）的条目按脏数据剔除并 `console.warn` 一次
-- **版本号对齐（9/14 凌晨）**：TCR 上的 `0.8.0` 是另一 agent 从 commit `1d32a6b` 构建的（已逐文件比对，内容与该 commit 完全一致），**不含**匿名脱敏、#38-#42 加固、scope=mine——版本号虚高。勿用 0.8.0。最新：**`1.0.0`**（9/14 傍晚推送，= commit `4e871c6`：0.9.3 之后全部 issue 修复——第一/二/三梯队 #43-#53 + 两轮评审跟进 + P4 #54-#56，e2e 35 PASS，冒烟通过）。历史：`0.9.3`（9/14 上午，= 当时未提交工作区）
+- **版本号对齐（9/14 凌晨）**：TCR 上的 `0.8.0` 是另一 agent 从 commit `1d32a6b` 构建的（已逐文件比对，内容与该 commit 完全一致），**不含**匿名脱敏、#38-#42 加固、scope=mine——版本号虚高。勿用 0.8.0。最新：**`1.0.1`**（9/14 傍晚推送，= commit `7205eae`：手动炼卡放宽每用户每天 3 张 + 前端额度/自动炼卡提示 + 首页绿色统一工作台 #248653）。历史：`1.0.0`（= `4e871c6`，issue 全量修复版）、`0.9.3`（9/14 上午，= 当时未提交工作区）
 
 ## 剩余任务（冲刺 9/13-15，按优先级）
 
