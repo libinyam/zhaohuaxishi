@@ -474,7 +474,10 @@ try {
       // 失败后重试：Gemini 挂一次 → failed，再发起成功（失败不算用户的 1 张）
       geminiFailOnce = true;
       await mc.start('u_b', favs);
-      eq((await waitJob(mc, 'u_b')).status, 'failed', 'Gemini 故障任务失败');
+      const failedJob = await waitJob(mc, 'u_b');
+      eq(failedJob.status, 'failed', 'Gemini 故障任务失败');
+      // 内部错误不原样透出前端：非用户可读文案映射为通用提示（issue #54）
+      eq(failedJob.error, '卡片生成失败，请稍后重试', '内部错误映射通用文案');
       await mc.start('u_b', favs);
       eq((await waitJob(mc, 'u_b')).status, 'done', '失败后重试成功');
       // 直答台账阈值：count=90 时新内容（无缓存）任务失败且不发出请求
