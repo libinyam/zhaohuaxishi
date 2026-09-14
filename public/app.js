@@ -6,7 +6,12 @@ const DIFF = { easy: ['简单', 'badge-easy'], medium: ['中等', 'badge-medium'
 // ---------- 网络与状态兜底（issue #21） ----------
 async function fetchJson(url, opts) {
   const r = await fetch(url, opts);
-  if (!r.ok) throw new Error(`HTTP ${r.status}`);
+  if (!r.ok) {
+    // 挂 status 供调用方按语义判断（如匿名打卡降级只认 401），不认错误文案
+    const e = new Error(`HTTP ${r.status}`);
+    e.status = r.status;
+    throw e;
+  }
   return r.json();
 }
 
@@ -573,7 +578,7 @@ function renderStage() {
             card = r.card;
           } catch (e) {
             // issue #43：匿名浏览站长示例时服务端不再落盘（401 loginRequired），降级为纯本地记录
-            if (!(appState.scope === 'site' && /HTTP 401/.test(e.message))) throw e;
+            if (!(appState.scope === 'site' && e.status === 401)) throw e;
           }
           doneStore.add(btn.dataset.id);
 
@@ -589,9 +594,15 @@ function renderStage() {
             art.style.opacity = '.55';
           }, 350);
 
-          btn.innerHTML = !card
-            ? '<span>已记录</span>'
-            : card.status === 'digested' ? '<span>🎉 已完全消化</span>' : `<span>已记录，${Math.round((card.nextReviewAt - Date.now() / 1000) / 86400)} 天后再见</span>`;
+          let label;
+          if (!card) {
+            label = '<span>已记录</span>';
+          } else if (card.status === 'digested') {
+            label = '<span>🎉 已完全消化</span>';
+          } else {
+            label = `<span>已记录，${Math.round((card.nextReviewAt - Date.now() / 1000) / 86400)} 天后再见</span>`;
+          }
+          btn.innerHTML = label;
 
           // 同步左侧边栏勾选状态
           renderSidebar();

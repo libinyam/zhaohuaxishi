@@ -160,17 +160,17 @@ try {
     eq((await get('/api/health')).status, 200, '超限后服务存活');
   });
 
-  await test('站长卡复习单元（lib/review）：连打 4 次转 digested，无 NaN（#43 后 HTTP 成功路径需登录，下沉 lib 测）', async () => {
+  await test('站长卡复习单元（lib/review）：并发 4 次不丢计数、转 digested（#43 后 HTTP 成功路径需登录，下沉 lib 测）', async () => {
     const review = createReview(tmp);
     // 自建新卡（副本里的真实卡片可能已有 reviewCount）
     const freshId = 'card_e2e_review';
-    await writeFile(path.join(tmp, 'data', 'cache', 'cards', `${freshId}.json`), JSON.stringify({ id: freshId, status: 'approved' }));
-    let last;
-    for (let i = 0; i < 4; i++) {
-      last = await review.markReviewed(freshId);
-      if (JSON.stringify(last).includes('NaN')) throw new Error(`第 ${i + 1} 次打卡结果含 NaN`);
-    }
-    eq(last.reviewCount, 4, '4 次后 reviewCount');
+    const freshFile = path.join(tmp, 'data', 'cache', 'cards', `${freshId}.json`);
+    await writeFile(freshFile, JSON.stringify({ id: freshId, status: 'approved' }));
+    // 并发触发：读-改-写锁（withReviewLock）失效时会丢计数
+    await Promise.all([0, 1, 2, 3].map(() => review.markReviewed(freshId)));
+    const last = JSON.parse(await readFile(freshFile, 'utf8'));
+    if (JSON.stringify(last).includes('NaN')) throw new Error('并发打卡结果含 NaN');
+    eq(last.reviewCount, 4, '并发 4 次后 reviewCount（无锁会丢更新）');
     eq(last.status, 'digested', '4 次后 status');
     eq(last.nextReviewAt, null, 'digested 后 nextReviewAt');
     let enoent = false;
