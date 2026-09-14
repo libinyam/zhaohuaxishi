@@ -8,6 +8,7 @@ import { mkdtemp, cp, readdir, readFile, writeFile, mkdir, rm } from 'node:fs/pr
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { createReview } from '../lib/review.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const stress = process.argv.includes('--stress') || process.env.E2E_STRESS === '1';
@@ -145,8 +146,12 @@ try {
     }
   });
 
-  await test('/api/review：合法格式但卡片不存在 → 404', async () => {
-    eq((await post('/api/review', JSON.stringify({ id: 'card_no_such_9' }))).status, 404, '状态码');
+  await test('/api/review：匿名复习站长卡片 → 401 loginRequired（issue #43：关闭匿名写入）', async () => {
+    for (const id of [cardId, 'card_no_such_9']) {
+      const r = await post('/api/review', JSON.stringify({ id }));
+      eq(r.status, 401, `id=${id} 状态码`);
+      eq((await r.json()).loginRequired, true, 'loginRequired 标记');
+    }
   });
 
   await test('/api/review：超大 body（2MB）→ 413，且服务存活（#30）', async () => {
@@ -155,18 +160,22 @@ try {
     eq((await get('/api/health')).status, 200, '超限后服务存活');
   });
 
-  await test('/api/review：连打 4 次转 digested，无 NaN', async () => {
+  await test('站长卡复习单元（lib/review）：连打 4 次转 digested，无 NaN（#43 后 HTTP 成功路径需登录，下沉 lib 测）', async () => {
+    const review = createReview(tmp);
+    // 自建新卡（副本里的真实卡片可能已有 reviewCount）
+    const freshId = 'card_e2e_review';
+    await writeFile(path.join(tmp, 'data', 'cache', 'cards', `${freshId}.json`), JSON.stringify({ id: freshId, status: 'approved' }));
     let last;
     for (let i = 0; i < 4; i++) {
-      const r = await post('/api/review', JSON.stringify({ id: cardId }));
-      eq(r.status, 200, `第 ${i + 1} 次打卡状态码`);
-      const text = await r.text();
-      if (text.includes('NaN')) throw new Error(`第 ${i + 1} 次打卡响应含 NaN`);
-      last = JSON.parse(text);
+      last = await review.markReviewed(freshId);
+      if (JSON.stringify(last).includes('NaN')) throw new Error(`第 ${i + 1} 次打卡结果含 NaN`);
     }
-    eq(last.ok, true, '第 4 次打卡 ok');
-    eq(last.card.status, 'digested', '4 次后 status');
-    eq(last.card.nextReviewAt, null, 'digested 后 nextReviewAt');
+    eq(last.reviewCount, 4, '4 次后 reviewCount');
+    eq(last.status, 'digested', '4 次后 status');
+    eq(last.nextReviewAt, null, 'digested 后 nextReviewAt');
+    let enoent = false;
+    try { await review.markReviewed('card_no_such_9'); } catch (e) { enoent = e.code === 'ENOENT'; }
+    eq(enoent, true, '不存在卡片抛 ENOENT（分发层映射 404）');
   });
 
   await test('OAuth 未配置：GET /auth/login → 503', async () => {

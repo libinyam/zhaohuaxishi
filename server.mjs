@@ -10,6 +10,7 @@ import { createOAuth } from './lib/oauth.mjs';
 import { computeReport } from './lib/report-core.mjs';
 import { createAsk } from './lib/ask.mjs';
 import { createMyCard } from './lib/mycard.mjs';
+import { createReview } from './lib/review.mjs';
 import { migrateRuntime, runtimeDir } from './lib/runtime.mjs';
 import { cstDateStr, msUntilNextCst } from './lib/time.mjs';
 
@@ -19,6 +20,7 @@ const DAY = 86400;
 const oauth = createOAuth();
 const asker = createAsk(root);
 const mycard = createMyCard(root);
+const review = createReview(root);
 
 const MIME = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript; charset=utf-8', '.css': 'text/css; charset=utf-8', '.json': 'application/json; charset=utf-8', '.png': 'image/png', '.jpg': 'image/jpeg', '.svg': 'image/svg+xml' };
 
@@ -90,8 +92,6 @@ function buildQueue(cards) {
   const queue = [...followedFirst(fresh), ...followedFirst(due), ...followedFirst(backlog)];
   return { today: queue.slice(0, 3), upNext: queue.slice(3, 9), stats: { approved: approved.length, fresh: fresh.length, due: due.length, followed: approved.filter((c) => c.source?.authorFollowed).length } };
 }
-
-const INTERVALS = [1 * DAY, 3 * DAY, 7 * DAY]; // 复习间隔：+1/+3/+7 天后 digested
 
 // ---- Server酱每日推送 ----
 const SENDKEY = process.env.SCT_SENDKEY || '';
@@ -277,23 +277,6 @@ function scheduleAutoMake() {
   const wait = msUntilNextCst(7);
   console.log(`[mycard] 每日 07:00（UTC+8）自动炼卡已调度，${Math.round(wait / 60000)} 分钟后首次触发`);
   setTimeout(tick, wait);
-}
-
-async function markReviewed(id) {
-  const file = path.join(root, 'data', 'cache', 'cards', `${id}.json`);
-  const card = JSON.parse(await readFile(file, 'utf8'));
-  card.reviewCount = (card.reviewCount ?? 0) + 1;
-  const now = Math.floor(Date.now() / 1000);
-  if (card.reviewCount >= 3) {
-    card.status = 'digested';
-    card.nextReviewAt = null;
-  } else {
-    card.nextReviewAt = now + INTERVALS[card.reviewCount - 1];
-  }
-  const tmp = file + '.tmp';
-  await writeFile(tmp, JSON.stringify(card, null, 2));
-  await rename(tmp, file);
-  return card;
 }
 
 function json(res, obj, code = 200) {
@@ -519,7 +502,10 @@ const ROUTES = [
         if (!card) return json(res, { ok: false, error: '卡片不存在' }, 404);
         return json(res, { ok: true, card });
       }
-      return json(res, { ok: true, card: await markReviewed(id) });
+      // 默认分支（站长卡片）：issue #43 起要求登录——匿名访客的「已消化」只在浏览器本地生效（前端降级），不再写站长卡片
+      const uid = oauth.currentUid(req, res);
+      if (!uid) return json(res, { ok: false, error: 'loginRequired', loginRequired: true }, 401);
+      return json(res, { ok: true, card: await review.markReviewed(id) });
     },
   },
   // 手动触发当日推送（演示用；需 PUSH_TRIGGER_TOKEN，未配置则关闭）

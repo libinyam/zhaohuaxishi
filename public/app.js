@@ -562,12 +562,19 @@ function renderStage() {
         btn.disabled = true;
         btn.innerHTML = '<span>记录中…</span>';
         try {
-          const r = await fetchJson('/api/review', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ id: btn.dataset.id, scope: appState.scope }),
-          });
-          if (!r.ok) throw new Error(r.error || 'review failed');
+          let card = null;
+          try {
+            const r = await fetchJson('/api/review', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ id: btn.dataset.id, scope: appState.scope }),
+            });
+            if (!r.ok) throw new Error(r.error || 'review failed');
+            card = r.card;
+          } catch (e) {
+            // issue #43：匿名浏览站长示例时服务端不再落盘（401 loginRequired），降级为纯本地记录
+            if (!(appState.scope === 'site' && /HTTP 401/.test(e.message))) throw e;
+          }
           doneStore.add(btn.dataset.id);
 
           // 触发印章动效
@@ -582,7 +589,9 @@ function renderStage() {
             art.style.opacity = '.55';
           }, 350);
 
-          btn.innerHTML = r.card.status === 'digested' ? '<span>🎉 已完全消化</span>' : `<span>已记录，${Math.round((r.card.nextReviewAt - Date.now() / 1000) / 86400)} 天后再见</span>`;
+          btn.innerHTML = !card
+            ? '<span>已记录</span>'
+            : card.status === 'digested' ? '<span>🎉 已完全消化</span>' : `<span>已记录，${Math.round((card.nextReviewAt - Date.now() / 1000) / 86400)} 天后再见</span>`;
 
           // 同步左侧边栏勾选状态
           renderSidebar();
