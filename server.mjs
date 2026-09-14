@@ -1,6 +1,6 @@
 // 朝花夕拾 Web 服务：静态页面 + 卡片/报告/复习队列 API
 // vanilla Node，无构建步骤
-// 单实例假设：OAuth 会话存进程内存、配额/推送状态落盘 JSON；多实例部署或重启保活前需把会话外置（Redis/持久卷），见 HANDOFF.md
+// 单实例假设：OAuth 会话存进程内存；配额/订阅/卡册/快照等运行产物统一落 data/runtime/（Sealos 持久卷挂载点，见 HANDOFF.md）
 import http from 'node:http';
 import { timingSafeEqual } from 'node:crypto';
 import { readFile, readdir, writeFile, rename, appendFile } from 'node:fs/promises';
@@ -10,6 +10,7 @@ import { createOAuth } from './lib/oauth.mjs';
 import { computeReport } from './lib/report-core.mjs';
 import { createAsk } from './lib/ask.mjs';
 import { createMyCard } from './lib/mycard.mjs';
+import { migrateRuntime, runtimeDir } from './lib/runtime.mjs';
 import { cstDateStr, msUntilNextCst } from './lib/time.mjs';
 
 const root = path.dirname(fileURLToPath(import.meta.url));
@@ -62,6 +63,18 @@ async function loadCardsEnriched() {
   return cards;
 }
 
+// 匿名降敏（#43）：站主示例卡对匿名访客限量展示，并剥离原文链接/收藏时间/关注关系/头像
+// 卡片标题与拆解内容是产品 demo 主体，保留公开（#38 温和版的取舍不变）
+const ANON_CARD_LIMIT = 6;
+function sanitizeCardPublic(c) {
+  if (!c.source) return c;
+  delete c.source.url;
+  delete c.source.favTime;
+  delete c.source.authorFollowed;
+  delete c.source.authorAvatar;
+  return c;
+}
+
 // 复习队列：72h 新收藏 > 到期复习 > 老收藏补位，每日 min(3, 到期数)
 function buildQueue(cards) {
   const now = Math.floor(Date.now() / 1000);
@@ -83,9 +96,11 @@ const INTERVALS = [1 * DAY, 3 * DAY, 7 * DAY]; // 复习间隔：+1/+3/+7 天后
 // ---- Server酱每日推送 ----
 const SENDKEY = process.env.SCT_SENDKEY || '';
 const SITE_BASE = (process.env.SITE_BASE_URL || 'https://lnuhxmgreuxd.sealoshzh.site').replace(/\/+$/, '');
-const PUSH_STATE = path.join(root, 'data', 'push-state.json');
-const DEAD_LETTER = path.join(root, 'data', 'push-deadletter.jsonl');
-const SUBSCRIPTIONS = path.join(root, 'data', 'push-subscriptions.json');
+// 可变运行产物统一落 data/runtime/（Sealos 持久卷挂载点，发版不丢；lib/runtime.mjs）
+const RUNTIME = runtimeDir(root);
+const PUSH_STATE = path.join(RUNTIME, 'push-state.json');
+const DEAD_LETTER = path.join(RUNTIME, 'push-deadletter.jsonl');
+const SUBSCRIPTIONS = path.join(RUNTIME, 'push-subscriptions.json');
 const MAX_SUBSCRIPTIONS = 100; // 不含站长 env key
 
 // SendKey 是密钥：日志/死信只留前 8 位，完整值永不落日志
@@ -148,41 +163,77 @@ async function sendSctOnce(sendKey, title, desp) {
   } catch { return { ok: false, error: '测试推送网络失败，请稍后重试' }; }
 }
 
-// 选卡 → 组装 Server酱消息 → 先发站长 env key（行为不变），再逐个发订阅者（各自独立重试，单失败不中断）
-async function pushDailyCards(trigger = 'cron') {
-  const { today } = buildQueue(await loadCardsEnriched());
-  if (today.length === 0) { console.log('[push] 今日队列为空，跳过'); return { pushed: 0 }; }
-  const title = `朝花夕拾｜今日 ${today.length} 张复习卡`;
-  const desp = today.map((c, i) =>
+// 卡片列表 → Server酱消息体（站长通道与订阅者通道共用格式）
+function cardsMsg(cards) {
+  const title = `朝花夕拾｜今日 ${cards.length} 张复习卡`;
+  const desp = cards.map((c, i) =>
     `### ${i + 1}. 《${c.source.title}》\n\n${c.coreView}\n\n[趁还记得为什么收藏它，花 2 分钟看完 →](${SITE_BASE}/#${c.id})`
   ).join('\n\n---\n\n');
+  return { title, desp };
+}
 
-  const owner = await sendSct(SENDKEY, title, desp);
-  if (!owner.ok) {
-    const record = { at: new Date().toISOString(), trigger, error: owner.error, cards: today.map((c) => c.id) };
-    await appendFile(DEAD_LETTER, JSON.stringify(record) + '\n');
-    console.error('[push] 站长推送重试 3 次均失败，已记死信：', owner.error);
+// 站长通道推全站卡库今日队列；订阅者各推自己卡册（mycard 台账）的今日队列，无到期卡时发炼卡提醒。各自独立重试，单失败不中断
+async function pushDailyCards(trigger = 'cron') {
+  const siteToday = buildQueue(await loadCardsEnriched()).today;
+
+  // 站长通道：队列为空只跳过站长这一路，不挡订阅者的个人推送
+  let owner = { ok: true };
+  if (siteToday.length === 0) {
+    console.log('[push] 站长今日队列为空，跳过站长通道');
   } else {
-    console.log(`[push] 成功（${trigger}），${today.length} 张`);
+    const { title, desp } = cardsMsg(siteToday);
+    owner = await sendSct(SENDKEY, title, desp);
+    if (!owner.ok) {
+      const record = { at: new Date().toISOString(), trigger, error: owner.error, cards: siteToday.map((c) => c.id) };
+      await appendFile(DEAD_LETTER, JSON.stringify(record) + '\n');
+      console.error('[push] 站长推送重试 3 次均失败，已记死信：', owner.error);
+    } else {
+      console.log(`[push] 站长推送成功（${trigger}），${siteToday.length} 张`);
+    }
   }
 
-  // 订阅者推送：与站长同样的内容、同样的重试节奏；失败记死信（uid + sendKey 脱敏）
+  // 订阅者推送：每人独立组个人队列；卡册读取或发送失败都记死信（uid + sendKey 脱敏），不影响其他订阅者
   const subs = await readSubs();
   const entries = Object.entries(subs);
   let subOk = 0;
   let subFail = 0;
   for (const [uid, sub] of entries) {
-    const r = await sendSct(sub.sendKey, title, desp);
+    let msg;
+    let cardIds = [];
+    try {
+      const mine = buildQueue(await mycard.listCards(uid)).today;
+      if (mine.length > 0) {
+        msg = cardsMsg(mine);
+        cardIds = mine.map((c) => c.id);
+      } else {
+        msg = {
+          title: '朝花夕拾｜今天没有到期复习卡',
+          desp: `你的卡册里今天没有可复习的卡片（收藏库存可能已炼完）。\n\n[回网站看看，顺手刷新收藏库存 →](${SITE_BASE}/app.html#report)`,
+        };
+      }
+    } catch (e) {
+      subFail++;
+      const record = { at: new Date().toISOString(), trigger, uid, sendKey: maskKey(sub.sendKey), error: `读取个人卡册失败：${String(e?.message || e)}`, cards: [] };
+      await appendFile(DEAD_LETTER, JSON.stringify(record) + '\n');
+      console.error(`[push] 订阅者 ${uid}（${maskKey(sub.sendKey)}）个人卡册读取失败，已记死信：`, e);
+      continue;
+    }
+    const r = await sendSct(sub.sendKey, msg.title, msg.desp);
     if (r.ok) { subOk++; continue; }
     subFail++;
-    const record = { at: new Date().toISOString(), trigger, uid, sendKey: maskKey(sub.sendKey), error: r.error, cards: today.map((c) => c.id) };
+    const record = { at: new Date().toISOString(), trigger, uid, sendKey: maskKey(sub.sendKey), error: r.error, cards: cardIds };
     await appendFile(DEAD_LETTER, JSON.stringify(record) + '\n');
     console.error(`[push] 订阅者 ${uid}（${maskKey(sub.sendKey)}）推送失败，已记死信：`, r.error);
   }
   if (entries.length) console.log(`[push] 订阅者推送完成（${trigger}）：成功 ${subOk}，失败 ${subFail}`);
 
-  // 返回值只看站长结果：订阅者成败不影响 push-state.json 防重推落盘
-  return owner.ok ? { pushed: today.length, subs: { ok: subOk, fail: subFail } } : { pushed: 0, error: owner.error, subs: { ok: subOk, fail: subFail } };
+  // ownerOk 含「队列为空跳过」：当日已处理完毕，落盘防重启重推；只有站长通道真失败才留给下次重启重试
+  return {
+    pushed: owner.ok ? siteToday.length : 0,
+    ownerOk: owner.ok,
+    ...(owner.ok ? {} : { error: owner.error }),
+    subs: { ok: subOk, fail: subFail },
+  };
 }
 
 // cron 入口：每天只推一次（日期状态落盘，容器重启不重复推）
@@ -192,7 +243,8 @@ async function dailyPushJob() {
   const todayCst = cstDateStr();
   if (pushedDate === todayCst) { console.log('[push] 今日已推送过，跳过'); return; }
   const result = await pushDailyCards('cron');
-  if (result.pushed > 0) {
+  // ownerOk 即「当日已处理」（含站长队列为空）：落盘防重启重推订阅者；站长通道失败则不落盘，留待重启重试
+  if (result.ownerOk) {
     const tmp = PUSH_STATE + '.tmp';
     await writeFile(tmp, JSON.stringify({ date: todayCst, at: Date.now() }));
     await rename(tmp, PUSH_STATE);
@@ -207,6 +259,23 @@ function scheduleDailyPush() {
   };
   const wait = msUntilNext8AM();
   console.log(`[push] 每日 08:00（UTC+8）推送已调度，${Math.round(wait / 60000)} 分钟后首次触发`);
+  setTimeout(tick, wait);
+}
+
+// ---- 每日自动炼卡：07:00（UTC+8）给订阅用户从收藏快照炼新卡，赶在 08:00 推送前完工（实现见 lib/mycard.mjs autoMake）----
+async function autoMakeJob() {
+  const uids = Object.keys(await readSubs());
+  if (!uids.length) { console.log('[mycard] 无订阅用户，自动炼卡跳过'); return; }
+  await mycard.autoMake(uids);
+}
+
+function scheduleAutoMake() {
+  const tick = () => {
+    autoMakeJob().catch((e) => console.error('[mycard] 自动炼卡调度异常：', e));
+    setTimeout(tick, msUntilNextCst(7));
+  };
+  const wait = msUntilNextCst(7);
+  console.log(`[mycard] 每日 07:00（UTC+8）自动炼卡已调度，${Math.round(wait / 60000)} 分钟后首次触发`);
   setTimeout(tick, wait);
 }
 
@@ -301,6 +370,9 @@ const ROUTES = [
     method: 'GET', path: '/api/my/report', handler: async (req, res) => {
       try {
         const { items, meta } = await oauth.fetchMyFavorites(req, res);
+        // 顺手刷新收藏快照（每日自动炼卡的原料）；失败不影响报告
+        const uid = oauth.currentUid(req, res);
+        if (uid) mycard.saveFavSnapshot(uid, items).catch((e) => console.warn('[mycard] 收藏快照保存失败：', e.message));
         return json(res, { ok: true, meta, report: computeReport(items) });
       } catch (e) {
         if (e.code === 'LOGIN_REQUIRED' || e.code === 'ACCESS_SECRET_MISSING') throw e; // 交分发层统一映射
@@ -315,7 +387,12 @@ const ROUTES = [
     method: 'POST', path: '/api/my/card', handler: async (req, res) => {
       const uid = oauth.currentUid(req, res);
       if (!uid) return json(res, { ok: false, error: 'loginRequired', loginRequired: true }, 401);
-      const r = await mycard.start(uid, () => oauth.fetchMyFavorites(req, res));
+      const r = await mycard.start(uid, async () => {
+        const favs = await oauth.fetchMyFavorites(req, res);
+        // 顺手刷新收藏快照；失败不影响炼卡
+        mycard.saveFavSnapshot(uid, favs.items).catch((e) => console.warn('[mycard] 收藏快照保存失败：', e.message));
+        return favs;
+      });
       return json(res, r.body, r.code);
     },
   },
@@ -399,9 +476,9 @@ const ROUTES = [
       const filtered = status ? cards.filter((c) => c.status === status) : cards;
       // 全员盲审 5 分，分数排序无信息量，改按收藏时间倒序
       filtered.sort((a, b) => (b.source?.favTime ?? 0) - (a.source?.favTime ?? 0));
-      // 匿名访客不下发关注关系与头像（社交关系隐私，issue #38）
+      // 匿名访客：限量示例 + 剥离收藏时间/原文链接/关注关系（#43）；total 仍为全量数
       if (!oauth.currentUid(req, res)) {
-        for (const c of filtered) if (c.source) { delete c.source.authorFollowed; delete c.source.authorAvatar; }
+        return json(res, { total: filtered.length, cards: filtered.slice(0, ANON_CARD_LIMIT).map(sanitizeCardPublic), sanitized: true });
       }
       return json(res, { total: filtered.length, cards: filtered });
     },
@@ -416,7 +493,7 @@ const ROUTES = [
       }
       const queue = buildQueue(await loadCardsEnriched());
       if (!oauth.currentUid(req, res)) {
-        for (const c of [...queue.today, ...queue.upNext]) if (c.source) { delete c.source.authorFollowed; delete c.source.authorAvatar; }
+        for (const c of [...queue.today, ...queue.upNext]) sanitizeCardPublic(c);
         delete queue.stats.followed;
       }
       return json(res, queue);
@@ -459,7 +536,7 @@ const ROUTES = [
     },
   },
 
-  // ---- 微信订阅推送：知乎登录用户绑自己的 Server酱 SendKey，每日 08:00 随站长推送收到同样的 3 张卡 ----
+  // ---- 微信订阅推送：知乎登录用户绑自己的 Server酱 SendKey；每日 07:00 自动从收藏快照炼新卡，08:00 推自己卡册的到期复习卡 ----
   {
     method: 'GET', path: '/api/push/subscription', handler: async (req, res) => {
       const uid = oauth.currentUid(req, res);
@@ -488,7 +565,7 @@ const ROUTES = [
       });
       if (precheck.full) return json(res, { ok: false, error: '订阅名额已满（100）' }, 429);
       // 先验后写：测试推送通过才入库，失败透传 Server酱 errormsg
-      const test = await sendSctOnce(sendKey, '朝花夕拾 · 订阅成功', '订阅成功！每日 08:00（UTC+8）你将收到 3 张复习卡片的微信推送。');
+      const test = await sendSctOnce(sendKey, '朝花夕拾 · 订阅成功', '订阅成功！每天自动把你的收藏炼成新卡；每日 08:00（UTC+8）微信推送你卡册里的到期复习卡（最多 3 张）。');
       if (!test.ok) return json(res, { ok: false, error: `测试推送失败：${test.error}` }, 422);
       const written = await withSubsLock(async () => {
         const subs = await readSubs();
@@ -499,6 +576,10 @@ const ROUTES = [
       });
       if (!written) return json(res, { ok: false, error: '订阅名额已满（100）' }, 429);
       console.log(`[push] 新订阅 ${uid}（${maskKey(sendKey)}）`);
+      // 订阅即建收藏快照，明早自动炼卡就有米下锅；拉取/保存失败不影响订阅本身
+      oauth.fetchMyFavorites(req, res)
+        .then(({ items }) => mycard.saveFavSnapshot(uid, items))
+        .catch((e) => console.warn('[mycard] 订阅时收藏快照失败（不影响订阅）：', e.message));
       return json(res, { ok: true });
     },
   },
@@ -544,4 +625,6 @@ const server = http.createServer(async (req, res) => {
 });
 
 server.listen(PORT, () => console.log(`朝花夕拾 → http://127.0.0.1:${PORT}/`));
+await migrateRuntime(root); // 老位置运行产物搬进 data/runtime/，再开调度（防调度先跑读空台账）
+scheduleAutoMake();
 scheduleDailyPush();

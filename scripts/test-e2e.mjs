@@ -213,20 +213,34 @@ try {
     }
   });
 
-  await test('/api/cards：响应结构 + favTime 倒序 + status 过滤', async () => {
+  await test('/api/cards：匿名降敏——限量 6 张、剥离 url/favTime/关注关系（#43）', async () => {
     const r = await get('/api/cards');
     eq(r.status, 200, '状态码');
     const body = await r.json();
     eq(typeof body.total, 'number', 'total 类型');
     if (!Array.isArray(body.cards)) throw new Error('cards 不是数组');
-    eq(body.total, body.cards.length, 'total 与 cards 长度一致');
-    for (let i = 1; i < body.cards.length; i++) {
-      const prev = body.cards[i - 1].source?.favTime ?? 0;
-      const cur = body.cards[i].source?.favTime ?? 0;
-      if (cur > prev) throw new Error('cards 未按 favTime 倒序');
+    if (body.cards.length > 6) throw new Error(`匿名下发超过 6 张：${body.cards.length}`);
+    if (!(body.total >= body.cards.length)) throw new Error('total 小于 cards 长度');
+    eq(body.sanitized, true, 'sanitized 标记');
+    for (const c of body.cards) {
+      if (!c.source) continue;
+      for (const k of ['url', 'favTime', 'authorFollowed', 'authorAvatar']) {
+        if (k in c.source) throw new Error(`匿名响应仍含 source.${k}`);
+      }
     }
     const filtered = await (await get('/api/cards?status=approved')).json();
     if (filtered.cards.some((c) => c.status !== 'approved')) throw new Error('status=approved 过滤混入其他状态');
+  });
+
+  await test('/api/queue：匿名降敏——剥离 url/favTime/关注关系与 followed 统计（#43）', async () => {
+    const body = await (await get('/api/queue')).json();
+    for (const c of [...(body.today || []), ...(body.upNext || [])]) {
+      if (!c.source) continue;
+      for (const k of ['url', 'favTime', 'authorFollowed', 'authorAvatar']) {
+        if (k in c.source) throw new Error(`匿名队列仍含 source.${k}`);
+      }
+    }
+    if (body.stats && 'followed' in body.stats) throw new Error('匿名队列 stats 仍含 followed');
   });
 
   await test('/api/cards：不下发 reviewDetail，保留 reviewScore（#35）', async () => {
@@ -406,7 +420,7 @@ try {
       await mc.start('u_b', favs);
       eq((await waitJob(mc, 'u_b')).status, 'done', '失败后重试成功');
       // 直答台账阈值：count=90 时新内容（无缓存）任务失败且不发出请求
-      const quotaPath = path.join(unitRoot, 'data', 'quota');
+      const quotaPath = path.join(unitRoot, 'data', 'runtime', 'quota');
       const today = JSON.parse(await readFile(path.join(quotaPath, `${new Date(Date.now() + 8 * 3600 * 1000).toISOString().slice(0, 10)}.json`), 'utf8'));
       today.count = 90;
       await import('node:fs/promises').then((fs) => fs.writeFile(path.join(quotaPath, `${today.date}.json`), JSON.stringify(today)));
@@ -468,11 +482,11 @@ try {
       }
       throw new Error('任务 5s 内未完成');
     };
-    const quotaToday = async () => JSON.parse(await readFile(path.join(unitRoot, 'data', 'quota', `${new Date(Date.now() + 8 * 3600 * 1000).toISOString().slice(0, 10)}.json`), 'utf8'));
+    const quotaToday = async () => JSON.parse(await readFile(path.join(unitRoot, 'data', 'runtime', 'quota', `${new Date(Date.now() + 8 * 3600 * 1000).toISOString().slice(0, 10)}.json`), 'utf8'));
     try {
       const mc = createMyCard(unitRoot);
       // #38：昨天的落盘 done 记录不得阻挡今天（日期闸门），可重新发起
-      const mycardsDir = path.join(unitRoot, 'data', 'cache', 'mycards');
+      const mycardsDir = path.join(unitRoot, 'data', 'runtime', 'mycards');
       await mkdir(mycardsDir, { recursive: true });
       await writeFile(path.join(mycardsDir, `${encodeURIComponent('u_stale')}.json`), JSON.stringify({
         date: '2000-01-01', uid: 'u_stale', status: 'done', card: { id: 'card_old' }, source: { title: '旧卡' }, finishedAt: 0,
@@ -532,6 +546,139 @@ try {
         if (saved[k] === undefined) delete process.env[k];
         else process.env[k] = saved[k];
       }
+      await rm(unitRoot, { recursive: true, force: true, maxRetries: 5, retryDelay: 200 });
+    }
+  });
+
+  // 自动炼卡单元（lib/mycard.autoMake + 收藏快照）：快照存取 / 每用户 3 张 / via=auto 不挡手动 / 去重与 tried 标记
+  await test('自动炼卡单元（lib/mycard）：快照 / 每用户 3 张上限 / 手动入口不受 auto 影响 / exhausted / tried 3 天免重试', async () => {
+    const { createMyCard } = await import(new URL('../lib/mycard.mjs', import.meta.url));
+    const unitRoot = await mkdtemp(path.join(tmpdir(), 'zhsx-mycard-auto-'));
+    const realFetch = globalThis.fetch;
+    const saved = {};
+    for (const k of ['ZHIHU_ACCESS_SECRET', 'GEMINI_BASE_URL', 'GEMINI_API_KEY']) {
+      saved[k] = process.env[k];
+    }
+    process.env.ZHIHU_ACCESS_SECRET = 'e2e-fake-secret';
+    process.env.GEMINI_BASE_URL = 'http://fake-gemini';
+    process.env.GEMINI_API_KEY = 'e2e-fake-key';
+    let zhidaCalls = 0;
+    const cardJson = JSON.stringify({
+      coreView: '核心观点', thread: [{ step: 's1', detail: 'd1' }, { step: 's2', detail: 'd2' }, { step: 's3', detail: 'd3' }],
+      keyInsight: '', points: ['p1', 'p2', 'p3'], quote: '金句', difficulty: 'easy', topicTags: ['测试'],
+    });
+    globalThis.fetch = async (url, opts) => {
+      if (String(url).includes('developer.zhihu.com')) {
+        zhidaCalls++;
+        return { ok: true, status: 200, json: async () => ({ choices: [{ message: { content: '拆解原文' } }], model: 'zhida-thinking-1p5' }) };
+      }
+      const prompt = JSON.parse(opts.body).messages[0].content;
+      const out = prompt.includes('盲审考官')
+        ? { faithful: true, unsupportedClaims: [], coreCovered: true, missingCore: [], score: 5, comment: '忠实' }
+        : JSON.parse(cardJson);
+      return { ok: true, json: async () => ({ choices: [{ message: { content: JSON.stringify(out) } }] }) };
+    };
+    const nowSec = Math.floor(Date.now() / 1000);
+    const todayCst = new Date(Date.now() + 8 * 3600 * 1000).toISOString().slice(0, 10);
+    const fav = (n, over = {}) => ({ ContentType: 'answer', Url: `https://www.zhihu.com/answer/${n}`, Title: `问题${n}？`, FavTime: nowSec, Author: { Name: 'T' }, LikeCount: 1, ...over });
+    const waitJob = async (mc, uid) => {
+      for (let i = 0; i < 200; i++) {
+        const s = await mc.statusFor(uid);
+        if (s.status === 'done' || s.status === 'failed') return s;
+        await new Promise((r) => setTimeout(r, 25));
+      }
+      throw new Error('任务 5s 内未完成');
+    };
+    try {
+      const mc = createMyCard(unitRoot);
+      // 快照：保存 → 读回；再次保存保留 tried 标记
+      await mc.saveFavSnapshot('u_auto', [fav(1001), fav(1002), fav(1003), fav(1004)]);
+      eq((await mc.readFavSnapshot('u_auto')).items.length, 4, '快照读回 4 条');
+      eq(await mc.readFavSnapshot('u_nosnap'), null, '无快照返回 null');
+
+      // 自动炼卡：4 条候选但每用户每日 3 张 → 成 3、user_cap；直答烧 3 次
+      const r1 = await mc.autoMake(['u_auto', 'u_nosnap']);
+      eq(r1.ok, true, 'autoMake ok');
+      eq(r1.made, 3, '自动炼成 3 张');
+      eq(r1.users.u_auto, 'user_cap', '第 4 条被每用户上限拦下');
+      eq(r1.users.u_nosnap, 'no_snapshot', '无快照用户跳过');
+      eq(zhidaCalls, 3, '直答调用 3 次');
+      eq((await mc.listCards('u_auto')).length, 3, '卡册累积 3 张');
+
+      // via=auto：落盘记录标 auto；不当「今日已炼」——statusFor 仍 idle，手动入口可炼且只挑没炼过的第 4 条
+      const recAuto = JSON.parse(await readFile(path.join(unitRoot, 'data', 'runtime', 'mycards', `${encodeURIComponent('u_auto')}.json`), 'utf8'));
+      eq(recAuto.via, 'auto', '落盘 via=auto');
+      eq((await mc.statusFor('u_auto')).status, 'idle', 'auto 产物不挡手动入口');
+      const manual = await mc.start('u_auto', async () => ({ items: [fav(1001), fav(1002), fav(1003), fav(1004)] }));
+      eq(manual.code, 200, '手动发起状态码');
+      const manualDone = await waitJob(mc, 'u_auto');
+      eq(manualDone.status, 'done', '手动炼卡完成');
+      eq(manualDone.card.source.url, 'https://www.zhihu.com/answer/1004', '手动只挑未炼过的收藏');
+      eq(zhidaCalls, 4, '手动新内容再烧 1 次直答');
+      const recManual = JSON.parse(await readFile(path.join(unitRoot, 'data', 'runtime', 'mycards', `${encodeURIComponent('u_auto')}.json`), 'utf8'));
+      eq(recManual.via, 'manual', '手动落盘 via=manual');
+      eq((await mc.statusFor('u_auto')).status, 'done', '手动成功后恢复今日闸门');
+
+      // 快照重存保留 tried；新快照里都是已炼条目 → 去重后不烧额度
+      await mc.saveFavSnapshot('u_auto', [fav(1001), fav(1002)]);
+      const snap2 = await mc.readFavSnapshot('u_auto');
+      eq(snap2.items.length, 2, '快照更新为新列表');
+      eq(Object.keys(snap2.tried).length >= 3, true, 'tried 标记保留');
+      const r2 = await mc.autoMake(['u_auto']);
+      eq(r2.made, 0, '当天再跑不再炼');
+      eq(r2.users.u_auto, 'exhausted', '已炼条目被卡册历史去重');
+      eq(zhidaCalls, 4, '重复跑未烧直答');
+
+      // exhausted：快照里唯一收藏已在该用户自己的卡册历史 → 跳过（预写 u_tired 的历史卡册）
+      const mycardsDir = path.join(unitRoot, 'data', 'runtime', 'mycards');
+      await mkdir(mycardsDir, { recursive: true });
+      await writeFile(path.join(mycardsDir, `${encodeURIComponent('u_tired')}.json`), JSON.stringify({
+        date: '2000-01-01', uid: 'u_tired', status: 'done', via: 'manual',
+        card: { id: 'card_answer_3001', source: { url: 'https://www.zhihu.com/answer/3001' } },
+        cards: [{ id: 'card_answer_3001', status: 'approved', source: { url: 'https://www.zhihu.com/answer/3001' } }],
+        finishedAt: 0,
+      }));
+      await mc.saveFavSnapshot('u_tired', [fav(3001)]);
+      const r3 = await mc.autoMake(['u_tired']);
+      eq(r3.users.u_tired, 'exhausted', '库存耗尽跳过');
+
+      // tried 窗口：今天试过的跳过，3 天前试过的允许重试（u_retry 快照手写 tried）
+      const favsDir = path.join(unitRoot, 'data', 'runtime', 'favs');
+      await mkdir(favsDir, { recursive: true });
+      await writeFile(path.join(favsDir, `${encodeURIComponent('u_retry')}.json`), JSON.stringify({
+        uid: 'u_retry', savedAt: Date.now(), items: [fav(2001), fav(2002)],
+        tried: { answer_2001: todayCst, answer_2002: '2000-01-01' },
+      }));
+      const r4 = await mc.autoMake(['u_retry']);
+      eq(r4.made, 1, '仅旧 tried 允许重试');
+      eq((await mc.listCards('u_retry'))[0].source.url, 'https://www.zhihu.com/answer/2002', '重试命中旧 tried 条目');
+      eq(zhidaCalls, 5, '仅多烧 1 次直答');
+    } finally {
+      globalThis.fetch = realFetch;
+      for (const k of Object.keys(saved)) {
+        if (saved[k] === undefined) delete process.env[k];
+        else process.env[k] = saved[k];
+      }
+      await rm(unitRoot, { recursive: true, force: true, maxRetries: 5, retryDelay: 200 });
+    }
+  });
+
+  // 运行产物迁移：老位置文件搬进 data/runtime/（目标已存在则不覆盖）
+  await test('runtime 迁移（lib/runtime）：老位置 → data/runtime/，已有目标不覆盖', async () => {
+    const { migrateRuntime } = await import(new URL('../lib/runtime.mjs', import.meta.url));
+    const unitRoot = await mkdtemp(path.join(tmpdir(), 'zhsx-runtime-'));
+    try {
+      await mkdir(path.join(unitRoot, 'data', 'quota'), { recursive: true });
+      await writeFile(path.join(unitRoot, 'data', 'quota', '2026-01-01.json'), '{"count":7}');
+      await writeFile(path.join(unitRoot, 'data', 'push-subscriptions.json'), '{"u_1":{}}');
+      await migrateRuntime(unitRoot);
+      eq(JSON.parse(await readFile(path.join(unitRoot, 'data', 'runtime', 'quota', '2026-01-01.json'), 'utf8')).count, 7, 'quota 目录迁移');
+      eq(typeof JSON.parse(await readFile(path.join(unitRoot, 'data', 'runtime', 'push-subscriptions.json'), 'utf8')).u_1, 'object', '订阅台账迁移');
+      await writeFile(path.join(unitRoot, 'data', 'push-state.json'), '{"date":"old"}');
+      await writeFile(path.join(unitRoot, 'data', 'runtime', 'push-state.json'), '{"date":"new"}');
+      await migrateRuntime(unitRoot);
+      eq(JSON.parse(await readFile(path.join(unitRoot, 'data', 'runtime', 'push-state.json'), 'utf8')).date, 'new', '已有目标不覆盖');
+    } finally {
       await rm(unitRoot, { recursive: true, force: true, maxRetries: 5, retryDelay: 200 });
     }
   });

@@ -71,6 +71,9 @@ function cardHtml(c, { reviewable = false, isDone = false, sourceBadge = '知乎
   const author = c.source?.authorName
     ? `${c.source.authorFollowed && c.source.authorAvatar ? `<img class="author-avatar" src="${esc(c.source.authorAvatar)}" alt="" referrerpolicy="no-referrer">` : ''}<span>作者 · ${esc(c.source.authorName)}</span>${c.source.authorFollowed ? '<span class="badge badge-follow">已关注</span>' : ''}`
     : '';
+  // 匿名降敏（#43）：服务端不下发 url/favTime，标题渲染为纯文本、不显示收藏日期
+  const sourceTip = `AI 拆解综合了该问题下多篇高赞回答，不局限于你收藏的这条${c.source?.url ? '；点击标题链接阅读你收藏的原回答' : ''}`;
+  const metaParts = [author, favDate ? `收藏于 ${favDate}` : ''].filter(Boolean);
 
   return `
   <article class="card-paper p-6 mb-5 fade-in relative" data-card-id="${esc(c.id)}">
@@ -82,7 +85,7 @@ function cardHtml(c, { reviewable = false, isDone = false, sourceBadge = '知乎
     <div class="specimen-header">
       <div class="flex items-center gap-2">
         <span class="font-mono text-[11px] font-semibold text-stone-500 tracking-wider">${displayId}</span>
-        <span class="badge badge-source" title="AI 拆解综合了该问题下多篇高赞回答，不局限于你收藏的这条；点击标题链接阅读你收藏的原回答">${esc(sourceBadge)}</span>
+        <span class="badge badge-source" title="${esc(sourceTip)}">${esc(sourceBadge)}</span>
       </div>
       <div class="flex items-center gap-2">
         <span class="badge ${diffCls}">${diffText}</span>
@@ -92,16 +95,18 @@ function cardHtml(c, { reviewable = false, isDone = false, sourceBadge = '知乎
 
     <!-- 标题与出处 -->
     <h3 class="font-serif-display text-2xl md:text-3xl font-bold leading-snug mb-2 text-stone-900">
-      <a class="hover-cin transition-colors inline-flex items-start gap-1" href="${esc(c.source?.url)}" target="_blank" rel="noopener">
-        <span>${esc(c.source?.title)}</span>
-        <span class="text-xs text-cin font-sans mt-1 opacity-75">↗</span>
-      </a>
+      ${c.source?.url
+        ? `<a class="hover-brand transition-colors inline-flex items-start gap-1" href="${esc(c.source.url)}" target="_blank" rel="noopener">
+            <span>${esc(c.source?.title)}</span>
+            <span class="text-xs text-brand font-sans mt-1 opacity-75">↗</span>
+          </a>`
+        : `<span>${esc(c.source?.title)}</span>`}
     </h3>
 
+    ${metaParts.length ? `
     <div class="flex items-center gap-2 text-xs text-stone-400 mb-4 pb-2 border-b border-stone-100">
-      ${author ? `<span>${author}</span><span>·</span>` : ''}
-      <span>收藏于 ${favDate}</span>
-    </div>
+      ${metaParts.map((p) => `<span>${p}</span>`).join('<span>·</span>')}
+    </div>` : ''}
 
     <!-- 核心立论 -->
     <div class="thesis-box">
@@ -188,8 +193,8 @@ function renderOAuthSlot() {
       </div>`;
   } else if (o?.configured !== false) {
     slot.innerHTML = `
-      <a href="/auth/login" class="inline-flex items-center gap-1.5 text-xs bg-[#1f1d1a] text-white rounded-full px-3.5 py-1.5 hover:bg-black transition-colors shadow-sm">
-        <span>知乎登录</span>
+      <a href="/auth/login" class="inline-flex items-center gap-1.5 rounded-full px-4 py-1.5 text-xs sm:px-5 sm:py-2 sm:text-sm font-semibold text-white bg-[#056de8] hover:bg-[#0459c4] transition-all shadow-md hover:shadow-lg hover:-translate-y-px whitespace-nowrap shrink-0">
+        知乎登录
       </a>`;
   }
 }
@@ -286,7 +291,7 @@ function renderSidebar() {
         <div class="text-xs font-bold text-stone-900 truncate">拾花人工作台</div>
         <div class="text-[10px] text-stone-400 mt-0.5">趁你的收藏还没凉透</div>
       </div>
-      <span class="text-[10px] bg-amber-50 text-amber-800 border border-amber-200/80 px-2 py-0.5 rounded-full font-mono font-medium">72h</span>
+      <span class="text-[10px] bg-emerald-50 text-emerald-800 border border-emerald-200/80 px-2 py-0.5 rounded-full font-mono font-medium">72h</span>
     </div>
 
     <!-- 分组 1：今日复习队列 -->
@@ -303,7 +308,7 @@ function renderSidebar() {
           return `
           <button class="sidebar-nav-item ${isActive ? 'active' : ''} ${isDone ? 'is-done' : ''}" onclick="window.selectQueueCard('${esc(c.id)}')">
             <div class="flex items-center gap-2 min-w-0 flex-1 pr-1">
-              <span class="text-xs shrink-0 ${isDone ? 'text-emerald-600 font-bold' : isActive ? 'text-cin font-bold' : 'text-stone-400'}">
+              <span class="text-xs shrink-0 ${isDone ? 'text-emerald-600 font-bold' : isActive ? 'text-brand font-bold' : 'text-stone-400'}">
                 ${isDone ? '✓' : (i + 1)}
               </span>
               <span class="truncate text-xs">${esc(c.source?.title)}</span>
@@ -418,7 +423,7 @@ function renderReportInStage(el, r) {
     ${r.persona ? `
     <div class="card-paper persona-hero p-7 mb-5 text-center fade-in">
       <div class="text-xs text-stone-400 mb-1.5 tracking-widest uppercase font-mono">Your Collection Persona</div>
-      <div class="font-serif-display text-3xl font-bold text-cin mb-2">${esc(r.persona.type)}</div>
+      <div class="font-serif-display text-3xl font-bold text-brand mb-2">${esc(r.persona.type)}</div>
       <p class="text-xs text-stone-600 max-w-md mx-auto leading-relaxed">${esc(r.persona.description)}</p>
     </div>` : ''}
 
@@ -453,7 +458,7 @@ function renderReportInStage(el, r) {
     ${r.oldestItem ? `
     <div class="card-paper p-5 mb-5">
       <h3 class="section-head text-sm mb-2">最老的一条收藏</h3>
-      <a class="text-cin hover:underline text-sm font-medium" href="${esc(r.oldestItem.url)}" target="_blank" rel="noopener">${esc(r.oldestItem.title)}</a>
+      <a class="text-brand hover:underline text-sm font-medium" href="${esc(r.oldestItem.url)}" target="_blank" rel="noopener">${esc(r.oldestItem.title)}</a>
       <div class="text-xs text-stone-400 mt-1">收藏于 ${r.oldestItem.favDate}，已经静静躺了 ${Math.round(r.oldestItem.ageDays / 365)} 年</div>
     </div>` : ''}
   `;
@@ -479,14 +484,20 @@ function renderStage() {
     }
 
     if (!currentCard) {
-      stage.innerHTML = appState.scope === 'mine'
-        ? `<div class="card-paper p-8 text-center fade-in">
+      // 登录但还没有卡：空态直接内联炼卡入口（复用报告页的炼卡卡片位 + 轮询绑定），不再让用户跳转考古报告
+      if (appState.scope === 'mine') {
+        fetchMyCardStatus();
+        stage.innerHTML = `
+          <div class="card-paper p-8 text-center fade-in mb-5">
             <div class="text-3xl mb-2">🌱</div>
             <p class="text-stone-700 text-sm font-medium mb-1">你还没有自己的卡片</p>
-            <p class="text-stone-400 text-xs mb-4">去「考古报告」现场炼卡，把你最新的收藏炼成第一张 2 分钟卡片。</p>
-            <button class="btn-ink px-4 py-2 text-sm" onclick="window.selectTab('report')">去现场炼卡</button>
-          </div>`
-        : `<div class="card-paper p-8 text-center text-stone-400">队列为空，去「知识空间」选择卡片复习吧。</div>`;
+            <p class="text-stone-400 text-xs">点下面按钮，把你最新的收藏现场炼成第一张 2 分钟卡片。</p>
+          </div>
+          ${myCardSlotHtml()}`;
+        bindMyCardSlot(stage);
+        return;
+      }
+      stage.innerHTML = `<div class="card-paper p-8 text-center text-stone-400">队列为空，去「知识空间」选择卡片复习吧。</div>`;
       return;
     }
 
@@ -496,6 +507,13 @@ function renderStage() {
     const cleanId = String(currentCard.id || '').replace(/^card_/, '');
 
     stage.innerHTML = `
+      <!-- 未登录示例提示：站长内容明确标注，防访客误以为是自己的数据 -->
+      ${appState.scope === 'site' ? `
+      <div class="card-paper p-4 mb-5 fade-in border-amber-200/80 bg-amber-50/60 flex items-center justify-between gap-3 flex-wrap">
+        <p class="text-xs text-stone-600 leading-relaxed"><span class="font-medium text-stone-800">你正在浏览站主的示例收藏。</span>登录知乎后，这里会变成你自己的复习队列——你的收藏被炼成卡片，每天早上微信提醒你复习。</p>
+        <a href="/auth/login" class="inline-flex items-center rounded-full px-4 py-1.5 text-xs font-semibold text-white bg-[#056de8] hover:bg-[#0459c4] transition-colors shadow-sm shrink-0">知乎登录</a>
+      </div>` : ''}
+
       <!-- 展台顶部面包屑与切换条 (对齐图二) -->
       <div class="stage-header-bar fade-in">
         <div class="flex items-center gap-2 text-xs text-stone-500 min-w-0">
@@ -522,7 +540,7 @@ function renderStage() {
 
       <!-- 今日拾完庆祝横幅 -->
       ${queue.length && queue.every(c => doneIds.includes(c.id)) ? `
-      <div class="card-paper p-5 mb-5 text-center fade-in bg-gradient-to-r from-amber-50/50 to-orange-50/50 border-amber-200/80">
+      <div class="card-paper p-5 mb-5 text-center fade-in bg-gradient-to-r from-emerald-50/50 to-emerald-100/50 border-emerald-200/80">
         <div class="text-3xl mb-1.5 celebrate-flower">🌸</div>
         <div class="font-bold text-stone-900 text-sm">今日的花已全部拾完</div>
         <p class="text-xs text-stone-500 mt-1">${appState.scope === 'mine' ? '明天还能再炼一张新卡，趁热消化。' : '明早 8:00 微信准时推送新卡片，趁热消化。'}</p>
@@ -610,6 +628,7 @@ function renderStage() {
           <h2 class="text-base font-bold text-stone-900 tracking-tight flex items-center gap-2">
             <span>${currentDomainTitle}</span>
             <span class="text-[11px] font-normal text-stone-400 bg-white border border-stone-200 px-2 py-0.5 rounded-full font-mono">${cards.length} 张便签</span>
+            ${appState.allCards?.sanitized ? '<span class="text-[10px] font-normal text-stone-400 bg-white border border-stone-200 px-2 py-0.5 rounded-full font-mono">公开示例已脱敏</span>' : ''}
           </h2>
         </div>
         <div class="flex items-center gap-2">
@@ -622,6 +641,8 @@ function renderStage() {
       <div id="cards-content-area">
         ${appState.cardViewMode === 'whiteboard' ? whiteboardHtml(cards) : `<div class="stagger">${cards.map(c => cardHtml(c)).join('')}</div>`}
       </div>
+      ${appState.allCards?.sanitized ? `
+      <p class="text-center text-[11px] text-stone-400 mt-4 mb-6 fade-in">公开预览仅展示部分示例便签，收藏时间、原文链接与关注关系已脱敏。</p>` : ''}
     `;
 
     // 白板模式是摘要视图，跳过 KaTeX 全量扫描；列表模式才渲染公式
@@ -653,12 +674,12 @@ function pushSubCardHtml() {
       <h3 class="section-head text-sm mb-2">🔔 微信提醒</h3>
       ${sub?.subscribed ? `
       <div class="flex items-center justify-between flex-wrap gap-2">
-        <p class="text-xs text-emerald-700">✓ 已订阅每日微信提醒（每日 08:00，3 张复习卡片）</p>
+        <p class="text-xs text-emerald-700">✓ 已订阅每日微信提醒（每天自动炼新卡，08:00 推送你卡册的到期复习卡）</p>
         <button id="push-unsub-btn" class="px-3 py-1.5 text-xs rounded-lg border border-stone-300 text-stone-500 hover:bg-stone-50 transition-colors shrink-0">退订</button>
       </div>` : `
-      <p class="text-xs text-stone-500 mb-3 leading-relaxed">订阅后每日 08:00 微信收到 3 张复习卡片。需要先去 <a class="text-cin hover:underline" href="https://sct.ftqq.com" target="_blank" rel="noopener">sct.ftqq.com</a> 微信扫码登录，获取自己的 SendKey。</p>
+      <p class="text-xs text-stone-500 mb-3 leading-relaxed">订阅后每天自动把你的收藏炼成新卡，每日 08:00 微信收到你卡册里的到期复习卡（最多 3 张）。需要先去 <a class="text-brand hover:underline" href="https://sct.ftqq.com" target="_blank" rel="noopener">sct.ftqq.com</a> 微信扫码登录，获取自己的 SendKey。</p>
       <div class="flex gap-2 flex-wrap">
-        <input id="push-key-input" type="text" maxlength="128" autocomplete="off" placeholder="粘贴你的 SendKey（SCT 开头）" class="flex-1 min-w-0 text-sm px-3 py-2 rounded-lg border border-stone-200 bg-white/80 focus:outline-none focus:border-amber-400 transition-colors">
+        <input id="push-key-input" type="text" maxlength="128" autocomplete="off" placeholder="粘贴你的 SendKey（SCT 开头）" class="flex-1 min-w-0 text-sm px-3 py-2 rounded-lg border border-stone-200 bg-white/80 focus:outline-none focus:border-emerald-400 transition-colors">
         <button id="push-sub-btn" class="btn-ink px-4 py-2 text-sm shrink-0">订阅并测试</button>
       </div>`}
       <p id="push-sub-msg" class="text-xs mt-2 hidden"></p>
@@ -761,7 +782,7 @@ function myCardSlotHtml() {
     return `
       <h3 class="section-head text-sm mb-3 fade-in">✨ 我的第一张卡片</h3>
       ${cardHtml(mc.card, { sourceBadge: '拆解自该问题下的优质讨论' })}
-      <p class="text-[11px] text-stone-400 mb-5 -mt-3 fade-in">拆解自你${src.pickedFrom72h ? ' 72 小时内最新' : '最新'}收藏的《<a class="text-cin hover:underline" href="${esc(src.url)}" target="_blank" rel="noopener">${esc(src.title)}</a>》${mc.card.reviewScore >= 5 ? '，已通过盲审' : ''}。每天限 1 张，明天还能再来。</p>`;
+      <p class="text-[11px] text-stone-400 mb-5 -mt-3 fade-in">拆解自你${src.pickedFrom72h ? ' 72 小时内最新' : '最新'}收藏的《<a class="text-brand hover:underline" href="${esc(src.url)}" target="_blank" rel="noopener">${esc(src.title)}</a>》${mc.card.reviewScore >= 5 ? '，已通过盲审' : ''}。每天限 1 张，明天还能再来。</p>`;
   }
   // 进行中：分阶段进度
   if (MYCARD_RUNNING.includes(mc.status)) {
@@ -771,7 +792,7 @@ function myCardSlotHtml() {
     const STAGE_ICON = { done: '✓', current: '⏳', todo: '·' };
     const stageState = (i) => (i < idx ? 'done' : i === idx ? 'current' : 'todo');
     return `
-      <div class="card-paper p-6 mb-5 fade-in border-amber-200/80">
+      <div class="card-paper p-6 mb-5 fade-in border-emerald-200/80">
         <h3 class="section-head text-sm mb-1">✨ 正在现场炼卡</h3>
         <p class="text-[11px] text-stone-400 mb-4">对象：你${mc.source?.pickedFrom72h ? ' 72 小时内最新' : '最新'}的收藏《${esc(mc.source?.title || '')}》</p>
         <div class="space-y-2.5">
@@ -805,7 +826,7 @@ function myCardSlotHtml() {
   // 发起即被拒：名额满（429）/ 无收藏（422）/ 其他错误
   if (mc.status === 'rejected-msg') {
     return `
-      <div class="card-paper p-6 mb-5 text-center fade-in border-amber-200/80 bg-amber-50/40">
+      <div class="card-paper p-6 mb-5 text-center fade-in border-emerald-200/80 bg-emerald-50/40">
         <p class="text-sm text-stone-600 mb-1">${esc(mc.error)}</p>
         ${mc.quotaExceeded ? '<p class="text-[11px] text-stone-400">全站每天限 20 张，先到先得，明天 0 点重置</p>' : ''}
         ${!mc.quotaExceeded && !mc.noFavorites ? '<button id="mycard-refresh-btn" class="btn-ink px-4 py-2 text-sm mt-3">重试</button>' : ''}
@@ -816,12 +837,12 @@ function myCardSlotHtml() {
   const cap = mc.quota?.cap ?? 20;
   const full = used >= cap;
   return `
-    <div class="card-paper p-6 mb-5 fade-in border-amber-200/80 bg-gradient-to-br from-amber-50/60 to-orange-50/40">
+    <div class="card-paper p-6 mb-5 fade-in border-emerald-200/80 bg-gradient-to-br from-emerald-50/60 to-emerald-100/40">
       <h3 class="section-head text-sm mb-2">✨ 生成我的第一张卡片</h3>
       <p class="text-xs text-stone-600 leading-relaxed mb-1">选你 <b>72 小时内最新的一条收藏</b>，现场走完直答拆解 → AI 炼卡 → 盲审把关，拆成一张 2 分钟卡片。</p>
       <p class="text-[11px] text-stone-400 mb-4">每天限 1 张 · 全站每天限 ${cap} 张，先到先得（今日已用 ${used}/${cap}）</p>
       ${full
-        ? '<p class="text-xs text-amber-700 font-medium">今日体验名额已用完，明天再来</p>'
+        ? '<p class="text-xs text-emerald-700 font-medium">今日体验名额已用完，明天再来</p>'
         : '<button id="mycard-start-btn" class="btn-ink px-5 py-2.5 text-sm">现场炼卡</button>'}
     </div>`;
 }
@@ -952,7 +973,7 @@ function renderReportTab(stage) {
   // 未登录 CTA
   if (!authorized) {
     parts.push(`
-      <div class="card-paper p-5 mb-5 fade-in text-center border-amber-200/80 bg-amber-50/40">
+      <div class="card-paper p-5 mb-5 fade-in text-center border-emerald-200/80 bg-emerald-50/40">
         <p class="text-sm text-stone-700 font-medium mb-1">这是站主的示例报告（已脱敏）</p>
         <p class="text-xs text-stone-500 mb-3">公开示例只保留聚合数字，人格画像、领域分布等隐私内容已隐藏——登录知乎，看看你自己的收藏人格和 72h 保质期，只读取收藏元数据，不会消耗你的任何额度。</p>
         <a href="/auth/login" class="btn-ink inline-flex items-center gap-1.5 px-4 py-2 text-xs rounded-lg">知乎登录，生成我的考古报告</a>
@@ -1085,7 +1106,7 @@ function askBoxHtml(cardId) {
       <span class="text-[11px] text-stone-400 ask-remaining">…</span>
     </div>
     <div class="flex gap-2">
-      <input type="text" class="ask-input flex-1 min-w-0 text-sm px-3 py-2 rounded-lg border border-stone-200 bg-white/80 focus:outline-none focus:border-amber-400 transition-colors" placeholder="就这张卡片继续提问，比如：这个证明的直觉是什么？" maxlength="200">
+      <input type="text" class="ask-input flex-1 min-w-0 text-sm px-3 py-2 rounded-lg border border-stone-200 bg-white/80 focus:outline-none focus:border-emerald-400 transition-colors" placeholder="就这张卡片继续提问，比如：这个证明的直觉是什么？" maxlength="200">
       <button class="ask-btn btn-ink px-4 py-2 text-sm shrink-0">提问</button>
     </div>
     <div class="ask-result hidden mt-4 pt-3 border-t border-dashed border-[#eee7d7]"></div>
@@ -1139,7 +1160,7 @@ function bindAskBox(stage) {
       if (r.loginRequired) { showLoginPrompt(); return; }
       if (!r.ok) throw new Error(r.error || '追问失败');
       resultEl.innerHTML = `
-        <div class="text-xs text-amber-700 mb-1.5 font-medium">直答 · ${r.cached ? '缓存命中（未消耗额度）' : '基于该问题下的知乎讨论'}</div>
+        <div class="text-xs text-emerald-700 mb-1.5 font-medium">直答 · ${r.cached ? '缓存命中（未消耗额度）' : '基于该问题下的知乎讨论'}</div>
         <div class="text-sm text-stone-700 leading-relaxed" style="white-space:pre-wrap">${esc(r.answer)}</div>`;
       input.value = '';
       renderRemaining(r.remaining);
@@ -1262,7 +1283,7 @@ async function drawPoster(r) {
   ctx.scale(S, S);
 
   const SERIF = '"Noto Serif SC", "Songti SC", serif';
-  const INK = '#1c1917', INK2 = '#57534e', INK3 = '#a8a29e', AMBER = '#b45309', LINE = '#e7e0d2', PAPER = '#f7f3ea';
+  const INK = '#1c1917', INK2 = '#57534e', INK3 = '#a8a29e', GREEN = '#248653', LINE = '#d8e3d5', PAPER = '#f4f8f3';
 
   // 纸面 + 细边框
   ctx.fillStyle = PAPER;
@@ -1290,7 +1311,7 @@ async function drawPoster(r) {
   ctx.font = '15px sans-serif';
   ctx.fillText('你的收藏人格是', W / 2, y);
   y += 62;
-  ctx.fillStyle = AMBER;
+  ctx.fillStyle = GREEN;
   ctx.font = `bold 52px ${SERIF}`;
   ctx.fillText(r.persona.type, W / 2, y);
   y += 34;
@@ -1339,10 +1360,10 @@ async function drawPoster(r) {
     ctx.fillStyle = INK3;
     ctx.font = '12px sans-serif';
     ctx.fillText(label, PAD, y + 4);
-    ctx.fillStyle = '#ede6d8';
+    ctx.fillStyle = '#dde8da';
     ctx.fillRect(barX, y - 5, barW, 10);
     if (v > 0) {
-      ctx.fillStyle = AMBER;
+      ctx.fillStyle = GREEN;
       ctx.fillRect(barX, y - 5, Math.max(4, (v / bMax) * barW), 10);
     }
     ctx.fillStyle = INK2;
@@ -1379,7 +1400,7 @@ async function drawPoster(r) {
     ctx.font = `bold 16px ${SERIF}`;
     ctx.fillText('最老的一条收藏', PAD, y);
     y += 28;
-    ctx.fillStyle = AMBER;
+    ctx.fillStyle = GREEN;
     ctx.font = `14px ${SERIF}`;
     for (const ln of posterWrap(ctx, r.oldestItem.title, W - PAD * 2).slice(0, 2)) {
       ctx.fillText(ln, PAD, y);

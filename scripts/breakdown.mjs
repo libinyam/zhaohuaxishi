@@ -6,6 +6,7 @@ import { writeFile, readFile, mkdir, rename } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { cstDateStr } from '../lib/time.mjs';
+import { runtimeDir } from '../lib/runtime.mjs';
 
 const root = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
 const args = process.argv.slice(2);
@@ -16,7 +17,7 @@ const dry = args.includes('--dry');
 // 切日口径与 lib/ask.mjs 一致（UTC+8，见 lib/time.mjs），两边共用同一台账文件
 const DAILY_LIMIT = 100;
 const QUOTA_THRESHOLD = 90;
-const quotaDir = path.join(root, 'data', 'quota');
+const quotaDir = path.join(runtimeDir(root), 'quota');
 const quotaFile = path.join(quotaDir, `${cstDateStr()}.json`);
 
 async function readQuota() {

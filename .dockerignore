@@ -4,7 +4,4 @@ scripts
 *.md
 .dockerignore
 Dockerfile
-data/push-state.json
-data/push-deadletter.jsonl
-data/push-subscriptions.json
-data/quota/
+data/runtime/

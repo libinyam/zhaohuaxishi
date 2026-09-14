@@ -1,5 +1,2 @@
 .env.local
-data/push-state.json
-data/push-subscriptions.json
-data/push-deadletter.jsonl
-data/quota/
+data/runtime/
