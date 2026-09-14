@@ -591,6 +591,97 @@ try {
     }
   });
 
+  await test('现场炼卡单元③（#49）：auto 让路运行中手动管线 / 手动遇 auto 管线 already 不烧名额 / 闸门故障清占位可重试', async () => {
+    const { createMyCard } = await import(new URL('../lib/mycard.mjs', import.meta.url));
+    const unitRoot = await mkdtemp(path.join(tmpdir(), 'zhsx-mycard-unit3-'));
+    const realFetch = globalThis.fetch;
+    const saved = {};
+    for (const k of ['ZHIHU_ACCESS_SECRET', 'GEMINI_BASE_URL', 'GEMINI_API_KEY']) {
+      saved[k] = process.env[k];
+    }
+    process.env.ZHIHU_ACCESS_SECRET = 'e2e-fake-secret';
+    process.env.GEMINI_BASE_URL = 'http://fake-gemini';
+    process.env.GEMINI_API_KEY = 'e2e-fake-key';
+    let zhidaGate = null; // 挂起直答响应，模拟管线运行中
+    const cardJson = JSON.stringify({
+      coreView: '核心观点', thread: [{ step: 's1', detail: 'd1' }, { step: 's2', detail: 'd2' }, { step: 's3', detail: 'd3' }],
+      keyInsight: '', points: ['p1', 'p2', 'p3'], quote: '金句', difficulty: 'easy', topicTags: ['测试'],
+    });
+    globalThis.fetch = async (url, opts) => {
+      if (String(url).includes('developer.zhihu.com')) {
+        if (zhidaGate) await zhidaGate;
+        return { ok: true, status: 200, json: async () => ({ choices: [{ message: { content: '拆解原文' } }], model: 'zhida-thinking-1p5' }) };
+      }
+      const prompt = JSON.parse(opts.body).messages[0].content;
+      const out = prompt.includes('盲审考官')
+        ? { faithful: true, unsupportedClaims: [], coreCovered: true, missingCore: [], score: 5, comment: '忠实' }
+        : JSON.parse(cardJson);
+      return { ok: true, json: async () => ({ choices: [{ message: { content: JSON.stringify(out) } }] }) };
+    };
+    const nowSec = Math.floor(Date.now() / 1000);
+    const fav = (n) => ({ ContentType: 'answer', Url: `https://www.zhihu.com/answer/${n}`, Title: `问题${n}？`, FavTime: nowSec, Author: { Name: 'T' }, LikeCount: 1 });
+    const waitJob = async (mc, uid) => {
+      for (let i = 0; i < 200; i++) {
+        const s = await mc.statusFor(uid);
+        if (s.status === 'done' || s.status === 'failed') return s;
+        await new Promise((r) => setTimeout(r, 25));
+      }
+      throw new Error('任务 5s 内未完成');
+    };
+    const quotaToday = async () => JSON.parse(await readFile(path.join(unitRoot, 'data', 'runtime', 'quota', `${new Date(Date.now() + 8 * 3600 * 1000).toISOString().slice(0, 10)}.json`), 'utf8'));
+    try {
+      const mc = createMyCard(unitRoot);
+
+      // A：手动管线在后台运行（start 已返回、inflight 已释放、zhida 挂起中）——autoMake 必须通过 running 看到并让路
+      await mc.saveFavSnapshot('u_busy', [fav(6661)]);
+      let releaseA;
+      zhidaGate = new Promise((r) => { releaseA = r; });
+      const startRes = await mc.start('u_busy', async () => ({ items: [fav(6661)] }));
+      eq(startRes.code, 200, '手动发起状态码');
+      const autoRes = await mc.autoMake(['u_busy']);
+      eq(autoRes.users.u_busy, 'busy', '手动管线运行中 autoMake 让路');
+      eq(autoRes.made, 0, '让路不烧自动名额');
+      releaseA();
+      zhidaGate = null;
+      eq((await waitJob(mc, 'u_busy')).status, 'done', '手动管线放行后完成');
+
+      // B：自动管线运行中（zhida 挂起）——手动入口返回 already，不重复发起、不烧手动名额
+      await mc.saveFavSnapshot('u_auto2', [fav(6662)]);
+      let releaseB;
+      zhidaGate = new Promise((r) => { releaseB = r; });
+      const autoP = mc.autoMake(['u_auto2']);
+      await new Promise((r) => setTimeout(r, 100)); // 等自动管线登记 running 并挂进 zhida
+      const beforeB = (await quotaToday()).mycards;
+      const manualDuring = await mc.start('u_auto2', async () => ({ items: [fav(6662)] }));
+      eq(manualDuring.body.already, true, '自动管线运行中手动返回 already');
+      eq((await quotaToday()).mycards, beforeB, 'already 不烧手动名额');
+      releaseB();
+      zhidaGate = null;
+      const autoDone = await autoP;
+      eq(autoDone.made, 1, '自动管线放行后炼成');
+
+      // C：闸门自身故障（台账目录路径被文件占用 → writeQuota 抛错）——占位必须清理，用户不当场锁死
+      const quotaPath = path.join(unitRoot, 'data', 'runtime', 'quota');
+      await rm(quotaPath, { recursive: true, force: true });
+      await writeFile(quotaPath, 'blocked');
+      let threw = false;
+      try { await mc.start('u_gate', async () => ({ items: [fav(6663)] })); } catch { threw = true; }
+      eq(threw, true, '闸门故障 start 抛错');
+      eq((await mc.statusFor('u_gate')).status, 'idle', '占位已清理，状态回 idle 而非卡在 breaking_down');
+      await rm(quotaPath, { force: true });
+      const retry = await mc.start('u_gate', async () => ({ items: [fav(6663)] }));
+      eq(retry.code, 200, '故障恢复后可重新发起（不被幽灵占位 already）');
+      eq((await waitJob(mc, 'u_gate')).status, 'done', '重新发起炼卡成功');
+    } finally {
+      globalThis.fetch = realFetch;
+      for (const k of Object.keys(saved)) {
+        if (saved[k] === undefined) delete process.env[k];
+        else process.env[k] = saved[k];
+      }
+      await rm(unitRoot, { recursive: true, force: true, maxRetries: 5, retryDelay: 200 });
+    }
+  });
+
   // 自动炼卡单元（lib/mycard.autoMake + 收藏快照）：快照存取 / 每用户 3 张 / via=auto 不挡手动 / 去重与 tried 标记
   await test('自动炼卡单元（lib/mycard）：快照 / 每用户 3 张上限 / 手动入口不受 auto 影响 / exhausted / tried 3 天免重试', async () => {
     const { createMyCard } = await import(new URL('../lib/mycard.mjs', import.meta.url));
