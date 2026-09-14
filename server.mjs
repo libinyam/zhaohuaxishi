@@ -173,82 +173,101 @@ function cardsMsg(cards) {
 }
 
 // 站长通道推全站卡库今日队列；订阅者各推自己卡册（mycard 台账）的今日队列，无到期卡时发炼卡提醒。各自独立重试，单失败不中断
-async function pushDailyCards(trigger = 'cron') {
-  const siteToday = buildQueue(await loadCardsEnriched()).today;
-
+// skipOwner/skipSubs：cron 按当日分通道落盘的进度跳过已完成通道（issue #48，站长失败不再导致订阅者被重推）
+async function pushDailyCards(trigger = 'cron', { skipOwner = false, skipSubs = false } = {}) {
   // 站长通道：队列为空只跳过站长这一路，不挡订阅者的个人推送
   let owner = { ok: true };
-  if (siteToday.length === 0) {
-    console.log('[push] 站长今日队列为空，跳过站长通道');
+  let ownerCards = 0;
+  if (skipOwner) {
+    console.log('[push] 站长通道今日已处理，跳过');
   } else {
-    const { title, desp } = cardsMsg(siteToday);
-    owner = await sendSct(SENDKEY, title, desp);
-    if (!owner.ok) {
-      const record = { at: new Date().toISOString(), trigger, error: owner.error, cards: siteToday.map((c) => c.id) };
-      await appendFile(DEAD_LETTER, JSON.stringify(record) + '\n');
-      console.error('[push] 站长推送重试 3 次均失败，已记死信：', owner.error);
+    const siteToday = buildQueue(await loadCardsEnriched()).today;
+    if (siteToday.length === 0) {
+      console.log('[push] 站长今日队列为空，跳过站长通道');
     } else {
-      console.log(`[push] 站长推送成功（${trigger}），${siteToday.length} 张`);
+      const { title, desp } = cardsMsg(siteToday);
+      owner = await sendSct(SENDKEY, title, desp);
+      if (!owner.ok) {
+        const record = { at: new Date().toISOString(), trigger, error: owner.error, cards: siteToday.map((c) => c.id) };
+        await appendFile(DEAD_LETTER, JSON.stringify(record) + '\n');
+        console.error('[push] 站长推送重试 3 次均失败，已记死信：', owner.error);
+      } else {
+        ownerCards = siteToday.length;
+        console.log(`[push] 站长推送成功（${trigger}），${siteToday.length} 张`);
+      }
     }
   }
 
   // 订阅者推送：每人独立组个人队列；卡册读取或发送失败都记死信（uid + sendKey 脱敏），不影响其他订阅者
-  const subs = await readSubs();
-  const entries = Object.entries(subs);
   let subOk = 0;
   let subFail = 0;
-  for (const [uid, sub] of entries) {
-    let msg;
-    let cardIds = [];
-    try {
-      const mine = buildQueue(await mycard.listCards(uid)).today;
-      if (mine.length > 0) {
-        msg = cardsMsg(mine);
-        cardIds = mine.map((c) => c.id);
-      } else {
-        msg = {
-          title: '朝花夕拾｜今天没有到期复习卡',
-          desp: `你的卡册里今天没有可复习的卡片（收藏库存可能已炼完）。\n\n[回网站看看，顺手刷新收藏库存 →](${SITE_BASE}/app.html#report)`,
-        };
+  if (skipSubs) {
+    console.log('[push] 订阅者通道今日已处理，跳过');
+  } else {
+    const subs = await readSubs();
+    const entries = Object.entries(subs);
+    for (const [uid, sub] of entries) {
+      let msg;
+      let cardIds = [];
+      try {
+        const mine = buildQueue(await mycard.listCards(uid)).today;
+        if (mine.length > 0) {
+          msg = cardsMsg(mine);
+          cardIds = mine.map((c) => c.id);
+        } else {
+          msg = {
+            title: '朝花夕拾｜今天没有到期复习卡',
+            desp: `你的卡册里今天没有可复习的卡片（收藏库存可能已炼完）。\n\n[回网站看看，顺手刷新收藏库存 →](${SITE_BASE}/app.html#report)`,
+          };
+        }
+      } catch (e) {
+        subFail++;
+        const record = { at: new Date().toISOString(), trigger, uid, sendKey: maskKey(sub.sendKey), error: `读取个人卡册失败：${String(e?.message || e)}`, cards: [] };
+        await appendFile(DEAD_LETTER, JSON.stringify(record) + '\n');
+        console.error(`[push] 订阅者 ${uid}（${maskKey(sub.sendKey)}）个人卡册读取失败，已记死信：`, e);
+        continue;
       }
-    } catch (e) {
+      const r = await sendSct(sub.sendKey, msg.title, msg.desp);
+      if (r.ok) { subOk++; continue; }
       subFail++;
-      const record = { at: new Date().toISOString(), trigger, uid, sendKey: maskKey(sub.sendKey), error: `读取个人卡册失败：${String(e?.message || e)}`, cards: [] };
+      const record = { at: new Date().toISOString(), trigger, uid, sendKey: maskKey(sub.sendKey), error: r.error, cards: cardIds };
       await appendFile(DEAD_LETTER, JSON.stringify(record) + '\n');
-      console.error(`[push] 订阅者 ${uid}（${maskKey(sub.sendKey)}）个人卡册读取失败，已记死信：`, e);
-      continue;
+      console.error(`[push] 订阅者 ${uid}（${maskKey(sub.sendKey)}）推送失败，已记死信：`, r.error);
     }
-    const r = await sendSct(sub.sendKey, msg.title, msg.desp);
-    if (r.ok) { subOk++; continue; }
-    subFail++;
-    const record = { at: new Date().toISOString(), trigger, uid, sendKey: maskKey(sub.sendKey), error: r.error, cards: cardIds };
-    await appendFile(DEAD_LETTER, JSON.stringify(record) + '\n');
-    console.error(`[push] 订阅者 ${uid}（${maskKey(sub.sendKey)}）推送失败，已记死信：`, r.error);
+    if (entries.length) console.log(`[push] 订阅者推送完成（${trigger}）：成功 ${subOk}，失败 ${subFail}`);
   }
-  if (entries.length) console.log(`[push] 订阅者推送完成（${trigger}）：成功 ${subOk}，失败 ${subFail}`);
 
-  // ownerOk 含「队列为空跳过」：当日已处理完毕，落盘防重启重推；只有站长通道真失败才留给下次重启重试
+  // subsDone：订阅者循环执行完毕即视为当日已处理（单个失败已记死信，重推整批会让已成功订阅者重复收卡，issue #48）
+  // ownerOk 含「队列为空跳过」：当日已处理完毕；只有站长通道真失败才留给下次补推（届时只补站长这一路）
   return {
-    pushed: owner.ok ? siteToday.length : 0,
+    pushed: ownerCards,
     ownerOk: owner.ok,
     ...(owner.ok ? {} : { error: owner.error }),
     subs: { ok: subOk, fail: subFail },
+    subsDone: true,
   };
 }
 
-// cron 入口：每天只推一次（日期状态落盘，容器重启不重复推）
+// cron 入口：每天只推一次。状态按通道分字段落盘（issue #48）——订阅者循环执行完即记 subsDone，
+// 站长通道失败只留 ownerDone=false，下次 tick/重启只补推站长这一路，订阅者不被重推
 async function dailyPushJob() {
-  let pushedDate = '';
-  try { pushedDate = JSON.parse(await readFile(PUSH_STATE, 'utf8')).date || ''; } catch { /* 首次 */ }
+  let state = {};
+  try { state = JSON.parse(await readFile(PUSH_STATE, 'utf8')); } catch { /* 首次 */ }
   const todayCst = cstDateStr();
-  if (pushedDate === todayCst) { console.log('[push] 今日已推送过，跳过'); return; }
-  const result = await pushDailyCards('cron');
-  // ownerOk 即「当日已处理」（含站长队列为空）：落盘防重启重推订阅者；站长通道失败则不落盘，留待重启重试
-  if (result.ownerOk) {
-    const tmp = PUSH_STATE + '.tmp';
-    await writeFile(tmp, JSON.stringify({ date: todayCst, at: Date.now() }));
-    await rename(tmp, PUSH_STATE);
-  }
+  // 旧格式 { date, at } 无分通道字段，表示当日两通道都已完成
+  const done = state.date === todayCst
+    ? { ownerDone: state.ownerDone ?? true, subsDone: state.subsDone ?? true }
+    : {};
+  if (done.ownerDone && done.subsDone) { console.log('[push] 今日已推送过，跳过'); return; }
+  const result = await pushDailyCards('cron', { skipOwner: Boolean(done.ownerDone), skipSubs: Boolean(done.subsDone) });
+  const tmp = PUSH_STATE + '.tmp';
+  await writeFile(tmp, JSON.stringify({
+    date: todayCst,
+    ownerDone: Boolean(done.ownerDone) || result.ownerOk,
+    subsDone: true,
+    at: Date.now(),
+  }));
+  await rename(tmp, PUSH_STATE);
 }
 
 function scheduleDailyPush() {
