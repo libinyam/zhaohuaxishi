@@ -799,10 +799,17 @@ function myCardSlotHtml() {
   // 完成：用现有卡片渲染函数完整渲染（角标点出来源错位声明，KaTeX 由调用方触发）
   if (mc.status === 'done' && mc.card) {
     const src = mc.source || mc.card.source || {};
+    const mine = mc.quota?.mine ?? 1;
+    const myCap = mc.quota?.myCap ?? 3;
+    const left = Math.max(0, myCap - mine);
+    const hint = left > 0
+      ? `今天已炼 ${mine}/${myCap} 张，还能再炼 ${left} 张（每张选你没炼过的收藏）。`
+      : `今天 ${myCap} 张已炼完。订阅每日推送后，明天 07:00 会自动炼你没炼过的收藏，08:00 推到微信。`;
     return `
-      <h3 class="section-head text-sm mb-3 fade-in">✨ 我的第一张卡片</h3>
+      <h3 class="section-head text-sm mb-3 fade-in">✨ 我的新卡片</h3>
       ${cardHtml(mc.card, { sourceBadge: '拆解自该问题下的优质讨论' })}
-      <p class="text-[11px] text-stone-400 mb-5 -mt-3 fade-in">拆解自你${src.pickedFrom72h ? ' 72 小时内最新' : '最新'}收藏的《<a class="text-brand hover:underline" href="${esc(src.url)}" target="_blank" rel="noopener">${esc(src.title)}</a>》${mc.card.reviewScore >= 5 ? '，已通过盲审' : ''}。每天限 1 张，明天还能再来。</p>`;
+      <p class="text-[11px] text-stone-400 mb-3 -mt-3 fade-in">拆解自你${src.pickedFrom72h ? ' 72 小时内最新' : '最新'}收藏的《<a class="text-brand hover:underline" href="${esc(src.url)}" target="_blank" rel="noopener">${esc(src.title)}</a>》${mc.card.reviewScore >= 5 ? '，已通过盲审' : ''}。${hint}</p>
+      ${left > 0 ? '<button id="mycard-start-btn" class="btn-ink px-4 py-2 text-sm mb-5 fade-in">再炼一张</button>' : ''}`;
   }
   // 进行中：分阶段进度
   if (MYCARD_RUNNING.includes(mc.status)) {
@@ -834,7 +841,7 @@ function myCardSlotHtml() {
         <button id="mycard-refresh-btn" class="btn-ink px-4 py-2 text-sm">刷新查看</button>
       </div>`;
   }
-  // 失败（盲审打回/直答紧张等）：未消耗用户的 1 张，可重试
+  // 失败（盲审打回/直答紧张等）：不消耗用户的 3 张成功额度，可重试（每天尝试上限 6 次）
   if (mc.status === 'failed') {
     return `
       <div class="card-paper p-6 mb-5 text-center fade-in">
@@ -855,12 +862,15 @@ function myCardSlotHtml() {
   // idle：炼卡入口
   const used = mc.quota?.used ?? 0;
   const cap = mc.quota?.cap ?? 20;
+  const mine = mc.quota?.mine ?? 0;
+  const myCap = mc.quota?.myCap ?? 3;
   const full = used >= cap;
   return `
     <div class="card-paper p-6 mb-5 fade-in border-emerald-200/80 bg-gradient-to-br from-emerald-50/60 to-emerald-100/40">
       <h3 class="section-head text-sm mb-2">✨ 生成我的第一张卡片</h3>
       <p class="text-xs text-stone-600 leading-relaxed mb-1">选你 <b>72 小时内最新的一条收藏</b>，现场走完直答拆解 → AI 炼卡 → 盲审把关，拆成一张 2 分钟卡片。</p>
-      <p class="text-[11px] text-stone-400 mb-4">每天限 1 张 · 全站每天限 ${cap} 张，先到先得（今日已用 ${used}/${cap}）</p>
+      <p class="text-[11px] text-stone-400 mb-1">每天限 ${myCap} 张（今天已炼 ${mine}/${myCap}，每张选你没炼过的收藏）· 全站每天限 ${cap} 张，先到先得（今日已用 ${used}/${cap}）</p>
+      <p class="text-[11px] text-stone-400 mb-4">订阅每日推送后，每天 07:00 还会自动炼你没手动炼过的收藏，08:00 推送到微信。</p>
       ${full
         ? '<p class="text-xs text-emerald-700 font-medium">今日体验名额已用完，明天再来</p>'
         : '<button id="mycard-start-btn" class="btn-ink px-5 py-2.5 text-sm">现场炼卡</button>'}

@@ -396,7 +396,7 @@ try {
   });
 
   // 现场炼卡内核直测（HTTP 层无法伪造 OAuth 会话，直接驱动 lib/mycard 模块；fetch 全部打桩，零真实额度消耗）
-  await test('现场炼卡单元（lib/mycard）：状态机/同天缓存/全局 20 张/无收藏/失败重试/直答阈值', async () => {
+  await test('现场炼卡单元（lib/mycard）：状态机/同一收藏不重复炼/每用户每日 3 张/全局 20 张/无收藏/失败重试/直答阈值', async () => {
     const { createMyCard } = await import(new URL('../lib/mycard.mjs', import.meta.url));
     const unitRoot = await mkdtemp(path.join(tmpdir(), 'zhsx-mycard-unit-'));
     const realFetch = globalThis.fetch;
@@ -449,10 +449,10 @@ try {
       eq(done.card.id, 'card_answer_12345', '卡片 id');
       if ('reviewDetail' in done.card) throw new Error('下发结果含 reviewDetail');
       eq(zhidaCalls, 1, '直答调用次数');
-      // 同天重复请求：直接返回缓存结果，不再烧额度
+      // 同一收藏不重复炼：再次发起同一份收藏 → 422 无新收藏可炼（不烧额度）
       const again = await mc.start('u_a', favs);
-      eq(again.body.status, 'done', '重复请求返回 done');
-      eq(again.body.already, true, 'already 标记');
+      eq(again.code, 422, '无新收藏状态码');
+      eq(again.body.noFavorites, true, 'noFavorites 标记');
       eq(zhidaCalls, 1, '重复请求未再调直答');
       // 服务重启恢复：新建实例读落盘结果
       const mc2 = createMyCard(unitRoot);
@@ -476,7 +476,7 @@ try {
       const empty = await mc.start('u_empty', async () => ({ items: [] }));
       eq(empty.code, 422, '无收藏状态码');
       eq(empty.body.noFavorites, true, 'noFavorites 标记');
-      // 失败后重试：Gemini 挂一次 → failed，再发起成功（失败不算用户的 1 张）
+      // 失败后重试：Gemini 挂一次 → failed，再发起成功（失败不算用户的 3 张之一）
       geminiFailOnce = true;
       await mc.start('u_b', favs);
       const failedJob = await waitJob(mc, 'u_b');
@@ -485,6 +485,20 @@ try {
       eq(failedJob.error, '卡片生成失败，请稍后重试', '内部错误映射通用文案');
       await mc.start('u_b', favs);
       eq((await waitJob(mc, 'u_b')).status, 'done', '失败后重试成功');
+      // 每用户每天手动 3 张（仅成功计入）：连炼 3 张不同收藏，第 4 次 dailyCapReached 不再发起
+      const multiFavs = async () => ({ items: [111, 112, 113, 114].map((n) => fav({ Url: `https://www.zhihu.com/answer/${n}` })) });
+      for (let i = 1; i <= 3; i++) {
+        await mc.start('u_multi', multiFavs);
+        eq((await waitJob(mc, 'u_multi')).status, 'done', `第 ${i} 张炼成`);
+      }
+      eq((await mc.listCards('u_multi')).length, 3, '卡册累积 3 张');
+      eq((await mc.statusFor('u_multi')).quota.mine, 3, 'statusFor 透出每用户已炼数');
+      const cap4 = await mc.start('u_multi', multiFavs);
+      eq(cap4.code, 200, '达上限状态码');
+      eq(cap4.body.dailyCapReached, true, 'dailyCapReached 标记');
+      eq(cap4.body.already, true, '达上限带 already');
+      eq(cap4.body.card.id, 'card_answer_113', '达上限回最近一张');
+      eq((await mc.listCards('u_multi')).length, 3, '达上限不再烧额度');
       // 直答台账阈值：count=90 时新内容（无缓存）任务失败且不发出请求
       const quotaPath = path.join(unitRoot, 'data', 'runtime', 'quota');
       const today = JSON.parse(await readFile(path.join(quotaPath, `${new Date(Date.now() + 8 * 3600 * 1000).toISOString().slice(0, 10)}.json`), 'utf8'));
@@ -511,7 +525,7 @@ try {
   });
 
   // #38 跨天日期闸门 / #39 并发串行只烧 1 名额 / #40 尝试上限与 MYCARD_GLOBAL_CAP / #42 直答 502 可读文案
-  await test('现场炼卡单元②（#38-#40/#42）：跨天闸门 / 并发串行 / 尝试上限 3 次 / env 覆盖 / 502 文案', async () => {
+  await test('现场炼卡单元②（#38-#40/#42）：跨天闸门 / 并发串行 / 尝试上限 6 次 / env 覆盖 / 502 文案', async () => {
     const { createMyCard } = await import(new URL('../lib/mycard.mjs', import.meta.url));
     const unitRoot = await mkdtemp(path.join(tmpdir(), 'zhsx-mycard-unit2-'));
     const realFetch = globalThis.fetch;
@@ -576,11 +590,11 @@ try {
       eq((await quotaToday()).mycards - before, 1, '并发双发只烧 1 个全站名额');
       eq((await waitJob(mc, 'u_race')).status, 'done', '并发任务完成');
 
-      // #40 + #42.1：直答 502 HTML → 可读文案；失败可重试但每天限 3 次，第 4 次 429 且不再烧名额
+      // #40 + #42.1：直答 502 HTML → 可读文案；失败可重试但每天限 6 次尝试，第 7 次 429 且不再烧名额
       const countBeforeFail = (await quotaToday()).count;
       zhida502 = true;
       const failFavs = async () => ({ items: [fav({ Url: 'https://www.zhihu.com/answer/999' })] });
-      for (let attempt = 1; attempt <= 3; attempt++) {
+      for (let attempt = 1; attempt <= 6; attempt++) {
         await mc.start('u_fail', failFavs);
         const s = await waitJob(mc, 'u_fail');
         eq(s.status, 'failed', `第 ${attempt} 次尝试失败`);
@@ -588,7 +602,7 @@ try {
       }
       eq((await quotaToday()).count, countBeforeFail, '直答 502 失败回滚全局台账计数（#44 口径跟进 mycard，mycards 名额不退但 count 退）');
       const blocked = await mc.start('u_fail', failFavs);
-      eq(blocked.code, 429, '第 4 次尝试状态码');
+      eq(blocked.code, 429, '第 7 次尝试状态码');
       eq(blocked.body.attemptsExceeded, true, 'attemptsExceeded 标记');
       if (!blocked.body.error.includes('尝试次数')) throw new Error(`尝试上限文案异常：${blocked.body.error}`);
       zhida502 = false;
