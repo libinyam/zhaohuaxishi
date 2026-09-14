@@ -58,6 +58,7 @@ async function fetchApprovedCards() {
 
 // ---------- 卡片墙：最近收藏优先，关注作者标注，话题去重 ----------
 function selectHomepageCards(cards) {
+  cards = validCards(cards);
   const sorted = [...cards].sort((a, b) =>
     ((b.source?.authorFollowed ? 1 : 0) - (a.source?.authorFollowed ? 1 : 0)) ||
     ((b.source?.favTime || 0) - (a.source?.favTime || 0)));
@@ -106,26 +107,27 @@ async function loadHomepageCards(cards) {
 }
 
 // ---------- 阅读小清单：最近 3 条真实收藏 ----------
+// 匿名降敏（#43）后无 favTime：退化为按服务端顺序（仍为收藏时间倒序）取前三，不显示相对时间与「趁热读」标记
 function renderReadingList(cards) {
   const box = document.getElementById('reading-list');
   if (!box) return;
-  const recent = [...cards]
-    .filter((c) => c.source?.favTime)
-    .sort((a, b) => b.source.favTime - a.source.favTime)
-    .slice(0, 3);
+  const dated = cards.filter((c) => c.source?.favTime)
+    .sort((a, b) => b.source.favTime - a.source.favTime);
+  const recent = (dated.length ? dated : cards).slice(0, 3);
   if (!recent.length) return;
   box.replaceChildren(...recent.map((c) => {
-    const days = Math.floor((Date.now() / 1000 - c.source.favTime) / 86400);
-    const item = el(days > 7 ? 'div' : 'a', 'collection-item' + (days > 7 ? ' muted' : ''));
-    if (days <= 7) item.href = `/app.html#${encodeURIComponent(c.id)}`;
+    const ts = c.source?.favTime;
+    const days = ts ? Math.floor((Date.now() / 1000 - ts) / 86400) : null;
+    const item = el(days !== null && days > 7 ? 'div' : 'a', 'collection-item' + (days !== null && days > 7 ? ' muted' : ''));
+    if (item.tagName === 'A') item.href = `/app.html#${encodeURIComponent(c.id)}`;
     const body = el('div');
     body.append(
       el('strong', null, c.source?.title || '一条收藏'),
-      el('small', null, [relDay(c.source.favTime) + '收藏', c.source?.authorName].filter(Boolean).join(' · '))
+      el('small', null, [ts ? relDay(ts) + '收藏' : '', c.source?.authorName].filter(Boolean).join(' · '))
     );
     item.append(el('span', 'collection-icon', '知'), body);
-    if (days <= 3) item.append(el('span', 'tag', '趁热读'));
-    else if (days <= 7) item.append(el('span', 'tag', '待拾起'));
+    if (days !== null && days <= 3) item.append(el('span', 'tag', '趁热读'));
+    else if (days !== null && days <= 7) item.append(el('span', 'tag', '待拾起'));
     return item;
   }));
 }

@@ -5,9 +5,13 @@ import { readFile } from 'node:fs/promises';
 import vm from 'node:vm';
 
 const source = await readFile(new URL('../public/landing.js', import.meta.url), 'utf8');
-const context = vm.createContext({});
+// landing.js 顶层会实例化 IntersectionObserver / 调用 setupReveal()，浏览器 API 打桩后再加载
+const context = vm.createContext({
+  IntersectionObserver: class { observe() {} unobserve() {} },
+  document: { querySelectorAll: () => [], querySelector: () => null, getElementById: () => null },
+});
 // Load pure selection logic without starting the browser-only fetch.
-vm.runInContext(source.replace(/loadHomepageCards\(\);\s*$/, ''), context);
+vm.runInContext(source.replace(/\nboot\(\);\s*$/, ''), context);
 
 test('homepage selects at most six approved cards, with topic variety and safe IDs', () => {
   const card = (id, topic = '文学', status = 'approved') => ({ id, topicTags: [topic], status });

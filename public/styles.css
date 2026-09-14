@@ -8,10 +8,9 @@
   --text-primary: #242220;
   --text-secondary: #6e6a64;
   --text-tertiary: #9c9790;
-  --cinnabar: #b7402e;
-  --accent-amber: #b7402e;
-  --accent-deep: #853706;
-  --stamp-red: #b7402e;
+  --accent-green: #248653;
+  --accent-deep: #1c6b41;
+  --stamp-green: #248653;
 
   /* Heptabase 莫兰迪分区色彩体系 */
   --pastel-math: #eef4e8;
@@ -50,8 +49,8 @@ body {
 }
 
 .font-serif-display { font-family: var(--serif); }
-.text-cin { color: var(--cinnabar) !important; }
-.hover-cin:hover { color: var(--cinnabar) !important; }
+.text-brand { color: var(--accent-green) !important; }
+.hover-brand:hover { color: var(--accent-green) !important; }
 .sidebar-domain-dot {
   width: 8px;
   height: 8px;
@@ -160,7 +159,7 @@ body {
 
 /* Heptabase 荧光马克笔高亮 */
 .marker-hl {
-  background: rgba(254, 240, 138, 0.45);
+  background: rgba(48, 207, 121, 0.22);
   padding: 0.12em 0.35em;
   border-radius: 3px;
   box-decoration-break: clone;
@@ -171,7 +170,7 @@ body {
 .thesis-box {
   background: transparent;
   border: none;
-  border-left: 3px solid var(--cinnabar);
+  border-left: 3px solid var(--accent-green);
   border-radius: 0;
   padding: 0.25rem 0 0.25rem 1.15rem;
   font-family: var(--serif);
@@ -183,7 +182,7 @@ body {
 .thesis-label {
   font-family: var(--serif);
   font-weight: 700;
-  color: var(--cinnabar);
+  color: var(--accent-green);
   margin-right: 0.4em;
   letter-spacing: 0.04em;
 }
@@ -205,7 +204,7 @@ body {
   font-weight: 700;
   font-size: 0.74rem;
   letter-spacing: 0.05em;
-  color: var(--cinnabar);
+  color: var(--accent-green);
   margin-bottom: 0.35rem;
 }
 
@@ -232,7 +231,7 @@ body {
   border-radius: 9999px;
   background: transparent;
   border: none;
-  color: var(--cinnabar);
+  color: var(--accent-green);
   font-family: var(--serif);
   font-size: 0.95rem;
   font-weight: 700;
@@ -309,14 +308,14 @@ body {
   content: '「';
   font-size: 1.1rem;
   margin-right: 0.15rem;
-  color: var(--cinnabar);
+  color: var(--accent-green);
   opacity: 0.85;
 }
 .quote-ornament::after {
   content: '」';
   font-size: 1.1rem;
   margin-left: 0.15rem;
-  color: var(--cinnabar);
+  color: var(--accent-green);
   opacity: 0.85;
 }
 
@@ -362,15 +361,15 @@ body {
   background: #ecfdf5;
 }
 .badge-source {
-  color: #78350f;
-  border-color: #fde68a;
-  background: #fefce8;
+  color: var(--accent-deep);
+  border-color: #c8e6d2;
+  background: #f0f9f3;
   cursor: help;
 }
 .badge-follow {
   color: var(--accent-deep);
-  border-color: #e7d3ae;
-  background: #fdf6e9;
+  border-color: #c8e6d2;
+  background: #edf6f0;
 }
 .author-avatar {
   width: 16px;
@@ -382,7 +381,7 @@ body {
   margin-right: 2px;
 }
 
-/* 朱砂印章：落印动效与篆刻质感 */
+/* 青绿印章：落印动效与篆刻质感 */
 .stamp-slot {
   position: absolute;
   top: 1.15rem;
@@ -393,16 +392,16 @@ body {
 .stamp-seal {
   width: 76px;
   height: 76px;
-  border: 2.5px solid var(--stamp-red);
+  border: 2.5px solid var(--stamp-green);
   border-radius: 50%;
-  color: var(--stamp-red);
+  color: var(--stamp-green);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
   background: rgba(255, 255, 255, 0.92);
-  box-shadow: inset 0 0 0 1.5px var(--stamp-red), 0 3px 8px rgba(185, 28, 28, 0.15);
+  box-shadow: inset 0 0 0 1.5px var(--stamp-green), 0 3px 8px rgba(36, 134, 83, 0.18);
   transform: rotate(-13deg);
   animation: stampIn 0.36s cubic-bezier(0.18, 0.89, 0.32, 1.25) forwards;
   opacity: 0.92;
@@ -449,7 +448,7 @@ html, body { overflow-x: hidden; }
 .highlight { animation: hlPulse 1.2s ease 2; }
 @keyframes hlPulse {
   0%, 100% { box-shadow: var(--shadow-hepta-md); }
-  50% { box-shadow: 0 0 0 3px rgba(180, 83, 9, 0.4), var(--shadow-hepta-hover); }
+  50% { box-shadow: 0 0 0 3px rgba(36, 134, 83, 0.4), var(--shadow-hepta-hover); }
 }
 
 /* 拾完庆祝 */
@@ -661,10 +660,10 @@ html, body { overflow-x: hidden; }
   background: #ffffff;
   color: var(--text-primary);
   font-weight: 600;
-  box-shadow: inset 2.5px 0 0 var(--cinnabar), 0 1px 4px rgba(0, 0, 0, 0.06);
+  box-shadow: inset 2.5px 0 0 var(--accent-green), 0 1px 4px rgba(0, 0, 0, 0.06);
 }
 .sidebar-nav-item.active .item-indicator {
-  background: var(--cinnabar) !important;
+  background: var(--accent-green) !important;
 }
 .sidebar-nav-item.is-done {
   color: var(--text-tertiary);
