@@ -569,6 +569,7 @@ try {
       eq((await waitJob(mc, 'u_race')).status, 'done', '并发任务完成');
 
       // #40 + #42.1：直答 502 HTML → 可读文案；失败可重试但每天限 3 次，第 4 次 429 且不再烧名额
+      const countBeforeFail = (await quotaToday()).count;
       zhida502 = true;
       const failFavs = async () => ({ items: [fav({ Url: 'https://www.zhihu.com/answer/999' })] });
       for (let attempt = 1; attempt <= 3; attempt++) {
@@ -577,6 +578,7 @@ try {
         eq(s.status, 'failed', `第 ${attempt} 次尝试失败`);
         if (!s.error.includes('直答服务暂时不可用（HTTP 502）')) throw new Error(`502 文案不可读：${s.error}`);
       }
+      eq((await quotaToday()).count, countBeforeFail, '直答 502 失败回滚全局台账计数（#44 口径跟进 mycard，mycards 名额不退但 count 退）');
       const blocked = await mc.start('u_fail', failFavs);
       eq(blocked.code, 429, '第 4 次尝试状态码');
       eq(blocked.body.attemptsExceeded, true, 'attemptsExceeded 标记');
