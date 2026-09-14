@@ -10,6 +10,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createReview } from '../lib/review.mjs';
 import { computeReport } from '../lib/report-core.mjs';
+import { msUntilNextCst } from '../lib/time.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const stress = process.argv.includes('--stress') || process.env.E2E_STRESS === '1';
@@ -258,6 +259,16 @@ try {
     const r = await get('/api/health', { headers: { Cookie: 'zhsx_session=%' } });
     eq(r.status, 200, '恶意百分号编码 Cookie 状态码');
     eq((await r.json()).ok, true, '服务正常响应');
+  });
+
+  await test('调度单元（lib/time，issue #53）：hour 越界/NaN fail fast，合法值返回 0..24h', async () => {
+    for (const bad of [25, -1, NaN, 7.5, '8']) {
+      let threw = false;
+      try { msUntilNextCst(bad); } catch (e) { threw = e instanceof RangeError; }
+      eq(threw, true, `hour=${String(bad)} 抛 RangeError`);
+    }
+    const wait = msUntilNextCst(8);
+    if (!(wait >= 0 && wait <= 24 * 3600 * 1000)) throw new Error(`合法 hour 返回异常：${wait}ms`);
   });
 
   await test('/api/cards：匿名降敏——限量 6 张、剥离 url/favTime/关注关系（#43）', async () => {
