@@ -254,6 +254,12 @@ try {
     }
   });
 
+  await test('恶意 Cookie（zhsx_session=%）不再 500（issue #51：decodeURIComponent URIError 按无会话处理）', async () => {
+    const r = await get('/api/health', { headers: { Cookie: 'zhsx_session=%' } });
+    eq(r.status, 200, '恶意百分号编码 Cookie 状态码');
+    eq((await r.json()).ok, true, '服务正常响应');
+  });
+
   await test('/api/cards：匿名降敏——限量 6 张、剥离 url/favTime/关注关系（#43）', async () => {
     const r = await get('/api/cards');
     eq(r.status, 200, '状态码');
