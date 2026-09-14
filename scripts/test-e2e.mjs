@@ -670,6 +670,7 @@ try {
       zhidaGate = new Promise((r) => { releaseB = r; });
       const autoP = mc.autoMake(['u_auto2']);
       await new Promise((r) => setTimeout(r, 100)); // 等自动管线登记 running 并挂进 zhida
+      eq((await mc.statusFor('u_auto2')).status, 'breaking_down', '自动管线运行中 statusFor 显示进度而非 idle');
       const beforeB = (await quotaToday()).mycards;
       const manualDuring = await mc.start('u_auto2', async () => ({ items: [fav(6662)] }));
       eq(manualDuring.body.already, true, '自动管线运行中手动返回 already');
