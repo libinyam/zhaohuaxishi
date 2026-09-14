@@ -617,8 +617,11 @@ const server = http.createServer(async (req, res) => {
     if (route) return await route.handler(req, res, url); // await 不能省：让 handler 的异常落进下面的统一映射
     // 静态文件
     const rel = url.pathname === '/' ? '/index.html' : url.pathname;
-    const file = path.join(root, 'public', path.normalize(rel).replace(/^([/\\])+/, ''));
-    if (!file.startsWith(path.join(root, 'public'))) return json(res, { error: 'forbidden' }, 403);
+    const publicRoot = path.join(root, 'public');
+    const file = path.join(publicRoot, path.normalize(rel).replace(/^([/\\])+/, ''));
+    // 路径边界感知检查（issue #52）：startsWith 前缀匹配会被 public-xxx 兄弟路径绕过，且依赖上游 URL 解析器行为
+    const relToPublic = path.relative(publicRoot, file);
+    if (relToPublic.startsWith('..') || path.isAbsolute(relToPublic)) return json(res, { error: 'forbidden' }, 403);
     const content = await readFile(file);
     res.writeHead(200, { 'Content-Type': MIME[path.extname(file)] || 'application/octet-stream' });
     res.end(content);
