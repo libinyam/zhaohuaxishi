@@ -209,6 +209,10 @@ try {
     // 长跨度稳定囤积仍判松鼠型：近 3 年每 5 天 1 条（单月占比 <40%，年均 ~73 条）
     const steady = computeReport(Array.from({ length: 200 }, (_, i) => item(now - i * 5 * 86400)), now);
     eq(steady.persona.type, '松鼠型', '长跨度稳定囤积人格');
+
+    // 毫秒级 FavTime（>1e11，issue #56）：按脏数据剔除，不放大日期 1000 倍
+    const msDirty = computeReport([item(now - 86400), item((now - 86400) * 1000)], now);
+    eq(msDirty.total, 1, '毫秒级 FavTime 剔除');
   });
 
   await test('OAuth 未配置：GET /auth/login → 503', async () => {
