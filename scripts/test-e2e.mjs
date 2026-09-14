@@ -9,6 +9,7 @@ import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createReview } from '../lib/review.mjs';
+import { computeReport } from '../lib/report-core.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const stress = process.argv.includes('--stress') || process.env.E2E_STRESS === '1';
@@ -176,6 +177,37 @@ try {
     let enoent = false;
     try { await review.markReviewed('card_no_such_9'); } catch (e) { enoent = e.code === 'ENOENT'; }
     eq(enoent, true, '不存在卡片抛 ENOENT（分发层映射 404）');
+  });
+
+  await test('考古报告单元（lib/report-core，issue #50）：脏数据剔除 / 未来时间戳 / burstMonth 破平 / 短跨度不误判松鼠', async () => {
+    const now = Math.floor(Date.UTC(2026, 8, 14, 4) / 1000); // 2026-09-14 12:00 CST
+    const item = (favTime, extra = {}) => ({ ContentType: 'answer', Url: 'https://www.zhihu.com/x', Title: 't', FavTime: favTime, Author: { Name: 'a' }, ...extra });
+
+    // 脏数据：FavTime 缺失/非数字整条剔除，不计 total、排序不 NaN
+    const dirty = computeReport([item(now - 10 * 86400), { ContentType: 'answer', Title: 'no-favtime' }, item(now - 20 * 86400)], now);
+    eq(dirty.total, 2, '脏数据剔除后 total');
+    if (JSON.stringify(dirty).includes('NaN')) throw new Error('报告含 NaN');
+
+    // ContentType 缺失归「未知」，不产生 "undefined" 键
+    const noType = computeReport([item(now - 86400, { ContentType: undefined })], now);
+    eq(noType.typeDist['未知'], 1, 'ContentType 缺失归未知');
+
+    // 未来 FavTime：按「刚刚收藏」计 3天内 桶，daysAgo 不为负
+    const future = computeReport([item(now + 3 * 86400), item(now - 400 * 86400)], now);
+    eq(future.decayBuckets['3天内'], 1, '未来时间戳入 3天内 桶');
+    eq(future.newestItem.daysAgo, 0, '未来时间戳 daysAgo 不为负');
+
+    // burstMonth 并列（2025-08 与 2026-08 各 1 条）：取最近月份，破平确定
+    const tie = computeReport([item(now - 400 * 86400), item(now - 30 * 86400)], now);
+    eq(tie.burstMonth.month, '2026-08', 'burstMonth 并列取最近月份');
+
+    // 单日 6 条：不得误判松鼠型（burst 先判；松鼠判定另要求跨度 ≥30 天）
+    const singleDay = computeReport(Array.from({ length: 6 }, () => item(now - 5 * 86400)), now);
+    if (singleDay.persona.type === '松鼠型') throw new Error(`单日 6 条误判松鼠型（实际 ${singleDay.persona.type}）`);
+
+    // 长跨度稳定囤积仍判松鼠型：近 3 年每 5 天 1 条（单月占比 <40%，年均 ~73 条）
+    const steady = computeReport(Array.from({ length: 200 }, (_, i) => item(now - i * 5 * 86400)), now);
+    eq(steady.persona.type, '松鼠型', '长跨度稳定囤积人格');
   });
 
   await test('OAuth 未配置：GET /auth/login → 503', async () => {
