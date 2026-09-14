@@ -3,8 +3,8 @@
   --bg:#f2f2f2;
   --ink:#454545;
   --muted:#686868;
-  --green:#30cf79;
-  --bright:#30cf79;
+  --green:#248653;
+  --bright:#248653;
   --line:#e2e2e2;
   --soft:#edf6f0;
   font-family:"Noto Sans SC","PingFang SC","Microsoft YaHei",sans-serif;
@@ -118,7 +118,7 @@ p {
   transition:background .2s,transform .2s
 }
 .button:hover {
-  background:#2bba6d;
+  background:#1c6b41;
   transform:translateY(-2px)
 }
 .button-small {
