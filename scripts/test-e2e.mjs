@@ -343,6 +343,7 @@ try {
     const realSecret = process.env.ZHIHU_ACCESS_SECRET;
     process.env.ZHIHU_ACCESS_SECRET = 'e2e-fake-secret';
     globalThis.fetch = async () => ({
+      ok: true, status: 200,
       json: async () => ({ choices: [{ message: { content: '直答回答' } }], model: 'zhida-fast-1p5' }),
     });
     try {
